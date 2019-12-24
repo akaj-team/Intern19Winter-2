@@ -4,6 +4,7 @@ public class TheJourneyBegins {
     public static void main(String[] args) {
         add(1, 2);
         centuryFromYear(2019);
+        checkPalindrome("hello");
     }
 
     public static int add(int param1, int param2) {
@@ -25,5 +26,19 @@ public class TheJourneyBegins {
             century = century + 1;
         }
         return (century);
+    }
+
+    public static boolean checkPalindrome(String inputString) {
+        /**
+         * Given the string, check if it is a palindrome.
+         */
+        int lengthString = inputString.length();
+        for (int i = 0; i < inputString.length() / 2; i++) {
+
+            if (inputString.charAt(i) != inputString.charAt(lengthString - i - 1)) {
+                return false;
+            }
+        }
+        return true;
     }
 }
