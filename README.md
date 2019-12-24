@@ -10,11 +10,10 @@ Các bạn thực tập sau:
 Mỗi bạn có các thư mục khác nhau:
 
 ```
-at-myhuynh
-at-nhatnguyen
-at-tamle
-at-trinhnguyen
-at-vinhnguyen
+at-cuongle
+at-hauha
+at-nguyenha
+at-uyennguyen
 ```
 
 ### 2. Rule làm bài tập
