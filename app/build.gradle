@@ -1,0 +1,64 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "asiantech.internship.summer"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            applicationIdSuffix ".debug"
+        }
+        flavorDimensions "at-name"
+        productFlavors {
+            'at-cuongle' {
+                dimension "at-name"
+                applicationIdSuffix ".cuongle"
+            }
+            'at-hauha' {
+                dimension "at-name"
+                applicationIdSuffix ".hauha"
+            }
+            'at-nguyenha' {
+                dimension "at-name"
+                applicationIdSuffix ".nguyenha"
+            }
+            'at-uyennguyen' {
+                dimension "at-name"
+                applicationIdSuffix ".uyennguyen"
+            }
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        lintConfig file('lint.xml')
+        xmlOutput file("${buildDir}/reports/lint-results.xml")
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    apply from: "../ci-java.gradle"
+}
