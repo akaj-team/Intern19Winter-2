@@ -67,6 +67,22 @@ public class EdgeOfTheOcean {
         }
         else return true;
     }
+    int matrixElementsSum(int[][] matrix) {
+
+        int tong=0;
+        for(int a=0;a<matrix.length;a++){
+            for(int b=0;b<matrix[0].length;b++){
+                if(matrix[a][b]==0){
+                    for(int c=a;c<matrix.length;c++){
+                        matrix[c][b]=0;
+                    }
+
+                }
+                tong = tong+matrix[a][b];
+            }
+        }
+        return tong;
+    }
 
 
     public static void main(String[] args) {
