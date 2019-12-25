@@ -21,6 +21,14 @@ public class EdgeoftheOcean {
         return max;
     }
 
+    public static int shapeArea(int n) {
+        int area = 1;
+        while (n > 1) {
+            area += (n-- - 1) * 4;
+        }
+        return area;
+    }
+
     public static int makeArrayConsecutive2(int[] statues) {
         /**
          * Ratiorg got statues of different sizes as a present from CodeMaster for his birthday,
