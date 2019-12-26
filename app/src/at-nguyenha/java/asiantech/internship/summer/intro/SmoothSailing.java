@@ -8,14 +8,11 @@ public class SmoothSailing {
 
     }
 
+    /**
+     * Given an array of strings, return another
+     * array containing all of its longest strings.
+     */
     static String[] allLongestStrings(String[] inputArray) {
-
-        /**
-         * Given an array of strings, return another
-         * array containing all of its longest strings.
-         */
-
-
         int maxLength = 1;
         ArrayList<String> answer = new ArrayList<String>();
         for (int i = 0; i < inputArray.length; i++) {
@@ -31,12 +28,10 @@ public class SmoothSailing {
         return answer.toArray(new String[0]);
     }
 
-
+    /**
+     * Given two strings, find the number of common characters between them.
+     */
     static int commonCharacterCount(String s1, String s2) {
-
-        /**
-         * Given two strings, find the number of common characters between them.
-         */
 
         int count = 0;
         boolean[] c = new boolean[s2.length()];
@@ -52,16 +47,14 @@ public class SmoothSailing {
         return count;
     }
 
+    /**
+     * Ticket numbers usually consist of an even number of digits.
+     * A ticket number is considered lucky if the sum of the first half of
+     * the digits is equal to the sum of the second half.
+     *
+     * Given a ticket number n, determine if it's lucky or not.
+     */
     static boolean isLucky(int n) {
-
-        /**
-         * Ticket numbers usually consist of an even number of digits.
-         * A ticket number is considered lucky if the sum of the first half of
-         * the digits is equal to the sum of the second half.
-         *
-         * Given a ticket number n, determine if it's lucky or not.
-         */
-
         String tempStr = Integer.toString(n);
         char[] charArray = tempStr.toCharArray();
         int len = charArray.length;
@@ -73,16 +66,13 @@ public class SmoothSailing {
         return firstHalf == secondHalf;
     }
 
-
+    /**
+     * ome people are standing in a row in a park.
+     * There are trees between them which cannot be moved.
+     * Your task is to rearrange the people by their heights
+     * in a non-descending order without moving the trees. People can be very tall!
+     */
     static int[] sortByHeight(int[] a) {
-
-        /**
-         * ome people are standing in a row in a park.
-         * There are trees between them which cannot be moved.
-         * Your task is to rearrange the people by their heights
-         * in a non-descending order without moving the trees. People can be very tall!
-         */
-
         boolean swapped = true;
         int j = 0;
         int tmp;
@@ -109,13 +99,11 @@ public class SmoothSailing {
         return a;
     }
 
+    /**
+     * Write a function that reverses characters in
+     * (possibly nested) parentheses in the input string.
+     */
     static String reverseInParentheses(String inputString) {
-
-        /**
-         * Write a function that reverses characters in
-         * (possibly nested) parentheses in the input string.
-         */
-
         String tmpCh = new String("");
         String tmpChRe = new String("");
         String tmp = new String("");
