@@ -24,7 +24,7 @@ public class EdgeOfTheOcean {
         area=(n*n)+((n-1)*(n-1));
         return area;
     }
-    int makeArrayConsecutive2(int[] statues) {
+    static int makeArrayConsecutive2(int[] statues) {
 
         int min=statues[0];
         int max=statues[0];
@@ -67,7 +67,7 @@ public class EdgeOfTheOcean {
         }
         else return true;
     }
-    int matrixElementsSum(int[][] matrix) {
+    static int matrixElementsSum(int[][] matrix) {
 
         int tong=0;
         for(int a=0;a<matrix.length;a++){
