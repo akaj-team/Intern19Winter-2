@@ -1,0 +1,131 @@
+package asiantech.internship.summer.ex2
+
+class AtTheCrossroads {
+
+    /**
+     * You are playing an RPG game. Currently your experience points (XP) total is equal to experience.
+     * To reach the next level your XP should be at least at threshold. If you kill the monster in front of you,
+     * you will gain more experience points in the amount of the reward.
+     * Given values experience, threshold and reward, check if you reach the next level after killing the monster.
+     */
+    fun reachNextLevel(experience: Int, threshold: Int, reward: Int): Boolean {
+        return experience + reward >= threshold
+    }
+
+    /**
+     * You found two items in a treasure chest! The first item weighs weight1 and is worth value1,
+     * and the second item weighs weight2 and is worth value2. What is the total maximum value
+     * of the items you can take with you, assuming that your max weight capacity
+     * is maxW and you can't come back for the items later?
+     * Note that there are only two items and you can't bring more than one item of each type,
+     * i.e. you can't take two first items or two second items.
+     */
+    fun knapsackLight(value1: Int, weight1: Int, value2: Int, weight2: Int, maxW: Int): Int {
+        if (weight1 + weight2 <= maxW) return value1 + value2
+        if (value1 > value2 && weight1 <= maxW) return value1
+        if (value2 > value1 && weight2 <= maxW) return value2
+        if (weight1 <= maxW) return value1
+        if (weight2 <= maxW) return value2
+        return 0
+    }
+
+    /**
+     * You're given three integers, a, b and c. It is guaranteed that two of these integers are equal to each other.
+     * What is the value of the third integer?
+     */
+    fun extraNumber(a: Int, b: Int, c: Int): Int {
+        if (a == b) {
+            return c
+        } else if (a == c) {
+            return b
+        }
+        return a
+    }
+
+    /**
+     * Given integers a and b, determine whether the following pseudocode results in an infinite loop
+     * - while a is not equal to b do
+     * - increase a by 1
+     * - decrease b by 1
+     * Assume that the program is executed on a virtual machine which can store arbitrary long numbers and execute forever.
+     */
+    fun isInfiniteProcess(a: Int, b: Int): Boolean {
+        var a1 = a
+        var b1 = b
+        while (a1 != b1) {
+            if (a1 > b1) {
+                return true
+            }
+            a1++
+            b1--
+        }
+        return false
+    }
+
+    /**
+     * Consider an arithmetic expression of the form a#b=c.
+     * Check whether it is possible to replace # with one of the four signs: +, -, * or / to obtain a correct expression.
+     */
+    fun arithmeticExpression(a: Int, b: Int, c: Int): Boolean {
+        return a + b == c || a - b == c || a * b == c || a.toDouble() / b == c.toDouble()
+    }
+
+    /**
+     * In tennis, the winner of a set is based on how many games each player wins.
+     * The first player to win 6 games is declared the winner unless their opponent had already won 5 games,
+     * in which case the set continues until one of the players has won 7 games.
+     * Given two integers score1 and score2, your task is to determine if it is possible
+     * for a tennis set to be finished with a final score of score1 : score2.
+     */
+    fun tennisSet(score1: Int, score2: Int): Boolean {
+        if ((score1 == 6 && score2 < 5) || (score2 == 6 && score1 < 5)) {
+            return true
+        }
+        if ((score1 == 7 && score2 >= 5 && score2 < 7) || (score2 == 7 && score1 >= 5 && score1 < 7)) {
+            return true
+        }
+        return false
+    }
+
+    /**
+     * Once Mary heard a famous song, and a line from it stuck in her head.
+     * That line was "Will you still love me when I'm no longer young and beautiful?".
+     * Mary believes that a person is loved if and only if he/she is both young and beautiful,
+     * but this is quite a depressing thought, so she wants to put her belief to the test.
+     * Knowing whether a person is young, beautiful and loved, find out if they contradict Mary's belief.
+     * A person contradicts Mary's belief if one of the following statements is true:
+     * - they are young and beautiful but not loved;
+     * - they are loved but not young or not beautiful.
+     */
+    fun willYou(young: Boolean, beautiful: Boolean, loved: Boolean): Boolean {
+        if (young && beautiful && !loved)
+            return true
+        else if ((!young || !beautiful) && loved)
+            return true
+        return false
+    }
+
+    /**
+     * You just bought a public transit card that allows you to ride the Metro for a certain number of days.
+     * ere is how it works: upon first receiving the card, the system allocates you a 31-day pass,
+     * which equals the number of days in January. The second time you pay for the card, your pass is extended by 28 days,
+     * i.e. the number of days in February (note that leap years are not considered), and so on.
+     * The 13th time you extend the pass, you get 31 days again.
+     * You just ran out of days on the card, and unfortunately you've forgotten how many times your pass has been extended so far.
+     * However, you do remember the number of days you were able to ride the Metro during this most recent month.
+     * Figure out the number of days by which your pass will now be extended,
+     * and return all the options as an array sorted in increasing order.
+     */
+    fun metroCard(lastNumberOfDays: Int): MutableList<Int> {
+
+        var array = mutableListOf<Int>()
+        if (lastNumberOfDays == 31) {
+            array.add(28)
+            array.add(30)
+            array.add(31)
+        } else {
+            array.add(31)
+        }
+        return array
+    }
+}
