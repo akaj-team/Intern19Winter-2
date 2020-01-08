@@ -16,9 +16,9 @@ The second element occupies next 8 bits, and so on.
 Return the obtained integer M.
  */
 fun arrayPacking(a: MutableList<Int>): Int {
-    var result : Int = 0
-    for(i in 0 until a.size){
-        result += a[i].shl(8*i)
+    var result: Int = 0
+    for (i in 0 until a.size) {
+        result += a[i].shl(8 * i)
     }
     return result
 }
@@ -30,7 +30,7 @@ You need to count the number of 1s in the binary representations of all the numb
  */
 fun rangeBitCount(a: Int, b: Int): Int {
     var total = 0;
-    for (i in a..b){
+    for (i in a..b) {
         total += Integer.bitCount(i)
     }
     return total
@@ -40,7 +40,7 @@ fun rangeBitCount(a: Int, b: Int): Int {
 Reverse the order of the bits in a given integer.
  */
 fun mirrorBits(a: Int): Int {
-    return Integer.parseInt(Integer.toBinaryString(a).reversed(),2)
+    return Integer.parseInt(Integer.toBinaryString(a).reversed(), 2)
 }
 
 /**
