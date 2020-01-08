@@ -18,7 +18,11 @@ public class TheJourneyBegins {
         if (b != 0) {
             c = a + 1;
             return c;
+<<<<<<< HEAD
         } else {
+=======
+        } else
+>>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
             return a;
         }
     }

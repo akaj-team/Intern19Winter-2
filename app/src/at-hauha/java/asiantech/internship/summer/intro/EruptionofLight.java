@@ -8,7 +8,11 @@ public class EruptionofLight {
      */
     boolean isBeautifulString(String inputString) {
         int[] m = new int[26];
+<<<<<<< HEAD
         for (int i : inputString.getBytes(Charset.forName ("UTF-8"))) {
+=======
+        for (int i : inputString.getBytes()) {
+>>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
             m[i - 97]++;
         }
         for (int i = 1; i < m.length; i++) {

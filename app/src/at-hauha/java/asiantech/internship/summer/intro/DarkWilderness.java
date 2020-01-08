@@ -24,6 +24,7 @@ public class DarkWilderness {
      * assuming that your max weight capacity is maxW and you can't come back for the items later?
      */
     public static int knapsackLight(int value1, int weight1, int value2, int weight2, int maxW) {
+<<<<<<< HEAD
         if (weight1 > maxW && weight2 > maxW){
             return 0;
         }
@@ -36,6 +37,12 @@ public class DarkWilderness {
         if (weight2 > maxW) {
             return value1;
         }
+=======
+        if (weight1 > maxW && weight2 > maxW) return 0;
+        if (weight1 + weight2 <= maxW) return value1 + value2;
+        if (weight1 > maxW) return value2;
+        if (weight2 > maxW) return value1;
+>>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
         return Math.max(value1, value2);
     }
 
