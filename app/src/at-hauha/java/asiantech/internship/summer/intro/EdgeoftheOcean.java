@@ -1,15 +1,11 @@
 package asiantech.internship.summer.intro;
 
 public class EdgeoftheOcean {
-<<<<<<< HEAD
     /**
-=======
-    /*
->>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
      * Given an array of integers,
      * find the pair of adjacent elements that has the largest
      * product and return that product.
-     * */
+     */
     public static int adjacentElementsProduct(int[] inputArray) {
         int x = 0;
         int y = 0;
@@ -20,22 +16,16 @@ public class EdgeoftheOcean {
             if (x * y > p) {
                 p = x * y;
             }
-            ;
         }
-        ;
         return p;
     }
 
-<<<<<<< HEAD
     /**
-     *Below we will define an n-interesting polygon. Your task is to find the area of a polygon for a given n.
-=======
-    /*Below we will define an n-interesting polygon. Your task is to find the area of a polygon for a given n.
->>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
-     *A 1-interesting polygon is just a square with a side of length 1.
+     * Below we will define an n-interesting polygon. Your task is to find the area of a polygon for a given n.
+     * A 1-interesting polygon is just a square with a side of length 1.
      * An n-interesting polygon is obtained by taking the n - 1-interesting polygon and appending 1-interesting polygons to its rim,
-     *  side by side. You can see the 1-, 2-, 3- and 4-interesting polygons in the picture below.
-     * */
+     * side by side. You can see the 1-, 2-, 3- and 4-interesting polygons in the picture below.
+     */
     public static int shapeArea(int n) {
         if (n == 0) {
             return 0;
@@ -46,16 +36,13 @@ public class EdgeoftheOcean {
         return (n * n) + (n - 1) * (n - 1);
     }
 
-<<<<<<< HEAD
-    /**Ratiorg got statues of different sizes as a present from CodeMaster for his birthday,
-=======
-    /*Ratiorg got statues of different sizes as a present from CodeMaster for his birthday,
->>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
+    /**
+     * Ratiorg got statues of different sizes as a present from CodeMaster for his birthday,
      * each statue having an non-negative integer size. Since he likes to make things perfect,
-     *he wants to arrange them from smallest to largest so that each statue will be bigger than the previous one exactly by 1.
-     *He may need some additional statues to be able to accomplish that.
-     *Help him figure out the minimum number of additional statues needed.
-     * */
+     * he wants to arrange them from smallest to largest so that each statue will be bigger than the previous one exactly by 1.
+     * He may need some additional statues to be able to accomplish that.
+     * Help him figure out the minimum number of additional statues needed.
+     */
     public static int makeArrayConsecutive2(int[] arr) {
         int temp = arr[0];
         for (int i = 0; i < arr.length - 1; i++) {
@@ -67,11 +54,8 @@ public class EdgeoftheOcean {
                 }
             }
         }
-
         int dem = 0;
-
         for (int i = 0; i < arr.length - 1; i++) {
-
             if (arr[i + 1] - arr[i] > 1) {
                 dem = dem + (arr[i + 1] - arr[i] - 1);
             }
@@ -79,58 +63,42 @@ public class EdgeoftheOcean {
         return dem;
     }
 
-<<<<<<< HEAD
     /**
-=======
-    /*
->>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
      * Given a sequence of integers as an array,
      * determine whether it is possible to obtain a strictly increasing sequence
      * by removing no more than one element from the array.
-     * */
+     */
     public static boolean almostIncreasingSequence(int[] sequence) {
         int check = 0;
         int check2 = 0;
-<<<<<<< HEAD
         if (sequence.length == 2) {
             return true;
         }
-=======
-        if (sequence.length == 2) return true;
->>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
         for (int i = 0; i < sequence.length - 1; i++) {
             if (sequence[i] >= sequence[i + 1]) {
                 check = check + 1;
             }
         }
         for (int i = 0; i < sequence.length - 2; i++) {
-<<<<<<< HEAD
-            if (sequence[i] >= sequence[i + 2]){
+            if (sequence[i] >= sequence[i + 2]) {
                 check2 += 1;
             }
-=======
-            if (sequence[i] >= sequence[i + 2]) check2 += 1;
->>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
+            if (check > 1) {
+                return false;
+            } else if (check2 > 1) {
+                return false;
+            }
         }
-        if (check > 1) {
-            return false;
-        } else if (check2 > 1) {
-            return false;
-        } else {
-            return true;
-        }
+        return true;
     }
 
-<<<<<<< HEAD
+
     /**
-=======
-    /*
->>>>>>> ddccd5e33e373a5e616d13bb322cbdbe175a88a0
-     *Given matrix, a rectangular matrix of integers,
-     *where each value represents the cost of the room,
-     *your task is to return the total sum of all rooms that are suitable for the CodeBots
-     *(ie: add up all the values that don't appear below a 0).
-     * */
+     * Given matrix, a rectangular matrix of integers,
+     * where each value represents the cost of the room,
+     * your task is to return the total sum of all rooms that are suitable for the CodeBots
+     * (ie: add up all the values that don't appear below a 0).
+     */
     public static int matrixElementsSum(int[][] matrix) {
         int count = 0;
         for (int i = 0; i < matrix.length; i++) {
