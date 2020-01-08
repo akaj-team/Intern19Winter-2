@@ -4,7 +4,7 @@ class AttheCrossroads {
 }
 
 fun main() {
-    println(tennisSet(7,5))
+    println(tennisSet(7, 5))
 }
 
 /**
@@ -18,7 +18,7 @@ fun main() {
  * check if you reach the next level after killing the monster.
  */
 fun reachNextLevel(experience: Int, threshold: Int, reward: Int): Boolean {
-    if((experience + reward) >= threshold){
+    if ((experience + reward) >= threshold) {
         return true
     }
     return false
@@ -33,13 +33,13 @@ fun reachNextLevel(experience: Int, threshold: Int, reward: Int): Boolean {
  * assuming that your max weight capacity is maxW and you can't come back for the items later?
  */
 fun knapsackLight(value1: Int, weight1: Int, value2: Int, weight2: Int, maxW: Int): Int {
-    var value : Int = 0
+    var value: Int = 0
     var max = maxW
-    if((weight1 <= max && (value1 > value2 || weight2 > max)) || (weight1 + weight2 <= max)){
+    if ((weight1 <= max && (value1 > value2 || weight2 > max)) || (weight1 + weight2 <= max)) {
         value += value1
         max -= weight1
     }
-    if(weight2 <= max){
+    if (weight2 <= max) {
         value += value2
         max -= weight2
     }
@@ -53,9 +53,9 @@ fun knapsackLight(value1: Int, weight1: Int, value2: Int, weight2: Int, maxW: In
  * What is the value of the third integer?
  */
 fun extraNumber(a: Int, b: Int, c: Int): Int {
-    val list = mutableListOf<Int>(a,b,c)
-    list.groupBy { it }.entries.find{
-        it.value.size ==1
+    val list = mutableListOf<Int>(a, b, c)
+    list.groupBy { it }.entries.find {
+        it.value.size == 1
     }?.let {
         return it.key
     }
@@ -73,7 +73,7 @@ decrease b by 1
  * a virtual machine which can store arbitrary long numbers and execute forever.
  */
 fun isInfiniteProcess(a: Int, b: Int): Boolean {
-    if((a<b && (a-b)%2 != 0) || a>b){
+    if ((a < b && (a - b) % 2 != 0) || a > b) {
         return true
     }
     return false
@@ -86,7 +86,7 @@ fun isInfiniteProcess(a: Int, b: Int): Boolean {
  * one of the four signs: +, -, * or / to obtain a correct expression.
  */
 fun arithmeticExpression(a: Int, b: Int, c: Int): Boolean {
-    if(a+b==c || a-b==c || a*b==c || (a/b==c && a%b== 0)){
+    if (a + b == c || a - b == c || a * b == c || (a / b == c && a % b == 0)) {
         return true
     }
     return false
@@ -99,13 +99,13 @@ fun arithmeticExpression(a: Int, b: Int, c: Int): Boolean {
 fun tennisSet(score1: Int, score2: Int): Boolean {
     val a = score1
     val b = score2
-    if(a>b){
-        if((a == 6 && b != 5) || (a == 7 && b >=5)){
+    if (a > b) {
+        if ((a == 6 && b != 5) || (a == 7 && b >= 5)) {
             return true;
         }
     }
-    if(a<b){
-        if((b == 6 && a != 5) || (b == 7 && a >=5)){
+    if (a < b) {
+        if ((b == 6 && a != 5) || (b == 7 && a >= 5)) {
             return true;
         }
     }
@@ -124,7 +124,7 @@ fun tennisSet(score1: Int, score2: Int): Boolean {
  * A person contradicts Mary's belief if one of the following statements is true:
  */
 fun willYou(young: Boolean, beautiful: Boolean, loved: Boolean): Boolean {
-    return (!(young && beautiful) && loved)||((young && beautiful) && !loved)
+    return (!(young && beautiful) && loved) || ((young && beautiful) && !loved)
 }
 
 /**
@@ -133,10 +133,10 @@ fun willYou(young: Boolean, beautiful: Boolean, loved: Boolean): Boolean {
  * last month when you knew the number of this month
  */
 fun metroCard(lastNumberOfDays: Int): MutableList<Int> {
-    var list : MutableList<Int> = mutableListOf<Int>()
-    when(lastNumberOfDays){
-        30,28 -> list = mutableListOf<Int>(31)
-        31 -> list = mutableListOf<Int>(28,30,31)
+    var list: MutableList<Int> = mutableListOf<Int>()
+    when (lastNumberOfDays) {
+        30, 28 -> list = mutableListOf<Int>(31)
+        31 -> list = mutableListOf<Int>(28, 30, 31)
     }
     return list
 }

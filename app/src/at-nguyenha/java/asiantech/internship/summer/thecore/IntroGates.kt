@@ -1,3 +1,5 @@
+@file:Suppress("UNREACHABLE_CODE")
+
 package asiantech.internship.summer.thecore
 
 fun main() {
@@ -9,12 +11,12 @@ fun main() {
  * You are given a two-digit integer n. Return the sum of its digits.
  */
 fun addTwoDigits(n: Int): Int {
-    var balance : Int
-    var s : Int
-    var sum : Int = 0
+    val balance: Int
+    val s: Int
+    var sum: Int = 0
     balance = n % 10
-    s =n/ 10
-    sum = s+ balance
+    s = n / 10
+    sum = s + balance
     return sum
 }
 
@@ -69,9 +71,9 @@ fun seatsInTheater(nCols: Int, nRows: Int, col: Int, row: Int): Int {
  * It is guaranteed that such a number exists.
  */
 fun maxMultiple(divisor: Int, bound: Int): Int {
-    var max : Int = 0
-    for(i in divisor..bound){
-        if(i % divisor == 0){
+    var max: Int = 0
+    for (i in divisor..bound) {
+        if (i % divisor == 0) {
             max = i
         }
     }
@@ -89,7 +91,7 @@ fun maxMultiple(divisor: Int, bound: Int): Int {
  * in the radially opposite position to firstNumber.
  */
 fun circleOfNumbers(n: Int, firstNumber: Int): Int {
-    return (firstNumber + n/2)%n
+    return (firstNumber + n / 2) % n
 }
 
 /**
@@ -99,9 +101,9 @@ fun circleOfNumbers(n: Int, firstNumber: Int): Int {
  * the digital timer in the format hh:mm would show.
  */
 fun lateRide(n: Int): Int {
-    var h = n/60
-    var m = n%60
-    var sum = (h/10) + (h%10) + (m/10) + (m%10)
+    val h = n / 60
+    val m = n % 60
+    val sum = (h / 10) + (h % 10) + (m / 10) + (m % 10)
     return sum
 }
 
@@ -117,13 +119,13 @@ fun lateRide(n: Int): Int {
  * (in minutes rounded down to the nearest integer) you can have?
  */
 fun phoneCall(min1: Int, min2_10: Int, min11: Int, s: Int): Int {
-    if(s < min1){
+    if (s < min1) {
         return 0;
     }
-    for(i in 2..10){
-        if(s < ((min1) + (min2_10)*(i-1))){
-            return i-1
+    for (i in 2..10) {
+        if (s < ((min1) + (min2_10) * (i - 1))) {
+            return i - 1
         }
     }
-    return 10 + ((s - min1 - (min2_10*9))/min11)
+    return 10 + ((s - min1 - (min2_10 * 9)) / min11)
 }

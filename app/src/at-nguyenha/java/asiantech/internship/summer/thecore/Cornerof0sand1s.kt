@@ -3,7 +3,7 @@ package asiantech.internship.summer.thecore
 import kotlin.math.pow
 
 fun main() {
-    val a : MutableList<Int> = mutableListOf(24, 85, 0)
+    val a: MutableList<Int> = mutableListOf(24, 85, 0)
     //println(arrayPacking(a))
     //println(secondRightmostZeroBit(1073741824))
     //println(swapAdjacentBits(74))
@@ -37,11 +37,11 @@ fun killKthBit(n: Int, k: Int): Int {
  * Return the obtained integer M.
  */
 fun arrayPacking(a: MutableList<Int>): Int {
-    var result : Int = 0
-    if(a.size >=1 && a.size <= 4){
-        for(i in 0 until a.size){
-            if(a[i] > 0 && a[i] <= 256){
-                result += a[i].shl(8*i)
+    var result: Int = 0
+    if (a.size >= 1 && a.size <= 4) {
+        for (i in 0 until a.size) {
+            if (a[i] > 0 && a[i] <= 256) {
+                result += a[i].shl(8 * i)
             }
         }
     }
@@ -58,7 +58,7 @@ fun arrayPacking(a: MutableList<Int>): Int {
 fun rangeBitCount(a: Int, b: Int): Int {
     if (a in 0..b) {
         var total = 0;
-        for (i in a..b){
+        for (i in a..b) {
             total += Integer.bitCount(i)
         }
         return total
@@ -71,7 +71,7 @@ fun rangeBitCount(a: Int, b: Int): Int {
  * Reverse the order of the bits in a given integer.
  */
 fun mirrorBits(a: Int): Int {
-    return Integer.parseInt(Integer.toBinaryString(a).reversed(),2)
+    return Integer.parseInt(Integer.toBinaryString(a).reversed(), 2)
 }
 
 /**
