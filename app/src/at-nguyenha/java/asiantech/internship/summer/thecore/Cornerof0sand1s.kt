@@ -3,7 +3,7 @@ package asiantech.internship.summer.thecore
 import kotlin.math.pow
 
 fun main() {
-    val a: MutableList<Int> = mutableListOf(24, 85, 0)
+    //val a: MutableList<Int> = mutableListOf(24, 85, 0)
     //println(arrayPacking(a))
     //println(secondRightmostZeroBit(1073741824))
     //println(swapAdjacentBits(74))

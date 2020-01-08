@@ -13,7 +13,7 @@ fun main() {
 fun addTwoDigits(n: Int): Int {
     val balance: Int
     val s: Int
-    var sum: Int = 0
+    var sum: Int
     balance = n % 10
     s = n / 10
     sum = s + balance
