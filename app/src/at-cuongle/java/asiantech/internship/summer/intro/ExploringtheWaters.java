@@ -57,13 +57,17 @@ public class ExploringtheWaters {
      * Given two arrays a and b, check whether they are similar.
      */
     public static boolean areSimilar(int[] A, int[] B) {
-        if (A.length != B.length) return false;
+        if (A.length != B.length) {
+            return false;
+        }
         int countSwap = 0;
         int[] copyA = Arrays.copyOf(A, A.length);
         int[] copyB = Arrays.copyOf(B, B.length);
         Arrays.sort(copyA);
         Arrays.sort(copyB);
-        if (!Arrays.equals(copyA, copyB)) return false;
+        if (!Arrays.equals(copyA, copyB)) {
+            return false;
+        }
         for (int i = 0; i < A.length; i++) {
             if (A[i] != B[i]) countSwap++;
         }

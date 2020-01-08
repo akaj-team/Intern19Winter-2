@@ -89,8 +89,9 @@ public class SmoothSailing {
                 }
                 result[i] = copyArray[j];
                 j++;
-            } else
+            } else {
                 result[i] = a[i];
+            }
         }
         return result;
     }
@@ -107,8 +108,9 @@ public class SmoothSailing {
         int n = 0;
         int j = 0;
         for (int i = 0; i < length; i++) {
-            if (inputString.charAt(i) == '(')
+            if (inputString.charAt(i) == '(') {
                 n++;
+            }
         }
         int[] T = new int[n];
         for (int i = 0; i < length; i++) {
@@ -124,8 +126,9 @@ public class SmoothSailing {
                 tmpCh.append(inputString.charAt(j));
                 j++;
             }
-            for (int q = tmpCh.length() - 1; q >= 0; q--)
+            for (int q = tmpCh.length() - 1; q >= 0; q--) {
                 tmpChRe.append(tmpCh.charAt(q));
+            }
             tmp = inputString.substring(0, T[n - 1]) + tmpChRe + inputString.substring(T[n - 1] + tmpChRe.length() + 2);
             inputString = tmp;
             n--;

@@ -30,11 +30,7 @@ public class RainbowofClarity {
         for (int i = 0; i < s.length(); i++) {
             str[i] = s.charAt(i);
         }
-        for (char a : str) {
-            System.out.println(a);
-        }
         for (int i = 0; i < s.length() - 1; i++) {
-            System.out.println(i);
             if (str[i] == str[i + 1]) {
                 count++;
             } else {

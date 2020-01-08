@@ -31,7 +31,6 @@ public class LandofLogic {
      */
     public static boolean validTime(String time) {
         String[] check = time.split("\\:");
-        System.out.println();
         return Integer.parseInt(check[0]) >= 0 && Integer.parseInt(check[0]) < 24 && Integer.parseInt(check[1]) >= 0 && Integer.parseInt(check[1]) < 60;
     }
 
@@ -89,8 +88,10 @@ public class LandofLogic {
             for (int j = 1; j < digits.length(); j++) {
                 result *= (digits.charAt(j) - '0');
             }
-            if (result == product)
+            if (result == product) {
                 return Integer.parseInt(digits);
+
+            }
         }
         return -1;
     }

@@ -1,5 +1,7 @@
 package asiantech.internship.summer.intro;
 
+import java.nio.charset.Charset;
+
 public class EruptionofLight {
     public static void main(String[] args) {
 
@@ -13,7 +15,7 @@ public class EruptionofLight {
      */
     public static boolean isBeautifulString(String inputString) {
         int[] check = new int[26];
-        for (int i : inputString.getBytes()) {
+        for (int i : inputString.getBytes(Charset.forName("UTF-8"))) {
             check[i - 97]++;
         }
         for (int i = 1; i < check.length; i++) {

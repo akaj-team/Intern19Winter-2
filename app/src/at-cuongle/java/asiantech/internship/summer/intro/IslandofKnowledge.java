@@ -53,7 +53,6 @@ public class IslandofKnowledge {
      */
     public static boolean isIPv4Address(String inputString) {
         String[] getNumber = inputString.split("\\.");
-        System.out.println(getNumber.length);
         if (getNumber.length != 4) {
             return false;
         }
@@ -92,8 +91,10 @@ public class IslandofKnowledge {
         for (int i = 1; i <= minimalLength; i++) {
             int j;
             for (j = i; j <= minimalLength; j = j + i) {
-                if (hs.contains(j))
+                if (hs.contains(j)) {
                     break;
+                }
+
             }
             if (j > minimalLength) {
                 return i;

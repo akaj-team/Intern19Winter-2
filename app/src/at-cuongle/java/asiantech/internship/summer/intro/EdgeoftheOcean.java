@@ -83,7 +83,9 @@ public class EdgeoftheOcean {
         }
         if (checkFirst > 1) {
             return false;
-        } else return checkSecond <= 1;
+        } else {
+            return checkSecond <= 1;
+        }
     }
 
     /**
