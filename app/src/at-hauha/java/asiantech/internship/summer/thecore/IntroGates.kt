@@ -6,16 +6,16 @@ object Exercise1 {
 
     }
 
-    /*
-    * You are given a two-digit integer n. Return the sum of its digits.
-    */
+    /**
+     * You are given a two-digit integer n. Return the sum of its digits.
+     */
     fun addTwoDigits(n: Int): Int {
         return n % 10 + n / 10;
     }
 
-    /*
-    * Given an integer n, return the largest number that contains exactly n digits.
-    * */
+    /**
+     * Given an integer n, return the largest number that contains exactly n digits.
+     * */
     fun largestNumber(n: Int): Int {
         var result = 0.0
         for (i in 0 until n) {
@@ -23,61 +23,71 @@ object Exercise1 {
         }
         return result.toInt()
     }
-    /*
-    * n children have got m pieces of candy. They want to eat as much candy as they can, but each child must eat exactly the same amount of candy as any other child.
-    *  Determine how many pieces of candy will be eaten by all the children together. Individual pieces of candy cannot be split.
-    * */
+
+    /**
+     * n children have got m pieces of candy. They want to eat as much candy as they can, but each child must eat exactly the same amount of candy as any other child.
+     *  Determine how many pieces of candy will be eaten by all the children together. Individual pieces of candy cannot be split.
+     * */
     fun candies(n: Int, m: Int): Int {
-        when{
-            m < n  -> return 0
+        when {
+            m < n -> return 0
             m == n -> return n
             else -> return m - (m % n)
         }
         return 0
     }
 
-    /*
-    *Given a divisor and a bound, find the largest integer N such that:
-    *N is divisible by divisor.
-    *N is less than or equal to bound.
-    *N is greater than 0.
-    * */
+    /**
+     *Given a divisor and a bound, find the largest integer N such that:
+     *N is divisible by divisor.
+     *N is less than or equal to bound.
+     *N is greater than 0.
+     * */
     fun maxMultiple(divisor: Int, bound: Int): Int {
-        return divisor*(bound/divisor)
+        return divisor * (bound / divisor)
     }
-    /*
-    * Given the total number of rows and columns in the theater (nRows and nCols, respectively), and the row and column you're sitting in, return the number of people who sit strictly behind you and in your column or to the left, assuming all seats are occupied.
-    * */
+
+    /**
+     * Given the total number of rows and columns in the theater (nRows and nCols, respectively), and the row and column you're sitting in, return the number of people who sit strictly behind you and in your column or to the left, assuming all seats are occupied.
+     * */
     fun seatsInTheater(nCols: Int, nRows: Int, col: Int, row: Int): Int {
-        return(nCols+1-col)*(nRows-row)
+        return (nCols + 1 - col) * (nRows - row)
     }
-    /*
-    * Consider integer numbers from 0 to n - 1 written down along the circle in such a way that the distance between any two neighboring numbers is equal (note that 0 and n - 1 are neighboring, too).
-    * Given n and firstNumber, find the number which is written in the radially opposite position to firstNumber.
-    * */
-    fun circleOfNumbers(n: Int, firstNumber: Int): Int{
-        return (firstNumber + n/2) % n
+
+    /**
+     * Consider integer numbers from 0 to n - 1 written down along the circle in such a way that the distance between any two neighboring numbers is equal (note that 0 and n - 1 are neighboring, too).
+     * Given n and firstNumber, find the number which is written in the radially opposite position to firstNumber.
+     * */
+    fun circleOfNumbers(n: Int, firstNumber: Int): Int {
+        return (firstNumber + n / 2) % n
     }
-    /*
-    * Using the bike's timer, calculate the current time. Return an answer as the sum of digits that the digital timer in the format hh:mm would show.
-    * */
+
+    /**
+     * Using the bike's timer, calculate the current time. Return an answer as the sum of digits that the digital timer in the format hh:mm would show.
+     * */
     fun lateRide(n: Int): Int {
-        return (n/60)/10 + (n/60)%10 + (n%60)/10 + (n%60)%10
+        return (n / 60) / 10 + (n / 60) % 10 + (n % 60) / 10 + (n % 60) % 10
     }
-    /*
-    *
-    * */
+
+    /**
+     *Some phone usage rate may be described as follows:
+     * first minute of a call costs min1 cents,
+     *each minute from the 2nd up to 10th (inclusive) costs min2_10 cents
+     *each minute after 10th costs min11 cents.
+     *You have s cents on your account before the call.
+     * What is the duration of the longest call (in minutes rounded down to the nearest integer) you can have?
+     * */
     fun phoneCall(min1: Int, min2_10: Int, min11: Int, s: Int): Int {
         var minCall = s
-        if(s<min1){
+        if (s < min1) {
             return 0
         }
         var i = 0
-        while(minCall>0 && i<10 ){
+        while (minCall > 0 && i < 10) {
             minCall -= min2_10
             i++
         }
-        while(s>0){
+        while (s > 0) {
             minCall -= min11
             i++
         }

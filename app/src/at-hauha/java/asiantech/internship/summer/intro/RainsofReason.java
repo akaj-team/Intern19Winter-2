@@ -1,7 +1,7 @@
 package asiantech.internship.summer.intro;
 
 public class RainsofReason {
-    /*
+    /**
     *Given an array of integers, replace all the occurrences of elemToReplace with substitutionElem.
     *
     * */
@@ -21,14 +21,15 @@ public class RainsofReason {
     public static boolean evenDigitsOnly(int n) {
         while (n > 0) {
             int temp = n % 10;
-            if (temp % 2 == 1)
+            if (temp % 2 == 1) {
                 return false;
+            }
             n /= 10;
         }
         return true;
     }
 
-    /*
+    /**
     *Check if the given string is a correct variable name.
     *
     * */
@@ -41,12 +42,11 @@ public class RainsofReason {
         }
         return false;
     }
-    /*
+    /**
     *Given a string, your task is to replace each of its characters by the next one in the English alphabet
     *
     * */
     public static String alphabeticShift(String inputString) {
-        char[] c = new char[inputString.length()];
         int[] a = new int[inputString.length()];
         for (int i = 0; i < inputString.length(); i++) {
             a[i] = inputString.charAt(i)+1;
@@ -60,7 +60,7 @@ public class RainsofReason {
         }
         return str;
     }
-    /*
+    /**
     *Given two cells on the standard chess board, determine whether they have the same color or not.
     *
     * */

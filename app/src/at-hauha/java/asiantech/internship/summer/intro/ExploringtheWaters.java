@@ -24,9 +24,9 @@ public class ExploringtheWaters {
         return b;
     }
 
-    /*
+    /**
      * Given a rectangular matrix of characters, add a border of asterisks(*) to it.
-     * */
+     */
     public static String[] addBorder(String[] picture) {
 
         int x = picture.length + 2;
@@ -48,10 +48,10 @@ public class ExploringtheWaters {
         return s;
 
     }
-    /*
-    *Given two arrays a and b, check whether they are similar.
-    *
-    * */
+
+    /**
+     * Given two arrays a and b, check whether they are similar.
+     */
 
     public static boolean areSimilar(int[] a, int[] b) {
         ArrayList<Integer> ids = new ArrayList<>();
@@ -73,10 +73,11 @@ public class ExploringtheWaters {
         }
         return false;
     }
-     /*
-     *You are given an array of integers. On each move you are allowed to increase exactly one of its element by one.
+
+    /**
+     * You are given an array of integers. On each move you are allowed to increase exactly one of its element by one.
      * Find the minimal number of moves required to obtain a strictly increasing sequence from the input.
-     * */
+     */
     public static int arrayChange(int[] inputArray) {
         int[] b = Arrays.copyOf(inputArray, inputArray.length);
         int move = 0;
@@ -84,7 +85,7 @@ public class ExploringtheWaters {
         for (int i = 0; i < inputArray.length - 1; i++) {
             if (b[i] >= inputArray[i + 1]) {
                 tmp_move = b[i] - inputArray[i + 1] + 1;
-                b[i+1] = inputArray[i + 1] + tmp_move;
+                b[i + 1] = inputArray[i + 1] + tmp_move;
             }
         }
         for (int i = 0; i < inputArray.length; i++) {
@@ -93,23 +94,23 @@ public class ExploringtheWaters {
         return move;
     }
 
-    /*
-    * Given a string, find out if its characters can be rearranged to form a palindrome.
-    *
-    * */
+    /**
+     * Given a string, find out if its characters can be rearranged to form a palindrome.
+     */
     public static boolean palindromeRearranging(String inputString) {
         Set<Character> oddLetters = new HashSet<>();
-        for ( char c : inputString.toCharArray()) {
-            if ( ! oddLetters.remove(c) ) {
+        for (char c : inputString.toCharArray()) {
+            if (!oddLetters.remove(c)) {
                 oddLetters.add(c);
 
             }
         }
-        if (oddLetters.size() <2){
+        if (oddLetters.size() < 2) {
             return true;
         }
         return false;
     }
+
     public static void main(String[] args) {
 
     }

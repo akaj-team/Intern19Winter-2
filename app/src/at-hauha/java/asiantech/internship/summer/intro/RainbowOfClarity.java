@@ -1,7 +1,7 @@
 package asiantech.internship.summer.intro;
 
 public class RainbowOfClarity {
-    /*
+    /**
     *Determine if the given character is a digit or not.
     * */
     boolean isDigit(char symbol) {
@@ -10,14 +10,14 @@ public class RainbowOfClarity {
         }
         return false;
     }
-    /*
+    /**
     * Given a string, return its encoding defined
     * */
     String lineEncoding(String s) {
         int c = 1;
         String encode = "";
         if (s.length() < 2) {
-            System.out.println(s);
+            return s;
         }
         for (int i=0; i < s.length() - 1; i++) {
             if (s.charAt(i) == s.charAt(i + 1)) {
@@ -40,7 +40,7 @@ public class RainbowOfClarity {
         }
         return encode;
     }
-    /*
+    /**
     * Given a position of a knight on the standard chessboard, find the number of different moves the knight can perform.
     * */
     int chessKnight(String cell) {
@@ -49,8 +49,9 @@ public class RainbowOfClarity {
         for (int dx = -2; dx <= 2; dx++) {
             for (int dy = -2; dy <= 2; dy++) {
                 if (Math.abs(dx * dy) == 2) {
-                    if (isValid(x + dx, y + dy))
+                    if (isValid(x + dx, y + dy)){
                         c++;
+                    }
                 }
             }
         }
@@ -59,7 +60,7 @@ public class RainbowOfClarity {
     private static boolean isValid(int x, int y) {
         return x >= 0 && x <= 7 && y >= 0 && y <= 7;
     }
-    /*
+    /**
     * Given some integer, find the maximal number you can obtain by deleting exactly one digit of the given number
     * */
     int deleteDigit(int n) {
