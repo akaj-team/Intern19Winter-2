@@ -9,19 +9,18 @@ public class DivingDeeper {
 
     }
 
+    /**
+     * Given array of integers, remove each kth element from it.
+     */
     public static int[] extractEachKth(int[] inputArray, int k) {
-        /**
-         * Given array of integers, remove each kth element from it.
-         */
-        ArrayList<Integer> coppyInput = new ArrayList<Integer>();
+        ArrayList<Integer> coppyInput = new ArrayList<>();
         int cout = 1;
-        for (int i = 0; i < inputArray.length; i++) {
+        for (int value : inputArray) {
             if (cout == k) {
                 cout = 1;
-                continue;
             } else {
                 cout++;
-                coppyInput.add(inputArray[i]);
+                coppyInput.add(value);
             }
         }
         int[] result = new int[coppyInput.size()];
@@ -31,10 +30,10 @@ public class DivingDeeper {
         return result;
     }
 
+    /**
+     * Find the leftmost digit that occurs in a given string.
+     */
     public static char firstDigit(String inputString) {
-        /**
-         * Find the leftmost digit that occurs in a given string.
-         */
         char result = 'c';
         for (int i = 0; i < inputString.length(); i++) {
             char c = inputString.charAt(i);
@@ -46,10 +45,10 @@ public class DivingDeeper {
         return result;
     }
 
+    /**
+     * Given a string, find the number of different characters in it.
+     */
     public static int differentSymbolsNaive(String s) {
-        /**
-         * Given a string, find the number of different characters in it.
-         */
         Set<Character> result = new HashSet<Character>();
         for (int i = 0; i < s.length(); i++) {
             result.add(s.charAt(i));
@@ -57,11 +56,11 @@ public class DivingDeeper {
         return result.size();
     }
 
+    /**
+     * Given array of integers, find the maximal possible sum of some of its
+     * k consecutive elements.
+     */
     public static int arrayMaxConsecutiveSum(int[] nums, int k) {
-        /**
-         * Given array of integers, find the maximal possible sum of some of its
-         * k consecutive elements.
-         */
         int result = 0;
         int temp_sum = 0;
         for (int i = 0; i < k - 1; i++) {
