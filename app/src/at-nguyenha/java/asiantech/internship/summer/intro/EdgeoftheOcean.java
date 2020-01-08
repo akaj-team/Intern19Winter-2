@@ -14,11 +14,11 @@ public class EdgeoftheOcean {
     int adjacentElementsProduct(int[] inputArray) {
         int size = inputArray.length;
         int sum = 0;
-        int max = inputArray[0] * inputArray[1];
+        int max = inputArray[0]*inputArray[1];
 
-        for (int i = 1; i < size - 1; i++) {
-            sum = (inputArray[i] * inputArray[i + 1]);
-            if (sum > max) {
+        for(int i=1;i<size-1;i++){
+            sum =(inputArray[i]*inputArray[i+1]);
+            if(sum > max ){
                 max = sum;
             }
         }
@@ -31,7 +31,7 @@ public class EdgeoftheOcean {
      * Your task is to find the area of a polygon for a given n.
      */
     int shapeArea(int n) {
-        return (n * n) + (n - 1) * (n - 1);
+        return (n*n) + (n-1)*(n-1);
     }
 
     /**
@@ -48,18 +48,18 @@ public class EdgeoftheOcean {
         int size = statues.length;
         int count = 0;
         int sort = statues[0];
-        for (int i = 0; i < size - 1; i++) {
-            for (int j = i + 1; j < size; j++) {
-                if (statues[i] > statues[j]) {
+        for(int i = 0 ;  i < size - 1;i++){
+            for(int j = i+1 ; j < size ; j++){
+                if(statues[i]>statues[j]){
                     sort = statues[j];
                     statues[j] = statues[i];
                     statues[i] = sort;
                 }
             }
         }
-        for (int i = 0; i < size - 1; i++) {
-            if (statues[i + 1] - statues[i] > 1) {
-                count += (statues[i + 1] - statues[i] - 1);
+        for(int i = 0 ;  i< size - 1;i++){
+            if(statues[i+1] -statues[i] > 1){
+                count += (statues[i+1] - statues[i] -1);
             }
         }
         return count;
@@ -75,22 +75,25 @@ public class EdgeoftheOcean {
         int size = sequence.length;
         int check = 0;
         int check2 = 0;
-        if (size == 2) {
+        if(size ==2 ) {
             return true;
         }
-        for (int i = 0; i < size - 1; i++) {
-            if (sequence[i] >= sequence[i + 1]) {
+        for(int i = 0; i < size - 1 ; i++){
+            if (sequence[i] >= sequence[i+1]){
                 check += 1;
             }
         }
-        for (int i = 0; i < size - 2; i++) {
-            if (sequence[i] >= sequence[i + 2]) {
+        for(int i = 0; i < size - 2; i++){
+            if (sequence[i] >= sequence[i+2]){
                 check2 += 1;
             }
         }
-        if (check > 1) {
+        if(check > 1){
             return false;
-        } else return check2 <= 1;
+        }
+        else {
+            return check2 <= 1;
+        }
     }
 
     /**
@@ -101,15 +104,17 @@ public class EdgeoftheOcean {
      * the values that don't appear below a 0).
      */
     int matrixElementsSum(int[][] matrix) {
-        int sum = 0;
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (matrix[i][j] == 0) {
-                    for (int k = i; k < matrix.length; k++) {
-                        matrix[k][j] = 0;
+        int sum=0;
+        for(int i=0;i<matrix.length;i++){
+            for(int j=0; j<matrix[0].length; j++){
+                if(matrix[i][j]==0){
+                    for(int k=i; k<matrix.length; k++){
+                        matrix[k][j]=0;
                     }
-                } else
+                }
+                else{
                     sum += matrix[i][j];
+                }
             }
         }
         return sum;

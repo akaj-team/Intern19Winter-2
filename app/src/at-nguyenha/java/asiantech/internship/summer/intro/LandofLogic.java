@@ -18,11 +18,11 @@ public class LandofLogic {
         int max = 0;
         String longestWord = "";
         String result = text.replaceAll("[^a-zA-Z0-9 ]", " ");
-        String[] str = result.split("\\ ");
-        for (int i = 0; i < str.length; i++) {
-            if (max < str[i].length()) {
-                max = str[i].length();
-                longestWord = str[i];
+        String[] str = result.split(" ");
+        for (String s : str) {
+            if (max < s.length()) {
+                max = s.length();
+                longestWord = s;
             }
         }
         return longestWord;
@@ -33,7 +33,7 @@ public class LandofLogic {
      * Check if the given string is a correct time representation of the 24-hour clock.
      */
     static boolean validTime(String time) {
-        String[] str = time.split("\\:");
+        String[] str = time.split(":");
         if ((Integer.parseInt(str[0]) >= 0 && Integer.parseInt(str[0]) <= 23)
                 && (Integer.parseInt(str[1]) >= 0 && Integer.parseInt(str[1]) <= 59)) {
             return true;
@@ -43,8 +43,7 @@ public class LandofLogic {
 
     /**
      * 54
-     *
-     * @CodeMaster has just returned from shopping.
+     * CodeMaster has just returned from shopping.
      * * He scanned the check of the items he bought and
      * * gave the resulting string to Ratiorg to figure
      * * out the total number of purchased items.
@@ -92,7 +91,7 @@ public class LandofLogic {
     }
 
     /**
-     * 56
+     * 56z
      * Given an integer product, find the smallest positive
      * (i.e. greater than 0) integer the product of whose digits
      * is equal to product. If there is no such integer, return -1 instead.
@@ -104,8 +103,9 @@ public class LandofLogic {
             for (int j = 1; j < digits.length(); j++) {
                 result *= (digits.charAt(j) - '0');
             }
-            if (result == product)
+            if (result == product){
                 return Integer.parseInt(digits);
+            }
         }
         return -1;
     }
