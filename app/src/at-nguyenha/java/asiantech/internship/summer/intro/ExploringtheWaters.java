@@ -17,7 +17,7 @@ public class ExploringtheWaters {
      * goes into team 1, the second goes into team 2,
      * the third goes into team 1 again, the fourth
      * into team 2, and so on.
-     *
+     * <p>
      * You are given an array of positive integers -
      * the weights of the people. Return an array of
      * two integers, where the first element is the
@@ -29,8 +29,8 @@ public class ExploringtheWaters {
         int sum1 = 0;
         int sum2 = 0;
         int size = a.length;
-        for(int i = 0; i < size; i++){
-            if(i % 2 == 0){
+        for (int i = 0; i < size; i++) {
+            if (i % 2 == 0) {
                 sum1 += a[i];
             } else {
                 sum2 += a[i];
@@ -56,8 +56,8 @@ public class ExploringtheWaters {
                     s[i] += "*";
                 }
             }
-            if (i > 0 && i < x - 1 && i < picture.length+1) {
-                s[i] = "*" + picture[i-1] + "*";
+            if (i > 0 && i < x - 1 && i < picture.length + 1) {
+                s[i] = "*" + picture[i - 1] + "*";
             }
         }
 
@@ -69,22 +69,23 @@ public class ExploringtheWaters {
      * WTwo arrays are called similar if one can be obtained
      * from another by swapping at most one pair of elements
      * in one of the arrays.
-     *
+     * <p>
      * Given two arrays a and b,
      * check whether they are similar.
      */
     static boolean areSimilar(int[] A, int[] B) {
-        if(A.length != B.length){
+        if (A.length != B.length) {
             return false;
         }
         int countSwap = 0;
         int[] copyA = Arrays.copyOf(A, A.length);
         int[] copyB = Arrays.copyOf(B, B.length);
 
-        Arrays.sort(copyA); Arrays.sort(copyB);
-        if(!Arrays.equals(copyA, copyB)) return false;
-        for(int i = 0; i < A.length; i++) {
-            if(A[i] != B[i]) countSwap++;
+        Arrays.sort(copyA);
+        Arrays.sort(copyB);
+        if (!Arrays.equals(copyA, copyB)) return false;
+        for (int i = 0; i < A.length; i++) {
+            if (A[i] != B[i]) countSwap++;
         }
 
         return (countSwap == 0 || countSwap == 2);
@@ -100,14 +101,14 @@ public class ExploringtheWaters {
      * sequence from the input.
      */
     static int arrayChange(int[] inputArray) {
-        int  size = inputArray.length;
+        int size = inputArray.length;
         int count = 0;
-        for(int i=0; i<size - 1; i++){
-            if(inputArray[i] >= inputArray[i+1]){
-                do{
-                    inputArray[i+1] += 1;
-                    count ++;
-                } while(inputArray[i] >= inputArray[i+1]);
+        for (int i = 0; i < size - 1; i++) {
+            if (inputArray[i] >= inputArray[i + 1]) {
+                do {
+                    inputArray[i + 1] += 1;
+                    count++;
+                } while (inputArray[i] >= inputArray[i + 1]);
             }
         }
         return count;
@@ -121,14 +122,11 @@ public class ExploringtheWaters {
     static boolean palindromeRearranging(String inputString) {
         Set<Character> oddLetters = new HashSet<>();
         for (char c : inputString.toCharArray()) {
-            if ( ! oddLetters.remove(c) ) {
+            if (!oddLetters.remove(c)) {
                 oddLetters.add(c);
             }
         }
-        if (oddLetters.size() <2){
-            return true;
-        }
-        return false;
+        return oddLetters.size() < 2;
     }
 
 }

@@ -13,10 +13,9 @@ public class RainsofReason {
      */
     int[] arrayReplace(int[] inputArray, int elemToReplace, int substitutionElem) {
         int size = inputArray.length;
-        int sub = substitutionElem;
-        for(int i = 0; i<size; i++){
-            if(inputArray[i] == elemToReplace){
-                inputArray[i] = sub;
+        for (int i = 0; i < size; i++) {
+            if (inputArray[i] == elemToReplace) {
+                inputArray[i] = substitutionElem;
             }
         }
         return inputArray;
@@ -29,16 +28,13 @@ public class RainsofReason {
      */
     boolean evenDigitsOnly(int n) {
         int count = 0;
-        while(n>=1){
-            if(n % 2 != 0){
+        while (n >= 1) {
+            if (n % 2 != 0) {
                 count++;
             }
             n /= 10;
         }
-        if(count >= 1){
-            return false;
-        }
-        return true;
+        return count < 1;
     }
 
 
@@ -46,14 +42,11 @@ public class RainsofReason {
      * 27
      * Correct variable names consist only of English letters,
      * digits and underscores and they can't start with a digit.
-     *
+     * <p>
      * Check if the given string is a correct variable name.
      */
     boolean variableName(String name) {
-        if(name.matches("[a-zA-Z_][0-9a-zA-Z_]*$")){
-            return true;
-        }
-        return false;
+        return name.matches("[a-zA-Z_][0-9a-zA-Z_]*$");
     }
 
 
@@ -67,11 +60,11 @@ public class RainsofReason {
     String alphabeticShift(String inputString) {
         StringBuilder sb = new StringBuilder();
         int size = inputString.length();
-        for(int i =0; i < size; i++){
+        for (int i = 0; i < size; i++) {
             char c = inputString.charAt(i);
-            if(c == 'z'){
+            if (c == 'z') {
                 sb.append('a');
-            } else{
+            } else {
                 sb.append((char) (inputString.charAt(i) + 1));
             }
         }
@@ -83,13 +76,10 @@ public class RainsofReason {
      * determine whether they have the same color or not.
      */
     boolean chessBoardCellColor(String cell1, String cell2) {
-        if((cell1.charAt(0) + cell1.charAt(1)) % 2 == 0 &&
+        return (cell1.charAt(0) + cell1.charAt(1)) % 2 == 0 &&
                 (cell2.charAt(0) + cell2.charAt(1)) % 2 == 0 ||
-                        (cell1.charAt(0) + cell1.charAt(1)) % 2 != 0 &&
-                                (cell2.charAt(0) + cell2.charAt(1)) % 2 != 0){
-            return true;
-        }
-        return false;
+                (cell1.charAt(0) + cell1.charAt(1)) % 2 != 0 &&
+                        (cell2.charAt(0) + cell2.charAt(1)) % 2 != 0;
     }
 
 

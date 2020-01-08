@@ -17,17 +17,16 @@ public class DivingDeeper {
     int[] extractEachKth(int[] inputArray, int k) {
         ArrayList<Integer> ans = new ArrayList<Integer>();
         int j = 1;
-        for(int i = 0; i < inputArray.length; i++){
-            if(j == k){
+        for (int value : inputArray) {
+            if (j == k) {
                 j = 1;
-                continue;
-            }else{
+            } else {
                 j++;
-                ans.add(inputArray[i]);
+                ans.add(value);
             }
         }
         int[] result = new int[ans.size()];
-        for(int i = 0; i < ans.size(); i++){
+        for (int i = 0; i < ans.size(); i++) {
             result[i] = ans.get(i);
         }
         return result;
@@ -39,8 +38,8 @@ public class DivingDeeper {
      */
     char firstDigit(String inputString) {
         int size = inputString.length();
-        for(int i = 0; i < size; i++){
-            if(inputString.charAt(i)>= '0' && inputString.charAt(i) <= '9'){
+        for (int i = 0; i < size; i++) {
+            if (inputString.charAt(i) >= '0' && inputString.charAt(i) <= '9') {
                 return inputString.charAt(i);
             }
         }
@@ -67,13 +66,13 @@ public class DivingDeeper {
     int arrayMaxConsecutiveSum(int[] inputArray, int k) {
         int max = 0;
         int Sum = 0;
-        for (int i = 0; i < k - 1; i++){
+        for (int i = 0; i < k - 1; i++) {
             Sum += inputArray[i];
         }
         for (int i = k - 1; i < inputArray.length; i++) {
             Sum += inputArray[i];
             if (Sum > max) {
-                max =  Sum ;
+                max = Sum;
             }
             Sum -= inputArray[i - k + 1];
         }

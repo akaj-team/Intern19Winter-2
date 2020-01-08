@@ -15,7 +15,7 @@ public class DarkWilderness {
      * amount represented by the integer upSpeed.
      * But due to lack of sunlight, the plant decreases
      * in height every night, by an amount represented by downSpeed.
-     *
+     * <p>
      * Since you grew the plant from a seed, it started
      * at height 0 initially. Given an integer desiredHeight,
      * your task is to find how many days it'll take for the plant to reach this height.
@@ -23,7 +23,7 @@ public class DarkWilderness {
     int growingPlant(int upSpeed, int downSpeed, int desiredHeight) {
         int day = 1;
         int grow = upSpeed - downSpeed;
-        while(upSpeed < desiredHeight){
+        while (upSpeed < desiredHeight) {
             upSpeed += grow;
             day++;
         }
@@ -38,18 +38,18 @@ public class DarkWilderness {
      * What is the total maximum value of the items you can take with you,
      * assuming that your max weight capacity is
      * maxW and you can't come back for the items later?
-     *
+     * <p>
      * Note that there are only two items and you can't
      * bring more than one item of each type, i.e. you
      * can't take two first items or two second items.
      */
     int knapsackLight(int value1, int weight1, int value2, int weight2, int maxW) {
         int value = 0;
-        if((weight1 <= maxW && (value1 > value2 || weight2 > maxW)) || (weight1 + weight2 <= maxW)){
+        if ((weight1 <= maxW && (value1 > value2 || weight2 > maxW)) || (weight1 + weight2 <= maxW)) {
             value += value1;
             maxW -= weight1;
         }
-        if(weight2 <= maxW){
+        if (weight2 <= maxW) {
             value += value2;
             maxW -= weight2;
         }
@@ -62,11 +62,11 @@ public class DarkWilderness {
      */
     String longestDigitsPrefix(String inputString) {
         String s = "";
-        for(int i = 0; i< inputString.length();i++) {
+        for (int i = 0; i < inputString.length(); i++) {
             String c = Character.toString(inputString.charAt(i));
-            if(c.matches("[0-9]")){
-                s+=c;
-            }else {
+            if (c.matches("[0-9]")) {
+                s += c;
+            } else {
                 break;
             }
         }
@@ -79,16 +79,18 @@ public class DarkWilderness {
      * integer as the number of times we need to replace
      * this number with the sum of its digits until we
      * get to a one digit number.
-     *
+     * <p>
      * Given an integer, find its digit degree.
      */
+
+
     int digitDegree(int n) {
         String str = Integer.toString(n);
         int sum = 0, count = 0;
-        while (str.length() > 1){
+        while (str.length() > 1) {
             sum = 0;
-            for (int i = 0; i < str.length(); i++){
-                sum += ( str.charAt(i) - '0' ) ;
+            for (int i = 0; i < str.length(); i++) {
+                sum += (str.charAt(i) - '0');
             }
             str = sum + "";
             count++;
@@ -101,16 +103,13 @@ public class DarkWilderness {
      * Given the positions of a white bishop and a
      * black pawn on the standard chess board, determine
      * whether the bishop can capture the pawn in one move.
-     *
+     * <p>
      * The bishop has no restrictions in distance for each
      * move, but is limited to diagonal movement.
      * Check out the example below to see how it can move:
      */
     boolean bishopAndPawn(String bishop, String pawn) {
-        if(Math.abs(bishop.charAt(0) - pawn.charAt(0))
-                == (Math.abs(bishop.charAt(1) - pawn.charAt(1)))){
-            return true;
-        }
-        return false;
+        return Math.abs(bishop.charAt(0) - pawn.charAt(0))
+                == (Math.abs(bishop.charAt(1) - pawn.charAt(1)));
     }
 }

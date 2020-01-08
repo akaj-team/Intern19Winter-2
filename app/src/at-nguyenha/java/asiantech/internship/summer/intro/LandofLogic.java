@@ -19,8 +19,8 @@ public class LandofLogic {
         String longestWord = "";
         String result = text.replaceAll("[^a-zA-Z0-9 ]", " ");
         String[] str = result.split("\\ ");
-        for(int i = 0 ; i< str.length;i++) {
-            if(max < str[i].length()) {
+        for (int i = 0; i < str.length; i++) {
+            if (max < str[i].length()) {
                 max = str[i].length();
                 longestWord = str[i];
             }
@@ -34,8 +34,8 @@ public class LandofLogic {
      */
     static boolean validTime(String time) {
         String[] str = time.split("\\:");
-        if((Integer.parseInt(str[0]) >= 0 && Integer.parseInt(str[0]) <= 23)
-                && (Integer.parseInt(str[1]) >= 0 && Integer.parseInt(str[1]) <= 59)){
+        if ((Integer.parseInt(str[0]) >= 0 && Integer.parseInt(str[0]) <= 23)
+                && (Integer.parseInt(str[1]) >= 0 && Integer.parseInt(str[1]) <= 59)) {
             return true;
         }
         return false;
@@ -43,26 +43,27 @@ public class LandofLogic {
 
     /**
      * 54
+     *
      * @CodeMaster has just returned from shopping.
-     *      * He scanned the check of the items he bought and
-     *      * gave the resulting string to Ratiorg to figure
-     *      * out the total number of purchased items.
-     *      * Since Ratiorg is a bot he is definitely going to
-     *      * automate it, so he needs a program that sums up
-     *      * all the numbers which appear in the given input.
-     *      *
-     *      * Help Ratiorg by writing a function that returns
-     *      * the sum of numbers that appear in the given inputString.
+     * * He scanned the check of the items he bought and
+     * * gave the resulting string to Ratiorg to figure
+     * * out the total number of purchased items.
+     * * Since Ratiorg is a bot he is definitely going to
+     * * automate it, so he needs a program that sums up
+     * * all the numbers which appear in the given input.
+     * *
+     * * Help Ratiorg by writing a function that returns
+     * * the sum of numbers that appear in the given inputString.
      */
     static int sumUpNumbers(String inputString) {
-        inputString = (inputString.replaceAll("[a-zA-Z,!#_\\-\\.$%&*+ ]"," "));
-        if(inputString.length() == 0){
+        inputString = (inputString.replaceAll("[a-zA-Z,!#_\\-.$%&*+ ]", " "));
+        if (inputString.length() == 0) {
             return 0;
         }
         int sum = 0;
-        for(String str: inputString.split(" ")){
-            if(str.length() !=0){
-                sum +=Integer.parseInt(str.replaceAll("[^0-9]","").trim());
+        for (String str : inputString.split(" ")) {
+            if (str.length() != 0) {
+                sum += Integer.parseInt(str.replaceAll("[^0-9]", "").trim());
             }
         }
         return sum;
@@ -80,12 +81,11 @@ public class LandofLogic {
         if (m == 1 || n == 1) {
             return 0;
         }
-        for (int i=0; i < m-1; ++i) {
-            for (int j=0; j < n-1; ++j) {
-                StringBuilder sb = new StringBuilder();
-                sb.append(matrix[i][j]).append("\t").append(matrix[i][j+1]).append("\t");
-                sb.append(matrix[i+1][j]).append("\t").append(matrix[i+1][j+1]);
-                set.add(sb.toString());
+        for (int i = 0; i < m - 1; ++i) {
+            for (int j = 0; j < n - 1; ++j) {
+                String sb = matrix[i][j] + "\t" + matrix[i][j + 1] + "\t" +
+                        matrix[i + 1][j] + "\t" + matrix[i + 1][j + 1];
+                set.add(sb);
             }
         }
         return set.size();
@@ -98,13 +98,13 @@ public class LandofLogic {
      * is equal to product. If there is no such integer, return -1 instead.
      */
     static int digitsProduct(int product) {
-        for(int i = 1; i < 99999; i++) {
+        for (int i = 1; i < 99999; i++) {
             String digits = String.valueOf(i);
             int result = (digits.charAt(0) - '0');
-            for(int j = 1; j < digits.length(); j++) {
+            for (int j = 1; j < digits.length(); j++) {
                 result *= (digits.charAt(j) - '0');
             }
-            if(result == product)
+            if (result == product)
                 return Integer.parseInt(digits);
         }
         return -1;
@@ -118,21 +118,21 @@ public class LandofLogic {
      * will have an addition to its name in a form of (k),
      * where k is the smallest positive integer such
      * that the obtained name is not used yet.
-     *
+     * <p>
      * Return an array of names that will be given to the files.
      */
     static String[] fileNaming(String[] names) {
         Set<String> set = new HashSet<>();
         String[] fileNames = new String[names.length];
-        for(int i = 0; i < names.length; i++) {
+        for (int i = 0; i < names.length; i++) {
             String name = names[i];
-            if(!set.contains(name)) {
+            if (!set.contains(name)) {
                 set.add(name);
                 fileNames[i] = name;
-            }else {
+            } else {
                 int k = 0;
                 String newName = name;
-                while(set.contains(newName)) {
+                while (set.contains(newName)) {
                     k++;
                     newName = name + "(" + k + ")";
                 }
@@ -151,14 +151,14 @@ public class LandofLogic {
      * and realized that it must be an encrypted message.
      * After some thought, your first guess is that each consecutive
      * 8 bits of the code stand for the character with the corresponding extended ASCII code.
-     *
+     * <p>
      * Assuming that your hunch is correct, decode the message.
      */
     static String messageFromBinaryCode(String code) {
         int bin, div = code.length() / 8, test = 8, test2 = 0;
         StringBuilder s = new StringBuilder();
-        while(div-- > 0){
-            bin = Integer.valueOf(code.substring(test2,test), 2);
+        while (div-- > 0) {
+            bin = Integer.valueOf(code.substring(test2, test), 2);
             s.append(Character.toChars(bin));
             test += 8;
             test2 += 8;
@@ -172,27 +172,27 @@ public class LandofLogic {
      * from 1 to N * N in a spiral order, starting from top-left and
      * in clockwise direction.
      */
-    static int[][] spiralNumbers(int n){
+    static int[][] spiralNumbers(int n) {
         int value = 1;
         int[][] result = new int[n][n];
         int minColumn = 0;
-        int maxColumn = n-1;
+        int maxColumn = n - 1;
         int minRow = 0;
-        int maxRow = n-1;
-        while (value <= n*n){
-            for (int i = minColumn; i <= maxColumn; i++){
+        int maxRow = n - 1;
+        while (value <= n * n) {
+            for (int i = minColumn; i <= maxColumn; i++) {
                 result[minRow][i] = value;
                 value++;
             }
-            for (int i = minRow+1; i <= maxRow; i++){
+            for (int i = minRow + 1; i <= maxRow; i++) {
                 result[i][maxColumn] = value;
                 value++;
             }
-            for (int i = maxColumn-1; i >= minColumn; i--){
+            for (int i = maxColumn - 1; i >= minColumn; i--) {
                 result[maxRow][i] = value;
                 value++;
             }
-            for (int i = maxRow-1; i >= minRow+1; i--){
+            for (int i = maxRow - 1; i >= minRow + 1; i--) {
                 result[i][minColumn] = value;
                 value++;
             }
