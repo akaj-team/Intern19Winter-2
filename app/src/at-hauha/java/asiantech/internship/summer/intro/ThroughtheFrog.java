@@ -1,22 +1,19 @@
 package asiantech.internship.summer.intro;
 
 public class ThroughtheFrog {
-    /*
-     *Given n and firstNumber, find the number which is written in the radially opposite position to firstNumber.
-     *
-     * */
+    /**
+     * Given n and firstNumber, find the number which is written in the radially opposite position to firstNumber.
+     */
     public static int circleOfNumbers(int n, int firstNumber) {
         return (firstNumber + n / 2) % n;
     }
 
-    /*
-     *You have deposited a specific amount of money into your bank account.
-     *  Each year your balance increases at the same growth rate.
-     *  With the assumption that you don't make any additional deposits,
+    /**
+     * You have deposited a specific amount of money into your bank account.
+     * Each year your balance increases at the same growth rate.
+     * With the assumption that you don't make any additional deposits,
      * find out how long it would take for your balance to pass a specific threshold.
-     *
-     *
-     * */
+     */
     public static int depositProfit(int deposit, int rate, int threshold) {
         double money = deposit;
         double newRate = rate;
@@ -28,13 +25,12 @@ public class ThroughtheFrog {
         return counter;
     }
 
-    /*
+    /**
      * Given a sorted array of integers a,
      * your task is to determine which element of a is closest to all other values of a.
      * In other words, find the element x in a, which minimizes the following sum
-     *If there are several possible answers, output the smallest one.
-     *
-     * */
+     * If there are several possible answers, output the smallest one.
+     */
     public static int absoluteValuesSumMinimization(int[] a) {
         int sumMin = 0;
         int smallest = a[0];
@@ -60,7 +56,8 @@ public class ThroughtheFrog {
         }
         return smallest;
     }
-    /*
+
+    /**
      * Given an array of equal-length strings, you'd like to know if it's
      * possible to rearrange the order of the elements in such a way that each consecutive
      * pair of strings differ by exactly one character.

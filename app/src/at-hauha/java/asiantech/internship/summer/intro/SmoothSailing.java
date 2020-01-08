@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SmoothSailing {
-    /* Given an array of strings,
+    /**
+     * Given an array of strings,
      * return another array containing all of its longest strings.
      */
     public static String[] allLongestStrings(String[] inputArray) {
@@ -20,10 +21,10 @@ public class SmoothSailing {
         return answer.toArray(new String[answer.size()]);
     }
 
-    /*
+    /**
      * Given two strings, find the number of
      * common characters between them.
-     * */
+     */
     public static int commonCharacterCount(String s1, String s2) {
         int count = 0;
         boolean[] t = new boolean[s2.length()];
@@ -42,12 +43,11 @@ public class SmoothSailing {
         return count;
     }
 
-    /*
-     *Ticket numbers usually consist of an even number of digits.
-     * A ticket number is considered lucky
-     * if the sum of the first half of the digits is equal to the sum of the second half.
-     *
-     * */
+    /**
+     * Ticket numbers usually consist of an even number of digits.
+     * A ticket number is considered lucky if the sum of the first half of the digits is equal to the sum of the second half.
+     * Given a ticket number n, determine if it's lucky or not.
+     */
     public static boolean isLucky(int n) {
         String str = Integer.toString(n);
         char[] charArray = str.toCharArray();
@@ -63,9 +63,13 @@ public class SmoothSailing {
         return false;
     }
 
-    /*Some people are standing in a row in a park. There are trees between them which cannot be moved.
-     *Your task is to rearrange the people by their heights in a non-descending order without moving the trees.
-     *People can be very tall!*/
+    /**
+     * Some people are standing in a row in a park. There are trees between them which cannot be moved.
+     * Your task is to rearrange the people by their heights in a non-descending order without moving the trees.
+     * People can be very tall!
+     * For a = [-1, 150, 190, 170, -1, -1, 160, 180], the output should be
+     * sortByHeight(a) = [-1, 150, 160, 170, -1, -1, 180, 190].
+     */
     public static int[] sortByHeight(int[] a) {
         int temp = 0;
         for (int i = 0; i < a.length - 1; i++) {
@@ -79,10 +83,11 @@ public class SmoothSailing {
         }
         return a;
     }
-    /*
-    *Write a function that reverses characters in (possibly nested) parentheses in the input string.
-    *Input strings will always be well-formed with matching ()s
-    * */
+
+    /**
+     * Write a function that reverses characters in (possibly nested) parentheses in the input string.
+     * Input strings will always be well-formed with matching ()s.
+     */
     public static String reverseInParentheses(String inputString) {
         String tmpCh = new String("");
         String tmpChRe = new String("");
