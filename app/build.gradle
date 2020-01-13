@@ -27,6 +27,10 @@ android {
                 dimension "at-name"
                 applicationIdSuffix ".cuongle"
             }
+            'at-daiho' {
+                dimension "at-name"
+                applicationIdSuffix ".daiho"
+            }
             'at-hauha' {
                 dimension "at-name"
                 applicationIdSuffix ".hauha"
