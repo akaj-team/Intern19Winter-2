@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">NhatNguyen</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!--Login fragment-->
+    <string name="textview_email_address">Email address</string>
+    <string name="textview_welcome_back">Welcome Back!</string>
+    <string name="textview_please_login_to_continue">Please login to continue.</string>
+    <string name="textview_password">Password</string>
+    <string name="edittext_user_email_com">user@email.com</string>
+    <string name="textview_forget_password">Forget password?</string>
+    <string name="edittext_12345678">12345678</string>
+    <string name="textview_login">Login</string>
+    <string name="textview_new_to_scatch">New to Scatch?</string>
+    <string name="textview_create_account_here">Create Account Here</string>
+    <string name="textview_start_nfrom_scratch">Start\nfrom Scratch</string>
+    <string name="textview_create_account_to_countinue">Create account to countinue.</string>
+    <string name="textview_fullname">Full Name</string>
+    <string name="edittext_fullname">Nich Evans</string>
+    <string name="textview_create_account">Create Account</string>
+    <string name="textview_already_have_an_account">Already have an account?</string>
+    <string name="textview_login_here">Login Here</string>
 </resources>

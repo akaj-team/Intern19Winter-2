@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_start_40dp">40dp</dimen>
+    <dimen name="margin_top_68">68dp</dimen>
+    <dimen name="height_284">284dp</dimen>
+    <dimen name="heigth_32">32dp</dimen>
+    <dimen name="margin_top_28">28dp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
+    <dimen name="width_92">92dp</dimen>
+    <dimen name="height_30">30dp</dimen>
+    <dimen name="height_24">24dp</dimen>
+    <dimen name="margin_top_14">14dp</dimen>
+    <dimen name="width_324">324dp</dimen>
+    <dimen name="height_64">64dp</dimen>
+    <dimen name="margin_top_12">12dp</dimen>
+    <dimen name="height_52">52dp</dimen>
+    <dimen name="margin_top_20">20dp</dimen>
+    <dimen name="text_size_16">16sp</dimen>
+    <dimen name="margin_top_16">16dp</dimen>
+    <dimen name="width_152">152dp</dimen>
+    <dimen name="heigth_56">56dp</dimen>
+    <dimen name="margin_top_132">132dp</dimen>
+    <dimen name="margin_44dp">44dp</dimen>
+    <dimen name="top_72">72dp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="margin_364">364dp</dimen>
+    <dimen name="width_172">172dp</dimen>
+    <dimen name="width_140">140dp</dimen>
+    <dimen name="width_348">348dp</dimen>
+    <dimen name="height_48">48dp</dimen>
+    <dimen name="width_304">304dp</dimen>
+</resources>
