@@ -3,4 +3,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textview_login_button">Login</string>
+    <string name="text_password">●●●●●●●●</string>
+    <string name="text_user_email">user@email.com</string>
+    <string name="textview_new_to_scratch">New to Scratch?</string>
+    <string name="textview_create_account_here">Create Account Here</string>
+    <string name="textview_password">Password</string>
+    <string name="textview_forgot_password">Forgot password?</string>
+    <string name="textview_email_address">Email address</string>
+    <string name="textview_request_login">Please login to continue.</string>
+    <string name="textview_welcome_back_scratch">Welcome Back!</string>
 </resources>
