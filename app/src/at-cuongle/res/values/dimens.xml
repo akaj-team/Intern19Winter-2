@@ -10,5 +10,6 @@
     <dimen name="margin_top_18_dp">18dp</dimen>
     <dimen name="margin_top_40_dp">40dp</dimen>
     <dimen name="width_edt_362dp">362dp</dimen>
+    <dimen name="margin_top_28dp">28dp</dimen>
 
 </resources>

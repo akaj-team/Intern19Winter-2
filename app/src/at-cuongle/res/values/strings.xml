@@ -13,4 +13,11 @@
     <string name="textview_email_address">Email address</string>
     <string name="textview_request_login">Please login to continue.</string>
     <string name="textview_welcome_back_scratch">Welcome Back!</string>
+    <string name="text_user_name">Nick Evans</string>
+    <string name="text_view_already_have_an_account">Already have an account?</string>
+    <string name="textview_login_here">Login Here</string>
+    <string name="textview_email">Email</string>
+    <string name="textview_full_name">Full Name</string>
+    <string name="textview_create_account_to_continue">Create account to continue.</string>
+    <string name="textview_start_from_scratch">Start from Scratch</string>
 </resources>
