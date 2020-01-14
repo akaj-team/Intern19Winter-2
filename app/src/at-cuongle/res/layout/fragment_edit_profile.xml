@@ -11,74 +11,73 @@
 
         <Button
             android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_54_dp"
             android:layout_marginTop="@dimen/margin_top_28_dp"
             android:background="@drawable/custom_button"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/padding_left_20dp"
+            android:gravity="center"
             android:text="@string/textview_save_profile"
             android:textAllCaps="false"
             android:textColor="@color/color_while"
             android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/edtPhone" />
 
         <EditText
             android:id="@+id/edtPhone"
-            android:layout_width="@dimen/width_edt_362dp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_edt_height_44dp"
             android:fontFamily="Nunito-Regular"
             android:importantForAutofill="no"
             android:inputType="phone"
             android:text="@string/text_user_phone"
             android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintHorizontal_bias="0.505"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvPhone" />
 
         <EditText
             android:id="@+id/edtEmail"
-            android:layout_width="@dimen/width_edt_362dp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_edt_height_44dp"
             android:fontFamily="Nunito-Regular"
             android:importantForAutofill="no"
             android:inputType="textEmailAddress"
             android:text="@string/text_user_email"
             android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvEmail" />
 
         <EditText
             android:id="@+id/edtBio"
-            android:layout_width="@dimen/width_edt_362dp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_edt_height_44dp"
             android:fontFamily="Nunito-Regular"
             android:importantForAutofill="no"
             android:inputType="text"
             android:text="@string/text_user_bio"
             android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintHorizontal_bias="0.517"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvBio" />
 
         <EditText
             android:id="@+id/edtFullName"
-            android:layout_width="@dimen/width_edt_362dp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_edt_height_44dp"
             android:fontFamily="Nunito-Regular"
             android:text="@string/text_user_name"
             android:textSize="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <ImageButton
@@ -89,7 +88,7 @@
             android:background="@color/color_while"
             android:src="@drawable/img_back_button"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -123,11 +122,12 @@
             android:id="@+id/tvBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="52dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="4dp"
             android:fontFamily="Nunito-Regular"
             android:text="@string/textview_back_to_profile"
             android:textColor="@color/color_gray"
-            android:textSize="12dp"
+            android:textSize="18dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imgBtnBack" />
 
@@ -140,7 +140,7 @@
             android:text="@string/textview_private_information"
             android:textColor="@color/color_black"
             android:textSize="16dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/edtBio" />
 
         <TextView
@@ -165,7 +165,7 @@
             android:text="@string/textview_email"
             android:textColor="@color/color_gray"
             android:textSize="14dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvPrivate" />
 
         <TextView
@@ -204,15 +204,22 @@
             android:textColor="@color/color_black"
             android:textSize="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/imgBtnBack" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
+            android:id="@+id/guidelineLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="25dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="25dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
