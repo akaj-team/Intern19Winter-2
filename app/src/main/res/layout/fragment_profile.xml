@@ -31,19 +31,30 @@
             app:layout_constraintHorizontal_bias="0.132"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtBack" />
-
-        <TextView
+        <LinearLayout
             android:id="@+id/txtBack"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/margin_top_16"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_40dp"
             android:layout_marginTop="@dimen/height_64"
-            android:drawableLeft="@drawable/back"
-            android:gravity="center"
-            android:src="@drawable/logo"
-            android:text="\t Back to Profile"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+            <ImageView
+                android:src="@drawable/ic_chevron_left_black_24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/margin_top_16"
+
+                android:gravity="center"
+                android:src="@drawable/logo"
+                android:text="Back to Profile"
+                 />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/txtEditProfilePicture"
