@@ -10,24 +10,24 @@
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_54_dp"
             android:layout_marginTop="@dimen/margin_top_28_dp"
             android:background="@drawable/custom_button"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="@dimen/padding_left_20dp"
+            android:gravity="center"
             android:text="@string/textview_login_button"
             android:textAllCaps="false"
             android:textColor="@color/color_while"
             android:textSize="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
 
         <EditText
             android:id="@+id/edtPassword"
-            android:layout_width="@dimen/width_edt_362dp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_edt_height_44dp"
+            android:ems="10"
             android:fontFamily="Nunito-Regular"
             android:importantForAutofill="no"
             android:inputType="textPassword"
@@ -36,12 +36,12 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <EditText
             android:id="@+id/edtEmail"
-            android:layout_width="@dimen/width_edt_362dp"
+            android:layout_width="0dp"
             android:layout_height="@dimen/height_edt_height_44dp"
             android:fontFamily="Nunito-Regular"
             android:importantForAutofill="no"
@@ -51,7 +51,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline6"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <ImageView
@@ -67,11 +67,12 @@
             android:id="@+id/imgLogo"
             android:layout_width="@dimen/width_logo_93_dp"
             android:layout_height="@dimen/height_logo_30_dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/img_logo"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/guideline4" />
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtNew"
@@ -138,7 +139,7 @@
             android:text="@string/textview_email_address"
             android:textColor="@color/color_gray"
             android:textSize="14dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvRequestLogin" />
 
         <TextView
@@ -150,7 +151,7 @@
             android:text="@string/textview_request_login"
             android:textColor="@color/color_title"
             android:textSize="14dp"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/imgBackGround" />
 
         <TextView
@@ -163,22 +164,15 @@
             android:textColor="@color/color_black"
             android:textSize="24dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/imgLogo" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline"
+            android:id="@+id/guidelineLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="25dp" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_begin="60dp" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline6"
