@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">>
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="asiantech.internship.summer.LoginActivity">
+
+        <ImageView
+            android:id="@+id/headerImage"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="375:285"
+            android:src="@mipmap/bg_login_header"/>
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="60dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="@dimen/loginActivityControlMargin"
+            android:src="@mipmap/ic_logo"/>
+
+        <TextView
+            android:layout_height="32dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/logo"
+            android:layout_marginTop="45dp"
+            app:layout_constraintLeft_toLeftOf="@id/logo"
+            android:text="@string/loginActivityWelcomeback"
+            android:textSize="@dimen/textSize24"
+            android:textColor="@color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tvHint"
+            android:layout_height="20dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/headerImage"
+            android:layout_marginTop="22dp"
+            app:layout_constraintLeft_toLeftOf="@id/logo"
+            android:text="@string/loginActivityPleaseLoginToContinue"
+            android:textColor="@color/grayD8D8D8"
+            android:textSize="@dimen/textSize14"/>
+
+        <TextView
+            android:id="@+id/tvEmailHeader"
+            android:layout_height="22dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvHint"
+            android:layout_marginTop="47dp"
+            app:layout_constraintLeft_toLeftOf="@id/logo"
+            android:text="@string/loginActivityEmailAddress"
+            android:textColor="@color/grayD8D8D8"
+            android:textSize="@dimen/textSize14"/>
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvEmailHeader"
+            android:layout_marginTop="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/loginActivityControlMargin"
+            android:layout_marginRight="@dimen/loginActivityControlMargin"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/black"
+            android:textSize="@dimen/textSize14"
+            android:textStyle="bold"
+            android:text="@string/loginActivityEmailAddressPlaceHolder"
+            tools:ignore="LabelFor" />
+
+        <TextView
+            android:id="@+id/tvPaswordHeader"
+            android:layout_height="22dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/etEmail"
+            android:layout_marginTop="47dp"
+            app:layout_constraintLeft_toLeftOf="@id/logo"
+            android:text="@string/loginActivityPassword"
+            android:textColor="@color/grayD8D8D8"
+            android:textSize="@dimen/textSize14"/>
+
+        <TextView
+            android:layout_height="22dp"
+            android:layout_width="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/tvPaswordHeader"
+            app:layout_constraintRight_toRightOf="@id/etPassword"
+            android:text="@string/loginActivityForgotPassword"
+            android:textColor="@color/grayD8D8D8"
+            android:textSize="@dimen/textSize14"/>
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tvPaswordHeader"
+            android:layout_marginTop="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:inputType="textPassword"
+            android:layout_marginLeft="@dimen/loginActivityControlMargin"
+            android:layout_marginRight="@dimen/loginActivityControlMargin"
+            android:text="@string/loginActivityEmailAddress"/>
+
+        <TextView
+            android:id="@+id/btLogin"
+            android:layout_height="50dp"
+            android:layout_width="0dp"
+            app:layout_constraintTop_toBottomOf="@id/etPassword"
+            android:layout_marginTop="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/loginActivityControlMargin"
+            android:layout_marginRight="@dimen/loginActivityControlMargin"
+            app:layout_constraintCircleRadius="10dp"
+            android:background="@color/green30BE76"
+            android:text="@string/loginActivityLoginButtonTitle"
+            android:textSize="@dimen/textSize16"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvNewScratch"
+            android:layout_height="22dp"
+            android:layout_width="174dp"
+            app:layout_constraintTop_toBottomOf="@id/btLogin"
+            android:layout_marginTop="30dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/loginActivityNewToScratch"
+            android:textSize="@dimen/textSize14"
+            android:textColor="@color/grayD8D8D8"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_height="18dp"
+            android:layout_width="174dp"
+            app:layout_constraintTop_toBottomOf="@id/tvNewScratch"
+            android:layout_marginTop="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:text="@string/loginActivityCreateAccountButtonTitle"
+            android:textSize="@dimen/textSize14"
+            android:textStyle="bold"
+            android:textColor="@color/green30BE76"
+            android:gravity="center"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

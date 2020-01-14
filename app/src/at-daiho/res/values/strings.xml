@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">DaiHo</string>
+
+    <!--Login Activity-->
+    <string name="loginActivityWelcomeback">Welcome Back!</string>
+    <string name="loginActivityPleaseLoginToContinue">Please login to continue.</string>
+    <string name="loginActivityEmailAddress">Email address</string>
+    <string name="loginActivityEmailAddressPlaceHolder">user@email.com</string>
+    <string name="loginActivityForgotPassword">Forgot password?</string>
+    <string name="loginActivityPassword">Password</string>
+    <string name="loginActivityPasswordPlaceHolder">Password</string>
+    <string name="loginActivityLoginButtonTitle">Login</string>
+    <string name="loginActivityNewToScratch">New to Scratch?</string>
+    <string name="loginActivityCreateAccountButtonTitle">Create Account Here</string>
 </resources>
