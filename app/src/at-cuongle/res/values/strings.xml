@@ -20,4 +20,13 @@
     <string name="textview_full_name">Full Name</string>
     <string name="textview_create_account_to_continue">Create account to continue.</string>
     <string name="textview_start_from_scratch">Start from Scratch</string>
+    <string name="textview_save_profile">Save Profile</string>
+    <string name="text_user_phone">+1 234 567 89</string>
+    <string name="text_user_bio">Potato Master</string>
+    <string name="textview_edit_profile_picture">Edit Profile Picture</string>
+    <string name="textview_back_to_profile">Back to Profile</string>
+    <string name="textview_private_information">Private Information</string>
+    <string name="textview_phone">Phone</string>
+    <string name="textview_bio">Bio</string>
+    <string name="textview_edit_profile">Edit Profile</string>
 </resources>
