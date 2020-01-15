@@ -9,25 +9,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/backGroup"
-            android:layout_width="129dp"
+        <TextView
+            android:id="@+id/btBack"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="55dp"
+            android:drawableLeft="@mipmap/ic_back"
+            android:drawablePadding="7dip"
+            android:text="@string/editProfileActivityBackButtonTitle"
+            android:textColor="@color/grayD8D8D8"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="match_parent"
-                android:src="@mipmap/ic_back" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/editProfileActivityBackButtonTitle"
-                android:textColor="@color/grayD8D8D8" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
         <TextView
             android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
@@ -37,8 +31,8 @@
             android:textColor="@color/black"
             android:textSize="@dimen/textSize24"
             android:textStyle="bold"
-            app:layout_constraintLeft_toLeftOf="@id/backGroup"
-            app:layout_constraintTop_toBottomOf="@id/backGroup" />
+            app:layout_constraintLeft_toLeftOf="@id/btBack"
+            app:layout_constraintTop_toBottomOf="@id/btBack" />
         
         <ImageView
             android:id="@+id/imgAvatar"
