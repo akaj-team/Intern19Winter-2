@@ -1,13 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnSignin"
+            android:layout_width="304dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button"
+            android:fontFamily="Nunito-Bold"
+            android:gravity="center"
+            android:text="Create Account"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editPass1" />
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:textColor="#030F09"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textName"
+            app:layout_constraintTop_toBottomOf="@id/textName" />
+
+        <EditText
+            android:id="@+id/editEmail1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:textColor="#030F09"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/textEmail1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textEmail1" />
+
+        <EditText
+            android:id="@+id/editPass1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:inputType="textPassword"
+            android:textColor="#030F09"
+            android:textSize="16sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@id/textPass1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textPass1" />
 
         <ImageView
             android:id="@+id/head1"
@@ -15,29 +71,30 @@
             android:layout_height="285dp"
             android:scaleType="centerCrop"
             android:src="@drawable/header"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/logo"
             android:layout_width="17.8dp"
             android:layout_height="25.81dp"
-            android:src="@drawable/loco"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="25dp"
             android:layout_marginTop="61dp"
-            android:layout_marginLeft="25dp"/>
+            android:src="@drawable/loco"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textLogo"
             android:layout_width="70dp"
             android:layout_height="27dp"
-            app:layout_constraintTop_toTopOf="@id/logo"
-            app:layout_constraintStart_toEndOf="@id/logo"
             android:layout_marginLeft="10dp"
+            android:fontFamily="Nunito-Bold"
             android:text="scratch"
             android:textColor="#363837"
             android:textSize="20sp"
-            android:fontFamily="Nunito-Bold"/>
+            app:layout_constraintStart_toEndOf="@id/logo"
+            app:layout_constraintTop_toTopOf="@id/logo" />
 
         <TextView
             android:id="@+id/start"
@@ -55,130 +112,77 @@
             android:id="@+id/textCreate"
             android:layout_width="200.14dp"
             android:layout_height="22dp"
-            app:layout_constraintTop_toBottomOf="@id/head1"
-            app:layout_constraintLeft_toLeftOf="@id/start"
             android:layout_marginTop="20dp"
+            android:fontFamily="Nunito-Regular"
             android:text="Create account to continue."
-            android:textSize="14sp"
             android:textColor="#606060"
-            android:fontFamily="Nunito-Regular"/>
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/start"
+            app:layout_constraintTop_toBottomOf="@id/head1" />
 
         <TextView
             android:id="@+id/textName"
             android:layout_width="65dp"
             android:layout_height="19dp"
-            app:layout_constraintTop_toBottomOf="@id/textCreate"
-            app:layout_constraintLeft_toLeftOf="@id/textCreate"
             android:layout_marginTop="20dp"
+            android:fontFamily="Nunito-Regular"
             android:text="Full Name"
-            android:textSize="14sp"
             android:textColor="#A8A8A8"
-            android:fontFamily="Nunito-Regular"/>
-        <EditText
-            android:id="@+id/editName"
-            android:textColor="#030F09"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textName"
-            app:layout_constraintStart_toStartOf="@id/textName"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="25dp"
-            android:textSize="16sp"
-            android:fontFamily="Nunito-Regular"/>
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/textCreate"
+            app:layout_constraintTop_toBottomOf="@id/textCreate" />
 
         <TextView
             android:id="@+id/textEmail1"
             android:layout_width="35dp"
             android:layout_height="19dp"
-            app:layout_constraintTop_toBottomOf="@id/editName"
-            app:layout_constraintLeft_toLeftOf="@id/editName"
             android:layout_marginTop="12dp"
+            android:fontFamily="Nunito-Regular"
             android:text="Email"
-            android:textSize="14sp"
             android:textColor="#A8A8A8"
-            android:fontFamily="Nunito-Regular"/>
-        <EditText
-            android:id="@+id/editEmail1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/textEmail1"
-            app:layout_constraintLeft_toLeftOf="@id/textEmail1"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginRight="25dp"
-            android:layout_marginTop="25dp"
-            android:textSize="16sp"
-            android:textColor="#030F09"
-            android:fontFamily="Nunito-Regular"/>
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/editName"
+            app:layout_constraintTop_toBottomOf="@id/editName" />
 
         <TextView
             android:id="@+id/textPass1"
             android:layout_width="65dp"
             android:layout_height="19dp"
-            app:layout_constraintTop_toBottomOf="@id/editEmail1"
-            app:layout_constraintLeft_toLeftOf="@id/editEmail1"
             android:layout_marginTop="12dp"
-            android:text="Password"
-            android:textSize="14sp"
-            android:textColor="#A8A8A8"
-            android:fontFamily="Nunito-Regular"/>
-
-        <EditText
-            android:id="@+id/editPass1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="25dp"
             android:fontFamily="Nunito-Regular"
-            android:inputType="textPassword"
-            android:textColor="#030F09"
-            android:textSize="16sp"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="@id/textPass1"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textPass1" />
-
-        <Button
-            android:id="@+id/btnSignin"
-            android:layout_width="304dp"
-            android:layout_height="50dp"
-            app:layout_constraintTop_toBottomOf="@id/editPass1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="32dp"
-            android:background="@drawable/button"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:text="Create Account"
-            android:fontFamily="Nunito-Bold"
-            android:gravity="center" />
+            android:text="Password"
+            android:textColor="#A8A8A8"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/editEmail1"
+            app:layout_constraintTop_toBottomOf="@id/editEmail1" />
 
         <TextView
             android:id="@+id/textReady"
             android:layout_width="173.34dp"
             android:layout_height="22dp"
-            app:layout_constraintTop_toBottomOf="@id/btnSignin"
+            android:layout_marginTop="28dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="Already have an account?"
+            android:textColor="#A8A8A8"
+            android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="28dp"
-            android:text="Already have an account?"
-            android:textSize="14sp"
-            android:fontFamily="Nunito-Regular"
-            android:textColor="#A8A8A8"/>
+            app:layout_constraintTop_toBottomOf="@id/btnSignin" />
+
         <TextView
             android:id="@+id/head"
             android:layout_width="167dp"
             android:layout_height="20dp"
-            app:layout_constraintTop_toBottomOf="@id/textReady"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="Login Here"
+            android:textColor="#30BE76"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginTop="12dp"
-            android:text="Login Here"
-            android:textSize="16sp"
-            android:textColor="#30BE76"
-            android:fontFamily="Nunito-Bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="50dp"/>
+            app:layout_constraintTop_toBottomOf="@id/textReady" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
