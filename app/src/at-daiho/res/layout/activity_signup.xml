@@ -141,7 +141,7 @@
             android:layout_marginLeft="@dimen/loginActivityControlMargin"
             android:layout_marginRight="@dimen/loginActivityControlMargin"
             app:layout_constraintCircleRadius="10dp"
-            android:background="@color/green30BE76"
+            android:background="@drawable/round_button"
             android:text="@string/loginActivityCreateAccountButtonTitle"
             android:textSize="@dimen/textSize16"
             android:textColor="@color/white"
