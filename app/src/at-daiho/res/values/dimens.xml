@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--Login screen-->
-    <dimen name="loginActivityControlMargin">25dp</dimen>
+    <dimen name="activityControlMargin">25dp</dimen>
 
     <!--TextSize-->
     <dimen name="textSize14">14dp</dimen>

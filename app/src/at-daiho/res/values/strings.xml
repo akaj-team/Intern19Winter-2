@@ -23,4 +23,19 @@
     <string name="signUpActivityCreateAccountButtonTitle">Create Account</string>
     <string name="signUpActivityAlreadyHaveAnAccount">Already have an account?</string>
     <string name="signUpActivityLoginHereButtonTitle">Login Here</string>
+
+    <!--Edit Profile Activity-->
+    <string name="editProfileActivityBackButtonTitle">Back To Profile</string>
+    <string name="editProfileActivityTitle">Edit Profile</string>
+    <string name="editProfileActivityFullNameHeader">Full Name</string>
+    <string name="editProfileActivityFullNamePlaceHolder">Nick Evans</string>
+    <string name="editProfileActivityEditProfilePictureButtonTitle">Edit Profile Picture</string>
+    <string name="editProfileActivityBioHeader">Bio</string>
+    <string name="editProfileActivityBioPlaceHolder">Potato Master</string>
+    <string name="editProfileActivityPrivateInformationHeader">Private Information</string>
+    <string name="editProfileActivityEmailAddress">Email address</string>
+    <string name="editProfileActivityEmailAddressPlaceHolder">user@email.com</string>
+    <string name="editProfileActivityPhoneHeader">Phone</string>
+    <string name="editProfileActivityPhonePlaceHolder">+1 234 567 89</string>
+    <string name="editProfileActivitySaveProfileButtonTitle">Save Profile</string>
 </resources>
