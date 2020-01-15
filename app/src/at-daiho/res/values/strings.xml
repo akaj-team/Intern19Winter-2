@@ -12,4 +12,15 @@
     <string name="loginActivityLoginButtonTitle">Login</string>
     <string name="loginActivityNewToScratch">New to Scratch?</string>
     <string name="loginActivityCreateAccountButtonTitle">Create Account Here</string>
+
+    <!--SignUp Activity-->
+    <string name="signUpActivityStartFromScratch">Start\nfrom Scratch</string>
+    <string name="signUpActivityCreateAccountToContinue">Create account to continue.</string>
+    <string name="signUpActivityFullName">Full Name</string>
+    <string name="signUpActivityFullNamePlaceHolder">Nick Evans</string>
+    <string name="signUpActivityEmailTitle">Email</string>
+    <string name="signUpActivityPassword">Password</string>
+    <string name="signUpActivityCreateAccountButtonTitle">Create Account</string>
+    <string name="signUpActivityAlreadyHaveAnAccount">Already have an account?</string>
+    <string name="signUpActivityLoginHereButtonTitle">Login Here</string>
 </resources>
