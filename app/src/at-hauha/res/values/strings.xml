@@ -15,10 +15,26 @@
     <string name="textview_new_to_scatch">New to Scatch?</string>
     <string name="textview_create_account_here">Create Account Here</string>
     <string name="textview_start_nfrom_scratch">Start\nfrom Scratch</string>
-    <string name="textview_create_account_to_countinue">Create account to countinue.</string>
+    <string name="textview_create_account_to_continue">Create account to continue.</string>
     <string name="textview_fullname">Full Name</string>
     <string name="edittext_fullname">Nich Evans</string>
     <string name="textview_create_account">Create Account</string>
     <string name="textview_already_have_an_account">Already have an account?</string>
     <string name="textview_login_here">Login Here</string>
+    <string name="edittext_hint_password">Password</string>
+    <string name="edittext_hint_email_address">Email address</string>
+    <string name="textview_edit_profile">Edit Profile</string>
+    <string name="textview_back_to_profile">Back to Profile</string>
+    <string name="textview_edit_profle_picture">Edit Profle Picture</string>
+    <string name="textview_full_name">Full Name</string>
+    <string name="edit_hint_your_name">Your Name</string>
+    <string name="textview_bio">Bio</string>
+    <string name="edittext_hint_bio">Bio</string>
+    <string name="edittext_potato_master">Potato Master</string>
+    <string name="textview_private_infomation">Private Information</string>
+    <string name="textview_email">Email</string>
+    <string name="textview_phone">Phone</string>
+    <string name="edittext_1_234_567_89">+1 234 567 89</string>
+    <string name="edittext_hint_input_phone_number">Input Phone Number</string>
+    <string name="textview_save_profile">Save Profile</string>
 </resources>
