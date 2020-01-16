@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +20,7 @@
             android:textAllCaps="false"
             android:textColor="@color/color_while"
             android:textSize="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
 
@@ -29,30 +30,30 @@
             android:layout_height="@dimen/height_edt_height_44dp"
             android:ems="10"
             android:fontFamily="Nunito-Regular"
-            android:importantForAutofill="no"
+            android:hint="@string/hint_enter_your_password"
             android:inputType="textPassword"
             android:text="@string/text_password"
             android:textSize="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPassword"
+            tools:ignore="Autofill,LabelFor" />
 
         <EditText
             android:id="@+id/edtEmail"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_edt_height_44dp"
             android:fontFamily="Nunito-Regular"
-            android:importantForAutofill="no"
+            android:hint="@string/hint_enter_your_email"
             android:inputType="textEmailAddress"
             android:text="@string/text_user_email"
             android:textSize="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/guideline6"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/tvEmailAddress"
+            tools:ignore="Autofill,LabelFor" />
 
         <ImageView
             android:id="@+id/imgBackGround"
@@ -85,7 +86,6 @@
             android:textColor="@color/color_gray"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
@@ -104,7 +104,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txtNew" />
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/tvPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_28_dp"
@@ -124,14 +124,15 @@
             android:text="@string/textview_forgot_password"
             android:textColor="@color/color_title"
             android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView13"
-            app:layout_constraintEnd_toStartOf="@+id/guideline6"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPassword"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/textView13"
-            app:layout_constraintTop_toTopOf="@+id/textView13" />
+            app:layout_constraintStart_toEndOf="@+id/tvPassword"
+            app:layout_constraintTop_toTopOf="@+id/tvPassword"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/tvEmailAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="48dp"
@@ -175,7 +176,7 @@
             app:layout_constraintGuide_begin="25dp" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline6"
+            android:id="@+id/guidelineRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"

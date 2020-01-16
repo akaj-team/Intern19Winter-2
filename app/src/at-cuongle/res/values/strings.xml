@@ -29,4 +29,8 @@
     <string name="textview_phone">Phone</string>
     <string name="textview_bio">Bio</string>
     <string name="textview_edit_profile">Edit Profile</string>
+    <string name="hint_enter_your_email">Enter your email</string>
+    <string name="hint_enter_your_password">Enter your password</string>
+    <string name="hint_enter_your_name">Enter your name</string>
+    <string name="hint_enter_your_bio">Enter your bio</string>
 </resources>
