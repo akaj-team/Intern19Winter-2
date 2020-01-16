@@ -2,11 +2,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <Button
@@ -17,7 +18,7 @@
             android:background="@drawable/button"
             android:fontFamily="Nunito-Bold"
             android:gravity="center"
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -35,7 +36,11 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/textName"
-            app:layout_constraintTop_toBottomOf="@id/textName" />
+            app:layout_constraintTop_toBottomOf="@id/textName"
+            android:hint="@string/your_full_name_in_signin"
+            android:textColorHint="#ACA8A8"
+            android:inputType="text"
+            tools:ignore="autofill"/>
 
         <EditText
             android:id="@+id/editEmail1"
@@ -48,7 +53,11 @@
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="@id/textEmail1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textEmail1" />
+            app:layout_constraintTop_toBottomOf="@id/textEmail1"
+            android:hint="@string/your_email_in_signin"
+            android:textColorHint="#ACA8A8"
+            android:inputType="textEmailAddress"
+            tools:ignore="autofill"/>
 
         <EditText
             android:id="@+id/editPass1"
@@ -63,7 +72,10 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@id/textPass1"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textPass1" />
+            app:layout_constraintTop_toBottomOf="@id/textPass1"
+            android:hint="@string/your_password_in_signin"
+            android:textColorHint="#ACA8A8"
+            tools:ignore="autofill"/>
 
         <ImageView
             android:id="@+id/head1"
@@ -73,7 +85,6 @@
             android:src="@drawable/header"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/logo"
             android:layout_width="17.8dp"
@@ -90,7 +101,7 @@
             android:layout_height="27dp"
             android:layout_marginLeft="10dp"
             android:fontFamily="Nunito-Bold"
-            android:text="scratch"
+            android:text="@string/scratch"
             android:textColor="#363837"
             android:textSize="20sp"
             app:layout_constraintStart_toEndOf="@id/logo"
@@ -102,7 +113,7 @@
             android:layout_height="64dp"
             android:layout_marginTop="48dp"
             android:fontFamily="Nunito-Bold"
-            android:text="Start \nfrom Scratch"
+            android:text="@string/start_nfrom_scratch"
             android:textColor="#030F09"
             android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="@id/logo"
@@ -114,7 +125,7 @@
             android:layout_height="22dp"
             android:layout_marginTop="20dp"
             android:fontFamily="Nunito-Regular"
-            android:text="Create account to continue."
+            android:text="@string/create_account_to_continue"
             android:textColor="#606060"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@id/start"
@@ -126,7 +137,7 @@
             android:layout_height="19dp"
             android:layout_marginTop="20dp"
             android:fontFamily="Nunito-Regular"
-            android:text="Full Name"
+            android:text="@string/full_name"
             android:textColor="#A8A8A8"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@id/textCreate"
@@ -138,7 +149,7 @@
             android:layout_height="19dp"
             android:layout_marginTop="12dp"
             android:fontFamily="Nunito-Regular"
-            android:text="Email"
+            android:text="@string/email"
             android:textColor="#A8A8A8"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@id/editName"
@@ -150,7 +161,7 @@
             android:layout_height="19dp"
             android:layout_marginTop="12dp"
             android:fontFamily="Nunito-Regular"
-            android:text="Password"
+            android:text="@string/password"
             android:textColor="#A8A8A8"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@id/editEmail1"
@@ -162,7 +173,7 @@
             android:layout_height="22dp"
             android:layout_marginTop="28dp"
             android:fontFamily="Nunito-Regular"
-            android:text="Already have an account?"
+            android:text="@string/already_have_an_account"
             android:textColor="#A8A8A8"
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -176,7 +187,7 @@
             android:layout_marginTop="12dp"
             android:layout_marginBottom="50dp"
             android:fontFamily="Nunito-Bold"
-            android:text="Login Here"
+            android:text="@string/login_here"
             android:textColor="#30BE76"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".Editprofile">
 
         <ImageView
@@ -27,7 +27,7 @@
             app:layout_constraintTop_toTopOf="@id/back"
             app:layout_constraintStart_toEndOf="@id/back"
             android:layout_marginRight="5dp"
-            android:text="Back to Profile"
+            android:text="@string/back_to_profile"
             android:textSize="12sp"
             android:textColor="#767676"/>
         <TextView
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@id/back"
             app:layout_constraintLeft_toLeftOf="@id/back"
             android:layout_marginTop="15dp"
-            android:text="Edit Profile"
+            android:text="@string/edit_profile"
             android:textSize="24sp"
             android:fontFamily="Nunito-Bold"
             android:textColor="#030F09"/>
@@ -58,7 +58,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="10dp"
-            android:text="Edit Profile Picture"
+            android:text="@string/edit_profile_picture"
             android:textSize="16sp"
             android:fontFamily="Nunito-Bold"
             android:textColor="#30BE76"/>
@@ -70,14 +70,14 @@
             app:layout_constraintTop_toBottomOf="@id/editAvatar"
             app:layout_constraintLeft_toLeftOf="@id/textEdit"
             android:layout_marginTop="20dp"
-            android:text="Full Name"
+            android:text="@string/full_name"
             android:textColor="#A8A8A8"
             android:textSize="14sp"
             android:fontFamily="Nunito-Regular"/>
         <EditText
             android:id="@+id/editFullName"
             android:layout_width="0dp"
-            android:layout_height="19.86dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/textFullName"
             app:layout_constraintLeft_toLeftOf="@id/textFullName"
             app:layout_constraintRight_toRightOf="parent"
@@ -85,7 +85,11 @@
             android:layout_marginTop="25dp"
             android:textSize="16sp"
             android:textColor="#030F09"
-            android:fontFamily="Nunito-Regular"/>
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_full_name_in_profile"
+            android:textColorHint="#ACA8A8"
+            android:inputType="text"
+            tools:ignore="autofill"/>
 
         <TextView
             android:id="@+id/textBio"
@@ -94,14 +98,14 @@
             app:layout_constraintTop_toBottomOf="@+id/editFullName"
             app:layout_constraintLeft_toLeftOf="@id/editFullName"
             android:layout_marginTop="12dp"
-            android:text="Bio"
+            android:text="@string/bio"
             android:textColor="#A8A8A8"
             android:textSize="14sp"
             android:fontFamily="Nunito-Regular"/>
         <EditText
             android:id="@+id/editBio"
             android:layout_width="0dp"
-            android:layout_height="19.86dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/textBio"
             app:layout_constraintLeft_toLeftOf="@id/textBio"
             app:layout_constraintRight_toRightOf="parent"
@@ -109,7 +113,11 @@
             android:layout_marginRight="25dp"
             android:textSize="16sp"
             android:textColor="#030F09"
-            android:fontFamily="Nunito-Regular"/>
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_bio_in_profile"
+            android:textColorHint="#ACA8A8"
+            android:inputType="text"
+            tools:ignore="autofill"/>
         <TextView
             android:id="@+id/textPrivate"
             android:layout_width="153dp"
@@ -117,7 +125,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editBio"
             app:layout_constraintLeft_toLeftOf="@id/editBio"
             android:layout_marginTop="50dp"
-            android:text="Private Information"
+            android:text="@string/private_information"
             android:textColor="#030F09"
             android:textSize="16sp"
             android:fontFamily="Nunito-Bold"/>
@@ -129,14 +137,14 @@
             app:layout_constraintTop_toBottomOf="@id/textPrivate"
             app:layout_constraintLeft_toLeftOf="@id/textPrivate"
             android:layout_marginTop="20dp"
-            android:text="Email"
+            android:text="@string/email"
             android:textColor="#A8A8A8"
             android:textSize="14sp"
             android:fontFamily="Nunito-Regular"/>
         <EditText
             android:id="@+id/editViewEmail2"
             android:layout_width="0dp"
-            android:layout_height="19.86dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textEmail2"
             app:layout_constraintLeft_toLeftOf="@id/textEmail2"
             app:layout_constraintRight_toRightOf="parent"
@@ -144,7 +152,11 @@
             android:layout_marginTop="25dp"
             android:textSize="16sp"
             android:textColor="#030F09"
-            android:fontFamily="Nunito-Regular"/>
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_email_in_profile"
+            android:textColorHint="#ACA8A8"
+            android:inputType="textEmailAddress"
+            tools:ignore="autofill"/>
 
         <TextView
             android:id="@+id/textPhone"
@@ -153,14 +165,14 @@
             app:layout_constraintTop_toBottomOf="@id/editViewEmail2"
             app:layout_constraintLeft_toLeftOf="@id/editViewEmail2"
             android:layout_marginTop="12dp"
-            android:text="Phone"
+            android:text="@string/phone"
             android:textColor="#A8A8A8"
             android:textSize="14sp"
             android:fontFamily="Nunito-Regular"/>
         <EditText
             android:id="@+id/editPhone"
             android:layout_width="0dp"
-            android:layout_height="19.86dp"
+            android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/textPhone"
             app:layout_constraintLeft_toLeftOf="@id/textPhone"
             app:layout_constraintRight_toRightOf="parent"
@@ -168,7 +180,11 @@
             android:layout_marginTop="25dp"
             android:textSize="16sp"
             android:textColor="#030F09"
-            android:fontFamily="Nunito-Regular"/>
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_phone_in_profile"
+            android:textColorHint="#ACA8A8"
+            android:inputType="phone"
+            tools:ignore="autofill"/>
 
         <Button
             android:id="@+id/btnProfile"
@@ -179,11 +195,10 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="32dp"
             android:background="@drawable/button"
-            android:text="Save Profile"
+            android:text="@string/save_profile"
             android:textColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="50dp"
             android:gravity="center"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
