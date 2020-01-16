@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context="asiantech.internship.summer.layout.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/gl1"
@@ -88,7 +88,9 @@
             android:hint="@string/edittext_hint_user_email"
             app:layout_constraintTop_toBottomOf="@+id/tvEmail"
             app:layout_constraintEnd_toEndOf="@id/g3"
-            app:layout_constraintStart_toStartOf="@id/g2"/>
+            app:layout_constraintStart_toStartOf="@id/g2"
+            tools:ignore="Autofill"
+            android:inputType="text"/>
 
         <TextView
             android:id="@+id/tvPassword"
@@ -117,7 +119,9 @@
             android:hint="@string/edittext_hint_password"
             app:layout_constraintTop_toBottomOf="@+id/tvPassword"
             app:layout_constraintEnd_toEndOf="@id/g3"
-            app:layout_constraintStart_toStartOf="@id/g2"/>
+            app:layout_constraintStart_toStartOf="@id/g2"
+            tools:ignore="Autofill"
+            android:inputType="textPassword"/>
 
         <Button
             android:textColor="#FFFFFF"

@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/g1"
@@ -80,9 +81,11 @@
             android:layout_width="@dimen/layout_width_376dp"
             android:layout_height="wrap_content"
             android:hint="@string/edittext_hint_fullname"
+            android:inputType="text"
             app:layout_constraintTop_toBottomOf="@+id/tvFullnameprofile"
             app:layout_constraintEnd_toEndOf="@id/g2"
-            app:layout_constraintStart_toStartOf="@id/g1"/>
+            app:layout_constraintStart_toStartOf="@id/g1"
+            tools:ignore="Autofill" />
 
         <TextView
             android:id="@+id/tvBio"
@@ -100,9 +103,12 @@
             android:layout_width="@dimen/layout_width_376dp"
             android:layout_height="wrap_content"
             android:hint="@string/edittext_hint_potato_master"
-            app:layout_constraintTop_toBottomOf="@+id/tvBio"
             app:layout_constraintEnd_toEndOf="@id/g2"
-            app:layout_constraintStart_toStartOf="@id/g1"/>
+            app:layout_constraintHorizontal_bias="0.333"
+            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintTop_toBottomOf="@+id/tvBio"
+            android:inputType="text"
+            tools:ignore="Autofill"/>
 
         <TextView
             android:id="@+id/tvPrivateInformation"
@@ -133,7 +139,9 @@
             android:hint="@string/edittext_hint_user_email"
             app:layout_constraintTop_toBottomOf="@+id/tvEmaiiEdit"
             app:layout_constraintEnd_toEndOf="@id/g2"
-            app:layout_constraintStart_toStartOf="@id/g1"/>
+            app:layout_constraintStart_toStartOf="@id/g1"
+            android:inputType="text"
+            tools:ignore="Autofill"/>
 
         <TextView
             android:id="@+id/tvPhone"
@@ -154,7 +162,9 @@
             android:hint="@string/edittext_hint_phone"
             app:layout_constraintEnd_toEndOf="@id/g2"
             app:layout_constraintStart_toStartOf="@id/g1"
-            app:layout_constraintTop_toBottomOf="@+id/tvPhone" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPhone"
+            tools:ignore="Autofill"
+            android:inputType="phone"/>
 
         <Button
             android:textColor="@color/textview_textcolor_white"
