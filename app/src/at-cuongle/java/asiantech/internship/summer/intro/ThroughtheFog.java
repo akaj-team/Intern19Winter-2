@@ -33,7 +33,6 @@ public class ThroughtheFog {
         double newDeposit = deposit;
         while (newDeposit < threshold) {
             newDeposit = newDeposit + (newDeposit * rate) / 100;
-            System.out.println(newDeposit);
             cout++;
         }
         return cout;
