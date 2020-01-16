@@ -8,9 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <Button
-            android:id="@+id/imgBtnCreateAccount"
+            android:id="@+id/btnCreateAccount"
             android:layout_width="0dp"
             android:layout_height="@dimen/height_54_dp"
             android:layout_marginTop="@dimen/margin_top_28dp"
@@ -94,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgBtnCreateAccount" />
+            app:layout_constraintTop_toBottomOf="@+id/btnCreateAccount" />
 
         <TextView
             android:id="@+id/tvLoginHere"

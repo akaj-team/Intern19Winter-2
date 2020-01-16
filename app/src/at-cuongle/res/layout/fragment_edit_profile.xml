@@ -80,17 +80,6 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
-        <ImageButton
-            android:id="@+id/imgBtnBack"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="60dp"
-            android:background="@color/color_while"
-            android:src="@drawable/img_back_button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/imgAvatar"
             android:layout_width="100dp"
@@ -119,17 +108,18 @@
             app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
         <TextView
-            android:id="@+id/tvBack"
+            android:id="@+id/imgBtnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="60dp"
+            android:drawableLeft="@drawable/ic_back_left_black_24dp"
             android:fontFamily="Nunito-Regular"
             android:text="@string/textview_back_to_profile"
             android:textColor="@color/color_gray"
             android:textSize="18dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imgBtnBack" />
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tvPrivate"
