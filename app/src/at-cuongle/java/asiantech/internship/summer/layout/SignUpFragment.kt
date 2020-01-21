@@ -52,6 +52,5 @@ class SignUpFragment : Fragment() {
             mEmail = edtEmail.text.toString()
             (activity as? LayoutMainActivity)?.replaceFragment(LoginFragment.newInstance(mName, mEmail))
         }
-
     }
 }

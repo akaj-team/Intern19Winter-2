@@ -40,7 +40,6 @@ class UserProfileFragment : Fragment() {
             mEmail = it.getString(ARG_EMAIL).toString()
             mAvatar = it.getString(ARG_AVATAR).toString()
         }
-
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +50,9 @@ class UserProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         tvName.text = mName
-        imgAvatar.setImageURI(mAvatar.toUri())
+        if (mAvatar != "") {
+            imgAvatar.setImageURI(mAvatar.toUri())
+        }
         imgEditProfile.setOnClickListener {
             (activity as LayoutMainActivity).replaceFragment(EditProfileFragment.newInstance(mName, mEmail))
         }

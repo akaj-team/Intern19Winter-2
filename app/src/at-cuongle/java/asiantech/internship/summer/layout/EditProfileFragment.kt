@@ -115,7 +115,6 @@ class EditProfileFragment : Fragment() {
             mAvatar = imgBackGround.toString()
             tvBack.setOnClickListener {
                 (activity as? LayoutMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, mAvatar))
-
             }
         }
     }
@@ -131,5 +130,4 @@ class EditProfileFragment : Fragment() {
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgBackGround)
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
     }
-
 }
