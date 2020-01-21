@@ -2,15 +2,12 @@ package asiantech.internship.summer.layout
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_login.*
-
-//import asiantech.internship.summer.cuongle.debug.R
 
 /**
  * A simple [Fragment] subclass.
@@ -48,8 +45,7 @@ class LoginFragment : Fragment() {
         edtEmail.setText(mEmail)
         btnLogin.setOnClickListener {
             mEmail = edtEmail.text.toString()
-            Log.i("XXX", "111")
-            (activity as? LayoutMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail))
+            (activity as? LayoutMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, ""))
         }
     }
 }

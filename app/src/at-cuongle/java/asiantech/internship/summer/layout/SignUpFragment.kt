@@ -2,7 +2,6 @@ package asiantech.internship.summer.layout
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,7 +34,6 @@ class SignUpFragment : Fragment() {
             mName = it.getString(ARG_NAME).toString()
             mEmail = it.getString(ARG_EMAIL).toString()
         }
-        Log.i("XXX", "$mName / $mEmail")
     }
 
     override fun onCreateView(
@@ -49,7 +47,6 @@ class SignUpFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         edtFullName.setText(mName)
         edtEmail.setText(mEmail)
-        Log.i("XXX", "$mName / $mEmail")
         btnCreateAccount.setOnClickListener {
             mName = edtFullName.text.toString()
             mEmail = edtEmail.text.toString()
@@ -57,5 +54,4 @@ class SignUpFragment : Fragment() {
         }
 
     }
-
 }

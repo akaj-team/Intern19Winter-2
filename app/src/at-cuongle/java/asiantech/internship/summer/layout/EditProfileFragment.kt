@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +18,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_edit_profile.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -32,7 +32,6 @@ class EditProfileFragment : Fragment() {
     companion object {
         private const val ARG_NAME = "name"
         private const val ARG_EMAIL = "email"
-        private const val ARG_AVATAR = "avatar"
         private const val PERMISSION_CODE = 100
         private const val IMAGE_CAPTURE_CODE = 101
 
@@ -42,8 +41,6 @@ class EditProfileFragment : Fragment() {
                 putString(ARG_EMAIL, mEmail)
             }
         }
-
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +49,6 @@ class EditProfileFragment : Fragment() {
             mName = it?.getString(ARG_NAME).toString()
             mEmail = it?.getString(ARG_EMAIL).toString()
         }
-        Log.i("XXX", "$mName / $mEmail")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -85,13 +81,10 @@ class EditProfileFragment : Fragment() {
                         )
                     }
                     == PackageManager.PERMISSION_DENIED) {
-                //permission was not enabled
                 val permission =
                         arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                //show popup to request permission
                 requestPermissions(permission, PERMISSION_CODE)
             } else {
-                //permission already granted
                 openCamera()
             }
         } else {
@@ -104,14 +97,11 @@ class EditProfileFragment : Fragment() {
             permissions: Array<out String>,
             grantResults: IntArray
     ) {
-        //called when user presses ALLOW or DENY from Permission Request Popup
         when (requestCode) {
             PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //permission from popup was granted
                     openCamera()
                 } else {
-                    //permission from popup was denied
                     Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -122,6 +112,11 @@ class EditProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             imgAvatar.setImageURI(imgBackGround)
+            mAvatar = imgBackGround.toString()
+            tvBack.setOnClickListener {
+                (activity as? LayoutMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, mAvatar))
+
+            }
         }
     }
 
@@ -132,7 +127,6 @@ class EditProfileFragment : Fragment() {
         imgFromCamera.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
         imgBackGround =
                 resolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, imgFromCamera)
-        //camera intent
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imgBackGround)
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
