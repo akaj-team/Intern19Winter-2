@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrinhNguyen</string>
+    <string name="app_name">UyenNguyen</string>
     <string name="edittext_hint_your_email">Your email</string>
     <string name="welcome_back">Welcome Back!</string>
     <string name="please_login_to_continue">Please login to continue.</string>
@@ -36,4 +36,13 @@
     <string name="your_full_name_in_signin">Your full name</string>
     <string name="your_email_in_signin">Your email</string>
     <string name="your_password_in_signin">Your password</string>
+    <string name="my_kitchen">My Kitchen</string>
+    <string name="settings">Settings</string>
+    <string name="nick_evans">Nick Evans</string>
+    <string name="potato_master">Potato Master</string>
+    <string name="_584_followers">584 followers</string>
+    <string name="message_no_storage_permission_snackbar">You have to accept the permission</string>
+    <string name="your_email_in_login">your emaij</string>
+    <string name="your_password_in_login">your password</string>
+    <string name="_23k_likes">23k likes</string>
 </resources>

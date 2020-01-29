@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnSignin"
+            android:layout_width="304dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button"
+            android:fontFamily="Nunito-Bold"
+            android:gravity="center"
+            android:text="@string/create_account"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/editPass1" />
+
+        <EditText
+            android:id="@+id/editName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:textColor="#030F09"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/textName"
+            app:layout_constraintTop_toBottomOf="@id/textName"
+            android:hint="@string/your_full_name_in_signin"
+            android:textColorHint="#ACA8A8"
+            android:inputType="text"
+            tools:ignore="autofill" />
+
+        <EditText
+            android:id="@+id/editEmail1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:textColor="#030F09"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/textEmail1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textEmail1"
+            android:hint="@string/your_email_in_signin"
+            android:textColorHint="#ACA8A8"
+            android:inputType="textEmailAddress"
+            tools:ignore="autofill" />
+
+        <EditText
+            android:id="@+id/editPass1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:inputType="textPassword"
+            android:textColor="#030F09"
+            android:textSize="16sp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="@id/textPass1"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textPass1"
+            android:hint="@string/your_password_in_signin"
+            android:textColorHint="#ACA8A8"
+            tools:ignore="autofill" />
+
+        <ImageView
+            android:id="@+id/head1"
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/header"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="17.8dp"
+            android:layout_height="25.81dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="61dp"
+            android:src="@drawable/loco"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textLogo"
+            android:layout_width="70dp"
+            android:layout_height="27dp"
+            android:layout_marginLeft="10dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/scratch"
+            android:textColor="#363837"
+            android:textSize="20sp"
+            app:layout_constraintStart_toEndOf="@id/logo"
+            app:layout_constraintTop_toTopOf="@id/logo" />
+
+        <TextView
+            android:id="@+id/start"
+            android:layout_width="304.14dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="48dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/start_nfrom_scratch"
+            android:textColor="#030F09"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/logo"
+            app:layout_constraintTop_toBottomOf="@id/logo" />
+
+        <TextView
+            android:id="@+id/textCreate"
+            android:layout_width="200.14dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/create_account_to_continue"
+            android:textColor="#606060"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/start"
+            app:layout_constraintTop_toBottomOf="@id/head1" />
+
+        <TextView
+            android:id="@+id/textName"
+            android:layout_width="65dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="20dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/full_name"
+            android:textColor="#A8A8A8"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/textCreate"
+            app:layout_constraintTop_toBottomOf="@id/textCreate" />
+
+        <TextView
+            android:id="@+id/textEmail1"
+            android:layout_width="35dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/email"
+            android:textColor="#A8A8A8"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/editName"
+            app:layout_constraintTop_toBottomOf="@id/editName" />
+
+        <TextView
+            android:id="@+id/textPass1"
+            android:layout_width="65dp"
+            android:layout_height="19dp"
+            android:layout_marginTop="12dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/password"
+            android:textColor="#A8A8A8"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/editEmail1"
+            app:layout_constraintTop_toBottomOf="@id/editEmail1" />
+
+        <TextView
+            android:id="@+id/textReady"
+            android:layout_width="173.34dp"
+            android:layout_height="22dp"
+            android:layout_marginTop="28dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/already_have_an_account"
+            android:textColor="#A8A8A8"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnSignin" />
+
+        <TextView
+            android:id="@+id/head"
+            android:layout_width="167dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/login_here"
+            android:textColor="#30BE76"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textReady" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

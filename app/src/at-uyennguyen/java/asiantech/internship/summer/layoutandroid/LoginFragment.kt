@@ -17,10 +17,15 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         btnLogin.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                val fragmentManager = activity?.supportFragmentManager
-                val fragmentTransaction = fragmentManager?.beginTransaction()
-                val signinFragment: SigninFragment = SigninFragment()
-                fragmentTransaction?.replace(R.id.frameLayout, signinFragment)?.commit()
+//                val fragmentManager = activity?.supportFragmentManager
+//                val fragmentTransaction = fragmentManager?.beginTransaction()
+//                val signinFragment: RegisterFragment = RegisterFragment()
+//                fragmentTransaction?.replace(R.id.frameLayout, signinFragment)?.commit()
+                val userProfileFragment: UserProfileFragment = UserProfileFragment()
+                activity?.supportFragmentManager?.beginTransaction()
+                        ?.replace(R.id.frameLayout, userProfileFragment)
+                        ?.addToBackStack(null)
+                        ?.commit()
             }
         })
     }

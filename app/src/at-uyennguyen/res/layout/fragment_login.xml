@@ -4,10 +4,12 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageView
             android:id="@+id/head"
             android:layout_width="match_parent"
@@ -15,7 +17,8 @@
             android:src="@drawable/header"
             android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            app:layout_constraintLeft_toLeftOf="parent" />
+
         <ImageView
             android:id="@+id/logo"
             android:layout_width="17.8dp"
@@ -24,7 +27,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="56dp"
-            android:layout_marginLeft="24dp"/>
+            android:layout_marginLeft="24dp" />
+
         <TextView
             android:id="@+id/textLogo"
             android:layout_width="70dp"
@@ -37,7 +41,8 @@
             app:layout_constraintBottom_toBottomOf="@id/logo"
             app:layout_constraintStart_toEndOf="@id/logo"
             android:layout_marginTop="0dp"
-            android:layout_marginLeft="12dp"/>
+            android:layout_marginLeft="12dp" />
+
         <TextView
             android:id="@+id/welcome"
             android:layout_width="304.14dp"
@@ -50,6 +55,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="72dp"
             android:textColor="#030F09" />
+
         <TextView
             android:id="@+id/please"
             android:layout_width="200dp"
@@ -61,6 +67,7 @@
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@id/welcome"
             app:layout_constraintTop_toBottomOf="@id/head" />
+
         <TextView
             android:id="@+id/textEmail"
             android:layout_width="92dp"
@@ -71,6 +78,7 @@
             app:layout_constraintTop_toBottomOf="@id/please"
             app:layout_constraintLeft_toLeftOf="@id/please"
             android:layout_marginTop="36dp" />
+
         <EditText
             android:id="@+id/editEmail"
             android:layout_width="0dp"
@@ -85,7 +93,8 @@
             android:hint="@string/your_email_in_login"
             android:textColorHint="#ACA8A8"
             android:inputType="textEmailAddress"
-            tools:ignore="Autofill"/>
+            tools:ignore="Autofill" />
+
         <TextView
             android:id="@+id/textPass"
             android:layout_width="65dp"
@@ -96,6 +105,7 @@
             app:layout_constraintTop_toBottomOf="@id/editEmail"
             app:layout_constraintLeft_toLeftOf="@id/editEmail"
             android:layout_marginTop="12dp" />
+
         <TextView
             android:id="@+id/forgot"
             android:layout_width="120dp"
@@ -105,7 +115,8 @@
             android:textSize="14sp"
             app:layout_constraintTop_toTopOf="@id/textPass"
             app:layout_constraintStart_toEndOf="@id/textPass"
-            android:layout_marginLeft="140dp"/>
+            android:layout_marginLeft="140dp" />
+
         <EditText
             android:id="@+id/editPass"
             android:layout_width="0dp"
@@ -120,7 +131,8 @@
             android:layout_marginRight="25dp"
             android:hint="@string/your_password_in_login"
             android:textColorHint="#ACA8A8"
-            tools:ignore="Autofill"/>
+            tools:ignore="Autofill" />
+
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="289.53dp"
@@ -135,6 +147,7 @@
             app:layout_constraintLeft_toLeftOf="@id/editPass"
             app:layout_constraintRight_toRightOf="@+id/editPass"
             app:layout_constraintTop_toBottomOf="@id/editPass" />
+
         <TextView
             android:id="@+id/scratch"
             android:layout_width="173.34dp"
@@ -147,6 +160,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="28dp" />
+
         <TextView
             android:id="@+id/create"
             android:layout_width="167dp"
@@ -159,6 +173,6 @@
             app:layout_constraintLeft_toLeftOf="@id/scratch"
             android:layout_marginTop="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="50dp"/>
+            android:layout_marginBottom="50dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
