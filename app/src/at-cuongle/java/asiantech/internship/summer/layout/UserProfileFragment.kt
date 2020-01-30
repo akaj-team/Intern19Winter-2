@@ -10,10 +10,6 @@ import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_user_profile.*
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class UserProfileFragment : Fragment() {
     private var mName = ""
     private var mEmail = ""
@@ -54,8 +50,7 @@ class UserProfileFragment : Fragment() {
             imgAvatar.setImageURI(mAvatar.toUri())
         }
         imgEditProfile.setOnClickListener {
-            (activity as LayoutMainActivity).replaceFragment(EditProfileFragment.newInstance(mName, mEmail))
+            (activity as LayoutMainActivity).replaceFragment(EditProfileFragment.newInstance(mName, mEmail, mAvatar))
         }
     }
-
 }

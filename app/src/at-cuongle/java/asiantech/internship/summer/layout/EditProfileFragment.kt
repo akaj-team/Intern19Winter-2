@@ -15,14 +15,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_edit_profile.*
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class EditProfileFragment : Fragment() {
     private var mName: String = ""
     private var mEmail: String = ""
@@ -32,13 +29,15 @@ class EditProfileFragment : Fragment() {
     companion object {
         private const val ARG_NAME = "name"
         private const val ARG_EMAIL = "email"
+        private const val ARG_AVATAR = "avatar"
         private const val PERMISSION_CODE = 100
         private const val IMAGE_CAPTURE_CODE = 101
 
-        fun newInstance(mName: String, mEmail: String) = EditProfileFragment().apply {
+        fun newInstance(mName: String, mEmail: String, mAvatar: String) = EditProfileFragment().apply {
             arguments = Bundle().apply {
                 putString(ARG_NAME, mName)
                 putString(ARG_EMAIL, mEmail)
+                putString(ARG_AVATAR, mAvatar)
             }
         }
     }
@@ -48,6 +47,7 @@ class EditProfileFragment : Fragment() {
         arguments.let {
             mName = it?.getString(ARG_NAME).toString()
             mEmail = it?.getString(ARG_EMAIL).toString()
+            mAvatar = it?.getString(ARG_AVATAR).toString()
         }
     }
 
@@ -60,8 +60,14 @@ class EditProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         edtFullName.setText(mName)
         edtEmail.setText(mEmail)
+        if (mAvatar != "") {
+            imgAvatar.setImageURI(mAvatar.toUri())
+        }
         imgAvatar.setOnClickListener {
             requestPermission()
+        }
+        tvBack.setOnClickListener {
+            (activity as? LayoutMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, mAvatar))
         }
         btnSave.setOnClickListener {
             mName = edtFullName.text.toString()
@@ -113,9 +119,6 @@ class EditProfileFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             imgAvatar.setImageURI(imgBackGround)
             mAvatar = imgBackGround.toString()
-            tvBack.setOnClickListener {
-                (activity as? LayoutMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, mAvatar))
-            }
         }
     }
 
