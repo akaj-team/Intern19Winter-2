@@ -1,14 +1,11 @@
 package asiantech.internship.summer.layout
 
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import asiantech.internship.summer.MainActivity
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-nguyenha`.fragment_register.*
 
@@ -23,12 +20,6 @@ class RegisterFragment : Fragment() {
     companion object {
         private const val ARG_NAME = "name"
         private const val ARG_EMAIL = "email"
-        fun newInstance(mName: String, mEmail: String) = RegisterFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_NAME, mName)
-                putString(ARG_EMAIL, mEmail)
-            }
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.net.toUri
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.main.fragment_user_profile.*

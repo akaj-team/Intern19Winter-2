@@ -71,7 +71,7 @@ class EditProfileFragment : Fragment() {
             requestPermission()
         }
         imgBack.setOnClickListener {
-            (activity as? MyMainActiviry)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, mAvatar))
+            (activity as? MyMainActiviry)?.replaceFragment(UserProfileFragment())
         }
         btnEditProfie.setOnClickListener {
             mName = edtFullnameprofile.text.toString()
