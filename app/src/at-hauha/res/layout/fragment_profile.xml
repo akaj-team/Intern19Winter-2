@@ -19,11 +19,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEditProfile"
+            app:layout_constraintTop_toBottomOf="@+id/txtUserProfile"
             tools:ignore="RedundantNamespace" />
 
         <TextView
-            android:id="@+id/txtEditProfile"
+            android:id="@+id/txtUserProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_20"
@@ -85,7 +85,7 @@
 
         <EditText
             android:hint="@string/edit_hint_your_name"
-            android:id="@+id/editFullName"
+            android:id="@+id/edtFullName"
             android:layout_width="@dimen/width_348"
             android:layout_height="@dimen/height_48"
             android:text="@string/edittext_nich_evans"
@@ -105,7 +105,7 @@
             android:layout_marginTop="@dimen/margin_top_20"
             android:text="@string/textview_bio"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editFullName" />
+            app:layout_constraintTop_toBottomOf="@+id/edtFullName" />
 
         <EditText
             android:inputType="text"

@@ -29,4 +29,7 @@
     <dimen name="width_348">348dp</dimen>
     <dimen name="height_48">48dp</dimen>
     <dimen name="width_304">304dp</dimen>
+    <dimen name="top_152">152dp</dimen>
+    <dimen name="width_8">8dp</dimen>
+    <dimen name="left_120dp">120dp</dimen>
 </resources>

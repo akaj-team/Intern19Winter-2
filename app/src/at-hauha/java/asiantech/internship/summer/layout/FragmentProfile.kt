@@ -20,23 +20,55 @@ import android.os.Build
 
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.`at-hauha`.fragment_profile.imgAvatar
 
 
 class FragmentProfile : Fragment() {
-    private val PERMISSION_CODE = 1000
-    private val IMAGE_CAPTURE_CODE = 1001
+
     var image_uri: Uri? = null
+    private var mName = ""
+    private var mEmail = ""
+    private var mAvatar = ""
 
     companion object {
-        fun getInstance() = FragmentProfile()
+        private const val ARG_NAME = "name"
+        private const val ARG_EMAIL = "email"
+        private const val ARG_AVATAR = "avatar"
+        private val PERMISSION_CODE = 1000
+        private val IMAGE_CAPTURE_CODE = 1001
+
+        fun newInstance(mName: String, mEmail: String, mAvatar: String) = FragmentProfile().apply {
+            arguments = Bundle().apply {
+                putString(ARG_NAME, mName)
+                putString(ARG_EMAIL, mEmail)
+                putString(ARG_AVATAR, mAvatar)
+
+            }
+        }
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        arguments?.let {
+            mName = it.get(ARG_NAME).toString()
+            mEmail = it.get(ARG_EMAIL).toString()
+            mAvatar = it.get(ARG_AVATAR).toString()
+        }
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        edtFullName.setText(mName)
+        //edtEmail.setText(mEmail)
+        if("".equals(mAvatar)){
+            imgAvatar.setImageURI(Uri.parse(mAvatar))
+        }
         txtEditProfilePicture.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
@@ -90,7 +122,26 @@ class FragmentProfile : Fragment() {
         if (resultCode == android.app.Activity.RESULT_OK) {
             //set image captured to image view
             imgAvatar.setImageURI(image_uri)
+            mAvatar = image_uri.toString()
+            txtBack.setOnClickListener {
+                mName = edtFullName.text.toString()
+                fragmentManager?.beginTransaction()
+                        ?.replace(R.id.flContainer, FragmentUserProfile.newInstance(mName, mEmail, mAvatar), null)
+                        ?.addToBackStack(null)
+                        ?.commit()
+            }
         }
     }
+//    interface UpdateData{
+//        fun updateData(image_uri:Uri){
+//        }
+//    }
 
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//       var callBack = context as? UpdateData
+//        if (callBack == null) {
+//            throw ClassCastException("$context must implement OnArticleSelectedListener")
+//        }
+//    }
 }
