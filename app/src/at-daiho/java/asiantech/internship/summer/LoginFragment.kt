@@ -1,12 +1,11 @@
 package asiantech.internship.summer
 
-
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.`at-daiho`.fragment_edit_profile.*
+import androidx.fragment.app.Fragment
+import kotlinx.android.synthetic.`at-daiho`.fragment_login.*
 
 
 class LoginFragment : Fragment() {
@@ -21,5 +20,20 @@ class LoginFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btSignUp.setOnClickListener {
+            fragmentManager?.beginTransaction()
+                    ?.replace(R.id.flRootContainer, SignUpFragment.getInstance(), null)
+                    ?.addToBackStack(null)
+                    ?.commit()
+        }
+        btLogin.setOnClickListener {
+            fragmentManager?.beginTransaction()
+                    ?.replace(R.id.flRootContainer, EditProfileFragment.getInstance(), null)
+                    ?.addToBackStack(null)
+                    ?.commit()
+        }
+    }
 
 }

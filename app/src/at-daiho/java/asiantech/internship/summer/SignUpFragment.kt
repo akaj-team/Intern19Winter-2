@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.`at-daiho`.fragment_edit_profile.*
+import kotlinx.android.synthetic.`at-daiho`.fragment_sign_up.*
 
 class SignUpFragment : Fragment() {
 
@@ -17,5 +17,21 @@ class SignUpFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_sign_up, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        btSubmit.setOnClickListener {
+            fragmentManager?.beginTransaction()
+                    ?.replace(R.id.flRootContainer, EditProfileFragment.getInstance(), null)
+                    ?.addToBackStack(null)
+                    ?.commit()
+        }
+        btLogin.setOnClickListener {
+            fragmentManager?.beginTransaction()
+                    ?.replace(R.id.flRootContainer, LoginFragment.getInstance(), null)
+                    ?.addToBackStack(null)
+                    ?.commit()
+        }
     }
 }
