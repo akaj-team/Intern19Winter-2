@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="asiantech.internship.summer.layout.LoginFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="284dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/g2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"/>
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/g3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95"/>
+
+        <ImageView
+            android:id="@+id/imageHeader"
+            android:layout_width="match_parent"
+            android:layout_height="284dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_header"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="92dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="60dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:src="@drawable/image_logo"/>
+
+        <TextView
+            android:layout_width="@dimen/layout_width_304dp"
+            android:layout_height="@dimen/layout_height_32dp"
+            app:layout_constraintTop_toBottomOf="@id/imgLogo"
+            app:layout_constraintLeft_toLeftOf="@id/imgLogo"
+            android:layout_marginTop="@dimen/layout_margintop_44dp"
+            android:fontFamily="Nunito-Bold"
+            android:textSize="@dimen/textview_textsize_24sp"
+            android:text="@string/textview_text_welcome_back"/>
+
+        <TextView
+            android:textSize="@dimen/textview_textsize_14sp"
+            android:id="@+id/tvLogin"
+            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margintop_20dp"
+            app:layout_constraintTop_toBottomOf="@+id/imageHeader"
+            app:layout_constraintLeft_toLeftOf="@+id/g2"
+            android:text="@string/textview_text_please_login"
+            android:fontFamily="Nunito-Regular"/>
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_height="@dimen/layout_height_20dp"
+            android:text="@string/textview_text_email_address"
+            android:layout_marginTop="30dp"
+            android:textSize="@dimen/textview_textsize_14sp"
+            app:layout_constraintTop_toBottomOf="@+id/tvLogin"
+            app:layout_constraintLeft_toRightOf="@+id/g2"/>
+
+        <EditText
+            android:id="@+id/edtEmailLogin"
+            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/edittext_hint_user_email"
+            app:layout_constraintTop_toBottomOf="@+id/tvEmail"
+            app:layout_constraintEnd_toEndOf="@id/g3"
+            app:layout_constraintStart_toStartOf="@id/g2"
+            tools:ignore="Autofill"
+            android:inputType="text"/>
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_height="@dimen/layout_height_20dp"
+            android:text="@string/textview_text_password"
+            android:layout_marginTop="@dimen/layout_height_32dp"
+            android:textSize="@dimen/textview_textsize_14sp"
+            app:layout_constraintTop_toBottomOf="@+id/edtEmailLogin"
+            app:layout_constraintLeft_toRightOf="@+id/g2"/>
+
+        <TextView
+            android:id="@+id/tvForgotpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/layout_height_20dp"
+            android:text="@string/textview_text_forgot_password"
+            android:textSize="@dimen/textview_textsize_14sp"
+            app:layout_constraintRight_toRightOf="@id/edtEmailLogin"
+            app:layout_constraintTop_toTopOf="@id/tvPassword"/>
+
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/edittext_hint_password"
+            app:layout_constraintTop_toBottomOf="@+id/tvPassword"
+            app:layout_constraintEnd_toEndOf="@id/g3"
+            app:layout_constraintStart_toStartOf="@id/g2"
+            tools:ignore="Autofill"
+            android:inputType="textPassword"/>
+
+        <Button
+            android:textColor="#FFFFFF"
+            android:id="@+id/btnLogin"
+            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_height="@dimen/layout_height_52dp"
+            app:layout_constraintStart_toStartOf="@id/g2"
+            app:layout_constraintEnd_toEndOf="@id/g3"
+            android:background="@drawable/button"
+            android:text="@string/button_text_login"
+
+            app:layout_constraintTop_toBottomOf="@id/edtPassword"
+            android:layout_marginTop="@dimen/layout_margintop_20dp"/>
+
+        <TextView
+            android:id="@+id/tvSratch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margintop_20dp"
+            android:text="@string/textview_text_new_to_sratch"
+            android:textSize="@dimen/textview_textsize_14sp"
+            app:layout_constraintLeft_toLeftOf="@id/g2"
+            app:layout_constraintRight_toRightOf="@id/g3"
+            app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textview_color_account"
+            android:text="@string/textview_text_create_account_here"
+            android:layout_marginBottom="40dp"
+            app:layout_constraintTop_toBottomOf="@id/tvSratch"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/g2"
+            app:layout_constraintRight_toRightOf="@id/g3"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
