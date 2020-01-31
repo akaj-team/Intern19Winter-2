@@ -8,12 +8,14 @@ import android.view.ViewGroup
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.`at-cuongle`.fragment_user_profile.*
 
 class UserProfileFragment : Fragment() {
     private var mName = ""
     private var mEmail = ""
     private var mAvatar = ""
+    private lateinit var tabLayout: TabLayout
 
     companion object {
         private const val ARG_NAME = "name"
@@ -40,7 +42,9 @@ class UserProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_user_profile, container, false)
+        val view = inflater.inflate(R.layout.fragment_user_profile, container, false)
+        tabLayout = view.findViewById(R.id.tabLayout)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,5 +56,19 @@ class UserProfileFragment : Fragment() {
         imgEditProfile.setOnClickListener {
             (activity as LayoutMainActivity).replaceFragment(EditProfileFragment.newInstance(mName, mEmail, mAvatar))
         }
+        setupViewPager()
+
+
+    }
+
+    private fun setupViewPager() {
+        val adapter = FragmentPagerAdapter(childFragmentManager)
+        adapter.apply {
+            addFragment(RecipesFragment(), getString(R.string.tablayout_title_recipes))
+            addFragment(RecipesFragment(), getString(R.string.tablayout_title_saved))
+            addFragment(RecipesFragment(), getString(R.string.tablayout_title_following))
+        }
+        viewPager.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
     }
 }

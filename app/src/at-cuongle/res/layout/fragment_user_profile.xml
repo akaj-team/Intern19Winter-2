@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/imgEditProfile"
@@ -89,6 +86,27 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineCenter"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
+        <View
+            android:id="@+id/vLineBottom"
+            android:layout_width="@dimen/width_0_dp"
+            android:layout_height="@dimen/view_line_1_dp"
+            android:background="@color/color_gray"
+            app:layout_constraintBottom_toBottomOf="@+id/tabLayout"
+            app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
+        <View
+            android:id="@+id/vLineTop"
+            android:layout_width="@dimen/width_0_dp"
+            android:layout_height="@dimen/view_line_1_dp"
+            android:layout_marginTop="24dp"
+            android:background="@color/color_gray"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineLeft"
             android:layout_width="wrap_content"
@@ -110,15 +128,35 @@
             android:orientation="vertical"
             app:layout_constraintGuide_begin="143dp" />
 
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="@dimen/width_0_dp"
+            android:layout_height="80dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/vLineTop"
+            app:tabIndicator="@drawable/background_tab_indicator"
+            app:tabIndicatorColor="@color/color_green"
+            app:tabIndicatorHeight="@dimen/height_indicator_tablayout"
+            app:tabSelectedTextColor="@color/color_black"
+            app:tabTextAppearance="@style/MineCustomTabText"
+            app:tabTextColor="@color/color_gray" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgAvatar"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="@dimen/margin_top_24_Dp"
             android:src="@drawable/img_avatar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvMyKitchen" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

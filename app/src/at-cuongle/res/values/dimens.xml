@@ -11,5 +11,9 @@
     <dimen name="margin_top_40_dp">40dp</dimen>
     <dimen name="width_edt_362dp">362dp</dimen>
     <dimen name="margin_top_28dp">28dp</dimen>
+    <dimen name="height_indicator_tablayout">5dp</dimen>
+    <dimen name="width_0_dp">0dp</dimen>
+    <dimen name="view_line_1_dp">1dp</dimen>
+    <dimen name="margin_top_24_Dp">24dp</dimen>
 
 </resources>

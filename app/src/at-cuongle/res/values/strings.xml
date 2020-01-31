@@ -40,4 +40,8 @@
     <string name="textview_23k_likes">23k likes</string>
     <string name="textview_584_followers">584 followers</string>
     <string name="textview_dot">.</string>
+    <string name="tablayout_title_recipes">20  \n  Recipes</string>
+    <string name="tablayout_title_saved">75  \n  Saved</string>
+    <string name="tablayout_title_following">248  \n Following</string>
+
 </resources>
