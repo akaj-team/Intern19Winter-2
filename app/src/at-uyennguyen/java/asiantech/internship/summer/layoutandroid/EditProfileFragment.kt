@@ -58,12 +58,7 @@ class EditProfileFragment : Fragment(){
         })
         textBack.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
-               val userProfileFragment = UserProfileFragment()
-                //userProfileFragment.userToEdit = this@EditProfileFragment
-                activity?.supportFragmentManager?.beginTransaction()
-                        ?.add(R.id.frameLayout,userProfileFragment)
-                        ?.addToBackStack(null)
-                        ?.commit()
+                this@EditProfileFragment.fragmentManager?.popBackStack()
             }
         })
         btnProfile.setOnClickListener(object : View.OnClickListener {
