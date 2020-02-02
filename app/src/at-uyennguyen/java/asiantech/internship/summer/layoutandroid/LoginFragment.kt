@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_login.*
 
-class LoginFragment : Fragment(), Profile{
+class LoginFragment : Fragment(){
     companion object{
         val EMAIL: String="email"
         val PASS:String="pass"
@@ -23,10 +23,10 @@ class LoginFragment : Fragment(), Profile{
             return loginFragment
         }
     }
-    override fun profileLogin(fullName: String, email: String, password: String) {
-        editEmail.setText(email)
-        editPass.setText(password)
-    }
+//    override fun profileLogin(fullName: String, email: String, password: String) {
+//        editEmail.setText(email)
+//        editPass.setText(password)
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
@@ -39,9 +39,6 @@ class LoginFragment : Fragment(), Profile{
         var fullName : String? =arguments?.getString(NAME)
         btnLogin.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-//                val userProfileFragment: UserProfileFragment = UserProfileFragment()
-                val registerFragment: RegisterFragment=RegisterFragment()
-                registerFragment.profile = this@LoginFragment
                     activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.frameLayout,UserProfileFragment.newProfile(fullName.toString(),editEmail.text.toString()))
                             ?.addToBackStack(null)

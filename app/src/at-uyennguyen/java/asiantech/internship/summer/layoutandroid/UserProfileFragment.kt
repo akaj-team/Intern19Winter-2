@@ -3,7 +3,6 @@ package asiantech.internship.summer.layoutandroid
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,12 +11,14 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_user_profile.*
 
 class UserProfileFragment : Fragment(), ChangeAvatar {
+
     override fun profile(fullname: String, bio: String) {
         name.setText(fullname)
         address.setText(bio)
-        Log.d("text", "ok")
     }
-
+    override fun imageUser(img: Bitmap?) {
+        avatar.setImageBitmap(img)
+    }
     companion object{
         val NAME:String="name"
         val EMAIL:String="email"
@@ -30,15 +31,6 @@ class UserProfileFragment : Fragment(), ChangeAvatar {
             return userProfileFragment
         }
     }
-    lateinit var picture:Bitmap
-
-
-    override fun imageUser(img: Bitmap?) {
-//        picture=img
-        Log.d("imag", "ok")
-        avatar.setImageBitmap(img)
-    }
-     //var userToEdit: UserToEdit?=null
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_user_profile, container, false)
     }
@@ -50,8 +42,7 @@ class UserProfileFragment : Fragment(), ChangeAvatar {
         name.setText(arguments?.getString(NAME))
         penciledit.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-                //userToEdit?.imageUser(picture)
-                val editProfileFragment: EditProfileFragment = EditProfileFragment.profileEdit(name.text.toString(),emailEdit)
+                val editProfileFragment: EditProfileFragment = EditProfileFragment.profileEdit(name.text.toString(),emailEdit,address.text.toString())
                 editProfileFragment.changeAvatar = this@UserProfileFragment
                 editProfileFragment.bitMap = (avatar.getDrawable() as BitmapDrawable).getBitmap()
                 activity?.supportFragmentManager?.beginTransaction()
@@ -61,5 +52,6 @@ class UserProfileFragment : Fragment(), ChangeAvatar {
             }
         })
     }
+
 }
 

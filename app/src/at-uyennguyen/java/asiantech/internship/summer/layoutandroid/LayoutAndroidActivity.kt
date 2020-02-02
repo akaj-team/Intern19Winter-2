@@ -15,9 +15,6 @@ class LayoutAndroidActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
     }
-
-//    override fun onAttachFragment(fragment: Fragment?) {
-//        super.onAttachFragment(fragment)
-//        (fragment as EditProfileFragment).requestPermissions(arrayOf(Manifest.permission.CAMERA), fragment.img)
-//    }
 }
+
+
