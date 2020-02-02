@@ -42,7 +42,7 @@
     <string name="potato_master">Potato Master</string>
     <string name="_584_followers">584 followers</string>
     <string name="message_no_storage_permission_snackbar">You have to accept the permission</string>
-    <string name="your_email_in_login">your emaij</string>
+    <string name="your_email_in_login">your email</string>
     <string name="your_password_in_login">your password</string>
     <string name="_23k_likes">23k likes</string>
 </resources>

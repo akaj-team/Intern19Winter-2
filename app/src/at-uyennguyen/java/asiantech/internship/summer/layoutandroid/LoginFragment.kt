@@ -8,25 +8,45 @@ import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_login.*
 
-class LoginFragment : Fragment() {
+class LoginFragment : Fragment(), Profile{
+    companion object{
+        val EMAIL: String="email"
+        val PASS:String="pass"
+        val NAME:String="name"
+        fun newInstance(email:String,pass:String,name:String): LoginFragment {
+            val loginFragment=LoginFragment()
+            val bundle=Bundle()
+            bundle.putString(EMAIL,email)
+            bundle.putString(PASS,pass)
+            bundle.putString(NAME,name)
+            loginFragment.arguments=bundle
+            return loginFragment
+        }
+    }
+    override fun profileLogin(fullName: String, email: String, password: String) {
+        editEmail.setText(email)
+        editPass.setText(password)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        editEmail.setText(arguments?.getString(EMAIL))
+        editPass.setText(arguments?.getString(PASS))
+        var fullName : String? =arguments?.getString(NAME)
         btnLogin.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
-//                val fragmentManager = activity?.supportFragmentManager
-//                val fragmentTransaction = fragmentManager?.beginTransaction()
-//                val signinFragment: RegisterFragment = RegisterFragment()
-//                fragmentTransaction?.replace(R.id.frameLayout, signinFragment)?.commit()
-                val userProfileFragment: UserProfileFragment = UserProfileFragment()
-                activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.frameLayout, userProfileFragment)
-                        ?.addToBackStack(null)
-                        ?.commit()
-            }
+//                val userProfileFragment: UserProfileFragment = UserProfileFragment()
+                val registerFragment: RegisterFragment=RegisterFragment()
+                registerFragment.profile = this@LoginFragment
+                    activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.frameLayout,UserProfileFragment.newProfile(fullName.toString(),editEmail.text.toString()))
+                            ?.addToBackStack(null)
+                            ?.commit()
+                }
         })
     }
 }
