@@ -76,7 +76,7 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
-    implementation 'androidx.activity:activity-ktx:1.1.0-rc03' // or remove -ktx if not using kotlin
-    implementation 'androidx.fragment:fragment-ktx:1.2.0-rc05' // or remove -ktx if not using kotlin
-    implementation 'androidx.appcompat:appcompat:1.2.0-alpha01'
+    implementation 'androidx.activity:activity-ktx:1.1.0' // or remove -ktx if not using kotlin
+    implementation 'androidx.fragment:fragment-ktx:1.2.0' // or remove -ktx if not using kotlin
+    implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
 }

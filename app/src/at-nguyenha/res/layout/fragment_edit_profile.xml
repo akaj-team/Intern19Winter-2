@@ -140,7 +140,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvEmaiiEdit"
             app:layout_constraintEnd_toEndOf="@id/g2"
             app:layout_constraintStart_toStartOf="@id/g1"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             tools:ignore="Autofill"/>
 
         <TextView
