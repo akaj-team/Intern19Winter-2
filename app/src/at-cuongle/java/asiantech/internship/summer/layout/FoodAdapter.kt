@@ -10,7 +10,6 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.list_item_grid_food.view.*
 
 class FoodAdapter(private val itemsTitleFood: MutableList<String>, private val itemsImgFood: MutableList<Int>) : RecyclerView.Adapter<ViewHolder>() {
-
     override fun getItemCount(): Int {
         return itemsTitleFood.size
     }

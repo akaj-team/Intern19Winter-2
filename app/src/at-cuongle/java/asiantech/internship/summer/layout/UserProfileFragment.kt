@@ -57,8 +57,6 @@ class UserProfileFragment : Fragment() {
             (activity as LayoutMainActivity).replaceFragment(EditProfileFragment.newInstance(mName, mEmail, mAvatar))
         }
         setupViewPager()
-
-
     }
 
     private fun setupViewPager() {
