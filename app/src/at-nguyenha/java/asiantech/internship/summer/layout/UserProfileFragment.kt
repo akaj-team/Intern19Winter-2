@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
 import asiantech.internship.summer.R
-import kotlinx.android.synthetic.main.fragment_user_profile.*
+import kotlinx.android.synthetic.`at-nguyenha`.fragment_user_profile.*
 
 /**
  * A simple [Fragment] subclass.
