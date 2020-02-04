@@ -15,7 +15,7 @@
             android:layout_width="96dp"
             android:layout_height="96dp"
             android:layout_marginTop="@dimen/margin_top_20"
-            android:src="@drawable/avatar"
+            android:src="@drawable/ic_avatar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/margin_top_16"
                 android:gravity="center"
-                android:src="@drawable/logo"
+                android:src="@drawable/ic_logo"
                 android:text="@string/textview_back_to_profile" />
         </LinearLayout>
 

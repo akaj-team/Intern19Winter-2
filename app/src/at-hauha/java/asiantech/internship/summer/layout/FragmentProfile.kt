@@ -66,7 +66,7 @@ class FragmentProfile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         edtFullName.setText(mName)
         //edtEmail.setText(mEmail)
-        if("".equals(mAvatar)){
+        if("" != mAvatar){
             imgAvatar.setImageURI(Uri.parse(mAvatar))
         }
         txtEditProfilePicture.setOnClickListener {

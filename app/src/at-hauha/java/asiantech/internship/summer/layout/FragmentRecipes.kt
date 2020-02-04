@@ -14,12 +14,12 @@ class FragmentRecipes : Fragment() {
 
 
     private val list: List<Food> = listOf(
-            Food("Rice", R.drawable.rice),
-            Food("Chicken", R.drawable.chicken),
-            Food("Cake", R.drawable.cake),
-            Food("Cuttle", R.drawable.cuttle),
-            Food("Noodle", R.drawable.noodle),
-            Food("Potato", R.drawable.potato)
+            Food("Rice", R.drawable.ic_rice),
+            Food("Chicken", R.drawable.ic_chicken),
+            Food("Cake", R.drawable.ic_cake),
+            Food("Cuttle", R.drawable.ic_cuttle),
+            Food("Noodle", R.drawable.ic_noodle),
+            Food("Potato", R.drawable.ic_potato)
     )
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
