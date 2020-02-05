@@ -81,7 +81,6 @@ class TimelineActivity : AppCompatActivity() {
 
     private fun loadMore() {
         isLoading = true
-        timelineItems.add(null)
         progressBar.visibility = View.INVISIBLE
         adapterTimeLine.notifyItemInserted(timelineItems.size - 1)
         initFood()
