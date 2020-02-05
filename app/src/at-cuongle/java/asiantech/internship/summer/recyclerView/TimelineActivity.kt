@@ -21,6 +21,7 @@ class TimelineActivity : AppCompatActivity() {
         initFood()
         initAdapter()
         initScrollListener()
+        pullToRefresh()
     }
 
     private fun initFood() {
@@ -84,5 +85,14 @@ class TimelineActivity : AppCompatActivity() {
         progressBar.visibility = View.INVISIBLE
         adapterTimeLine.notifyItemInserted(timelineItems.size - 1)
         initFood()
+    }
+
+    private fun pullToRefresh() {
+        itemRefresh.setOnRefreshListener {
+            timelineItems.clear()
+            initFood()
+            initAdapter()
+            itemRefresh.isRefreshing = false
+        }
     }
 }
