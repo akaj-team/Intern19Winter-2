@@ -63,5 +63,5 @@
     <string name="tv_title_8">rice is really delicious</string>
     <string name="tv_title_9">salad is really delicious</string>
     <string name="tv_title_10">cake is really delicious</string>
-
+    <string name="tv_totalLike"> %d likes.</string>
 </resources>

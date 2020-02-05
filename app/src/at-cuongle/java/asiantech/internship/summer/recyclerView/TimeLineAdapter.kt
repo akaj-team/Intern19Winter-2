@@ -47,10 +47,9 @@ class TimeLineAdapter(private val timeLineItems: MutableList<TimelineItem?>) :
                 imgFood.setImageResource(it.imageFood)
                 tvNameBottom.text = it.name
                 tvDescription.text = it.description
-                tvTotalLiked.text = "${it.like} liked"
+                tvTotalLiked.text = itemView.context.getString(R.string.tv_totalLike, it.like)
                 btnLike.isChecked = it.isLike
             }
         }
     }
-
 }
