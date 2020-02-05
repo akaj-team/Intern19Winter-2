@@ -1,4 +1,7 @@
 package asiantech.internship.summer.recyclerview
 
-class NewFeedModel {
-}
+data class NewFeedModel(var name: String,
+                        var mainimage : Int,
+                        var isHeart: Boolean,
+                        var likeNumber: Int,
+                        var status : String)
