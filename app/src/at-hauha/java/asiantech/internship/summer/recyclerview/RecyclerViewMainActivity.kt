@@ -1,9 +1,11 @@
 package asiantech.internship.summer.recyclerview
 
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
@@ -23,7 +25,17 @@ class RecyclerViewMainActivity : AppCompatActivity() {
         addData()
         showData()
         addScrollListener()
+        itemRefresh.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        itemRefresh.setColorSchemeColors(Color.WHITE)
+        itemRefresh.setOnRefreshListener {
+            newfeeds.clear()
+            addData()
+            showData()
+            addScrollListener()
+            itemRefresh.isRefreshing = false
+        }
     }
+
 
     private fun randomLike(): Int {
         val rd = Random()
