@@ -10,13 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 
 
-class TimeLineAdapter(private val timeLineItems: MutableList<TimelineItem>) :
+class TimeLineAdapter(private val timeLineItems: MutableList<TimelineItem?>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return TimeLineViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_item, parent, false))
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_item, parent, false)
+        return TimeLineViewHolder(view)
     }
 
     override fun getItemCount() = timeLineItems.size
@@ -41,12 +42,15 @@ class TimeLineAdapter(private val timeLineItems: MutableList<TimelineItem>) :
 
         fun bindData() {
             val timeLineItem = timeLineItems[adapterPosition]
-            tvNameTop.text = timeLineItem.name
-            imgFood.setImageResource(timeLineItem.imageFood)
-            tvNameBottom.text = timeLineItem.name
-            tvDescription.text = timeLineItem.description
-            tvTotalLiked.text = "${timeLineItem.like} liked"
-            btnLike.isChecked = timeLineItem.isLike
+            timeLineItem?.let {
+                tvNameTop.text = it.name
+                imgFood.setImageResource(it.imageFood)
+                tvNameBottom.text = it.name
+                tvDescription.text = it.description
+                tvTotalLiked.text = "${it.like} liked"
+                btnLike.isChecked = it.isLike
+            }
         }
     }
+
 }
