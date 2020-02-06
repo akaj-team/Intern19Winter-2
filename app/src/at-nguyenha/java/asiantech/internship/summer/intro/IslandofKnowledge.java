@@ -64,7 +64,7 @@ public class IslandofKnowledge {
 
     /**
      * You are given an array of integers representing
-     * coordinates of obstacles situated on a straight line.
+     * coordinates of obstacles situated on a line line.
      * <p>
      * Assume that you are jumping from the point with
      * coordinate 0 to the right. You are allowed only
