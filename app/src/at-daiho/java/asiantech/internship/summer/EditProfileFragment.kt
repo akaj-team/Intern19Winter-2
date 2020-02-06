@@ -1,5 +1,6 @@
 package asiantech.internship.summer
 
+import android.Manifest
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,9 @@ import kotlinx.android.synthetic.`at-daiho`.fragment_edit_profile.*
 class EditProfileFragment : Fragment() {
 
     companion object {
+        const val CAMERA_REQUEST_CODE = 101
+        const val WRITE_CODE = 102
+
         fun getInstance() = EditProfileFragment()
     }
 
@@ -27,6 +31,12 @@ class EditProfileFragment : Fragment() {
                     ?.addToBackStack(null)
                     ?.commit()
         }
+        btEditProfilePicture.setOnClickListener(object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                requestPermissions(arrayOf(Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
+            }
+        })
+
     }
 
 }
