@@ -29,13 +29,13 @@ class TimeLineAdapter(private val timeLineViewHolders: MutableList<TimelineViewH
     inner class TimeLineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var tvNameTop: TextView = itemView.findViewById(R.id.tvNameTop)
         private val imgFood: ImageView = itemView.findViewById(R.id.imgFood)
-        private val btnLike: ToggleButton = itemView.findViewById(R.id.tgLike)
+        private val tgLike: ToggleButton = itemView.findViewById(R.id.tgLike)
         private val tvTotalLiked: TextView = itemView.findViewById(R.id.tvTotalLiked)
         private var tvNameBottom: TextView = itemView.findViewById(R.id.tvNameBottom)
         private val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
 
         init {
-            btnLike.setOnClickListener {
+            tgLike.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
             }
         }
@@ -48,7 +48,7 @@ class TimeLineAdapter(private val timeLineViewHolders: MutableList<TimelineViewH
                 tvNameBottom.text = it.name
                 tvDescription.text = it.description
                 tvTotalLiked.text = itemView.context.getString(R.string.tv_totalLike, it.like)
-                btnLike.isChecked = it.isLike
+                tgLike.isChecked = it.isLike
             }
         }
     }

@@ -53,7 +53,7 @@ class TimelineActivity : AppCompatActivity() {
                 }
             }
             adapterTimeLine.notifyItemChanged(it, null)
-            (recycleView.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            (recycleView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
         }
         recycleView.adapter = adapterTimeLine
     }
