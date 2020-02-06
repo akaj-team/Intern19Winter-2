@@ -25,16 +25,16 @@ class TimelineActivity : AppCompatActivity() {
 
     private fun initData() {
         timelineItems.apply {
-            add(TimelineViewHolder(getString(R.string.tv_name_1), R.drawable.img_apple, false, (1..99).random(), getString(R.string.tv_title_1)))
-            add(TimelineViewHolder(getString(R.string.tv_name_2), R.drawable.img_pizza, true, (1..99).random(), getString(R.string.tv_title_2)))
-            add(TimelineViewHolder(getString(R.string.tv_name_3), R.drawable.img_fruit, false, (1..99).random(), getString(R.string.tv_title_3)))
-            add(TimelineViewHolder(getString(R.string.tv_name_4), R.drawable.img_hotdog, true, (1..99).random(), getString(R.string.tv_title_4)))
-            add(TimelineViewHolder(getString(R.string.tv_name_5), R.drawable.img_humberger, true, (1..99).random(), getString(R.string.tv_title_5)))
-            add(TimelineViewHolder(getString(R.string.tv_name_6), R.drawable.img_passta, true, (1..99).random(), getString(R.string.tv_title_6)))
-            add(TimelineViewHolder(getString(R.string.tv_name_8), R.drawable.img_rice, true, (1..99).random(), getString(R.string.tv_title_8)))
-            add(TimelineViewHolder(getString(R.string.tv_name_9), R.drawable.img_salad, false, (1..99).random(), getString(R.string.tv_title_9)))
-            add(TimelineViewHolder(getString(R.string.tv_name_7), R.drawable.img_chicken, true, (1..99).random(), getString(R.string.tv_title_7)))
-            add(TimelineViewHolder(getString(R.string.tv_name_10), R.drawable.img_cake, true, (1..99).random(), getString(R.string.tv_title_10)))
+            add(TimelineViewHolder(getString(R.string.tv_name_1), R.drawable.ic_apple, false, (1..99).random(), getString(R.string.tv_title_1)))
+            add(TimelineViewHolder(getString(R.string.tv_name_2), R.drawable.ic_pizza, true, (1..99).random(), getString(R.string.tv_title_2)))
+            add(TimelineViewHolder(getString(R.string.tv_name_3), R.drawable.ic_fruit, false, (1..99).random(), getString(R.string.tv_title_3)))
+            add(TimelineViewHolder(getString(R.string.tv_name_4), R.drawable.ic_hotdog, true, (1..99).random(), getString(R.string.tv_title_4)))
+            add(TimelineViewHolder(getString(R.string.tv_name_5), R.drawable.ic_humberger, true, (1..99).random(), getString(R.string.tv_title_5)))
+            add(TimelineViewHolder(getString(R.string.tv_name_6), R.drawable.ic_passta, true, (1..99).random(), getString(R.string.tv_title_6)))
+            add(TimelineViewHolder(getString(R.string.tv_name_8), R.drawable.ic_rice, true, (1..99).random(), getString(R.string.tv_title_8)))
+            add(TimelineViewHolder(getString(R.string.tv_name_9), R.drawable.ic_salad, false, (1..99).random(), getString(R.string.tv_title_9)))
+            add(TimelineViewHolder(getString(R.string.tv_name_7), R.drawable.ic_chicken, true, (1..99).random(), getString(R.string.tv_title_7)))
+            add(TimelineViewHolder(getString(R.string.tv_name_10), R.drawable.ic_cake, true, (1..99).random(), getString(R.string.tv_title_10)))
         }
         timelineItems.shuffle()
         adapterTimeLine.notifyDataSetChanged()
