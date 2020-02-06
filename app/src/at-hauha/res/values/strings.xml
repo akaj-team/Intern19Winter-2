@@ -46,7 +46,7 @@
     <string name="textview_comment">Comment</string>
     <string name="textview_12">12</string>
     <string name="textview_likes">Likes</string>
-    <string name="username_michek">Michel Jackson</string>
+    <string name="username_michel">Michel Jackson</string>
     <string name="username_beb">Bebe Rexha</string>
     <string name="username_adam">Adam Sandler</string>
     <string name="username_jack">Jack Maron</string>
@@ -67,3 +67,4 @@
     <string name="preview_9">A classic combination of flavours for a comforting family meal, with just five ingredients</string>
     <string name="preview_10">This springtime pasta dish requires just four ingredients. The perfect, fuss-free feast with a creamy sauce and pork meatballs that\'s bound to be a hit...</string>
 </resources>
+

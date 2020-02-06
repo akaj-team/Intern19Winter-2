@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16"
-        android:text="@string/edittext_nich_evans"
+        android:text="@string/edittext_fullname"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_16"
         android:textStyle="bold"
@@ -33,10 +33,9 @@
     <ImageView
         android:id="@+id/imgBackGround"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_324"
+        android:layout_height="@dimen/dimen_378"
         android:layout_marginTop="@dimen/dimen_8"
-        android:scaleType="center"
-        android:src="@drawable/ic_cherry_almond_frangipane_galette"
+        android:src="@drawable/ic_chocola"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -126,11 +125,11 @@
         app:layout_constraintTop_toBottomOf="@id/tvStraight" />
 
     <TextView
-        android:id="@+id/tvUserName2"
+        android:id="@+id/tvFoodName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16"
-        android:text="@string/edittext_nich_evans"
+        android:text="@string/textview_full_name"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,17 +139,16 @@
 
     <TextView
         android:id="@+id/tvPreview"
-        android:layout_marginLeft="@dimen/dimen_20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dimen_20"
         android:text="@string/textview_comment"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserName2"
+        app:layout_constraintTop_toBottomOf="@+id/tvFoodName"
         app:layout_constraintVertical_bias="0.147" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
