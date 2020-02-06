@@ -7,51 +7,43 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
+import asiantech.internship.summer.R.mipmap.*
 
-class FoodAdapter(val foods: MutableList<Food?>) : RecyclerView.Adapter<FoodAdapter.ViewHolder>() {
+class FoodAdapter(val foods: MutableList<Food?>) : RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
     internal var onItemClicked: (position: Int) -> Unit = {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.activity_food_item, parent, false)
-        return ViewHolder(view)
+        return FoodViewHolder(view)
     }
 
     override fun getItemCount() = foods.size
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
         holder.bindData(position)
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imgAvatar: ImageView = itemView.findViewById(R.id.youravatar)
-        val txtName: TextView = itemView.findViewById(R.id.name)
-        val imgPictue: ImageView = itemView.findViewById(R.id.picture)
-        val imgHeart: ImageView = itemView.findViewById(R.id.heart)
-        var numberlike: TextView = itemView.findViewById(R.id.numberlike)
-        val description: TextView = itemView.findViewById(R.id.description)
-        val txtNameComment: TextView = itemView.findViewById(R.id.namecomment)
+    inner class FoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val imgAvatar: ImageView = itemView.findViewById(R.id.imgAvatar)
+        private val txtName: TextView = itemView.findViewById(R.id.tvName)
+        private val imgPicture: ImageView = itemView.findViewById(R.id.imgPicture)
+        private val imgHeart: ImageView = itemView.findViewById(R.id.imgHeart)
+        private var tvNumberLike: TextView = itemView.findViewById(R.id.tvNumberLike)
+        private val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
+        private val txtNameComment: TextView = itemView.findViewById(R.id.tvNameComment)
 
         fun bindData(position: Int) {
-            imgHeart.setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    onItemClicked.invoke(adapterPosition)
-                }
-            })
-            txtNameComment.setText(foods[position]?.name)
-            foods[position]?.apply {
-                imgAvatar.setImageResource(this.avatar)
+            imgHeart.setOnClickListener { onItemClicked.invoke(adapterPosition) }
+            foods[position]?.run {
+                txtNameComment.setText(name)
+                imgAvatar.setImageResource(avatar)
+                imgPicture.setImageResource(picture)
+                txtName.setText(name)
+                tvNumberLike.setText(numberLike.toString())
+                tvDescription.setText(description)
+                imgHeart.setImageResource(if (!like) heartred else heartblack)
             }
-            foods[position]?.apply {
-                imgPictue.setImageResource(this.avatar)
-            }
-            txtName.setText(foods[position]?.name)
-            foods[position]?.apply {
-                imgAvatar.setImageResource(this.picture)
-            }
-            numberlike.setText(foods[position]?.numberLike.toString())
-            description.setText(foods[position]?.description)
-            imgHeart.setImageResource(if (foods[position]?.like == true) R.drawable.heart2 else R.drawable.heartblack)
         }
     }
 }
+
