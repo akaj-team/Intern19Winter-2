@@ -20,15 +20,15 @@
         android:layout_width="@dimen/width_30dp"
         android:layout_height="@dimen/width_30dp"
         android:src="@drawable/ic_comment"
-        app:layout_constraintStart_toEndOf="@+id/btnLike"
-        app:layout_constraintTop_toTopOf="@+id/btnLike" />
+        app:layout_constraintStart_toEndOf="@+id/tgLike"
+        app:layout_constraintTop_toTopOf="@+id/tgLike" />
 
     <ImageView
         android:layout_width="@dimen/width_30dp"
         android:layout_height="@dimen/width_30dp"
-        android:src="@drawable/ic_driect"
+        android:src="@drawable/ic_direct"
         app:layout_constraintStart_toEndOf="@+id/imgComment"
-        app:layout_constraintTop_toTopOf="@+id/btnLike" />
+        app:layout_constraintTop_toTopOf="@+id/tgLike" />
 
     <TextView
         android:id="@+id/tvNameTop"
@@ -78,7 +78,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvNameBottom" />
 
     <ToggleButton
-        android:id="@+id/btnLike"
+        android:id="@+id/tgLike"
         android:layout_width="@dimen/width_30dp"
         android:layout_height="@dimen/width_30dp"
         android:layout_marginTop="@dimen/margin_top_8dp"
@@ -99,7 +99,7 @@
         android:background="@color/color_gray"
         app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/btnLike" />
+        app:layout_constraintTop_toBottomOf="@+id/tgLike" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineLeft"

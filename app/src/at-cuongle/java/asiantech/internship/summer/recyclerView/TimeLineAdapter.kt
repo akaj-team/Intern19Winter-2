@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 
 
-class TimeLineAdapter(private val timeLineItems: MutableList<TimelineItem?>) :
+class TimeLineAdapter(private val timeLineViewHolders: MutableList<TimelineViewHolder?>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
@@ -20,7 +20,7 @@ class TimeLineAdapter(private val timeLineItems: MutableList<TimelineItem?>) :
         return TimeLineViewHolder(view)
     }
 
-    override fun getItemCount() = timeLineItems.size
+    override fun getItemCount() = timeLineViewHolders.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? TimeLineViewHolder)?.bindData()
@@ -29,7 +29,7 @@ class TimeLineAdapter(private val timeLineItems: MutableList<TimelineItem?>) :
     inner class TimeLineViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private var tvNameTop: TextView = itemView.findViewById(R.id.tvNameTop)
         private val imgFood: ImageView = itemView.findViewById(R.id.imgFood)
-        private val btnLike: ToggleButton = itemView.findViewById(R.id.btnLike)
+        private val btnLike: ToggleButton = itemView.findViewById(R.id.tgLike)
         private val tvTotalLiked: TextView = itemView.findViewById(R.id.tvTotalLiked)
         private var tvNameBottom: TextView = itemView.findViewById(R.id.tvNameBottom)
         private val tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
@@ -41,7 +41,7 @@ class TimeLineAdapter(private val timeLineItems: MutableList<TimelineItem?>) :
         }
 
         fun bindData() {
-            val timeLineItem = timeLineItems[adapterPosition]
+            val timeLineItem = timeLineViewHolders[adapterPosition]
             timeLineItem?.let {
                 tvNameTop.text = it.name
                 imgFood.setImageResource(it.imageFood)
