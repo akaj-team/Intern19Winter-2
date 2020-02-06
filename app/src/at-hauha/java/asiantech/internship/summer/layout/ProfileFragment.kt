@@ -22,13 +22,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 
 
-class FragmentProfile : Fragment() {
+class ProfileFragment : Fragment() {
     private val PERMISSION_CODE = 1000
     private val IMAGE_CAPTURE_CODE = 1001
     var image_uri: Uri? = null
 
     companion object {
-        fun getInstance() = FragmentProfile()
+        fun getInstance() = ProfileFragment()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -37,7 +37,7 @@ class FragmentProfile : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        txtEditProfilePicture.setOnClickListener {
+        tvEditProfilePicture.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                         == PackageManager.PERMISSION_DENIED ||

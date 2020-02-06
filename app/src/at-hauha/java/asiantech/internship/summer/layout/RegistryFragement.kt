@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-hauha`.fragment_registry.*
 
-class FragementRegistry:Fragment() {
+class RegistryFragement:Fragment() {
     companion object{
-        fun getInstance() = FragementRegistry()
+        fun getInstance() = RegistryFragement()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -19,9 +19,9 @@ class FragementRegistry:Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        txtLogin.setOnClickListener {
+        tvLogin.setOnClickListener {
             fragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer,FragmentLogin.getInstance(),null)
+                    ?.replace(R.id.flContainer,LoginFragment.getInstance(),null)
                     ?.addToBackStack(null)
                     ?.commit()
         }

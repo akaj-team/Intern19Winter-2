@@ -21,7 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtStartFromScratch"
+            android:id="@+id/tvStartFromScratch"
             android:layout_width="@dimen/width_304"
             android:layout_height="@dimen/height_64"
             android:layout_marginTop="@dimen/heigth_32"
@@ -30,11 +30,11 @@
             android:textSize="@dimen/text_size_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/txtBack"
-            app:layout_constraintTop_toBottomOf="@+id/txtBack" />
+            app:layout_constraintStart_toStartOf="@+id/llBack"
+            app:layout_constraintTop_toBottomOf="@+id/llBack" />
 
         <ImageView
-            android:id="@+id/txtBack"
+            android:id="@+id/llBack"
             android:layout_width="@dimen/width_92"
             android:layout_height="@dimen/heigth_32"
             android:layout_marginStart="@dimen/margin_start_40dp"
@@ -44,47 +44,47 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/txtContinue"
+            android:id="@+id/tvContinue"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/height_24"
             android:layout_marginTop="@dimen/margin_top_20"
             android:text="@string/textview_create_account_to_continue"
             android:textSize="@dimen/text_size_14"
-            app:layout_constraintStart_toStartOf="@+id/txtBack"
+            app:layout_constraintStart_toStartOf="@+id/llBack"
             app:layout_constraintTop_toBottomOf="@+id/imgBackGround" />
 
         <TextView
-            android:id="@+id/txtFullName"
+            android:id="@+id/tvFullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_40dp"
             android:layout_marginTop="@dimen/margin_top_20"
             android:text="@string/textview_fullname"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtContinue" />
+            app:layout_constraintTop_toBottomOf="@+id/tvContinue" />
 
         <EditText
             android:inputType="text"
             android:hint="@string/edit_hint_your_name"
-            android:id="@+id/editFullName"
+            android:id="@+id/edtFullName"
             android:layout_width="@dimen/width_324"
             android:layout_height="@dimen/height_64"
             android:text="@string/edittext_fullname"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.465"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFullName"
+            app:layout_constraintTop_toBottomOf="@+id/tvFullName"
             tools:ignore="Autofill" />
 
         <TextView
-            android:id="@+id/txtBio"
+            android:id="@+id/tvBio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_40dp"
             android:layout_marginTop="@dimen/margin_top_20"
             android:text="@string/textview_email_address"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editFullName" />
+            app:layout_constraintTop_toBottomOf="@+id/edtFullName" />
 
         <EditText
             android:inputType="textEmailAddress"
@@ -96,12 +96,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.465"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtBio"
+            app:layout_constraintTop_toBottomOf="@+id/tvBio"
             tools:ignore="Autofill" />
 
 
         <TextView
-            android:id="@+id/txtPrivateInfo"
+            android:id="@+id/tvPrivateInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_40dp"
@@ -121,11 +121,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.465"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtPrivateInfo"
+            app:layout_constraintTop_toBottomOf="@+id/tvPrivateInfo"
             tools:ignore="Autofill" />
 
         <TextView
-            android:id="@+id/txtCreateAccount"
+            android:id="@+id/tvCreateAccount"
             android:layout_width="@dimen/width_324"
             android:layout_height="@dimen/height_52"
             android:layout_marginTop="@dimen/margin_top_20"
@@ -140,7 +140,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
 
         <TextView
-            android:id="@+id/txtCreateAnAccount"
+            android:id="@+id/tvCreateAnAccount"
             android:layout_width="@dimen/width_172"
             android:layout_height="@dimen/height_24"
             android:layout_marginTop="@dimen/margin_top_12"
@@ -150,10 +150,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCreateAccount" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCreateAccount" />
 
         <TextView
-            android:id="@+id/txtLogin"
+            android:id="@+id/tvLogin"
             android:layout_width="@dimen/width_140"
             android:layout_height="@dimen/heigth_32"
             android:gravity="center"
@@ -165,7 +165,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCreateAnAccount" />
+            app:layout_constraintTop_toBottomOf="@+id/tvCreateAnAccount" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
