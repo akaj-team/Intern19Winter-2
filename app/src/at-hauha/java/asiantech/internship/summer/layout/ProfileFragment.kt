@@ -23,12 +23,12 @@ import androidx.core.content.ContextCompat
 
 
 class ProfileFragment : Fragment() {
-    private val PERMISSION_CODE = 1000
-    private val IMAGE_CAPTURE_CODE = 1001
-    var image_uri: Uri? = null
+    private var mImage: Uri? = null
 
     companion object {
         fun getInstance() = ProfileFragment()
+        private const val PERMISSION_CODE = 1000
+        private const val IMAGE_CAPTURE_CODE = 1001
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -64,8 +64,8 @@ class ProfileFragment : Fragment() {
         values.put(MediaStore.Images.Media.TITLE, "New Picture")
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        image_uri = resolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+        mImage = resolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImage)
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
     }
 
@@ -73,7 +73,7 @@ class ProfileFragment : Fragment() {
         //called when user presses ALLOW or DENY from Permission Request Popup
         when (requestCode) {
             PERMISSION_CODE -> {
-                if (grantResults.size > 0 && grantResults[0] ==
+                if (grantResults.isNotEmpty() && grantResults[0] ==
                         PackageManager.PERMISSION_GRANTED) {
                     //permission from popup was granted
                     openCamera()
@@ -89,7 +89,7 @@ class ProfileFragment : Fragment() {
         //called when image was captured from camera intent
         if (resultCode == android.app.Activity.RESULT_OK) {
             //set image captured to image view
-            imgAvatar.setImageURI(image_uri)
+            imgAvatar.setImageURI(mImage)
         }
     }
 
