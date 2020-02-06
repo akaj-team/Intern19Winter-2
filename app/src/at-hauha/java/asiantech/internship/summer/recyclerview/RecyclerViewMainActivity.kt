@@ -81,7 +81,6 @@ class RecyclerViewMainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-
     fun setLoaded() {
         isLoading = false
     }
@@ -94,7 +93,6 @@ class RecyclerViewMainActivity : AppCompatActivity() {
                 val lastItem = linearLayoutManager.findLastCompletelyVisibleItemPosition()
                 if (!isLoading) {
                     if (lastItem == newfeeds.size - 1) {
-
                         progressBar.visibility = View.VISIBLE
                         Handler().postDelayed({
                             progressBar.visibility = View.INVISIBLE
@@ -103,7 +101,6 @@ class RecyclerViewMainActivity : AppCompatActivity() {
                         isLoading = true
                     }
                     setLoaded()
-
                 }
             }
         })
