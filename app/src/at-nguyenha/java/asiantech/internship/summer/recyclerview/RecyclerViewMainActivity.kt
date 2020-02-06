@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import kotlinx.android.synthetic.`at-nguyenha`.activity_main.*
 import kotlin.random.Random
 
@@ -81,7 +82,7 @@ class RecyclerViewMainActivity : AppCompatActivity() {
                 newfeeds[it].likeNumber++
             }
             adapterNewFeeds.notifyItemChanged(it, null)
-            initAdapter()
+            (recyclerViewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
     }
 
@@ -101,7 +102,7 @@ class RecyclerViewMainActivity : AppCompatActivity() {
                 false, Random.nextInt(1, 1000),
                 "ou can never buy love… but still you have to pay for it. ..."))
         newfeeds.add(NewFeedModel("Hau",
-                asiantech.internship.summer.R.drawable.ic_sashimi,
+                asiantech.internship.summer.R.drawable.ic_pizza,
                 false, Random.nextInt(1, 1000),
                 "this is the hamburger that I make, feel so good "))
         newfeeds.add(NewFeedModel("Nguyen",
@@ -110,7 +111,7 @@ class RecyclerViewMainActivity : AppCompatActivity() {
                 "Life is short. Time is fast. No reply. No rewind. moment as it comes…")
         )
         newfeeds.add(NewFeedModel("Cuong",
-                asiantech.internship.summer.R.drawable.ic_hamburger,
+                asiantech.internship.summer.R.drawable.ic_sashimi,
                 false, Random.nextInt(1, 1000),
                 "this is the hamburger that I make, feel so good ")
         )
@@ -120,17 +121,17 @@ class RecyclerViewMainActivity : AppCompatActivity() {
                 "this is the hamburger that I make, feel so good ")
         )
         newfeeds.add(NewFeedModel("Nguyen",
-                asiantech.internship.summer.R.drawable.ic_hamburger,
+                asiantech.internship.summer.R.drawable.ic_pizza,
                 false, Random.nextInt(1, 1000),
                 "I am single because god is busy writing to best love story for me. ")
         )
         newfeeds.add(NewFeedModel("Uyen",
-                asiantech.internship.summer.R.drawable.ic_pizza,
+                asiantech.internship.summer.R.drawable.ic_sashimi,
                 false, Random.nextInt(1, 1000),
                 "this is the hamburger that I make, feel so good ")
         )
         newfeeds.add(NewFeedModel("Cuong",
-                asiantech.internship.summer.R.drawable.ic_sashimi,
+                asiantech.internship.summer.R.drawable.ic_hamburger,
                 false, Random.nextInt(1, 1000),
                 "You may only be one person to the world but  the world to one person. ... ")
         )
