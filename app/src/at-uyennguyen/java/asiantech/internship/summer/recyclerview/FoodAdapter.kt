@@ -31,7 +31,6 @@ class FoodAdapter(val foods: MutableList<Food?>) : RecyclerView.Adapter<FoodAdap
         var numberlike: TextView = itemView.findViewById(R.id.numberlike)
         val description: TextView = itemView.findViewById(R.id.description)
         val txtNameComment: TextView = itemView.findViewById(R.id.namecomment)
-        //private val progressBar: ProgressBar= itemView.findViewById(R.id.progressbar)
 
         fun bindData(position: Int) {
             imgHeart.setOnClickListener(object : View.OnClickListener {
