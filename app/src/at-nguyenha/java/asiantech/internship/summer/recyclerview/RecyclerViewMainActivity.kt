@@ -11,31 +11,35 @@ import kotlin.random.Random
 
 class RecyclerViewMainActivity : AppCompatActivity() {
     private var newfeeds = mutableListOf<NewFeedModel>()
-    private var newfeedsSrc = mutableListOf<NewFeedModel>()
-    private var adapterNewfeeds = NewFeedAdapter(newfeeds)
-    private var isLoadding = false
+    private var adapterNewFeeds = NewFeedAdapter(newfeeds)
+    private var isLoading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(asiantech.internship.summer.R.layout.activity_main)
 
-        insertData()
+        initView()
         initAdapter()
+        initData()
+        initListener()
         initScrollListener()
-        refeshItem()
-
-        recyclerViewMain.layoutManager = LinearLayoutManager(this)
-        recyclerViewMain.adapter = adapterNewfeeds
+        initRefreshItem()
     }
 
-    private fun refeshItem() {
+    private fun initView() {
+        recyclerViewMain.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun initAdapter() {
+        recyclerViewMain.adapter = adapterNewFeeds
+    }
+
+    private fun initRefreshItem() {
         srlRefreshItem.setOnRefreshListener {
             Handler().postDelayed({
                 newfeeds.clear()
-                insertData()
-                initAdapter()
-                initScrollListener()
-                recyclerViewMain.adapter = adapterNewfeeds
+                initData()
+                adapterNewFeeds.notifyDataSetChanged()
                 srlRefreshItem.isRefreshing = false
             }, 2000)
         }
@@ -45,34 +49,29 @@ class RecyclerViewMainActivity : AppCompatActivity() {
         recyclerViewMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-
                 val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastVisibleItem = linearLayoutManager.findLastCompletelyVisibleItemPosition()
-
-                if (!isLoadding) {
+                if (!isLoading) {
                     if (lastVisibleItem == newfeeds.size - 1) {
-                        progressBar1.visibility = View.VISIBLE
-
+                        progressBar.visibility = View.VISIBLE
                         Handler().postDelayed({
-                            insertData()
-                            adapterNewfeeds.notifyDataSetChanged()
+                            initData()
+                            adapterNewFeeds.notifyDataSetChanged()
                             setLoading()
                         }, 2000)
                     }
                 }
             }
         })
-
     }
 
     private fun setLoading() {
-        isLoadding = false
-        progressBar1.visibility = View.INVISIBLE
+        isLoading = false
+        progressBar.visibility = View.INVISIBLE
     }
 
-
-    private fun initAdapter() {
-        adapterNewfeeds.onItemClicked = {
+    private fun initListener() {
+        adapterNewFeeds.onItemClicked = {
             val isHeart: Boolean = newfeeds[it].isHeart
             if (isHeart) {
                 newfeeds[it].isHeart = !isHeart
@@ -81,30 +80,59 @@ class RecyclerViewMainActivity : AppCompatActivity() {
                 newfeeds[it].isHeart = !isHeart
                 newfeeds[it].likeNumber++
             }
-            adapterNewfeeds.notifyDataSetChanged()
-
+            adapterNewFeeds.notifyItemChanged(it, null)
+            initAdapter()
         }
     }
 
     private fun initData() {
-        newfeedsSrc.add(NewFeedModel("Nguyen", asiantech.internship.summer.R.drawable.ic_pizza, false, Random.nextInt(50), "this is the hamburger that I make, feel so good "))
-        newfeedsSrc.add(NewFeedModel("Cuong", asiantech.internship.summer.R.drawable.ic_sashimi, false, Random.nextInt(50), "this is the hamburger that I make, feel so good "))
-        newfeedsSrc.add(NewFeedModel("Uyen", asiantech.internship.summer.R.drawable.ic_hamburger, false, Random.nextInt(50), "ou can never buy love… but still you have to pay for it. ..."))
-        newfeedsSrc.add(NewFeedModel("Hau", asiantech.internship.summer.R.drawable.ic_sashimi, false, Random.nextInt(50), "this is the hamburger that I make, feel so good "))
-        newfeedsSrc.add(NewFeedModel("Nguyen", asiantech.internship.summer.R.drawable.ic_pizza, false, Random.nextInt(50), "Life is short. Time is fast. No reply. No rewind. moment as it comes…"))
-        newfeedsSrc.add(NewFeedModel("Cuong", asiantech.internship.summer.R.drawable.ic_hamburger, false, Random.nextInt(50), "this is the hamburger that I make, feel so good "))
-        newfeedsSrc.add(NewFeedModel("Hau", asiantech.internship.summer.R.drawable.ic_hamburger, false, Random.nextInt(50), "this is the hamburger that I make, feel so good "))
-        newfeedsSrc.add(NewFeedModel("Nguyen", asiantech.internship.summer.R.drawable.ic_hamburger, false, Random.nextInt(50), "I am single because god is busy writing to best love story for me. "))
-        newfeedsSrc.add(NewFeedModel("Uyen", asiantech.internship.summer.R.drawable.ic_pizza, false, Random.nextInt(50), "this is the hamburger that I make, feel so good "))
-        newfeedsSrc.add(NewFeedModel("Cuong", asiantech.internship.summer.R.drawable.ic_sashimi, false, Random.nextInt(50), "You may only be one person to the world but  the world to one person. ... "))
+        newfeeds.add(NewFeedModel("Nguyen",
+                asiantech.internship.summer.R.drawable.ic_pizza,
+                false, Random.nextInt(1, 1000),
+                "this is the hamburger that I make, feel so good ")
+        )
+        newfeeds.add(NewFeedModel(
+                "Cuong", asiantech.internship.summer.R.drawable.ic_sashimi,
+                false, Random.nextInt(1, 1000),
+                "this is the hamburger that I make, feel so good ")
+        )
+        newfeeds.add(NewFeedModel("Uyen",
+                asiantech.internship.summer.R.drawable.ic_hamburger,
+                false, Random.nextInt(1, 1000),
+                "ou can never buy love… but still you have to pay for it. ..."))
+        newfeeds.add(NewFeedModel("Hau",
+                asiantech.internship.summer.R.drawable.ic_sashimi,
+                false, Random.nextInt(1, 1000),
+                "this is the hamburger that I make, feel so good "))
+        newfeeds.add(NewFeedModel("Nguyen",
+                asiantech.internship.summer.R.drawable.ic_pizza,
+                false, Random.nextInt(1, 1000),
+                "Life is short. Time is fast. No reply. No rewind. moment as it comes…")
+        )
+        newfeeds.add(NewFeedModel("Cuong",
+                asiantech.internship.summer.R.drawable.ic_hamburger,
+                false, Random.nextInt(1, 1000),
+                "this is the hamburger that I make, feel so good ")
+        )
+        newfeeds.add(NewFeedModel("Hau",
+                asiantech.internship.summer.R.drawable.ic_hamburger,
+                false, Random.nextInt(1, 1000),
+                "this is the hamburger that I make, feel so good ")
+        )
+        newfeeds.add(NewFeedModel("Nguyen",
+                asiantech.internship.summer.R.drawable.ic_hamburger,
+                false, Random.nextInt(1, 1000),
+                "I am single because god is busy writing to best love story for me. ")
+        )
+        newfeeds.add(NewFeedModel("Uyen",
+                asiantech.internship.summer.R.drawable.ic_pizza,
+                false, Random.nextInt(1, 1000),
+                "this is the hamburger that I make, feel so good ")
+        )
+        newfeeds.add(NewFeedModel("Cuong",
+                asiantech.internship.summer.R.drawable.ic_sashimi,
+                false, Random.nextInt(1, 1000),
+                "You may only be one person to the world but  the world to one person. ... ")
+        )
     }
-
-    private fun insertData() {
-        initData()
-        newfeedsSrc.shuffle()
-        newfeeds.addAll(newfeedsSrc)
-        newfeedsSrc.clear()
-    }
-
-
 }

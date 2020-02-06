@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">TamLe</string>
-    <string name="cena_ha">Cena Ha</string>
-    <string name="_12">12</string>
+    <string name="textview_text_name">Cena Ha</string>
+    <string name="textview_text_like_number">12</string>
     <string name="textview_text_likes"> likes</string>
     <string name="textview_text_status">A hamburger does not have cheese. A hamburger with cheese is called a “cheeseburger.”</string>
 </resources>
