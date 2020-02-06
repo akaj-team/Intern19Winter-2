@@ -26,7 +26,7 @@
     <ImageView
         android:layout_width="@dimen/width_30dp"
         android:layout_height="@dimen/width_30dp"
-        android:src="@drawable/ic_direct"
+        android:src="@drawable/ic_share"
         app:layout_constraintStart_toEndOf="@+id/imgComment"
         app:layout_constraintTop_toTopOf="@+id/tgLike" />
 
