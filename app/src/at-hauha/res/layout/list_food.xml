@@ -21,7 +21,7 @@
 
     <TextView
         android:text="@string/edittext_nich_evans"
-        android:id="@+id/txtFoodName"
+        android:id="@+id/tvFoodName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

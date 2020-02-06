@@ -3,7 +3,7 @@ package asiantech.internship.summer.layout
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import asiantech.internship.summer.R
-import asiantech.internship.summer.layout.FragementRegistry.Companion.newInstance
+import asiantech.internship.summer.layout.RegistryFragement.Companion.newInstance
 
 class LayoutMainActivity : AppCompatActivity(){
 

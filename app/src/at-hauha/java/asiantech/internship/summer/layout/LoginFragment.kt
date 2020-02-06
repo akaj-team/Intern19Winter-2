@@ -7,11 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-hauha`.fragment_registry.*
-import kotlinx.android.synthetic.`at-hauha`.fragment_registry.txtCreateAccount
 
-class FragmentLogin : Fragment(){
+class LoginFragment : Fragment(){
     companion object{
-        fun newInstance() = FragmentLogin()
+        fun newInstance() = LoginFragment()
     }
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_login, container, false)
@@ -24,9 +23,9 @@ class FragmentLogin : Fragment(){
 //                    ?.addToBackStack(null)
 //                    ?.commit()
 //        }
-        txtLogin.setOnClickListener {
+        tvLogin.setOnClickListener {
             fragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer,FragmentUserProfile.newInstance("","",""),null)
+                    ?.replace(R.id.flContainer,UserProfileFragment.newInstance("","",""),null)
                     ?.addToBackStack(null)
                     ?.commit()
         }

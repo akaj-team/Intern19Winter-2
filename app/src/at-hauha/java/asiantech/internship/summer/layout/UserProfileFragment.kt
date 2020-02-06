@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.`at-hauha`.fragment_user_profile.*
 
 
-class FragmentUserProfile : Fragment() {
+class UserProfileFragment : Fragment() {
     private var mName = ""
     private var mEmail = ""
     private var mAvatar = ""
@@ -23,7 +23,7 @@ class FragmentUserProfile : Fragment() {
         private const val ARG_EMAIL = "email"
         private const val ARG_AVATAR = "avatar"
 
-        fun newInstance(mName: String, mEmail: String, mAvatar: String) = FragmentUserProfile().apply {
+        fun newInstance(mName: String, mEmail: String, mAvatar: String) = UserProfileFragment().apply {
             arguments = Bundle().apply {
                 putString(ARG_NAME, mName)
                 putString(ARG_EMAIL, mEmail)
@@ -50,9 +50,9 @@ class FragmentUserProfile : Fragment() {
     private fun setViewPage(){
         val adapter = SampleAdapter(childFragmentManager)
         adapter.apply {
-            addFragment(FragmentRecipes(),"Recipes")
-            addFragment(FragmentRecipes(),"Saved")
-            addFragment(FragmentRecipes(),"Following")
+            addFragment(RecipesFragment(),"Recipes")
+            addFragment(RecipesFragment(),"Saved")
+            addFragment(RecipesFragment(),"Following")
         }
         viewPager!!.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
@@ -61,14 +61,14 @@ class FragmentUserProfile : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         if (mAvatar != "") {
             imgAvatar.setImageURI(Uri.parse(mAvatar))
-            txtUserName.text = mName
+            tvUserName.text = mName
         }
         //txtUserName.setText(mName)
-        txtEdit.setOnClickListener {
-            mName = txtUserName.text.toString()
+        tvEdit.setOnClickListener {
+            mName = tvUserName.text.toString()
             Log.d("XXX", mAvatar)
             fragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer, FragmentProfile.newInstance(mName, mEmail, mAvatar), null)
+                    ?.replace(R.id.flContainer, EditProfileFragment.newInstance(mName, mEmail, mAvatar), null)
                     ?.addToBackStack(null)
                     ?.commit()
         }

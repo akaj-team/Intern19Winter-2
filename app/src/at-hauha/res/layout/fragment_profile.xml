@@ -19,11 +19,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtUserProfile"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserProfile"
             tools:ignore="RedundantNamespace" />
 
         <TextView
-            android:id="@+id/txtUserProfile"
+            android:id="@+id/tvUserProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_top_20"
@@ -33,10 +33,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.132"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtBack" />
+            app:layout_constraintTop_toBottomOf="@+id/llBack" />
 
         <LinearLayout
-            android:id="@+id/txtBack"
+            android:id="@+id/llBack"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
 
         <TextView
-            android:id="@+id/txtEditProfilePicture"
+            android:id="@+id/tvEditProfilePicture"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/height_24"
             android:layout_marginTop="@dimen/margin_top_20"
@@ -75,13 +75,13 @@
             app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
         <TextView
-            android:id="@+id/txtFullName"
+            android:id="@+id/tvFullName"
             android:layout_width="@dimen/margin_top_68"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_40dp"
             android:text="@string/textview_full_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEditProfilePicture" />
+            app:layout_constraintTop_toBottomOf="@+id/tvEditProfilePicture" />
 
         <EditText
             android:hint="@string/edit_hint_your_name"
@@ -94,11 +94,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.634"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFullName"
+            app:layout_constraintTop_toBottomOf="@+id/tvFullName"
             tools:ignore="Autofill"/>
 
         <TextView
-            android:id="@+id/txtBio"
+            android:id="@+id/tvBio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -118,11 +118,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.634"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtBio"
+            app:layout_constraintTop_toBottomOf="@+id/tvBio"
             tools:ignore="Autofill" />
 
         <TextView
-            android:id="@+id/txtPrivateInfo"
+            android:id="@+id/tvPrivateInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_40dp"
@@ -134,14 +134,14 @@
             app:layout_constraintTop_toBottomOf="@+id/edtBio" />
 
         <TextView
-            android:id="@+id/txtEmail"
+            android:id="@+id/tvEmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_40dp"
             android:layout_marginTop="@dimen/margin_top_20"
             android:text="@string/textview_email"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtPrivateInfo" />
+            app:layout_constraintTop_toBottomOf="@+id/tvPrivateInfo" />
 
         <EditText
             android:inputType="textEmailAddress"
@@ -154,11 +154,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.634"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tvEmail"
             tools:ignore="Autofill" />
 
         <TextView
-            android:id="@+id/txtPhone"
+            android:id="@+id/tvPhone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_start_40dp"
@@ -178,7 +178,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.634"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtPhone"
+            app:layout_constraintTop_toBottomOf="@+id/tvPhone"
             tools:ignore="Autofill" />
 
         <TextView

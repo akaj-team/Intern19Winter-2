@@ -15,11 +15,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.068"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUserProfile"
+        app:layout_constraintTop_toBottomOf="@+id/tvUserProfile"
         tools:ignore="RedundantNamespace" />
 
     <TextView
-        android:id="@+id/txtUserProfile"
+        android:id="@+id/tvUserProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_top_20"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtSetting"
+        android:id="@+id/tvSetting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/left_120dp"
@@ -43,11 +43,11 @@
         android:textSize="@dimen/text_size_14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.293"
-        app:layout_constraintStart_toEndOf="@+id/txtUserProfile"
+        app:layout_constraintStart_toEndOf="@+id/tvUserProfile"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtEdit"
+        android:id="@+id/tvEdit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
@@ -55,11 +55,11 @@
         android:background="@drawable/ic_edit"
         android:textColor="@color/color_black"
         android:textSize="@dimen/text_size_14"
-        app:layout_constraintStart_toEndOf="@+id/txtUserName"
-        app:layout_constraintTop_toBottomOf="@+id/txtSetting" />
+        app:layout_constraintStart_toEndOf="@+id/tvUserName"
+        app:layout_constraintTop_toBottomOf="@+id/tvSetting" />
 
     <TextView
-        android:id="@+id/txtUserName"
+        android:id="@+id/tvUserName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/txtJob"
+        android:id="@+id/tvJob"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -82,10 +82,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toEndOf="@+id/imgAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/txtUserName" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
 
     <TextView
-        android:id="@+id/txtFollow"
+        android:id="@+id/tvFollow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -94,17 +94,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.1"
         app:layout_constraintStart_toEndOf="@+id/imgAvatar"
-        app:layout_constraintTop_toBottomOf="@+id/txtJob" />
+        app:layout_constraintTop_toBottomOf="@+id/tvJob" />
 
     <TextView
-        android:id="@+id/txtDoc"
+        android:id="@+id/tvDoc"
         android:layout_width="@dimen/width_8"
         android:layout_height="@dimen/width_8"
         android:layout_marginTop="@dimen/top_152"
         android:background="@drawable/ic_fiber_manual_record_black_24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.106"
-        app:layout_constraintStart_toEndOf="@+id/txtFollow"
+        app:layout_constraintStart_toEndOf="@+id/tvFollow"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -116,7 +116,7 @@
         android:textSize="@dimen/text_size_14"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.138"
-        app:layout_constraintStart_toEndOf="@+id/txtDoc"
+        app:layout_constraintStart_toEndOf="@+id/tvDoc"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

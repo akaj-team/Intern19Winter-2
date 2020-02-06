@@ -23,9 +23,9 @@ import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.`at-hauha`.fragment_profile.imgAvatar
 
 
-class FragmentProfile : Fragment() {
+class EditProfileFragment : Fragment() {
 
-    var image_uri: Uri? = null
+    private var mImage_uri: Uri? = null
     private var mName = ""
     private var mEmail = ""
     private var mAvatar = ""
@@ -37,7 +37,7 @@ class FragmentProfile : Fragment() {
         private val PERMISSION_CODE = 1000
         private val IMAGE_CAPTURE_CODE = 1001
 
-        fun newInstance(mName: String, mEmail: String, mAvatar: String) = FragmentProfile().apply {
+        fun newInstance(mName: String, mEmail: String, mAvatar: String) = EditProfileFragment().apply {
             arguments = Bundle().apply {
                 putString(ARG_NAME, mName)
                 putString(ARG_EMAIL, mEmail)
@@ -69,7 +69,7 @@ class FragmentProfile : Fragment() {
         if("" != mAvatar){
             imgAvatar.setImageURI(Uri.parse(mAvatar))
         }
-        txtEditProfilePicture.setOnClickListener {
+        tvEditProfilePicture.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                         == PackageManager.PERMISSION_DENIED ||
@@ -96,8 +96,8 @@ class FragmentProfile : Fragment() {
         values.put(MediaStore.Images.Media.TITLE, "New Picture")
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        image_uri = resolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, image_uri)
+        mImage_uri = resolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImage_uri)
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
     }
 
@@ -121,12 +121,12 @@ class FragmentProfile : Fragment() {
         //called when image was captured from camera intent
         if (resultCode == android.app.Activity.RESULT_OK) {
             //set image captured to image view
-            imgAvatar.setImageURI(image_uri)
-            mAvatar = image_uri.toString()
-            txtBack.setOnClickListener {
+            imgAvatar.setImageURI(mImage_uri)
+            mAvatar = mImage_uri.toString()
+            llBack.setOnClickListener {
                 mName = edtFullName.text.toString()
                 fragmentManager?.beginTransaction()
-                        ?.replace(R.id.flContainer, FragmentUserProfile.newInstance(mName, mEmail, mAvatar), null)
+                        ?.replace(R.id.flContainer, UserProfileFragment.newInstance(mName, mEmail, mAvatar), null)
                         ?.addToBackStack(null)
                         ?.commit()
             }

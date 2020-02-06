@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import asiantech.internship.summer.R
-import asiantech.internship.summer.model.Food
 import kotlinx.android.synthetic.`at-hauha`.fragment_recipes.*
 
-class FragmentRecipes : Fragment() {
+class RecipesFragment : Fragment() {
 
 
     private val list: List<Food> = listOf(
