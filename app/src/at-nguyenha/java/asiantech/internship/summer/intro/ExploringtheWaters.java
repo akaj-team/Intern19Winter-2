@@ -45,10 +45,10 @@ public class ExploringtheWaters {
      * 15
      * Given a rectangular matrix of characters, add a border of asterisks(*) to it.
      */
-    static String[] addBorder(String[] picture) {
-        int x = picture.length + 2;
+    static String[] addBorder(String[] imgPicture) {
+        int x = imgPicture.length + 2;
         String[] s = new String[x];
-        int y = picture[0].length() + 1;
+        int y = imgPicture[0].length() + 1;
         Arrays.fill(s, "");
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y + 1; j++) {
@@ -56,8 +56,8 @@ public class ExploringtheWaters {
                     s[i] += "*";
                 }
             }
-            if (i > 0 && i < x - 1 && i < picture.length+1) {
-                s[i] = "*" + picture[i-1] + "*";
+            if (i > 0 && i < x - 1 && i < imgPicture.length+1) {
+                s[i] = "*" + imgPicture[i-1] + "*";
             }
         }
 
