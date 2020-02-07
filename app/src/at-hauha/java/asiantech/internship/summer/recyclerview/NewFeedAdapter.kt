@@ -8,14 +8,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 
-class NewFeedAdapter(private val newFeeds: MutableList<NewFeed>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewFeedAdapter(private val newFeeds: MutableList<NewFeed>) : RecyclerView.Adapter<NewFeedAdapter.RecyclerViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_item, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
         return RecyclerViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         (holder as? RecyclerViewHolder)?.bindData()
     }
 
@@ -31,7 +31,7 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeed>) : RecyclerView.
         private val tvLikeNumber: TextView = itemView.findViewById(R.id.tvLikeNumber)
         private val tvPreview: TextView = itemView.findViewById(R.id.tvPreview)
         private val imgLike: ImageView = itemView.findViewById(R.id.imgLike)
-        private val tvFoodName : TextView = itemView.findViewById(R.id.tvFoodName)
+        private val tvFoodName: TextView = itemView.findViewById(R.id.tvFoodName)
 
         init {
             imgLike.setOnClickListener {
@@ -40,14 +40,15 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeed>) : RecyclerView.
         }
 
         fun bindData() {
-            val item = newFeeds[adapterPosition]
-            tvUserName.text = item.name
-            imgBackGround.setImageResource(item.picture)
-            if (item.isStatus) imgLike.setImageResource(R.drawable.ic_like_red)
-            else imgLike.setImageResource(R.drawable.ic_like)
-            tvLikeNumber.text = item.likes.toString()
-            tvFoodName.text = item.foodName
-            tvPreview.text = item.preview
+            newFeeds[adapterPosition].run {
+                tvUserName.text = name
+                imgBackGround.setImageResource(picture)
+                if (isStatus) imgLike.setImageResource(R.drawable.ic_like_red)
+                else imgLike.setImageResource(R.drawable.ic_like)
+                tvLikeNumber.text = itemView.context.getString(R.string.textview_like,likes)
+                tvFoodName.text = foodName
+                tvPreview.text = preview
+            }
         }
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/dimen_10"
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16"
-        android:text="@string/edittext_fullname"
+        tools:text="@string/edittext_fullname"
         android:textColor="@android:color/black"
         android:textSize="@dimen/text_size_16"
         android:textStyle="bold"
@@ -92,7 +93,7 @@
         android:layout_marginTop="@dimen/width_8"
         android:gravity="center"
         android:src="@drawable/ic_like_black"
-        android:text="@string/textview_12_likes"
+        tools:text="@string/textview_likes"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvStraight" />
@@ -103,7 +104,7 @@
         android:layout_height="@dimen/dimen_30"
         android:layout_marginEnd="@dimen/dimen_250"
         android:gravity="center"
-        android:text="@string/textview_12"
+        android:text="@string/textview_like"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.081"
@@ -111,25 +112,11 @@
         app:layout_constraintTop_toBottomOf="@id/tvStraight" />
 
     <TextView
-        android:id="@+id/tvLike"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dimen_30"
-        android:layout_marginStart="@dimen/dimen_6"
-        android:layout_marginEnd="@dimen/dimen_300"
-        android:gravity="center"
-        android:text="@string/textview_likes"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/tvLikeNumber"
-        app:layout_constraintTop_toBottomOf="@id/tvStraight" />
-
-    <TextView
         android:id="@+id/tvFoodName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dimen_16"
-        android:text="@string/textview_full_name"
+        tools:text="@string/textview_chocola"
         android:textColor="@android:color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -142,7 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dimen_20"
-        android:text="@string/textview_comment"
+        tools:text="@string/textview_comment"
         android:textColor="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
