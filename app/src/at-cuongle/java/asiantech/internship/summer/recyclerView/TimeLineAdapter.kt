@@ -11,18 +11,18 @@ import asiantech.internship.summer.R
 
 
 class TimeLineAdapter(private val timeLineViewHolders: MutableList<TimelineViewHolder>) :
-        RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+        RecyclerView.Adapter<TimeLineAdapter.TimeLineViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimeLineViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_item, parent, false)
         return TimeLineViewHolder(view)
     }
 
     override fun getItemCount() = timeLineViewHolders.size
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TimeLineViewHolder, position: Int) {
         (holder as? TimeLineViewHolder)?.bindData()
     }
 
