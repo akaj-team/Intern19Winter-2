@@ -9,10 +9,6 @@ import android.view.ViewGroup
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-nguyenha`.fragment_edit_profile.*
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class EditProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -23,10 +19,8 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btnEditProfie.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()?.
-                    replace(R.id.frLayout,RegisterFragment(),null)?.
-                    addToBackStack(null)?.commit()
+            activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.frLayout, RegisterFragment(), null)?.addToBackStack(null)?.commit()
         }
     }
-
 }
+

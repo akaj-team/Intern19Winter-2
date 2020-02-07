@@ -77,8 +77,10 @@
 
         <EditText
             android:id="@+id/edtFullnameprofile"
-            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginRight="@dimen/layout_marginright_20dp"
             android:hint="@string/edittext_hint_fullname"
             android:inputType="text"
             android:textSize="@dimen/textview_textsize_20sp"
@@ -100,8 +102,10 @@
 
         <EditText
             android:id="@+id/edtBio"
-            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginRight="@dimen/layout_marginright_20dp"
             android:hint="@string/edittext_hint_potato_master"
             android:inputType="text"
             android:textSize="@dimen/textview_textsize_20sp"
@@ -133,8 +137,10 @@
 
         <EditText
             android:id="@+id/edtEmailedit"
-            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginRight="@dimen/layout_marginright_20dp"
             android:hint="@string/edittext_hint_user_email"
             android:inputType="text"
             android:textSize="@dimen/textview_textsize_20sp"
@@ -156,8 +162,10 @@
 
         <EditText
             android:id="@+id/edtPhone"
-            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginRight="@dimen/layout_marginright_20dp"
             android:hint="@string/edittext_hint_phone"
             android:inputType="phone"
             android:textSize="@dimen/textview_textsize_20sp"
@@ -168,9 +176,11 @@
 
         <Button
             android:id="@+id/btnEditProfie"
-            android:layout_width="@dimen/layout_width_376dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/layout_height_52dp"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
             android:layout_marginTop="@dimen/layout_margintop_20dp"
+            android:layout_marginRight="@dimen/layout_marginright_20dp"
             android:layout_marginBottom="@dimen/layout_marginbottom_32dp"
             android:background="@drawable/button"
             android:text="@string/button_text_save_profile"
