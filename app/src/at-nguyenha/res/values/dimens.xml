@@ -12,12 +12,11 @@
     <dimen name="textview_textsize_14sp">14sp</dimen>
     <dimen name="layout_width_84dp">84dp</dimen>
     <dimen name="layout_margintop_20dp">20dp</dimen>
-    <dimen name="layout_width_276dp">376dp</dimen>
     <dimen name="layout_height_20dp">20dp</dimen>
-    <dimen name="layout_width_376dp">376dp</dimen>
     <dimen name="layout_height_52dp">52dp</dimen>
     <dimen name="layout_width_116dp">116dp</dimen>
     <dimen name="textview_textsize_20sp">20sp</dimen>
     <dimen name="layout_margin_top">32dp</dimen>
     <dimen name="layout_marginbottom_32dp">32dp</dimen>
+    <dimen name="layout_marginright_20dp">20dp</dimen>
 </resources>
