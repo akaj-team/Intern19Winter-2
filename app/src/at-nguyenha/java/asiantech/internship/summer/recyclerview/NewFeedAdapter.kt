@@ -8,11 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 
-class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : RecyclerView.Adapter<NewFeedAdapter.NewFeedViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewFeedViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_newfeed, parent, false)
         return NewFeedViewHolder(view)
     }
@@ -21,7 +21,7 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
         return newFeeds.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: NewFeedViewHolder, position: Int) {
         (holder as? NewFeedViewHolder)?.binData()
     }
 
@@ -32,6 +32,8 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
         private val tvLikes: TextView = itemView.findViewById(R.id.tvHeartNumber)
         private val tvStatus: TextView = itemView.findViewById(R.id.tvStatus)
         private val tvNameStatus: TextView = itemView.findViewById(R.id.tvNameStatus)
+        private val tvFoodName: TextView = itemView.findViewById(R.id.tvFoodName)
+
 
         init {
             imgHeart.setOnClickListener {
@@ -39,14 +41,16 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
             }
         }
 
-        fun binData() {
-            val newFeeds = newFeeds[adapterPosition]
-            tvName.text = newFeeds.name
-            imgMainPhoto.setImageResource(newFeeds.mainimage)
-            if (newFeeds.isHeart) imgHeart.setImageResource(R.drawable.ic_hearted) else imgHeart.setImageResource(R.drawable.ic_heart)
-            tvNameStatus.text = newFeeds.name
-            tvLikes.text = newFeeds.likeNumber.toString()
-            tvStatus.text = newFeeds.status
+        internal fun binData() {
+            newFeeds[adapterPosition].let {
+                tvName.text = it.name
+                imgMainPhoto.setImageResource(it.mainImage)
+                if (it.isHeart) imgHeart.setImageResource(R.drawable.ic_hearted) else imgHeart.setImageResource(R.drawable.ic_heart)
+                tvNameStatus.text = it.name
+                tvFoodName.text = it.foodName
+                tvLikes.text = itemView.context.getString(R.string.textview_text_like_number, it.likeNumber)
+                tvStatus.text = it.status
+            }
         }
     }
 }

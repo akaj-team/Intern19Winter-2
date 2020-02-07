@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="imageview_avatar_width">50dp</dimen>
+    <dimen name="imageview_avatar_height">50dp</dimen>
+    <dimen name="icon_action_width">50dp</dimen>
+    <dimen name="icon_action_height">50dp</dimen>
+</resources>

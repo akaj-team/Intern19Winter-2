@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="20dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/imageview_avatar_width"
+        android:layout_height="@dimen/imageview_avatar_height"
         android:layout_margin="10dp"
         android:src="@drawable/ic_img_avatar"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -19,12 +20,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:text="@string/textview_text_name"
         android:textSize="15dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
         app:layout_constraintLeft_toRightOf="@id/imgAvatar"
-        app:layout_constraintTop_toTopOf="@id/imgAvatar" />
+        app:layout_constraintTop_toTopOf="@id/imgAvatar"
+        tools:text="Cena Ha" />
 
     <ImageView
         android:id="@+id/imgOption"
@@ -49,8 +50,8 @@
 
     <ImageView
         android:id="@+id/imgHeart"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/icon_action_width"
+        android:layout_height="@dimen/icon_action_height"
         android:src="@drawable/ic_heart"
         app:layout_constraintLeft_toLeftOf="@id/imgMainPhoto"
         app:layout_constraintTop_toBottomOf="@id/imgMainPhoto" />
@@ -65,8 +66,8 @@
 
     <ImageView
         android:id="@+id/imgShare"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/icon_action_width"
+        android:layout_height="@dimen/icon_action_height"
         android:src="@drawable/ic_share"
         app:layout_constraintLeft_toRightOf="@id/imgComment"
         app:layout_constraintTop_toTopOf="@id/imgHeart" />
@@ -105,7 +106,6 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginLeft="2dp"
-        android:text="@string/textview_text_likes"
         app:layout_constraintBottom_toBottomOf="@id/imgHeartBlack"
         app:layout_constraintLeft_toRightOf="@id/tvHeartNumber"
         app:layout_constraintTop_toTopOf="@id/imgHeartBlack" />
@@ -114,18 +114,28 @@
         android:id="@+id/tvNameStatus"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:text="@string/textview_text_name"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@id/imgHeartBlack"
-        app:layout_constraintTop_toBottomOf="@id/imgHeartBlack" />
+        app:layout_constraintTop_toBottomOf="@id/imgHeartBlack"
+        tools:text="Cena Ha" />
+
+    <TextView
+        android:id="@+id/tvFoodName"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toRightOf="@id/tvNameStatus"
+        app:layout_constraintTop_toTopOf="@id/tvNameStatus"
+        tools:text="Pizza" />
+
 
     <TextView
         android:id="@+id/tvStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textview_text_status"
         android:textSize="15dp"
         app:layout_constraintLeft_toLeftOf="@id/vLine"
-        app:layout_constraintTop_toBottomOf="@id/tvNameStatus" />
+        app:layout_constraintTop_toBottomOf="@id/tvNameStatus"
+        tools:text="This is the hamburger that I make, feel so good " />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,8 @@
 package asiantech.internship.summer.recyclerview
 
 data class NewFeedModel(var name: String,
-                        var mainimage : Int,
+                        var mainImage: Int,
                         var isHeart: Boolean,
                         var likeNumber: Int,
-                        var status : String)
+                        var foodName: String,
+                        var status: String)
