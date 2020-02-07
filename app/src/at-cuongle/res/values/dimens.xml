@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="width_50dp">50dp</dimen>
+    <dimen name="height_50dp">50dp</dimen>
+    <dimen name="guide_begin_24dp">24dp</dimen>
+    <dimen name="margin_20dp">40dp</dimen>
+</resources>
