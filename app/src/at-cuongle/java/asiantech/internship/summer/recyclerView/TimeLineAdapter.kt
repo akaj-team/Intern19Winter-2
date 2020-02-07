@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 
 
-class TimeLineAdapter(private val timeLineViewHolders: MutableList<TimelineViewHolder?>) :
+class TimeLineAdapter(private val timeLineViewHolders: MutableList<TimelineViewHolder>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
@@ -40,9 +40,8 @@ class TimeLineAdapter(private val timeLineViewHolders: MutableList<TimelineViewH
             }
         }
 
-        fun bindData() {
-            val timeLineItem = timeLineViewHolders[adapterPosition]
-            timeLineItem?.let {
+        internal fun bindData() {
+                timeLineViewHolders[adapterPosition].let {
                 tvNameTop.text = it.name
                 imgFood.setImageResource(it.imageFood)
                 tvNameBottom.text = it.name

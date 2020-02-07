@@ -11,9 +11,13 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.activity_time_line.*
 
 class TimelineActivity : AppCompatActivity() {
-    private val timelineItems = mutableListOf<TimelineViewHolder?>()
+    private val timelineItems = mutableListOf<TimelineViewHolder>()
     private var isLoading = false
     private lateinit var adapterTimeLine: TimeLineAdapter
+
+    companion object {
+        private const val DELAY_PROGRESSBAR: Long = 2000
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +47,7 @@ class TimelineActivity : AppCompatActivity() {
     private fun initAdapter() {
         adapterTimeLine = TimeLineAdapter(timelineItems)
         adapterTimeLine.onItemClicked = { it ->
-            timelineItems[it]?.let {
+            timelineItems[it].let {
                 if (it.isLike) {
                     it.isLike = false
                     it.like -= 1
@@ -56,13 +60,6 @@ class TimelineActivity : AppCompatActivity() {
             (recycleView.itemAnimator as? SimpleItemAnimator)?.supportsChangeAnimations = false
         }
         recycleView.adapter = adapterTimeLine
-    }
-
-    private fun loadMore() {
-        isLoading = true
-        progressBar.visibility = View.INVISIBLE
-        initData()
-        adapterTimeLine.notifyItemInserted(timelineItems.size - 1)
     }
 
     private fun initListeners() {
@@ -84,11 +81,18 @@ class TimelineActivity : AppCompatActivity() {
                         progressBar.visibility = View.VISIBLE
                         Handler().postDelayed({
                             loadMore()
-                        }, 2000)
+                        }, DELAY_PROGRESSBAR)
                     }
                 }
                 isLoading = false
             }
         })
+    }
+
+    private fun loadMore() {
+        isLoading = true
+        progressBar.visibility = View.INVISIBLE
+        initData()
+        adapterTimeLine.notifyItemInserted(timelineItems.size - 1)
     }
 }
