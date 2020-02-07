@@ -1,4 +1,3 @@
 package asiantech.internship.summer.drawerLayout
 
-class DrawerLayoutViewHolder {
-}
+data class DrawerLayoutViewHolder(var imageAvatar: Int, var email :String )

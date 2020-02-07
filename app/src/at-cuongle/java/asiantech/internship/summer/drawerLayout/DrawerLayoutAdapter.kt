@@ -1,4 +1,6 @@
 package asiantech.internship.summer.drawerLayout
 
-class DrawerLayoutAdapter {
-}
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+
+class DrawerLayoutAdapter

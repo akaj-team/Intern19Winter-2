@@ -2,6 +2,7 @@ package asiantech.internship.summer.drawerLayout
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import asiantech.internship.summer.R
 
 class DrawerLayoutActivity : AppCompatActivity() {
 
