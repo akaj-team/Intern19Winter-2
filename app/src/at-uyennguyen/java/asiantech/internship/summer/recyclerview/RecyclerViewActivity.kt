@@ -19,17 +19,12 @@ class RecyclerViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recyclerview)
         initData()
-        initListener()
         initAdapter()
-        addScrollListener()
-        refreshItem()
-    }
-
-    private fun initAdapter() {
+        initListener()
         recyclerviewMain.adapter = foodAdapter
     }
 
-    private fun initListener() {
+    private fun initAdapter() {
         foodAdapter.onItemClicked = {
             foods[it]?.run {
                 likeHeart = like
@@ -50,7 +45,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         }
     }
 
-    private fun addScrollListener() {
+    private fun initListener() {
         recyclerviewMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
@@ -68,15 +63,12 @@ class RecyclerViewActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-    private fun refreshItem() {
-        swiperefreshlayout.setOnRefreshListener {
+        swipeRefreshLayout.setOnRefreshListener {
             Handler().postDelayed({
                 foods.clear()
                 initData()
-                addScrollListener()
-                swiperefreshlayout.isRefreshing = false
+                foodAdapter.notifyDataSetChanged()
+                swipeRefreshLayout.isRefreshing = false
             }, 2000)
         }
     }
