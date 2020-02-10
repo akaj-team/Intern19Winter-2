@@ -73,5 +73,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     apply from: "../ci-java.gradle"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
-    implementation 'com.github.moove-it:fakeit:v0.7'
+    implementation 'com.thedeanda:lorem:2.1'
 }

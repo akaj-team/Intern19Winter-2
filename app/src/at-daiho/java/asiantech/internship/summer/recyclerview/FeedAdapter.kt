@@ -29,8 +29,9 @@ class FeedAdapter(private val feeds: MutableList<Feed>) : RecyclerView.Adapter<R
         private val tvOwnerUsername: TextView = itemView.findViewById(R.id.tvOwnerUsername)
         private val imgFeed: ImageView = itemView.findViewById(R.id.imgFeed)
         private val tvNumberOfLike: TextView = itemView.findViewById(R.id.tvNumberOfLike)
+        private val tvCommentOwner: TextView = itemView.findViewById(R.id.tvCommentOwner)
         private val tvComment: TextView = itemView.findViewById(R.id.tvComment)
-        private val imgLike: ImageView = itemView.findViewById(R.id.imgLike)
+        private val imgLike: ImageView = itemView.findViewById(R.id.imgBtnLike)
 
         init {
             imgLike.setOnClickListener {
@@ -43,6 +44,7 @@ class FeedAdapter(private val feeds: MutableList<Feed>) : RecyclerView.Adapter<R
             tvOwnerUsername.text = item.name
 //            imgFeed.setImageResource(item.pictureIndex)
             tvNumberOfLike.text = item.noOfLikes.toString()
+            tvCommentOwner.text = item.commentOwner
             tvComment.text = item.comment
             if (item.isLike)
                 imgLike.setImageResource(R.mipmap.ic_like_red)

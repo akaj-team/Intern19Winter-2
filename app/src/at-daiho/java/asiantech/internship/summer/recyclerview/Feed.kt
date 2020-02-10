@@ -5,5 +5,6 @@ data class Feed(
         var pictureIndex: UInt,
         var isLike: Boolean,
         var noOfLikes: UInt,
+        var commentOwner: String,
         var comment: String
 )
