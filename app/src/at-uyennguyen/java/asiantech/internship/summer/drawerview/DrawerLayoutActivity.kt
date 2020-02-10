@@ -45,6 +45,7 @@ class DrawerLayoutActivity : AppCompatActivity() {
         }
 
     }
+
     private fun setAvatarDialog() {
         val avatarDialog = AlertDialog.Builder(this)
         avatarDialog.setTitle("Choose Avatar by : ")
@@ -96,12 +97,12 @@ class DrawerLayoutActivity : AppCompatActivity() {
         }
     }
 
-    fun drawerSlide(){
-        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close){
+    fun drawerSlide() {
+        val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
-                var slide = drawerView.width*slideOffset
-                frameLayout.translationX=slide
+                var slide = drawerView.width * slideOffset
+                frameLayout.translationX = slide
             }
         }
         drawerLayout.addDrawerListener(drawerToggle)
@@ -118,14 +119,15 @@ class DrawerLayoutActivity : AppCompatActivity() {
 //            val thePic = extras?.getParcelable<Bitmap>("data")
 //            imgAvatar.setImageBitmap(thePic)
 //        }
-        if (requestCode == LOAD_IMAGE_GALLERY && resultCode == RESULT_OK ) run {
-//            cropImage(image)
+        if (requestCode == LOAD_IMAGE_GALLERY && resultCode == RESULT_OK) run {
+            //            cropImage(image)
             image = data?.data!!
             imgAvatar.setImageURI(image)
         }
         super.onActivityResult(requestCode, resultCode, data)
     }
-    fun cropImage(image : Uri){
+
+    fun cropImage(image: Uri) {
         try {
             val cropIntent = Intent("com.android.camera.action.CROP")
             cropIntent.setDataAndType(image, "image/*")
