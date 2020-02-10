@@ -7,7 +7,6 @@ import asiantech.internship.summer.R
 import com.thedeanda.lorem.LoremIpsum
 import kotlinx.android.synthetic.`at-daiho`.activity_recycler_view.*
 import kotlin.random.Random
-import kotlin.random.nextUInt
 
 class RecyclerViewActivity : AppCompatActivity() {
 
@@ -18,18 +17,50 @@ class RecyclerViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recycler_view)
-        adapter = FeedAdapter(feeds)
+        initAdapter()
+        initActionForFavotiteButton()
         feeds.addAll(get10FeedData())
-        adapter.notifyDataSetChanged()
         reloadData()
+    }
+
+    private fun initAdapter() {
+        adapter = FeedAdapter(feeds)
+        recycleViewMain.layoutManager = LinearLayoutManager(this)
+        recycleViewMain.adapter = adapter
+    }
+
+    private fun initActionForFavotiteButton() {
+        adapter.onItemClicked = {
+            val isLike = feeds[it].isLike
+            val feed = feeds[it]
+            if (isLike) {
+                feed.isLike = !isLike
+                feed.noOfLikes -= 1
+            } else {
+                feed.isLike = !isLike
+                feed.noOfLikes += 1
+            }
+            adapter.notifyItemChanged(it)
+        }
     }
 
     private fun get10FeedData(): MutableList<Feed> {
         val ret = mutableListOf<Feed>()
+        val images = arrayOf(R.mipmap.img_feed1,
+                R.mipmap.img_feed2,
+                R.mipmap.img_feed3,
+                R.mipmap.img_feed4,
+                R.mipmap.img_feed5,
+                R.mipmap.img_feed6,
+                R.mipmap.img_feed7,
+                R.mipmap.img_feed8,
+                R.mipmap.img_feed9,
+                R.mipmap.img_feed10)
         for (i in 0..10) {
             ret.add(Feed(lorem.name,
-                    Random.nextUInt(0.toUInt(), 10.toUInt()),
-                    Random.nextBoolean(), Random.nextUInt(0.toUInt(), 10000.toUInt()),
+                    images[Random.nextInt(1, 10)],
+                    Random.nextBoolean(),
+                    Random.nextInt(0, 10000),
                     lorem.name,
                     lorem.getWords(20,100)))
         }
@@ -37,7 +68,6 @@ class RecyclerViewActivity : AppCompatActivity() {
     }
 
     private fun reloadData() {
-        recycleViewMain.layoutManager = LinearLayoutManager(this)
-        recycleViewMain.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 }

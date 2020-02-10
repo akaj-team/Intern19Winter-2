@@ -42,14 +42,17 @@ class FeedAdapter(private val feeds: MutableList<Feed>) : RecyclerView.Adapter<R
         fun bindData() {
             val item = feeds[adapterPosition]
             tvOwnerUsername.text = item.name
-//            imgFeed.setImageResource(item.pictureIndex)
-            tvNumberOfLike.text = item.noOfLikes.toString()
+            imgFeed.setImageResource(item.pictureIndex)
+            if (item.noOfLikes == 1)
+                tvNumberOfLike.text = String.format(itemView.context.getString(R.string.feed_item_number_of_like, item.noOfLikes))
+            else
+                tvNumberOfLike.text = String.format(itemView.context.getString(R.string.feed_item_number_of_likes, item.noOfLikes))
             tvCommentOwner.text = item.commentOwner
             tvComment.text = item.comment
             if (item.isLike)
-                imgLike.setImageResource(R.mipmap.ic_like_red)
+                imgLike.setImageResource(R.drawable.ic_like_red)
             else
-                imgLike.setImageResource(R.mipmap.ic_like)
+                imgLike.setImageResource(R.drawable.ic_like)
         }
     }
 }

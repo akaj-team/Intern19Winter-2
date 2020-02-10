@@ -58,7 +58,7 @@
         android:layout_height="@dimen/feed_item_button_size"
         android:layout_marginLeft="@dimen/margin_20"
         android:layout_marginTop="@dimen/margin_10"
-        android:src="@mipmap/ic_like"
+        android:src="@drawable/ic_like"
         android:stateListAnimator="@null"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgFeed" />
@@ -68,7 +68,7 @@
         android:layout_width="@dimen/feed_item_button_size"
         android:layout_height="@dimen/feed_item_button_size"
         android:layout_marginLeft="@dimen/margin_20"
-        android:src="@mipmap/ic_comment"
+        android:src="@drawable/ic_comment"
         app:layout_constraintStart_toEndOf="@id/imgBtnLike"
         app:layout_constraintTop_toTopOf="@id/imgBtnLike" />
 
@@ -77,7 +77,7 @@
         android:layout_width="@dimen/feed_item_button_size"
         android:layout_height="@dimen/feed_item_button_size"
         android:layout_marginLeft="@dimen/margin_20"
-        android:src="@mipmap/ic_share"
+        android:src="@drawable/ic_share"
         app:layout_constraintStart_toEndOf="@id/imgBtnComment"
         app:layout_constraintTop_toTopOf="@id/imgBtnLike" />
 
@@ -101,7 +101,7 @@
         android:layout_marginLeft="@dimen/margin_20"
         android:layout_marginTop="@dimen/margin_8"
         android:gravity="center"
-        android:src="@mipmap/ic_like_black"
+        android:src="@drawable/ic_like_black"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvLine"
