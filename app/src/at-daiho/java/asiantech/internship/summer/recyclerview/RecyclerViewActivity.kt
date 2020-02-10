@@ -1,9 +1,11 @@
 package asiantech.internship.summer.recyclerview
 
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
@@ -25,6 +27,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         initActionForFavotiteButton()
         feeds.addAll(get10FeedData())
         reloadData()
+        initPullToRefresh()
         initLoadMoreScrollListener()
     }
 
@@ -67,7 +70,7 @@ class RecyclerViewActivity : AppCompatActivity() {
                     Random.nextBoolean(),
                     Random.nextInt(0, 10000),
                     lorem.name,
-                    lorem.getWords(20,100)))
+                    lorem.getWords(20, 100)))
         }
         return ret
     }
@@ -76,8 +79,20 @@ class RecyclerViewActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun initLoadMoreScrollListener() {
+    private fun initPullToRefresh() {
+        pullToRefresh.setProgressBackgroundColorSchemeColor(ContextCompat.getColor(this, R.color.colorPrimary))
+        pullToRefresh.setColorSchemeColors(Color.WHITE)
+        pullToRefresh.setOnRefreshListener {
+            Handler().postDelayed({
+                feeds.clear()
+                feeds.addAll(get10FeedData())
+                reloadData()
+                pullToRefresh.isRefreshing = false
+            }, 1000)
+        }
+    }
 
+    private fun initLoadMoreScrollListener() {
         recycleViewMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)

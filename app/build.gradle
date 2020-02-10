@@ -74,4 +74,5 @@ dependencies {
     apply from: "../ci-java.gradle"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'com.thedeanda:lorem:2.1'
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 }
