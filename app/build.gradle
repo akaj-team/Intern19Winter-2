@@ -86,7 +86,7 @@ dependencies {
 //    }
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
-    implementation ('com.yalantis:ucrop:2.1.1@aar') {
+    implementation('com.yalantis:ucrop:2.1.1@aar') {
         transitive = true
     }
 }

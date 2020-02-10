@@ -2,5 +2,6 @@
     <string name="app_name">TrinhNguyen</string>
     <string name="drawer_open">TrinhNguyen</string>
     <string name="drawer_close">TrinhNguyen</string>
+    <string name="tvFrameLayout">Hello   How are you?</string>
 </resources>
 
