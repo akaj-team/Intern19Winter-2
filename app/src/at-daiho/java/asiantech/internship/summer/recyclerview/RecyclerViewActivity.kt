@@ -2,7 +2,10 @@ package asiantech.internship.summer.recyclerview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 import com.thedeanda.lorem.LoremIpsum
 import kotlinx.android.synthetic.`at-daiho`.activity_recycler_view.*
@@ -12,6 +15,7 @@ class RecyclerViewActivity : AppCompatActivity() {
 
     private val feeds = mutableListOf<Feed>()
     private val lorem = LoremIpsum()
+    private var isLoading = false
     private lateinit var adapter: FeedAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +25,7 @@ class RecyclerViewActivity : AppCompatActivity() {
         initActionForFavotiteButton()
         feeds.addAll(get10FeedData())
         reloadData()
+        initLoadMoreScrollListener()
     }
 
     private fun initAdapter() {
@@ -70,4 +75,28 @@ class RecyclerViewActivity : AppCompatActivity() {
     private fun reloadData() {
         adapter.notifyDataSetChanged()
     }
+
+    private fun initLoadMoreScrollListener() {
+
+        recycleViewMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val layoutManager = recycleViewMain.layoutManager as LinearLayoutManager
+                val lastItemIndex = layoutManager.findLastVisibleItemPosition()
+                if (!isLoading) {
+                    if (lastItemIndex == feeds.size - 1) {
+                        isLoading = true
+                        progressBar.visibility = View.VISIBLE
+                        Handler().postDelayed({
+                            progressBar.visibility = View.INVISIBLE
+                            feeds.addAll(get10FeedData())
+                            reloadData()
+                            isLoading = false
+                        }, 1000)
+                    }
+                }
+            }
+        })
+    }
+
 }
