@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">DaiHo</string>
-    <string name="feed_item_number_of_like">%d Like</string>
-    <string name="feed_item_number_of_likes">%d Likes</string>
+    <string name="feed_item_number_of_like">%d like</string>
+    <string name="feed_item_number_of_likes">%d likes</string>
 </resources>
