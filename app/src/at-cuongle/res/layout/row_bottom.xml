@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/llRoot"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_50dp"
+    android:layout_height="70dp"
+    android:background="@drawable/hint_item_color"
     android:orientation="vertical">
 
-    <TextView
-        android:textColor="#FFFF"
-        android:text="30dp"
-        android:id="@+id/tvTitle"
+    <ImageView
+        android:id="@+id/imgItem"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/guide_begin_24dp"
+        android:src="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="80dp"
+        android:textColor="@color/color_items"
+        android:textSize="24dp"
+        app:layout_constraintStart_toEndOf="@+id/imgItem"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

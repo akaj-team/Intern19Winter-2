@@ -1,5 +1,6 @@
 package asiantech.internship.summer.drawerLayout
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
+import kotlinx.android.synthetic.`at-cuongle`.row_bottom.view.*
 
-class DrawerLayoutAdapter(private val drawerLayoutViewHolder: MutableList<Menu>) :
+class MenuAdapter(private val drawerLayoutViewHolder: MutableList<Menu>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     internal var onItemClicked: (position: Int) -> Unit = {}
+    internal var onAvatarClick: () -> Unit = {}
+    private var selectedItem = 0
 
     companion object {
         private const val TYPE_HEADER = 1
@@ -27,42 +31,54 @@ class DrawerLayoutAdapter(private val drawerLayoutViewHolder: MutableList<Menu>)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == TYPE_HEADER) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.row_top, parent, false)
-            return InforViewHolder(view)
+            return HeaderViewHolder(view)
         }
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_bottom, parent, false)
-        return DrawerViewHolder(view)
+        return ItemViewHolder(view)
     }
 
     override fun getItemCount() = drawerLayoutViewHolder.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? DrawerViewHolder)?.bindData()
-        (holder as? InforViewHolder)?.bindData()
+        (holder as? ItemViewHolder)?.bindData()
+        (holder as? HeaderViewHolder)?.bindData()
     }
 
-    inner class DrawerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
-
+        private val icItem : ImageView = itemView.findViewById(R.id.imgItem)
         init {
             tvTitle.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
+                selectedItem = adapterPosition
+                notifyDataSetChanged()
+                Log.i("XXX", selectedItem.toString())
             }
+
         }
 
         internal fun bindData() {
-            drawerLayoutViewHolder[adapterPosition].let {
-                tvTitle.text = it.textTitle
+            itemView.run {
+                drawerLayoutViewHolder[adapterPosition].let {
+                    tvTitle.text = it.textTitle
+                    imgItem.setImageResource(it.icon)
+//                    tvTitle.setCompoundDrawablesWithIntrinsicBounds(it.icon, 0, 0, 0)
+//                    tvTitle.compoundDrawablePadding = 100
+                    imgItem.isSelected = selectedItem == adapterPosition
+                    llRoot.isSelected = selectedItem == adapterPosition
+                    tvTitle.isSelected = selectedItem == adapterPosition
+                }
             }
         }
     }
 
-    inner class InforViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imgAvatar: ImageView = itemView.findViewById(R.id.imgAvatar)
         private val tvEmail: TextView = itemView.findViewById(R.id.tvEmail)
 
         init {
             imgAvatar.setOnClickListener {
-                onItemClicked.invoke(adapterPosition)
+                onAvatarClick.invoke()
             }
         }
 
