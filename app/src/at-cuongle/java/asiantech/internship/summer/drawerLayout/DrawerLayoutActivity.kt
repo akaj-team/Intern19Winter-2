@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -16,6 +17,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import asiantech.internship.summer.R
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 
 import kotlinx.android.synthetic.`at-cuongle`.activity_drawer_layout.*
 import kotlinx.android.synthetic.`at-cuongle`.row_top.*
@@ -133,13 +136,16 @@ class DrawerLayoutActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_CAPTURE_CODE) {
-
-            imgAvatar.setImageURI(imageAvatarUri)
-
-        } else if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_GALLERY_CODE) {
-            imageAvatarUri = data!!.data
-            imgAvatar.setImageURI(imageAvatarUri)
+        when (requestCode) {
+            IMAGE_CAPTURE_CODE -> cropImage(imageAvatarUri)
+            IMAGE_GALLERY_CODE -> {
+                imageAvatarUri = data?.data
+                cropImage(imageAvatarUri)
+            }
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                val result = CropImage.getActivityResult(data)
+                imgAvatar.setImageURI(result.uri)
+            }
         }
     }
 
@@ -157,5 +163,10 @@ class DrawerLayoutActivity : AppCompatActivity() {
         val galleryIntent = Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         startActivityForResult(galleryIntent, IMAGE_GALLERY_CODE)
+    }
+
+    private fun cropImage(imageUri: Uri?) {
+        CropImage.activity(imageUri)
+                .start(this)
     }
 }
