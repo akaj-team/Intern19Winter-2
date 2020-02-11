@@ -11,14 +11,14 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/g1"
+            android:id="@+id/guideLineLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/g2"
+            android:id="@+id/guideLineRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_margintop_44dp"
             android:src="@drawable/img_back"
-            app:layout_constraintLeft_toLeftOf="@id/g1"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:layout_marginTop="16dp"
             android:text="@string/textview_text_edit_profile"
             android:textSize="@dimen/textview_textsize_20sp"
-            app:layout_constraintLeft_toLeftOf="@id/g1"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/imgBack" />
 
         <ImageView
@@ -72,7 +72,7 @@
             android:layout_marginTop="@dimen/layout_margin_top"
             android:text="@string/textview_text_fullname"
             android:textSize="@dimen/textview_textsize_14sp"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvEditAvatar" />
 
         <EditText
@@ -84,9 +84,9 @@
             android:hint="@string/edittext_hint_fullname"
             android:inputType="text"
             android:textSize="@dimen/textview_textsize_20sp"
-            app:layout_constraintEnd_toEndOf="@id/g2"
+            app:layout_constraintEnd_toEndOf="@id/guideLineRight"
             app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvFullnameprofile"
             tools:ignore="Autofill" />
 
@@ -97,7 +97,7 @@
             android:layout_marginTop="@dimen/layout_margintop_20dp"
             android:text="@string/textview_text_bio"
             android:textSize="@dimen/textview_textsize_14sp"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/edtFullnameprofile" />
 
         <EditText
@@ -109,9 +109,9 @@
             android:hint="@string/edittext_hint_potato_master"
             android:inputType="text"
             android:textSize="@dimen/textview_textsize_20sp"
-            app:layout_constraintEnd_toEndOf="@id/g2"
+            app:layout_constraintEnd_toEndOf="@id/guideLineRight"
             app:layout_constraintHorizontal_bias="0.333"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvBio"
             tools:ignore="Autofill" />
 
@@ -122,7 +122,7 @@
             android:layout_marginTop="@dimen/layout_margin_top"
             android:text="@string/edittext_text_private_information"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/edtBio" />
 
         <TextView
@@ -132,7 +132,7 @@
             android:layout_marginTop="@dimen/layout_margintop_20dp"
             android:text="@string/textview_text_email"
             android:textSize="@dimen/textview_textsize_14sp"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvPrivateInformation" />
 
         <EditText
@@ -144,8 +144,8 @@
             android:hint="@string/edittext_hint_user_email"
             android:inputType="text"
             android:textSize="@dimen/textview_textsize_20sp"
-            app:layout_constraintEnd_toEndOf="@id/g2"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineRight"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvEmaiiEdit"
             tools:ignore="Autofill" />
 
@@ -156,7 +156,7 @@
             android:layout_marginTop="@dimen/layout_margintop_20dp"
             android:text="@string/textview_text_phone"
             android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/edtEmailedit" />
 
 
@@ -169,8 +169,8 @@
             android:hint="@string/edittext_hint_phone"
             android:inputType="phone"
             android:textSize="@dimen/textview_textsize_20sp"
-            app:layout_constraintEnd_toEndOf="@id/g2"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineRight"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvPhone"
             tools:ignore="Autofill" />
 
@@ -187,8 +187,8 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/textview_textsize_20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/g2"
-            app:layout_constraintStart_toStartOf="@id/g1"
+            app:layout_constraintEnd_toEndOf="@id/guideLineRight"
+            app:layout_constraintStart_toStartOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@id/edtPhone" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

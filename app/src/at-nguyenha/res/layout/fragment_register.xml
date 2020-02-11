@@ -11,14 +11,14 @@
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/g2"
+            android:id="@+id/guideLineLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.05" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/g3"
+            android:id="@+id/guideLineRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -30,7 +30,8 @@
             android:layout_height="@dimen/layout_height_img_img_header"
             android:scaleType="centerCrop"
             android:src="@drawable/image_header"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
 
         <ImageView
             android:id="@+id/imgLogo"
@@ -62,7 +63,7 @@
             android:fontFamily="Nunito-Regular"
             android:text="@string/textview_text_create_account_here"
             android:textSize="@dimen/textview_textsize_14sp"
-            app:layout_constraintLeft_toLeftOf="@+id/g2"
+            app:layout_constraintLeft_toLeftOf="@+id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/imgHeader" />
 
         <TextView
@@ -72,7 +73,7 @@
             android:layout_marginTop="@dimen/layout_margintop_20dp"
             android:text="@string/textview_text_fullname"
             android:textSize="@dimen/textview_textsize_14sp"
-            app:layout_constraintLeft_toRightOf="@+id/g2"
+            app:layout_constraintLeft_toRightOf="@+id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvLogin" />
 
         <EditText
@@ -84,8 +85,8 @@
             android:hint="@string/edittext_hint_fullname"
             android:inputType="text"
             android:textSize="@dimen/textview_textsize_20sp"
-            app:layout_constraintEnd_toEndOf="@id/g3"
-            app:layout_constraintStart_toStartOf="@id/g2"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
             app:layout_constraintTop_toBottomOf="@+id/tvFullName"
             tools:ignore="Autofill" />
 
@@ -96,7 +97,7 @@
             android:layout_marginTop="@dimen/layout_margintop_20dp"
             android:text="@string/textview_text_email"
             android:textSize="@dimen/textview_textsize_14sp"
-            app:layout_constraintLeft_toRightOf="@+id/g2"
+            app:layout_constraintLeft_toRightOf="@+id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/edtFullName" />
 
         <EditText
@@ -108,8 +109,8 @@
             android:hint="@string/edittext_hint_user_email"
             android:inputType="text"
             android:textSize="@dimen/textview_textsize_20sp"
-            app:layout_constraintEnd_toEndOf="@id/g3"
-            app:layout_constraintStart_toStartOf="@id/g2"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
             app:layout_constraintTop_toBottomOf="@+id/tvEmail"
             tools:ignore="Autofill" />
 
@@ -120,7 +121,7 @@
             android:layout_marginTop="@dimen/layout_margintop_20dp"
             android:text="@string/textview_text_password"
             android:textSize="@dimen/textview_textsize_14sp"
-            app:layout_constraintLeft_toRightOf="@+id/g2"
+            app:layout_constraintLeft_toRightOf="@+id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/edtUsername" />
 
 
@@ -133,8 +134,8 @@
             android:hint="@string/edittext_hint_password"
             android:inputType="textPassword"
             android:textSize="@dimen/textview_textsize_20sp"
-            app:layout_constraintEnd_toEndOf="@id/g3"
-            app:layout_constraintStart_toStartOf="@id/g2"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
             app:layout_constraintTop_toBottomOf="@+id/tvPassword"
             tools:ignore="Autofill" />
 
@@ -148,8 +149,8 @@
             android:background="@drawable/button"
             android:text="@string/button_text_create_account"
             android:textColor="@android:color/white"
-            app:layout_constraintEnd_toEndOf="@id/g3"
-            app:layout_constraintStart_toStartOf="@id/g2"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
             app:layout_constraintTop_toBottomOf="@id/edtPassword" />
 
         <TextView
@@ -159,8 +160,8 @@
             android:layout_marginTop="@dimen/layout_margintop_20dp"
             android:text="@string/textview_text_already_have_an_account"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="@id/g2"
-            app:layout_constraintRight_toRightOf="@id/g3"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
             app:layout_constraintTop_toBottomOf="@id/btnRegister" />
 
         <TextView
@@ -170,8 +171,8 @@
             android:text="@string/textview_text_login_here"
             android:textColor="@color/textview_color_account"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="@id/g2"
-            app:layout_constraintRight_toRightOf="@id/g3"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
             app:layout_constraintTop_toBottomOf="@id/tvScratch" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
