@@ -11,7 +11,10 @@ import kotlinx.android.synthetic.`at-hauha`.fragment_recipes.*
 
 class RecipesFragment : Fragment() {
 
-
+    companion object {
+       private const val COLUMN = 2
+    }
+    
     private val list: List<Food> = listOf(
             Food("Rice", R.drawable.ic_rice),
             Food("Chicken", R.drawable.ic_chicken),
@@ -31,7 +34,5 @@ class RecipesFragment : Fragment() {
         recycle_view.layoutManager = GridLayoutManager(context,COLUMN)
         recycle_view.adapter = RecyclerViewAdapter(list)
     }
-    companion object {
-       private const val COLUMN = 2
-    }
+ 
 }
