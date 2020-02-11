@@ -42,7 +42,6 @@ class EditProfileFragment : Fragment() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         arguments?.let {
             mName = it.get(ARG_NAME).toString()
@@ -60,7 +59,6 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         edtFullName.setText(mName)
-        //edtEmail.setText(mEmail)
         if("" != mAvatar){
             imgAvatar.setImageURI(Uri.parse(mAvatar))
         }
@@ -70,16 +68,12 @@ class EditProfileFragment : Fragment() {
                         == PackageManager.PERMISSION_DENIED ||
                         ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         == PackageManager.PERMISSION_DENIED) {
-                    //permission was not enabled
                     val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    //show popup to request permission
                     requestPermissions(permission, PERMISSION_CODE)
                 } else {
-                    //permission already granted
                     openCamera()
                 }
             } else {
-                //system os is < marshmallow
                 openCamera()
             }
         }
@@ -127,16 +121,5 @@ class EditProfileFragment : Fragment() {
             }
         }
     }
-//    interface UpdateData{
-//        fun updateData(image_uri:Uri){
-//        }
-//    }
 
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//       var callBack = context as? UpdateData
-//        if (callBack == null) {
-//            throw ClassCastException("$context must implement OnArticleSelectedListener")
-//        }
-//    }
 }
