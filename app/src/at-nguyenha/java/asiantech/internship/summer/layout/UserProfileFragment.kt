@@ -7,23 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
-import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-nguyenha`.fragment_user_profile.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class UserProfileFragment : Fragment() {
+
     private var mName = ""
     private var mEmail = ""
     private var mAvatar = ""
 
-    companion object{
+    companion object {
         private const val ARG_NAME = "name"
         private const val ARG_EMAIL = "email"
         private const val ARG_AVATAR = "avatar"
 
-        fun newInstance(mName : String, mEmail : String, mAvatar: String) = UserProfileFragment().apply {
+        fun newInstance(mName: String, mEmail: String, mAvatar: String) = UserProfileFragment().apply {
             arguments = Bundle().apply {
                 putString(ARG_NAME, mName)
                 putString(ARG_EMAIL, mEmail)
@@ -43,7 +40,7 @@ class UserProfileFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_user_profile,container,false)
+        return inflater.inflate(asiantech.internship.summer.R.layout.fragment_user_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +50,7 @@ class UserProfileFragment : Fragment() {
             imgAvatar.setImageURI(mAvatar.toUri())
         }
         imgEditProfile.setOnClickListener {
-            (activity as MyMainActiviry).replaceFragment(EditProfileFragment.newInstance(mName,mEmail,mAvatar))
+            (activity as MyMainActivity).replaceFragment(EditProfileFragment.newInstance(mName, mEmail, mAvatar))
         }
     }
 }

@@ -9,14 +9,11 @@ import android.view.ViewGroup
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-nguyenha`.fragment_login.*
 
-/**
- * A simple [Fragment] subclass.
- */
 class LoginFragment : Fragment() {
     private var mName = ""
     private var mEmail = ""
 
-    companion object{
+    companion object {
         private const val ARG_NAME = "name"
         private const val ARG_EMAIL = "email"
         fun newInstance(mName: String, mEmail: String) = LoginFragment().apply {
@@ -45,9 +42,7 @@ class LoginFragment : Fragment() {
         edtEmailLogin.setText(mEmail)
         btnLogin.setOnClickListener {
             mEmail = edtEmailLogin.text.toString()
-            (activity as? MyMainActiviry)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, ""))
+            (activity as? MyMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, ""))
         }
     }
-
-
 }

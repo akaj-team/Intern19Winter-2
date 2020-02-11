@@ -20,10 +20,6 @@ import asiantech.internship.summer.Activity
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-nguyenha`.fragment_edit_profile.*
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class EditProfileFragment : Fragment() {
     private var mName: String = ""
     private var mEmail: String = ""
@@ -71,34 +67,12 @@ class EditProfileFragment : Fragment() {
             requestPermission()
         }
         imgBack.setOnClickListener {
-            (activity as? MyMainActiviry)?.replaceFragment(UserProfileFragment())
+            (activity as? MyMainActivity)?.replaceFragment(UserProfileFragment())
         }
         btnEditProfie.setOnClickListener {
             mName = edtFullnameprofile.text.toString()
             mEmail = edtEmailedit.text.toString()
-            (activity as? MyMainActiviry)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, mAvatar))
-        }
-    }
-
-    private fun requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.CAMERA) }
-                    == PackageManager.PERMISSION_DENIED ||
-                    context?.let {
-                        ContextCompat.checkSelfPermission(
-                                it,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE
-                        )
-                    }
-                    == PackageManager.PERMISSION_DENIED) {
-                val permission =
-                        arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                requestPermissions(permission, PERMISSION_CODE)
-            } else {
-                openCamera()
-            }
-        } else {
-            openCamera()
+            (activity as? MyMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, mAvatar))
         }
     }
 
@@ -138,5 +112,25 @@ class EditProfileFragment : Fragment() {
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
     }
 
-
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (context?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.CAMERA) }
+                    == PackageManager.PERMISSION_DENIED ||
+                    context?.let {
+                        ContextCompat.checkSelfPermission(
+                                it,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        )
+                    }
+                    == PackageManager.PERMISSION_DENIED) {
+                val permission =
+                        arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                requestPermissions(permission, PERMISSION_CODE)
+            } else {
+                openCamera()
+            }
+        } else {
+            openCamera()
+        }
+    }
 }

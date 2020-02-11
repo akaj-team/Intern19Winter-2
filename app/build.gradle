@@ -76,7 +76,10 @@ dependencies {
 
     implementation 'de.hdodenhof:circleimageview:3.0.1'
 
-    implementation 'androidx.activity:activity-ktx:1.1.0' // or remove -ktx if not using kotlin
-    implementation 'androidx.fragment:fragment-ktx:1.2.0' // or remove -ktx if not using kotlin
+    //add library of at-nguyenha
+    implementation 'androidx.activity:activity-ktx:1.1.0'
+    implementation 'androidx.fragment:fragment-ktx:1.2.1'
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
 }

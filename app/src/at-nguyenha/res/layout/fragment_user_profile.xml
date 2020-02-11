@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -14,7 +15,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit_black_24dp"
             app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
-            app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
+            app:layout_constraintTop_toTopOf="@+id/imgAvatar"
+            tools:ignore="PrivateResource" />
 
         <TextView
             android:id="@+id/tvDot"
@@ -23,8 +25,8 @@
             android:text="@string/textview_text_text_dot"
             android:textSize="30dp"
             android:textStyle="bold"
-            app:layout_constraintRight_toLeftOf="@+id/tvLikes"
             app:layout_constraintLeft_toRightOf="@+id/tvFollowers"
+            app:layout_constraintRight_toLeftOf="@+id/tvLikes"
             app:layout_constraintTop_toBottomOf="@+id/tvBio" />
 
         <TextView
@@ -115,6 +117,7 @@
             android:src="@drawable/img_avatar"
             app:layout_constraintLeft_toLeftOf="@id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvMyKitchen" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
