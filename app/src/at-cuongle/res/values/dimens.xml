@@ -1,5 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="height_54_dp">54dp</dimen>
+    <dimen name="margin_top_28_dp">28dp</dimen>
+    <dimen name="padding_left_20dp">20dp</dimen>
+    <dimen name="height_edt_height_44dp">44dp</dimen>
+    <dimen name="dp_285">285dp</dimen>
+    <dimen name="width_logo_93_dp">93dp</dimen>
+    <dimen name="height_logo_30_dp">30dp</dimen>
+    <dimen name="margin_top_18_dp">18dp</dimen>
+    <dimen name="margin_top_40_dp">40dp</dimen>
+    <dimen name="width_edt_362dp">362dp</dimen>
+    <dimen name="margin_top_28dp">28dp</dimen>
+
     <dimen name="width_50dp">50dp</dimen>
     <dimen name="height_50dp">50dp</dimen>
     <dimen name="guide_begin_24dp">24dp</dimen>
