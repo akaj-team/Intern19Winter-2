@@ -1,4 +1,4 @@
-package asiantech.internship.summer.layout
+package asiantech.internship.summer.fragment
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

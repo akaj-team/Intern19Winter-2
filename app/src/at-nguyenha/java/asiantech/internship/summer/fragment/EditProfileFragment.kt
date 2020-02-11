@@ -1,4 +1,4 @@
-package asiantech.internship.summer.layout
+package asiantech.internship.summer.fragment
 
 
 import android.Manifest

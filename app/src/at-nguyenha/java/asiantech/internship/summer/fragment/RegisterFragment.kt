@@ -1,27 +1,19 @@
-package asiantech.internship.summer.layout
-
+package asiantech.internship.summer.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import asiantech.internship.summer.R
-import kotlinx.android.synthetic.`at-nguyenha`.fragment_login.*
+import kotlinx.android.synthetic.`at-nguyenha`.fragment_register.*
 
-class LoginFragment : Fragment() {
+class RegisterFragment : androidx.fragment.app.Fragment() {
     private var mName = ""
     private var mEmail = ""
 
     companion object {
         private const val ARG_NAME = "name"
         private const val ARG_EMAIL = "email"
-        fun newInstance(mName: String, mEmail: String) = LoginFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_NAME, mName)
-                putString(ARG_EMAIL, mEmail)
-            }
-        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,15 +26,17 @@ class LoginFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_register, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        edtEmailLogin.setText(mEmail)
-        btnLogin.setOnClickListener {
-            mEmail = edtEmailLogin.text.toString()
-            (activity as? MyMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, ""))
+        edtFullName.setText(mName)
+        edtEmailRegister.setText(mEmail)
+        btnRegister.setOnClickListener {
+            mName = edtFullName.text.toString()
+            mEmail = edtEmailRegister.text.toString()
+            (activity as? MyMainActivity)?.replaceFragment(LoginFragment.newInstance(mName, mEmail))
         }
     }
 }
