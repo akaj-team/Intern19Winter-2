@@ -40,15 +40,35 @@ class DrawerLayoutActivity : AppCompatActivity() {
         initData()
     }
 
-    private fun initData() {
-        itemsMenu.apply {
-            add(Menu("", 1))
-            add(Menu("Inbox", R.drawable.custom_icon_inbox))
-            add(Menu("Outbox", R.drawable.custom_icon_send))
-            add(Menu("Trash", R.drawable.custom_icon_delete))
-            add(Menu("Spam", R.drawable.custom_icon_error))
+    override fun onRequestPermissionsResult(
+            requestCode: Int,
+            permissions: Array<out String>,
+            grantResults: IntArray
+    ) {
+        when (requestCode) {
+            PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    showDialog()
+                } else {
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
-        menuAdapter.notifyDataSetChanged()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            IMAGE_CAPTURE_CODE -> cropImage(imageAvatarUri)
+            IMAGE_GALLERY_CODE -> {
+                imageAvatarUri = data?.data
+                cropImage(imageAvatarUri)
+            }
+            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+                val result = CropImage.getActivityResult(data)
+                imgAvatar.setImageURI(result.uri)
+            }
+        }
     }
 
     private fun initAdapter() {
@@ -77,6 +97,17 @@ class DrawerLayoutActivity : AppCompatActivity() {
         drawerLayout.addDrawerListener(drawerToggle)
     }
 
+    private fun initData() {
+        itemsMenu.apply {
+            add(Menu("", 1))
+            add(Menu("Inbox", R.drawable.custom_icon_inbox))
+            add(Menu("Outbox", R.drawable.custom_icon_send))
+            add(Menu("Trash", R.drawable.custom_icon_delete))
+            add(Menu("Spam", R.drawable.custom_icon_error))
+        }
+        menuAdapter.notifyDataSetChanged()
+    }
+
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (this.let { ContextCompat.checkSelfPermission(it, Manifest.permission.CAMERA) }
@@ -99,21 +130,6 @@ class DrawerLayoutActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(
-            requestCode: Int,
-            permissions: Array<out String>,
-            grantResults: IntArray
-    ) {
-        when (requestCode) {
-            PERMISSION_CODE -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    showDialog()
-                } else {
-                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
 
     private fun showDialog() {
         val dialogOption = this.let { AlertDialog.Builder(it) }
@@ -131,20 +147,6 @@ class DrawerLayoutActivity : AppCompatActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            IMAGE_CAPTURE_CODE -> cropImage(imageAvatarUri)
-            IMAGE_GALLERY_CODE -> {
-                imageAvatarUri = data?.data
-                cropImage(imageAvatarUri)
-            }
-            CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-                val result = CropImage.getActivityResult(data)
-                imgAvatar.setImageURI(result.uri)
-            }
-        }
-    }
 
     private fun openCamera() {
         val imgFromCamera = ContentValues()

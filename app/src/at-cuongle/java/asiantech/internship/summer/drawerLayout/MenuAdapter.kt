@@ -59,7 +59,7 @@ class MenuAdapter(private val drawerLayoutViewHolder: MutableList<Menu>) :
                     tvTitle.text = it.textTitle
                     imgItem.setImageResource(it.icon)
                     imgItem.isSelected = selectedItem == adapterPosition
-                    llRoot.isSelected = selectedItem == adapterPosition
+                    constraintLayout.isSelected = selectedItem == adapterPosition
                     tvTitle.isSelected = selectedItem == adapterPosition
                 }
             }
