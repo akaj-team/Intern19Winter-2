@@ -131,7 +131,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
@@ -141,7 +140,6 @@
         app:layout_constraintTop_toBottomOf="@+id/line"
         app:tabGravity="fill"
         app:tabMode="fixed">
-
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
