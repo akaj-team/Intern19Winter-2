@@ -11,13 +11,13 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.activity_time_line.*
 
 class TimelineActivity : AppCompatActivity() {
-    private val timelineItems = mutableListOf<TimelineViewHolder>()
-    private var isLoading = false
-    private lateinit var adapterTimeLine: TimeLineAdapter
-
     companion object {
         private const val DELAY_PROGRESSBAR: Long = 2000
     }
+
+    private val timelineItems = mutableListOf<TimeLineItem>()
+    private var isLoading = false
+    private lateinit var adapterTimeLine: TimeLines
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,23 +29,23 @@ class TimelineActivity : AppCompatActivity() {
 
     private fun initData() {
         timelineItems.apply {
-            add(TimelineViewHolder(getString(R.string.tv_name_1), R.drawable.ic_apple, false, (1..99).random(), getString(R.string.tv_title_1)))
-            add(TimelineViewHolder(getString(R.string.tv_name_2), R.drawable.ic_pizza, true, (1..99).random(), getString(R.string.tv_title_2)))
-            add(TimelineViewHolder(getString(R.string.tv_name_3), R.drawable.ic_fruit, false, (1..99).random(), getString(R.string.tv_title_3)))
-            add(TimelineViewHolder(getString(R.string.tv_name_4), R.drawable.ic_hotdog, true, (1..99).random(), getString(R.string.tv_title_4)))
-            add(TimelineViewHolder(getString(R.string.tv_name_5), R.drawable.ic_humberger, true, (1..99).random(), getString(R.string.tv_title_5)))
-            add(TimelineViewHolder(getString(R.string.tv_name_6), R.drawable.ic_passta, true, (1..99).random(), getString(R.string.tv_title_6)))
-            add(TimelineViewHolder(getString(R.string.tv_name_8), R.drawable.ic_rice, true, (1..99).random(), getString(R.string.tv_title_8)))
-            add(TimelineViewHolder(getString(R.string.tv_name_9), R.drawable.ic_salad, false, (1..99).random(), getString(R.string.tv_title_9)))
-            add(TimelineViewHolder(getString(R.string.tv_name_7), R.drawable.ic_chicken, true, (1..99).random(), getString(R.string.tv_title_7)))
-            add(TimelineViewHolder(getString(R.string.tv_name_10), R.drawable.ic_cake, true, (1..99).random(), getString(R.string.tv_title_10)))
+            add(TimeLineItem("Addison", R.drawable.ic_apple, false, (1..99).random(), "apple is really delicious"))
+            add(TimeLineItem("Carter", R.drawable.ic_pizza, true, (1..99).random(), "pizza is really delicious"))
+            add(TimeLineItem("Christian", R.drawable.ic_fruit, false, (1..99).random(), "fruit is really delicious"))
+            add(TimeLineItem("Colton", R.drawable.ic_hotdog, true, (1..99).random(), "hotdog is really delicious"))
+            add(TimeLineItem("Grayson", R.drawable.ic_humberger, true, (1..99).random(), "humberger is really delicious"))
+            add(TimeLineItem("Hudson", R.drawable.ic_passta, true, (1..99).random(), "passta is really delicious"))
+            add(TimeLineItem("Jack", R.drawable.ic_rice, true, (1..99).random(), "rice is really delicious"))
+            add(TimeLineItem("Jaxson", R.drawable.ic_salad, false, (1..99).random(), "salad is really delicious"))
+            add(TimeLineItem("Hunter", R.drawable.ic_chicken, true, (1..99).random(), "chicken is really delicious"))
+            add(TimeLineItem("Landon", R.drawable.ic_cake, true, (1..99).random(), "cake is really delicious"))
         }
         timelineItems.shuffle()
         adapterTimeLine.notifyDataSetChanged()
     }
 
     private fun initAdapter() {
-        adapterTimeLine = TimeLineAdapter(timelineItems)
+        adapterTimeLine = TimeLines(timelineItems)
         adapterTimeLine.onItemClicked = { it ->
             timelineItems[it].let {
                 if (it.isLike) {
@@ -67,7 +67,6 @@ class TimelineActivity : AppCompatActivity() {
             timelineItems.clear()
             initData()
             itemRefresh.isRefreshing = false
-            adapterTimeLine.notifyDataSetChanged()
         }
 
         recycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -93,6 +92,5 @@ class TimelineActivity : AppCompatActivity() {
         isLoading = true
         progressBar.visibility = View.INVISIBLE
         initData()
-        adapterTimeLine.notifyItemInserted(timelineItems.size - 1)
     }
 }

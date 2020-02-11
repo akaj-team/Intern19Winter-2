@@ -1,24 +1,4 @@
 <resources>
     <string name="app_name">MyHuynh</string>
-    <string name="tv_name_1">Addison</string>
-    <string name="tv_name_2">Carter</string>
-    <string name="tv_name_3">Christian</string>
-    <string name="tv_name_4">Colton</string>
-    <string name="tv_name_5">Grayson</string>
-    <string name="tv_name_6">Hudson</string>
-    <string name="tv_name_7">Hunter</string>
-    <string name="tv_name_8">Jack</string>
-    <string name="tv_name_9">Jaxon</string>
-    <string name="tv_name_10">Landon</string>
-    <string name="tv_title_1">apple is really delicious.</string>
-    <string name="tv_title_2">pizza is really delicious</string>
-    <string name="tv_title_3">fruit is really delicious</string>
-    <string name="tv_title_4">hot dog is really delicious</string>
-    <string name="tv_title_5">hamburger is really delicious</string>
-    <string name="tv_title_6">pasta is really delicious</string>
-    <string name="tv_title_7">chicken is really delicious</string>
-    <string name="tv_title_8">rice is really delicious</string>
-    <string name="tv_title_9">salad is really delicious</string>
-    <string name="tv_title_10">cake is really delicious</string>
     <string name="tv_totalLike"> %d likes.</string>
 </resources>
