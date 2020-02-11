@@ -14,23 +14,43 @@ import kotlinx.android.synthetic.`at-cuongle`.fragment_sign_up.*
  * A simple [Fragment] subclass.
  */
 class SignUpFragment : Fragment() {
+    private var mName = ""
+    private var mEmail = ""
+
     companion object {
-        fun getInstance() = SignUpFragment()
+        private const val ARG_NAME = "name"
+        private const val ARG_EMAIL = "email"
+        fun newInstance(mName: String, mEmail: String) = SignUpFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_NAME, mName)
+                putString(ARG_EMAIL, mEmail)
+            }
+        }
     }
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            mName = it.getString(ARG_NAME).toString()
+            mEmail = it.getString(ARG_EMAIL).toString()
+        }
+    }
+
+    override fun onCreateView(
+            inflater: LayoutInflater, container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_sign_up, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        edtFullName.setText(mName)
+        edtEmail.setText(mEmail)
         btnCreateAccount.setOnClickListener {
-            fragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer, EditProfileFragment.getInstance(), null)
-                    ?.addToBackStack(null)
-                    ?.commit()
+            mName = edtFullName.text.toString()
+            mEmail = edtEmail.text.toString()
+            (activity as? LayoutMainActivity)?.replaceFragment(LoginFragment.newInstance(mName, mEmail))
         }
     }
-
 }
