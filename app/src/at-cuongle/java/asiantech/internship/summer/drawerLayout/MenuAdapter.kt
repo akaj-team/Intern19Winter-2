@@ -1,6 +1,5 @@
 package asiantech.internship.summer.drawerLayout
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,15 +45,12 @@ class MenuAdapter(private val drawerLayoutViewHolder: MutableList<Menu>) :
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
-        private val icItem : ImageView = itemView.findViewById(R.id.imgItem)
         init {
             tvTitle.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
                 selectedItem = adapterPosition
                 notifyDataSetChanged()
-                Log.i("XXX", selectedItem.toString())
             }
-
         }
 
         internal fun bindData() {
@@ -62,8 +58,6 @@ class MenuAdapter(private val drawerLayoutViewHolder: MutableList<Menu>) :
                 drawerLayoutViewHolder[adapterPosition].let {
                     tvTitle.text = it.textTitle
                     imgItem.setImageResource(it.icon)
-//                    tvTitle.setCompoundDrawablesWithIntrinsicBounds(it.icon, 0, 0, 0)
-//                    tvTitle.compoundDrawablePadding = 100
                     imgItem.isSelected = selectedItem == adapterPosition
                     llRoot.isSelected = selectedItem == adapterPosition
                     tvTitle.isSelected = selectedItem == adapterPosition
@@ -84,7 +78,6 @@ class MenuAdapter(private val drawerLayoutViewHolder: MutableList<Menu>) :
 
         internal fun bindData() {
             tvEmail.text = itemView.context.getString(R.string.tv_email, null)
-            imgAvatar.setImageResource(R.drawable.ic_avatar)
         }
     }
 }
