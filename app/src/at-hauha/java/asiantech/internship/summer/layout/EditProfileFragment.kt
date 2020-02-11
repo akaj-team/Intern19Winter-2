@@ -11,17 +11,12 @@ import kotlinx.android.synthetic.`at-hauha`.fragment_profile.*
 import android.provider.MediaStore
 import android.content.Intent
 import android.content.pm.PackageManager
-
 import asiantech.internship.summer.R
-
 import android.net.Uri
 import android.os.Build
-
-
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.`at-hauha`.fragment_profile.imgAvatar
-
 
 class EditProfileFragment : Fragment() {
 
