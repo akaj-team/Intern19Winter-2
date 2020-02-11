@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">TamLe</string>
+    <string name="textview_text_drawerlayout">DrawerLayout</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
 </resources>
