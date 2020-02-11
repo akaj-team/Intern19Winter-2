@@ -22,15 +22,15 @@ import kotlinx.android.synthetic.`at-cuongle`.row_top.*
 
 
 class DrawerLayoutActivity : AppCompatActivity() {
-    private val itemsMenu = mutableListOf<Menu>()
-    private lateinit var menuAdapter: MenuAdapter
-    private var imageAvatarUri: Uri? = null
-
     companion object {
         private const val PERMISSION_CODE = 100
         private const val IMAGE_CAPTURE_CODE = 101
         private const val IMAGE_GALLERY_CODE = 110
     }
+
+    private val itemsMenu = mutableListOf<Menu>()
+    private lateinit var menuAdapter: MenuAdapter
+    private var imageAvatarUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

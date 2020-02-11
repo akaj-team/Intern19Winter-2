@@ -11,14 +11,14 @@ import kotlinx.android.synthetic.`at-cuongle`.row_bottom.view.*
 
 class MenuAdapter(private val drawerLayoutViewHolder: MutableList<Menu>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    internal var onItemClicked: (position: Int) -> Unit = {}
-    internal var onAvatarClick: () -> Unit = {}
-    private var selectedItem = 0
-
     companion object {
         private const val TYPE_HEADER = 1
         private const val TYPE_ITEM = 0
     }
+
+    internal var onItemClicked: (position: Int) -> Unit = {}
+    internal var onAvatarClick: () -> Unit = {}
+    private var selectedItem = 0
 
     override fun getItemViewType(position: Int): Int {
         if (drawerLayoutViewHolder[position].textTitle.isBlank()) {
@@ -45,6 +45,7 @@ class MenuAdapter(private val drawerLayoutViewHolder: MutableList<Menu>) :
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
+
         init {
             tvTitle.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
