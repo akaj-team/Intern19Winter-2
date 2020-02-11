@@ -37,4 +37,7 @@
     <string name="edittext_1_234_567_89">+1 234 567 89</string>
     <string name="edittext_hint_input_phone_number">Input Phone Number</string>
     <string name="textview_save_profile">Save Profile</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="textview_hauhc93_gmail_com">hauhc93@gmail.com</string>
 </resources>
