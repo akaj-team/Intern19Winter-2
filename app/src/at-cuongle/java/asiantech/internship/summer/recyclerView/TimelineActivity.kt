@@ -18,6 +18,7 @@ class TimelineActivity : AppCompatActivity() {
     private val timelineItems = mutableListOf<TimeLineItem>()
     private var isLoading = false
     private lateinit var adapterTimeLine: TimeLines
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_line)
