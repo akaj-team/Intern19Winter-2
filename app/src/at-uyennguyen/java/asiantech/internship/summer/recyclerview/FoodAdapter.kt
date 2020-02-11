@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
-import asiantech.internship.summer.R.mipmap.heartblack
-import asiantech.internship.summer.R.mipmap.heartred
+import asiantech.internship.summer.R.drawable.img_heartblack
+import asiantech.internship.summer.R.drawable.img_heartred
 
 class FoodAdapter(val foods: MutableList<Food?>) : RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
     internal var onItemClicked: (position: Int) -> Unit = {}
@@ -43,7 +43,7 @@ class FoodAdapter(val foods: MutableList<Food?>) : RecyclerView.Adapter<FoodAdap
                 tvName.text = name
                 tvNumberLike.text = numberLike.toString()
                 tvDescription.text = description
-                imgHeart.setImageResource(if (!like) heartred else heartblack)
+                imgHeart.setImageResource(if (!like) img_heartred else img_heartblack)
             }
         }
     }
