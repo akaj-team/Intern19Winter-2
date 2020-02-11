@@ -78,7 +78,6 @@ class RecyclerViewAdapter(private val items: MutableList<ItemModel>) : RecyclerV
         }
 
         internal fun bindData(position: Int) {
-            var oldPosition : Int = 1
             items[adapterPosition].let {
                 imgIcon.setImageResource(it.image)
                 tvItem.text = it.textMenu
@@ -87,7 +86,6 @@ class RecyclerViewAdapter(private val items: MutableList<ItemModel>) : RecyclerV
                 items[adapterPosition].let {
                     imgIcon.setColorFilter(Color.BLUE)
                     tvItem.setTextColor(Color.BLUE)
-                    oldPosition = position
                 }
             } else {
                 items[adapterPosition].let {
@@ -98,10 +96,8 @@ class RecyclerViewAdapter(private val items: MutableList<ItemModel>) : RecyclerV
             itemsView.setOnClickListener {
                 positionSelected = position
                 Toast.makeText(itemsView.context, "Selected\t" + tvItem.text, Toast.LENGTH_LONG).show()
-                notifyItemChanged(position)
-
+                notifyDataSetChanged()
             }
-
         }
     }
 }
