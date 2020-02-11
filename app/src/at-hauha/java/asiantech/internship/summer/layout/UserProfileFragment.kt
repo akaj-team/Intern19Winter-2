@@ -1,6 +1,5 @@
 package asiantech.internship.summer.layout
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import android.net.Uri
 import android.util.Log
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.`at-hauha`.fragment_user_profile.*
-
 
 class UserProfileFragment : Fragment() {
     private var mName = ""
@@ -37,6 +35,7 @@ class UserProfileFragment : Fragment() {
         tabLayout = view.findViewById(R.id.tabs)
         return view
     }
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -46,24 +45,13 @@ class UserProfileFragment : Fragment() {
         }
 
     }
-
-    private fun setViewPage(){
-        val adapter = SampleAdapter(childFragmentManager)
-        adapter.apply {
-            addFragment(RecipesFragment(),"Recipes")
-            addFragment(RecipesFragment(),"Saved")
-            addFragment(RecipesFragment(),"Following")
-        }
-        viewPager!!.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
-    }
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (mAvatar != "") {
             imgAvatar.setImageURI(Uri.parse(mAvatar))
             tvUserName.text = mName
         }
-        //txtUserName.setText(mName)
         tvEdit.setOnClickListener {
             mName = tvUserName.text.toString()
             Log.d("XXX", mAvatar)
@@ -73,6 +61,17 @@ class UserProfileFragment : Fragment() {
                     ?.commit()
         }
         setViewPage()
+    }
+    
+    private fun setViewPage(){
+        val adapter = SampleAdapter(childFragmentManager)
+        adapter.apply {
+            addFragment(RecipesFragment(),"Recipes")
+            addFragment(RecipesFragment(),"Saved")
+            addFragment(RecipesFragment(),"Following")
+        }
+        viewPager!!.adapter = adapter
+        tabLayout.setupWithViewPager(viewPager)
     }
 
 }
