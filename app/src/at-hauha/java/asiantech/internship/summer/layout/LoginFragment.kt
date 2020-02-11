@@ -16,13 +16,6 @@ class LoginFragment : Fragment(){
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        txtCreateAccount.setOnClickListener {
-//            fragmentManager?.beginTransaction()
-//                    ?.replace(R.id.flContainer,FragmentUserProfile.newInstance("","",""),null)
-//                    ?.addToBackStack(null)
-//                    ?.commit()
-//        }
         tvLogin.setOnClickListener {
             fragmentManager?.beginTransaction()
                     ?.replace(R.id.flContainer,UserProfileFragment.newInstance("","",""),null)
