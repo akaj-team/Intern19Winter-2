@@ -1,7 +1,3 @@
 <resources>
     <string name="app_name">Intern18Summer</string>
-    <string name="scratch">scratch</string>
-    <string name="password">Password</string>
-    <string name="your_email_in_login">Your email</string>
-    <string name="your_password_in_login">Your password</string>
 </resources>

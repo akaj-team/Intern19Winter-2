@@ -36,4 +36,6 @@
     <string name="your_full_name_in_signin">Your full name</string>
     <string name="your_email_in_signin">Your email</string>
     <string name="your_password_in_signin">Your password</string>
+    <string name="your_email_in_login">Your email</string>
+    <string name="your_password_in_login">Your password</string>
 </resources>
