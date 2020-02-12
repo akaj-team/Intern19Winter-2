@@ -37,7 +37,6 @@ class RecyclerViewMainActivity : AppCompatActivity() {
         itemRefresh.setOnRefreshListener {
             newFeeds.clear()
             initData()
-            initListener()
             itemRefresh.isRefreshing = false
         }
     }
@@ -74,16 +73,16 @@ class RecyclerViewMainActivity : AppCompatActivity() {
 
     private fun initData() {
         newFeeds.apply {
-            add(NewFeed(getString(R.string.username_michel), R.drawable.ic_cherry_almond_frangipane_galette, getRandomBoolean(), randomLike(), "Frangipane", getString(R.string.preview_1)))
-            add(NewFeed(getString(R.string.username_beb), R.drawable.ic_chocola, getRandomBoolean(), randomLike(), "Chocola", getString(R.string.preview_2)))
-            add(NewFeed(getString(R.string.username_adam), R.drawable.ic_fools, getRandomBoolean(), randomLike(), "Fools", getString(R.string.preview_3)))
-            add(NewFeed(getString(R.string.username_jack), R.drawable.ic_floating_island, getRandomBoolean(), randomLike(), "Floating Island", getString(R.string.preview_4)))
-            add(NewFeed(getString(R.string.username_eddie), R.drawable.ic_cornflake_cake, getRandomBoolean(), randomLike(), "Cornflake", getString(R.string.preview_5)))
-            add(NewFeed(getString(R.string.username_john), R.drawable.ic_peach_melba_pie, getRandomBoolean(), randomLike(), "Peach Melba", getString(R.string.preview_6)))
-            add(NewFeed(getString(R.string.username_jay), R.drawable.ic_treacle_tart, getRandomBoolean(), randomLike(), "Treacle", getString(R.string.preview_7)))
-            add(NewFeed(getString(R.string.username_tom), R.drawable.ic_white_chocolate_cheesecake, getRandomBoolean(), randomLike(), "Chocolate Cheesecake", getString(R.string.preview_8)))
-            add(NewFeed(getString(R.string.username_josh), R.drawable.ic_zesty_lemon_cake, getRandomBoolean(), randomLike(), "Zesty Lemon", getString(R.string.preview_9)))
-            add(NewFeed(getString(R.string.username_tony), R.drawable.ic_damson_crumble, getRandomBoolean(), randomLike(), "Damson Crumble", getString(R.string.preview_10)))
+            add(NewFeed("Michel Jackson", R.drawable.ic_cherry_almond_frangipane_galette, getRandomBoolean(), randomLike(), "Frangipane", "Bake an impressive dinner party dessert with minimum fuss – these chocolate puddings, also known as chocolate fondant or lava cake, have a lovely gooey centre"))
+            add(NewFeed("Bebe Rexha", R.drawable.ic_chocola, getRandomBoolean(), randomLike(), "Chocola", "Using simple storecupboard and freezer ingredients, this pea and chorizo risotto makes an easy midweek meal. Garnish with crisped chorizo and grated parmesan"))
+            add(NewFeed("Adam Sandler", R.drawable.ic_fools, getRandomBoolean(), randomLike(), "Fools", "A crispy pie that you can adapt for your needs, add chicken or keep it veggie. A good fail-safe for your repertoire"))
+            add(NewFeed("Jack Maron", R.drawable.ic_floating_island, getRandomBoolean(), randomLike(), "Floating Island", "This high fibre dish counts as 3 of your 5-a-day, with a creamy and spicy curried sauce"))
+            add(NewFeed("Eddie Murphy", R.drawable.ic_cornflake_cake, getRandomBoolean(), randomLike(), "Cornflake", "In need of a quick fix? Go Tex-Mex with these fish fajitas that'll feed four in less than 15 minutes!..."))
+            add(NewFeed("John Snow", R.drawable.ic_peach_melba_pie, getRandomBoolean(), randomLike(), "Peach Melba", "This colourful, flavour-packed pizza is a great storecupboard supper with only five ingredients"))
+            add(NewFeed("Jay Witch", R.drawable.ic_treacle_tart, getRandomBoolean(), randomLike(), "Treacle", "Not for risotto purists - this simple recipe has just a few ingredients and the stock is added all in one go"))
+            add(NewFeed("Tom Stiller", R.drawable.ic_white_chocolate_cheesecake, getRandomBoolean(), randomLike(), "Chocolate Cheesecake", "This southern Italian dish is made with just five ingredients - just use the best tomatoes and bacon you can find"))
+            add(NewFeed("Josh Edd", R.drawable.ic_zesty_lemon_cake, getRandomBoolean(), randomLike(), "Zesty Lemon", "A classic combination of flavours for a comforting family meal, with just five ingredients"))
+            add(NewFeed("Jame Corner", R.drawable.ic_damson_crumble, getRandomBoolean(), randomLike(), "Damson Crumble", "This springtime pasta dish requires just four ingredients. The perfect, fuss-free feast with a creamy sauce and pork meatballs that's bound to be a hit..."))
         }
         newFeeds.shuffle()
         adapter.notifyDataSetChanged()
