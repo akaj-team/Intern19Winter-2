@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="layout_height_img_img_header">285dp</dimen>
+    <dimen name="layout_width_92">92dp</dimen>
+    <dimen name="layout_height_32dp">32dp</dimen>
+    <dimen name="layout_margintop_60dp">60dp</dimen>
+    <dimen name="layout_marginleft_20dp">20dp</dimen>
+    <dimen name="layout_width_304dp">304dp</dimen>
+    <dimen name="layout_height_64dp">64dp</dimen>
+    <dimen name="layout_margintop_44dp">44dp</dimen>
+    <dimen name="textview_textsize_24sp">24sp</dimen>
+    <dimen name="textview_textsize_14sp">14sp</dimen>
+    <dimen name="layout_width_84dp">84dp</dimen>
+    <dimen name="layout_margintop_20dp">20dp</dimen>
+    <dimen name="layout_height_20dp">20dp</dimen>
+    <dimen name="layout_height_52dp">52dp</dimen>
+    <dimen name="layout_width_116dp">116dp</dimen>
+    <dimen name="textview_textsize_20sp">20sp</dimen>
+    <dimen name="layout_margin_top">32dp</dimen>
+    <dimen name="layout_marginbottom_32dp">32dp</dimen>
+    <dimen name="layout_marginright_20dp">20dp</dimen>
+</resources>
