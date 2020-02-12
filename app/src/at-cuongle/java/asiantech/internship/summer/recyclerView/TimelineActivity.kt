@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.`at-cuongle`.activity_time_line.*
 
 class TimelineActivity : AppCompatActivity() {
     companion object {
-        private const val DELAY_PROGRESSBAR: Long = 2000
+        private const val DELAYS_PROGRESSBAR: Long = 2000
     }
 
     private lateinit var adapterTimeLine: TimeLines
@@ -79,7 +79,7 @@ class TimelineActivity : AppCompatActivity() {
                         progressBar.visibility = View.VISIBLE
                         Handler().postDelayed({
                             loadMore()
-                        }, DELAY_PROGRESSBAR)
+                        }, DELAYS_PROGRESSBAR)
                     }
                 }
                 isLoading = false
