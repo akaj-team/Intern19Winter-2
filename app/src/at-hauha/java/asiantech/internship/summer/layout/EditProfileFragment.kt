@@ -11,48 +11,69 @@ import kotlinx.android.synthetic.`at-hauha`.fragment_profile.*
 import android.provider.MediaStore
 import android.content.Intent
 import android.content.pm.PackageManager
-
 import asiantech.internship.summer.R
-
 import android.net.Uri
 import android.os.Build
-
-
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import kotlinx.android.synthetic.`at-hauha`.fragment_profile.imgAvatar
 
-
-class ProfileFragment : Fragment() {
-    private var mImage: Uri? = null
+class EditProfileFragment : Fragment() {
 
     companion object {
-        fun getInstance() = ProfileFragment()
+        private const val ARG_NAME = "name"
+        private const val ARG_EMAIL = "email"
+        private const val ARG_AVATAR = "avatar"
         private const val PERMISSION_CODE = 1000
         private const val IMAGE_CAPTURE_CODE = 1001
+
+    private var mImage_uri: Uri? = null
+    private var mName = ""
+    private var mEmail = ""
+    private var mAvatar = ""
+
+        fun newInstance(mName: String, mEmail: String, mAvatar: String) = EditProfileFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARG_NAME, mName)
+                putString(ARG_EMAIL, mEmail)
+                putString(ARG_AVATAR, mAvatar)
+
+            }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        arguments?.let {
+            mName = it.get(ARG_NAME).toString()
+            mEmail = it.get(ARG_EMAIL).toString()
+            mAvatar = it.get(ARG_AVATAR).toString()
+        }
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        edtFullName.setText(mName)
+        if ("" != mAvatar) {
+            imgAvatar.setImageURI(Uri.parse(mAvatar))
+        }
         tvEditProfilePicture.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA)
                         == PackageManager.PERMISSION_DENIED ||
                         ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         == PackageManager.PERMISSION_DENIED) {
-                    //permission was not enabled
                     val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    //show popup to request permission
                     requestPermissions(permission, PERMISSION_CODE)
                 } else {
-                    //permission already granted
                     openCamera()
                 }
             } else {
-                //system os is < marshmallow
                 openCamera()
             }
         }
@@ -64,21 +85,18 @@ class ProfileFragment : Fragment() {
         values.put(MediaStore.Images.Media.TITLE, "New Picture")
         values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        mImage = resolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImage)
+        mImage_uri = resolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+        cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mImage_uri)
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        //called when user presses ALLOW or DENY from Permission Request Popup
         when (requestCode) {
             PERMISSION_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] ==
                         PackageManager.PERMISSION_GRANTED) {
-                    //permission from popup was granted
                     openCamera()
                 } else {
-                    //permission from popup was denied
                     Toast.makeText(this.activity, "Permission denied", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -86,10 +104,23 @@ class ProfileFragment : Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        //called when image was captured from camera intent
         if (resultCode == android.app.Activity.RESULT_OK) {
-            //set image captured to image view
-            imgAvatar.setImageURI(mImage)
+            imgAvatar.setImageURI(mImage_uri)
+            mAvatar = mImage_uri.toString()
+            llBack.setOnClickListener {
+                mName = edtFullName.text.toString()
+                fragmentManager?.beginTransaction()
+                        ?.replace(R.id.flContainer, UserProfileFragment.newInstance(mName, mEmail, mAvatar), null)
+                        ?.addToBackStack(null)
+                        ?.commit()
+            }
+            tvSaveProfile.setOnClickListener {
+                mName = edtFullName.text.toString()
+                fragmentManager?.beginTransaction()
+                        ?.replace(R.id.flContainer, UserProfileFragment.newInstance(mName, mEmail, mAvatar), null)
+                        ?.addToBackStack(null)
+                        ?.commit()
+            }
         }
     }
 

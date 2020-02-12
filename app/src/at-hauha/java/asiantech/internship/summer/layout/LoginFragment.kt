@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-hauha`.fragment_registry.*
-import kotlinx.android.synthetic.`at-hauha`.fragment_registry.tvCreateAccount
 
 class LoginFragment : Fragment() {
     companion object {
@@ -20,15 +19,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        tvCreateAccount.setOnClickListener {
-            fragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer, ProfileFragment.getInstance(), null)
-                    ?.addToBackStack(null)
-                    ?.commit()
-        }
         tvLogin.setOnClickListener {
             fragmentManager?.beginTransaction()
-                    ?.replace(R.id.flContainer, ProfileFragment.getInstance(), null)
+                    ?.replace(R.id.flContainer, UserProfileFragment.newInstance("", "", ""), null)
                     ?.addToBackStack(null)
                     ?.commit()
         }

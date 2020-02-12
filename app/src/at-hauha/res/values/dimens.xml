@@ -39,4 +39,7 @@
     <dimen name="dimen_40">40dp</dimen>
     <dimen name="dimen_30">30dp</dimen>
     <dimen name="dimen_10">10dp</dimen>
+    <dimen name="top_152">152dp</dimen>
+    <dimen name="width_8">8dp</dimen>
+    <dimen name="left_120dp">120dp</dimen>
 </resources>

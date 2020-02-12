@@ -37,4 +37,9 @@
     <string name="edittext_1_234_567_89">+1 234 567 89</string>
     <string name="edittext_hint_input_phone_number">Input Phone Number</string>
     <string name="textview_save_profile">Save Profile</string>
+    <string name="textview_my_kitchen">My Kitchen</string>
+    <string name="textview_potato_master">Potato Master</string>
+    <string name="textview_584_followers">584 followers</string>
+    <string name="textview_settings">\tSettings</string>
+    <string name="textview_23k_likes">23k likes</string>
 </resources>
