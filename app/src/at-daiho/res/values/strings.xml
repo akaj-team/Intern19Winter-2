@@ -2,7 +2,7 @@
     <string name="app_name">DaiHo</string>
     <string name="feed_item_number_of_like">%d like</string>
     <string name="feed_item_number_of_likes">%d likes</string>
-
+    <string name="lorem_text">Hello</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="alertBtnDialogCancel">OK</string>

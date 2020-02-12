@@ -3,6 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="drawer_layout_background">#FF8952</color>
     <color name="color_menu_title_selected">#66B1C9</color>
     <color name="color_menu_title_normal">#7C7C7C</color>
 </resources>

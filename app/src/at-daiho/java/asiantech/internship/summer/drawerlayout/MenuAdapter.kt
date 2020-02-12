@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 import de.hdodenhof.circleimageview.CircleImageView
@@ -66,13 +67,13 @@ class MenuAdapter(val menus: MutableList<Menu>) : RecyclerView.Adapter<RecyclerV
                 menus[convertPosition].run {
                     imgIcon.setImageResource(selectedIcon)
                     tvTitle.text = title
-                    tvTitle.setTextColor(itemView.context.getColor(R.color.color_menu_title_selected))
+                    tvTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.color_menu_title_selected))
                 }
             } else {
                 menus[convertPosition].run {
                     imgIcon.setImageResource(unSelectedIcon)
                     tvTitle.text = title
-                    tvTitle.setTextColor(itemView.context.getColor(R.color.color_menu_title_normal))
+                    tvTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.color_menu_title_normal))
                 }
             }
             itemView.setOnClickListener {
