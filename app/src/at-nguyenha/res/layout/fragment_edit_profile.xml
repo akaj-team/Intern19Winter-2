@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvEditprofile"
+            android:id="@+id/tvEditProfile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -51,7 +51,7 @@
             android:src="@drawable/img_avatar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvEditprofile" />
+            app:layout_constraintTop_toBottomOf="@id/tvEditProfile" />
 
         <TextView
             android:id="@+id/tvEditAvatar"
@@ -66,7 +66,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
         <TextView
-            android:id="@+id/tvFullnameprofile"
+            android:id="@+id/tvFullNameEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_margin_top"
@@ -76,7 +76,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tvEditAvatar" />
 
         <EditText
-            android:id="@+id/edtFullnameprofile"
+            android:id="@+id/edtFullNameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_marginleft_20dp"
@@ -87,7 +87,7 @@
             app:layout_constraintEnd_toEndOf="@id/guideLineRight"
             app:layout_constraintHorizontal_bias="0.333"
             app:layout_constraintStart_toStartOf="@id/guideLineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/tvFullnameprofile"
+            app:layout_constraintTop_toBottomOf="@+id/tvFullNameEdit"
             tools:ignore="Autofill" />
 
         <TextView
@@ -98,7 +98,7 @@
             android:text="@string/textview_text_bio"
             android:textSize="@dimen/textview_textsize_14sp"
             app:layout_constraintStart_toStartOf="@id/guideLineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/edtFullnameprofile" />
+            app:layout_constraintTop_toBottomOf="@+id/edtFullNameEdit" />
 
         <EditText
             android:id="@+id/edtBio"
@@ -136,13 +136,13 @@
             app:layout_constraintTop_toBottomOf="@+id/tvPrivateInformation" />
 
         <EditText
-            android:id="@+id/edtEmailedit"
+            android:id="@+id/edtEmailEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_marginleft_20dp"
             android:layout_marginRight="@dimen/layout_marginright_20dp"
             android:hint="@string/edittext_hint_user_email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:textSize="@dimen/textview_textsize_20sp"
             app:layout_constraintEnd_toEndOf="@id/guideLineRight"
             app:layout_constraintStart_toStartOf="@id/guideLineLeft"
@@ -157,7 +157,7 @@
             android:text="@string/textview_text_phone"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@id/guideLineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/edtEmailedit" />
+            app:layout_constraintTop_toBottomOf="@+id/edtEmailEdit" />
 
 
         <EditText
@@ -175,7 +175,7 @@
             tools:ignore="Autofill" />
 
         <Button
-            android:id="@+id/btnEditProfie"
+            android:id="@+id/btnEditProfile"
             android:layout_width="match_parent"
             android:layout_height="@dimen/layout_height_52dp"
             android:layout_marginLeft="@dimen/layout_marginleft_20dp"

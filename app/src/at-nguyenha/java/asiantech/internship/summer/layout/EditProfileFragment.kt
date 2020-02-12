@@ -18,7 +18,7 @@ class EditProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnEditProfie.setOnClickListener {
+        btnEditProfile.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()?.replace(R.id.frLayout, RegisterFragment(), null)?.addToBackStack(null)?.commit()
         }
     }
