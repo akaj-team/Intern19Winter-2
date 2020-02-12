@@ -21,18 +21,17 @@ import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-hauha`.drawber_layout_activity.*
 import kotlinx.android.synthetic.`at-hauha`.header_item.*
 
-
-
 class DrawerLayoutActivity : AppCompatActivity() {
-    private val menuItem = mutableListOf<Menu>()
-    private lateinit var mAdapter: DrawerLayoutAdapter
-    private var imageUri: Uri? = null
 
     companion object {
         private const val PERMISSION_CODE = 100
         private const val IMAGE_CAPTURE_CODE = 101
         private const val IMAGE_PICK_CODE = 102
     }
+
+    private val menuItem = mutableListOf<Menu>()
+    private lateinit var mAdapter: DrawerLayoutAdapter
+    private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
