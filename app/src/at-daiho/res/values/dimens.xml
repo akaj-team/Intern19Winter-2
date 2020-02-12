@@ -14,4 +14,7 @@
     <dimen name="feed_item_progress_bar_size">40dp</dimen>
     <dimen name="recycler_view_pull_to_refresh_height">0dp</dimen>
     <dimen name="recycler_view_pull_to_refresh_weight">1</dimen>
+    <dimen name="menu_view_header_avatar_size">75dp</dimen>
+    <dimen name="menu_view_header_email_margin_top">45dp</dimen>
+    <dimen name="menu_view_icon_size">30dp</dimen>
 </resources>
