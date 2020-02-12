@@ -5,7 +5,7 @@
     <issue id="SpUsage" severity="ignore"/>
     <issue id="CommitPrefEdits" severity="ignore"/>
     <issue id="MissingTranslation" severity="ignore"/>
-    <issue id="TypographyimgEllipsis" severity="ignore"/>
+    <issue id="TypographyEllipsis" severity="ignore"/>
     <issue id="TypographyOther" severity="ignore"/>
     <issue id="IconMissingDensityFolder" severity="ignore"/>
     <issue id="RtlSymmetry" severity="ignore"/>
