@@ -14,7 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_edit_black_24dp"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
+            app:layout_constraintRight_toLeftOf="@+id/guideLineRight"
             app:layout_constraintTop_toTopOf="@+id/imgAvatar"
             tools:ignore="PrivateResource" />
 
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/textview_text_584_followers"
-            app:layout_constraintLeft_toRightOf="@+id/guidelineCenter"
+            app:layout_constraintLeft_toRightOf="@+id/guideLineCenter"
             app:layout_constraintTop_toBottomOf="@+id/tvBio" />
 
         <TextView
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textview_text_settings"
-            app:layout_constraintRight_toLeftOf="@+id/guidelineRight"
+            app:layout_constraintRight_toLeftOf="@+id/guideLineRight"
             app:layout_constraintTop_toTopOf="@+id/tvMyKitchen" />
 
         <TextView
@@ -65,7 +65,7 @@
             android:text="@string/textview_text_nick_evans"
             android:textColor="@color/textview_textcolor_black"
             android:textSize="16dp"
-            app:layout_constraintLeft_toLeftOf="@+id/guidelineCenter"
+            app:layout_constraintLeft_toLeftOf="@+id/guideLineCenter"
             app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
 
         <TextView
@@ -77,7 +77,7 @@
             android:text="@string/textview_text_my_kitchen"
             android:textColor="@color/textview_textcolor_black"
             android:textSize="24dp"
-            app:layout_constraintLeft_toLeftOf="@id/guidelineLeft"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -85,25 +85,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textview_text_user_bio"
-            app:layout_constraintLeft_toLeftOf="@+id/guidelineCenter"
+            app:layout_constraintLeft_toLeftOf="@+id/guideLineCenter"
             app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineLeft"
+            android:id="@+id/guideLineLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="25dp" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineRight"
+            android:id="@+id/guideLineRight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_end="25dp" />
 
         <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineCenter"
+            android:id="@+id/guideLineCenter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -115,7 +115,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="24dp"
             android:src="@drawable/img_avatar"
-            app:layout_constraintLeft_toLeftOf="@id/guidelineLeft"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvMyKitchen" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

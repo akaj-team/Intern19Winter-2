@@ -58,8 +58,8 @@ class EditProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        edtFullnameprofile.setText(mName)
-        edtEmailedit.setText(mEmail)
+        edtFullNameEdit.setText(mName)
+        edtEmailEdit.setText(mEmail)
         if (mAvatar != "") {
             imgAvatar.setImageURI(mAvatar.toUri())
         }
@@ -69,9 +69,9 @@ class EditProfileFragment : Fragment() {
         imgBack.setOnClickListener {
             (activity as? MyMainActivity)?.replaceFragment(UserProfileFragment())
         }
-        btnEditProfie.setOnClickListener {
-            mName = edtFullnameprofile.text.toString()
-            mEmail = edtEmailedit.text.toString()
+        btnEditProfile.setOnClickListener {
+            mName = edtFullNameEdit.text.toString()
+            mEmail = edtEmailEdit.text.toString()
             (activity as? MyMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, mAvatar))
         }
     }

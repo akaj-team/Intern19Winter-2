@@ -91,7 +91,7 @@
             tools:ignore="Autofill" />
 
         <TextView
-            android:id="@+id/tvEmail"
+            android:id="@+id/tvEmailRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/layout_margintop_20dp"
@@ -111,7 +111,7 @@
             android:textSize="@dimen/textview_textsize_20sp"
             app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintRight_toRightOf="@id/guideLineRight"
-            app:layout_constraintTop_toBottomOf="@+id/tvEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tvEmailRegister"
             tools:ignore="Autofill" />
 
         <TextView
@@ -165,6 +165,7 @@
             app:layout_constraintTop_toBottomOf="@id/btnRegister" />
 
         <TextView
+            android:id="@+id/tvLoginHere"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/layout_marginbottom_32dp"

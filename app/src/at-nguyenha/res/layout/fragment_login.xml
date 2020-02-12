@@ -64,7 +64,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imgHeader" />
 
         <TextView
-            android:id="@+id/tvEmail"
+            android:id="@+id/tvEmailLogin"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/layout_height_20dp"
             android:layout_marginTop="30dp"
@@ -83,7 +83,7 @@
             android:inputType="textEmailAddress"
             android:textSize="@dimen/textview_textsize_20sp"
             app:layout_constraintStart_toStartOf="@id/guideLineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/tvEmail"
+            app:layout_constraintTop_toBottomOf="@+id/tvEmailLogin"
             tools:ignore="Autofill" />
 
         <TextView
@@ -97,7 +97,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edtEmailLogin" />
 
         <TextView
-            android:id="@+id/tvForgotpassword"
+            android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/textview_text_forgot_password"
@@ -107,7 +107,7 @@
 
 
         <EditText
-            android:id="@+id/edtPassword"
+            android:id="@+id/edtPasswordLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/layout_marginleft_20dp"
@@ -132,7 +132,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintRight_toRightOf="@id/guideLineRight"
-            app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+            app:layout_constraintTop_toBottomOf="@id/edtPasswordLogin" />
 
         <TextView
             android:id="@+id/tvSratch"
