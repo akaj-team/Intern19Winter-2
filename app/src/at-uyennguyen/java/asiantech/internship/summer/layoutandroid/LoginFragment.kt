@@ -19,8 +19,8 @@ class LoginFragment : Fragment() {
             override fun onClick(v: View?) {
                 val fragmentManager = activity?.supportFragmentManager
                 val fragmentTransaction = fragmentManager?.beginTransaction()
-                val signinFragment: SigninFragment = SigninFragment()
-                fragmentTransaction?.replace(R.id.frameLayout, signinFragment)?.commit()
+                val signFragment: SignFragment = SignFragment()
+                fragmentTransaction?.replace(R.id.frameLayout, signFragment)?.commit()
             }
         })
     }
