@@ -15,10 +15,9 @@ class TimelineActivity : AppCompatActivity() {
         private const val DELAY_PROGRESSBAR: Long = 2000
     }
 
+    private lateinit var adapterTimeLine: TimeLines
     private val timelineItems = mutableListOf<TimeLineItem>()
     private var isLoading = false
-    private lateinit var adapterTimeLine: TimeLines
-    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_time_line)
