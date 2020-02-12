@@ -4,5 +4,5 @@ import android.graphics.Bitmap
 
 interface ChangeAvatar {
     fun imageUser(img: Bitmap?)
-    fun profile(fullname : String,bio: String)
+    fun profile(fullname: String, bio: String)
 }
