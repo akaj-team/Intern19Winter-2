@@ -1,29 +1,53 @@
 package asiantech.internship.summer.viewPager_tabLayout
 
 
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import asiantech.internship.summer.R
-import com.google.android.material.tabs.TabLayout
-import kotlinx.android.synthetic.`at-cuongle`.activity_main.*
-import kotlinx.android.synthetic.`at-cuongle`.activity_viewpager.*
+import kotlinx.android.synthetic.`at-cuongle`.fragment_step.*
 
-class TabLayoutFragment : Fragment() {
-    private lateinit var tabLayout: TabLayout
+
+class StepFragment : Fragment() {
+
+    companion object {
+
+        private const val KEY_POSITION = "position"
+
+        fun newInstance(position: Int): StepFragment {
+            val fragment = StepFragment()
+            fragment.arguments = Bundle().apply {
+                putInt(KEY_POSITION, position)
+            }
+            return fragment
+        }
+    }
+
+    private var position = 0
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_layout, container, false)
-
+        return inflater.inflate(R.layout.fragment_step, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = HomeAdapter(childFragmentManager)
-//        viewPager.adapter = adapter
-//        tabLayout.setupWithViewPager(viewPager)
+        position = arguments?.getInt(KEY_POSITION)!!
+        when (position) {
+            0 -> {
+                rlHome.setBackgroundColor(Color.GREEN)
+                tvTitle.text = getString(R.string.tv_title, position + 1)
+            }
+            1 -> {
+                tvTitle.text = getString(R.string.tv_title, position + 1)
+
+            }
+            2 -> {
+                rlHome.setBackgroundColor(Color.RED)
+                tvTitle.text = getString(R.string.tv_title, position + 1)
+            }
+        }
     }
 }

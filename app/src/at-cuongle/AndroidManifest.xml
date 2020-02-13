@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".viewPager_tabLayout.TabLayoutActivity"></activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".viewPager_tabLayout.HomeActivity">
             <intent-filter>
@@ -20,4 +21,5 @@
             </intent-filter>
         </activity>
     </application>
+
 </manifest>
