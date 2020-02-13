@@ -11,17 +11,18 @@ class TabLayoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tab_layout)
-        tabLayout.setBackgroundColor(Color.YELLOW)
-        initView()
+        initVIew()
     }
-    private fun initView() {
+
+    private fun initVIew() {
         val adapter = TabLayoutAdapter(supportFragmentManager)
         adapter.apply {
-            addFragment(InformationFragment(),"HOME")
-            addFragment(InformationFragment(),"INFOR")
-            addFragment(InformationFragment(),"ANOTHER")
+            addFragment(HomeFragment(), "HOME")
+            addFragment(InformationFragment(), "INFO")
+            addFragment(AnotherFragment(), "ANOTHER")
         }
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
+        tabLayout.setBackgroundColor(Color.YELLOW)
     }
 }

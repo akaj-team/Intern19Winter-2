@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import asiantech.internship.summer.R
+import kotlinx.android.synthetic.`at-cuongle`.fragment_information.*
 
 class InformationFragment : Fragment() {
     companion object {
@@ -19,17 +20,15 @@ class InformationFragment : Fragment() {
         }
     }
 
-    private var position = 0
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_information, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        position = arguments?.getInt(KEY_POSITION)!!
-        Log.i("XXX", "infor$position")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        imgTitle.setImageResource(R.drawable.ic_fruit)
     }
 
 }

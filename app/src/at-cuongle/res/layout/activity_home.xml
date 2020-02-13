@@ -13,18 +13,22 @@
         android:orientation="vertical" />
 
     <me.relex.circleindicator.CircleIndicator
-        android:layout_alignParentBottom="true"
         android:id="@+id/indicator"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:outlineAmbientShadowColor="@android:color/black"
-        app:ci_height="8dp"
-        app:ci_width="8dp"/>
-    <TextView
-        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        app:ci_height="8dp"
+        app:ci_width="8dp" />
+
+    <TextView
         android:id="@+id/tvAction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:textStyle="bold"
+        android:textColor="@color/design_default_color_on_secondary"
         android:textSize="20sp" />
+
 </RelativeLayout>
