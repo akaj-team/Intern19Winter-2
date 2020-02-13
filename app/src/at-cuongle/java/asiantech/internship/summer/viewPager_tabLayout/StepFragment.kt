@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import asiantech.internship.summer.R
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.`at-cuongle`.activity_main.*
+import kotlinx.android.synthetic.`at-cuongle`.activity_viewpager.*
 
 class TabLayoutFragment : Fragment() {
     private lateinit var tabLayout: TabLayout
@@ -22,7 +23,7 @@ class TabLayoutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = HomeAdapter(childFragmentManager)
-        viewPager.adapter = adapter
-        tabLayout.setupWithViewPager(viewPager)
+//        viewPager.adapter = adapter
+//        tabLayout.setupWithViewPager(viewPager)
     }
 }

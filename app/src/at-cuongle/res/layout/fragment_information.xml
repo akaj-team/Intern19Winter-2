@@ -2,10 +2,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="asiantech.internship.summer.viewPager_tabLayout.TabLayoutFragment">
+    tools:context="asiantech.internship.summer.viewPager_tabLayout.InformationFragment">
 
-    <TableLayout
-        android:id="@+id/tabLayout"
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="100dp" />
+        android:layout_height="match_parent"
+        android:text="@string/hello_blank_fragment" />
+
 </FrameLayout>
