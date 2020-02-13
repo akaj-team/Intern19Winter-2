@@ -11,15 +11,15 @@ class TabLayoutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tab_layout)
-        initVIew()
+        initView()
     }
 
-    private fun initVIew() {
+    private fun initView() {
         val adapter = TabLayoutAdapter(supportFragmentManager)
         adapter.apply {
-            addFragment(HomeFragment(), "HOME")
-            addFragment(InformationFragment(), "INFO")
-            addFragment(AnotherFragment(), "ANOTHER")
+            addFragment(HomeFragment(), getString(R.string.tv_tablayout_home))
+            addFragment(InformationFragment(), getString(R.string.tv_tablayout_infor))
+            addFragment(AnotherFragment(), getString(R.string.tv_tablayout_another))
         }
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)

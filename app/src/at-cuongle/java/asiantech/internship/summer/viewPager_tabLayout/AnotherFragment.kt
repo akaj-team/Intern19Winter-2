@@ -13,7 +13,6 @@ class AnotherFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_another, container, false)
     }
 
@@ -21,5 +20,4 @@ class AnotherFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         imgTitle.setImageResource(R.drawable.ic_cake)
     }
-
 }

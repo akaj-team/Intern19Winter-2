@@ -14,9 +14,7 @@ import kotlinx.android.synthetic.`at-cuongle`.fragment_step.*
 class StepFragment : Fragment() {
 
     companion object {
-
         private const val KEY_POSITION = "position"
-
         fun newInstance(position: Int): StepFragment {
             val fragment = StepFragment()
             fragment.arguments = Bundle().apply {
