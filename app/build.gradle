@@ -83,4 +83,5 @@ dependencies {
     apply from: "../ci-java.gradle"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.android.material:material:1.1.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
 }
