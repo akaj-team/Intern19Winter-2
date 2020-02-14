@@ -40,7 +40,7 @@ class HomeActivity : AppCompatActivity() {
             if (currentPosition < 3) {
                 viewPager.currentItem = currentPosition
             } else {
-                val intent = Intent(this@HomeActivity, TabLayoutActivity::class.java)
+                val intent = Intent(this, TabLayoutActivity::class.java)
                 startActivity(intent)
             }
         }
