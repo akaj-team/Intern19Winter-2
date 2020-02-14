@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".Editprofile">
+
+        <Button
+            android:id="@+id/btnProfile"
+            android:layout_width="320dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="50dp"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:text="@string/save_profile"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edtPhone" />
+
+        <EditText
+            android:id="@+id/edtFullName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_full_name_in_profile"
+            android:inputType="text"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/greyOfHint"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/tvFullName"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvFullName"
+            tools:ignore="autofill" />
+
+        <EditText
+            android:id="@+id/edtBio"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_bio_in_profile"
+            android:inputType="text"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/greyOfHint"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/tvBio"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBio"
+            tools:ignore="autofill" />
+
+        <EditText
+            android:id="@+id/edtEmail2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_email_in_profile"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/greyOfHint"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/tvEmail2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEmail2"
+            tools:ignore="autofill" />
+
+        <EditText
+            android:id="@+id/edtPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_phone_in_profile"
+            android:inputType="phone"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/greyOfHint"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/tvPhone"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPhone"
+            tools:ignore="autofill" />
+
+        <ImageView
+            android:id="@+id/imgBack"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="57dp"
+            android:src="@drawable/img_back"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgYourAvatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/img_avatar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvEdit" />
+
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="@string/back_to_profile"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/imgBack"
+            app:layout_constraintTop_toTopOf="@id/imgBack" />
+
+        <TextView
+            android:id="@+id/tvEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/edit_profile"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="@id/imgBack"
+            app:layout_constraintTop_toBottomOf="@id/imgBack" />
+
+        <TextView
+            android:id="@+id/tvAvatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/edit_profile_picture"
+            android:textColor="@color/grey"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgYourAvatar" />
+
+        <TextView
+            android:id="@+id/tvFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/full_name"
+            android:textColor="@color/greyOfHint"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/tvEdit"
+            app:layout_constraintTop_toBottomOf="@id/tvAvatar" />
+
+        <TextView
+            android:id="@+id/tvBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/bio"
+            android:textColor="@color/greyOfHint"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/edtFullName"
+            app:layout_constraintTop_toBottomOf="@+id/edtFullName" />
+
+        <TextView
+            android:id="@+id/tvPrivate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/private_information"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/edtBio"
+            app:layout_constraintTop_toBottomOf="@+id/edtBio" />
+
+        <TextView
+            android:id="@+id/tvEmail2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/email"
+            android:textColor="@color/greyOfHint"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/tvPrivate"
+            app:layout_constraintTop_toBottomOf="@id/tvPrivate" />
+
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/phone"
+            android:textColor="@color/greyOfHint"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/edtEmail2"
+            app:layout_constraintTop_toBottomOf="@id/edtEmail2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
