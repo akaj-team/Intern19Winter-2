@@ -1,12 +1,18 @@
 <resources>
     <string name="app_name">MyHuynh</string>
 
-    <string name="textview_login_button">Login</string>	    <string name="tv_title">Step %d</string>
-    <string name="text_password">●●●●●●●●</string>	    <string name="tv_skip">Skip</string>
-    <string name="text_user_email">user@email.com</string>	    <string name="tv_next">Next</string>
-    <string name="textview_new_to_scratch">New to Scratch?</string>	    <string name="tv_tablayout_home">HOME</string>
-    <string name="textview_create_account_here">Create Account Here</string>	    <string name="tv_tablayout_infor">INFO</string>
-    <string name="textview_password">Password</string>	    <string name="tv_tablayout_another">ANOTHER</string>
+    <string name="textview_login_button">Login</string>
+    <string name="tv_title">Step %d</string>
+    <string name="text_password">●●●●●●●●</string>
+    <string name="tv_skip">Skip</string>
+    <string name="text_user_email">user@email.com</string>
+    <string name="tv_next">Next</string>
+    <string name="textview_new_to_scratch">New to Scratch?</string>
+    <string name="tv_tablayout_home">HOME</string>
+    <string name="textview_create_account_here">Create Account Here</string>
+    <string name="tv_tablayout_infor">INFO</string>
+    <string name="textview_password">Password</string>
+    <string name="tv_tablayout_another">ANOTHER</string>
     <string name="textview_forgot_password">Forgot password?</string>
     <string name="textview_email_address">Email address</string>
     <string name="textview_request_login">Please login to continue.</string>
