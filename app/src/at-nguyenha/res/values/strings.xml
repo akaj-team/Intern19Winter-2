@@ -1,3 +1,35 @@
 <resources>
     <string name="app_name">TamLe</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textview_text_email">Email</string>
+    <string name="textview_text_user_email">user@email.com</string>
+    <string name="textview_text_welcome_back">Welcome Back!</string>
+    <string name="textview_text_please_login">Please login to continue</string>
+    <string name="textview_text_email_address">Email address</string>
+    <string name="edittext_hint_user_email">user@email.com</string>
+    <string name="textview_text_password">Password</string>
+    <string name="textview_text_forgot_password">Forgot password?</string>
+    <string name="edittext_hint_password">********</string>
+    <string name="button_text_login">Login</string>
+    <string name="textview_text_new_to_sratch">New to sratch?</string>
+
+    <string name="textview_text_create_account_here">Create Account Here</string>
+    <string name="textview_text_start_from_scratch">Start \nfrom Scratch</string>
+    <string name="textview_text_fullname">Fullname</string>
+    <string name="edittext_hint_fullname">Nguyen Ha X.</string>
+    <string name="button_text_create_account">Create Account</string>
+    <string name="textview_text_already_have_an_account">Already have an account?</string>
+    <string name="textview_text_login_here">Login Here</string>
+    <string name="textview_text_edit_profile">Edit Profile</string>
+    <string name="textview_text_edit_profile_picture">Edit Profile Picture</string>
+    <string name="textview_text_bio">Bio</string>
+    <string name="edittext_hint_potato_master">Potato Master</string>
+    <string name="edittext_text_private_information">Private Information</string>
+    <string name="textview_text_phone">Phone</string>
+    <string name="edittext_hint_phone">+84 386971275</string>
+    <string name="button_text_save_profile">Save Profile</string>
+
+
 </resources>
