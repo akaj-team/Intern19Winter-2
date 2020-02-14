@@ -7,5 +7,11 @@
     <color name="greyOfHint">#ACA8A8</color>
     <color name="green">#30BE76</color>
     <color name="tabLayout_color">#77FF5252</color>
+    <color name="fist_viewpager_color">#FCFFBA52</color>
+    <color name="second_viewpager_color">#FCFF8952</color>
+    <color name="third_viewpager_color">#FCFF5252</color>
+    <color name="tabIndicatorColor">#BE0D0D</color>
+    <color name="tabSelectedTextColor">#BE0D0D</color>
+    <color name="tabTextColor">#FF5252</color>
 </resources>
 

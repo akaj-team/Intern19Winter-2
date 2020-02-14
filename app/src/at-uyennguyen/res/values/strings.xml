@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrinhNguyen</string>
+    <string name="app_name">UyenNguyen</string>
     <string name="edittext_hint_your_email">Your email</string>
     <string name="welcome_back">Welcome Back!</string>
     <string name="please_login_to_continue">Please login to continue.</string>
@@ -38,4 +38,9 @@
     <string name="your_password_in_signin">Your password</string>
     <string name="your_email_in_login">Your email</string>
     <string name="your_password_in_login">Your password</string>
+    <string name="step_1">Step 1</string>
+    <string name="step_2">Step 2</string>
+    <string name="step_3">Step 3</string>
+    <string name="skip">SKIP</string>
+    <string name="next">NEXT</string>
 </resources>
