@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import asiantech.internship.summer.viewPagerAndTagLayout.HomeFragment
 
 class ViewPagerAdapter(fragmentManager: FragmentManager) : FragmentStatePagerAdapter(fragmentManager) {
+
     companion object {
         const val COUNT_ITEM = 3
     }

@@ -6,8 +6,10 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_taglayout.*
 
 class TabLayoutActivity : AppCompatActivity() {
+
     private var listFragment = mutableListOf<ListTagLayoutFragment>()
     private var adapterTagLayout = TabLayoutAdapter(supportFragmentManager, listFragment)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_taglayout)

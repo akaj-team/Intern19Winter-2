@@ -11,6 +11,7 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_home.*
 
 class HomeFragment : Fragment() {
+
     private var position = 0
 
     companion object {
