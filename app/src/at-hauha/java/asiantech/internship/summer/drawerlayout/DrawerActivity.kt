@@ -18,10 +18,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.Activity
 import asiantech.internship.summer.R
 import com.theartofdev.edmodo.cropper.CropImage
-import kotlinx.android.synthetic.`at-hauha`.drawber_layout_activity.*
-import kotlinx.android.synthetic.`at-hauha`.header_item.*
+import kotlinx.android.synthetic.`at-hauha`.activity_drawber.*
+import kotlinx.android.synthetic.`at-hauha`.item_drawer_header.*
 
-class DrawerLayoutActivity : AppCompatActivity() {
+
+class DrawerActivity : AppCompatActivity() {
 
     companion object {
         private const val PERMISSION_CODE = 100
@@ -29,13 +30,13 @@ class DrawerLayoutActivity : AppCompatActivity() {
         private const val IMAGE_PICK_CODE = 102
     }
 
-    private val menuItem = mutableListOf<Menu>()
-    private lateinit var mAdapter: DrawerLayoutAdapter
+    private val drawerItem = mutableListOf<DrawerItem>()
+    private lateinit var adapter: DrawerAdapter
     private var imageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.drawber_layout_activity)
+        setContentView(R.layout.activity_drawber)
         initData()
         initAdapter()
 
@@ -92,22 +93,22 @@ class DrawerLayoutActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        mAdapter = DrawerLayoutAdapter(menuItem)
-        mAdapter.onItemClicked = {
-            if (menuItem[it].name.isBlank()) {
+        adapter = DrawerAdapter(drawerItem)
+        adapter.onItemClicked = {
+            if (drawerItem[it].name.isBlank()) {
                 initAvatar()
             } else {
-                menuItem[it].isStatus = true
-                for (i in 1 until menuItem.size) {
-                    if (i != it) menuItem[i].isStatus = false
+                drawerItem[it].isStatus = true
+                for (i in 1 until drawerItem.size) {
+                    if (i != it) drawerItem[i].isStatus = false
                 }
-                mAdapter.notifyDataSetChanged()
+                adapter.notifyDataSetChanged()
             }
 
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
         initDrawable()
-        recyclerView.adapter = mAdapter
+        recyclerView.adapter = adapter
 
     }
 
@@ -152,8 +153,8 @@ class DrawerLayoutActivity : AppCompatActivity() {
     private fun openCamera() {
         val imgFromCamera = ContentValues()
         val resolver = this.contentResolver
-        imgFromCamera.put(MediaStore.Images.Media.TITLE, "New Picture")
-        imgFromCamera.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+        imgFromCamera.put(MediaStore.Images.Media.TITLE, getString(R.string.new_picture))
+        imgFromCamera.put(MediaStore.Images.Media.DESCRIPTION, getString(R.string.from_the_camera))
         imageUri = resolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, imgFromCamera)
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
@@ -167,12 +168,12 @@ class DrawerLayoutActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        menuItem.apply {
-            add(Menu(0, "", true))
-            add(Menu(R.drawable.custom_inbox, "Inbox", true))
-            add(Menu(R.drawable.custom_send, "Send", false))
-            add(Menu(R.drawable.custom_spam, "Spam", false))
-            add(Menu(R.drawable.custom_delete, "Trash", false))
+        drawerItem.apply {
+            add(DrawerItem(0, "", true))
+            add(DrawerItem(R.drawable.selector_img_inbox, "Inbox", true))
+            add(DrawerItem(R.drawable.selector_img_send, "Send", false))
+            add(DrawerItem(R.drawable.selector_img_spam, "Spam", false))
+            add(DrawerItem(R.drawable.selector_img_delete, "Trash", false))
         }
     }
 

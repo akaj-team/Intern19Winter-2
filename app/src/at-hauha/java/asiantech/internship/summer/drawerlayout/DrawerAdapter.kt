@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 
 
-class DrawerLayoutAdapter(private val menuItem: MutableList<Menu>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DrawerAdapter(private val drawerItemItem: MutableList<DrawerItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val TYPE_HEADER = 1
@@ -21,7 +21,7 @@ class DrawerLayoutAdapter(private val menuItem: MutableList<Menu>) : RecyclerVie
     internal var onItemClicked: (position: Int) -> Unit = {}
 
     override fun getItemViewType(position: Int): Int {
-        if (menuItem[position].icon == 0) {
+        if (position == 0) {
             return TYPE_HEADER
         }
         return TYPE_ITEM
@@ -29,23 +29,23 @@ class DrawerLayoutAdapter(private val menuItem: MutableList<Menu>) : RecyclerVie
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == TYPE_HEADER) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.header_item, parent, false)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_drawer_header, parent, false)
             return HeaderViewHolder(view)
         }
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.menu_list, parent, false)
-        return MenuViewHolder(view)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_drawer, parent, false)
+        return DrawerItemViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? MenuViewHolder)?.binData()
+        (holder as? DrawerItemViewHolder)?.binData()
         (holder as? HeaderViewHolder)?.binData()
     }
 
     override fun getItemCount(): Int {
-        return menuItem.size
+        return drawerItemItem.size
     }
 
-    inner class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DrawerItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvMenu: TextView = itemView.findViewById(R.id.tvMenu)
 
         init {
@@ -55,7 +55,7 @@ class DrawerLayoutAdapter(private val menuItem: MutableList<Menu>) : RecyclerVie
         }
 
         fun binData() {
-            val menuItem = menuItem[adapterPosition]
+            val menuItem = drawerItemItem[adapterPosition]
             tvMenu.isSelected = menuItem.isStatus
             tvMenu.setCompoundDrawablesWithIntrinsicBounds(menuItem.icon, 0, 0, 0)
             tvMenu.text = menuItem.name
@@ -73,7 +73,7 @@ class DrawerLayoutAdapter(private val menuItem: MutableList<Menu>) : RecyclerVie
         }
 
         fun binData() {
-            val menuItem = menuItem[adapterPosition]
+            val menuItem = drawerItemItem[adapterPosition]
             if (!menuItem.name.isBlank()) {
                 imgAvatar.setImageURI(Uri.parse(menuItem.name))
             }
