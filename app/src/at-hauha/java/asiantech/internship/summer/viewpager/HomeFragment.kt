@@ -13,6 +13,7 @@ class HomeFragment : Fragment() {
 
     companion object {
         private const val ARG_POSITION = "position"
+        private const val defaultPosition = 1
 
         fun newInstance(mPosition: Int) = HomeFragment().apply {
             arguments = Bundle().apply {
@@ -36,17 +37,19 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        tvStep.text = getString(R.string.textview_step, defaultPosition)
         when (mPosition) {
-            0 -> tvStep.text = getString(R.string.textview_step, mPosition + 1)
-            1 -> {
-                viewMain.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
-                tvStep.text = getString(R.string.textview_step, mPosition + 1)
-            }
+            1 -> tvStep.text = getString(R.string.textview_step, mPosition)
             2 -> {
+                viewMain.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorPrimary))
+                tvStep.text = getString(R.string.textview_step, mPosition)
+            }
+            3 -> {
                 viewMain.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.colorAccent))
-                tvStep.text = getString(R.string.textview_step, mPosition + 1)
+                tvStep.text = getString(R.string.textview_step, mPosition)
             }
         }
 
     }
+
 }

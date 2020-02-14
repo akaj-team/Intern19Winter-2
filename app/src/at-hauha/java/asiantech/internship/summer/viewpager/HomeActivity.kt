@@ -16,9 +16,17 @@ class HomeActivity : AppCompatActivity() {
         val adapter = HomeAdapter(supportFragmentManager)
         viewPager.adapter = adapter
         indicator.setViewPager(viewPager)
+        viewPager.setCurrentItem(1, false)
+        
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
 
+            private var jumpPosition = -1
+
             override fun onPageScrollStateChanged(state: Int) {
+                if (jumpPosition >= 0 && state == ViewPager.SCROLL_STATE_IDLE) {
+                    viewPager.setCurrentItem(jumpPosition, false)
+                    jumpPosition = -1
+                }
             }
 
             override fun onPageScrolled(
@@ -30,19 +38,22 @@ class HomeActivity : AppCompatActivity() {
 
             override fun onPageSelected(position: Int) {
                 when (position) {
+                    0 -> jumpPosition = adapter.getRealCount()
                     1 -> tvSkip.text = getString(R.string.texview_skip)
-                    2 -> tvSkip.text = getString(R.string.texview_next)
+                    3 -> tvSkip.text = getString(R.string.texview_next)
+                    4 -> jumpPosition = 1
                 }
                 pagePosition = position + 1
             }
         })
         tvSkip.setOnClickListener {
-            if (pagePosition < 3) {
+            if (pagePosition < 4) {
                 viewPager.currentItem = pagePosition
             } else {
                 replaceFragment()
             }
         }
+
     }
 
     private fun replaceFragment() {
@@ -51,4 +62,5 @@ class HomeActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
     }
+
 }
