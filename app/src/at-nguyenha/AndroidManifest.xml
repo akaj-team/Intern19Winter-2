@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".layout.MyMainActivity" />
         <activity android:name=".viewpager.ViewHomeActivity" />
         <activity android:name=".viewpager.StepViewPagerActivity">
             <intent-filter>
