@@ -5,5 +5,8 @@
     <string name="textview_hauhc93_gmail_com">hauhc93@gmail.com</string>
     <string name="new_picture">New Picture</string>
     <string name="from_the_camera">From the Camera</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="from_gallery">From Gallery</string>
+    <string name="choose_the_action">Choose the Action</string>
 </resources>
 

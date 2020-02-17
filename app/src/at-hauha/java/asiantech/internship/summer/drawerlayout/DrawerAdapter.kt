@@ -18,6 +18,8 @@ class DrawerAdapter(private val drawerItemItem: MutableList<DrawerItem>) : Recyc
         private const val TYPE_ITEM = 0
     }
 
+    private var positionSelected = 1
+
     internal var onItemClicked: (position: Int) -> Unit = {}
 
     override fun getItemViewType(position: Int): Int {
@@ -30,7 +32,7 @@ class DrawerAdapter(private val drawerItemItem: MutableList<DrawerItem>) : Recyc
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == TYPE_HEADER) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_drawer_header, parent, false)
-            return HeaderViewHolder(view)
+            return DrawerItemHeaderViewHolder(view)
         }
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_drawer, parent, false)
         return DrawerItemViewHolder(view)
@@ -38,7 +40,7 @@ class DrawerAdapter(private val drawerItemItem: MutableList<DrawerItem>) : Recyc
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? DrawerItemViewHolder)?.binData()
-        (holder as? HeaderViewHolder)?.binData()
+        (holder as? DrawerItemHeaderViewHolder)?.binData()
     }
 
     override fun getItemCount(): Int {
@@ -51,19 +53,23 @@ class DrawerAdapter(private val drawerItemItem: MutableList<DrawerItem>) : Recyc
         init {
             tvMenu.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
+                positionSelected = adapterPosition
+                notifyDataSetChanged()
             }
         }
 
         fun binData() {
-            val menuItem = drawerItemItem[adapterPosition]
-            tvMenu.isSelected = menuItem.isStatus
-            tvMenu.setCompoundDrawablesWithIntrinsicBounds(menuItem.icon, 0, 0, 0)
-            tvMenu.text = menuItem.name
+            drawerItemItem.run {
+                drawerItemItem[adapterPosition].let {
+                    tvMenu.isSelected = adapterPosition == positionSelected
+                    tvMenu.text = it.name
+                    tvMenu.setCompoundDrawablesWithIntrinsicBounds(it.icon, 0, 0, 0)
+                }
+            }
         }
-
     }
 
-    inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DrawerItemHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imgAvatar: ImageView = itemView.findViewById(R.id.imgAvatar)
 
         init {

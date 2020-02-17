@@ -21,7 +21,6 @@ import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-hauha`.activity_drawber.*
 import kotlinx.android.synthetic.`at-hauha`.item_drawer_header.*
 
-
 class DrawerActivity : AppCompatActivity() {
 
     companion object {
@@ -30,7 +29,7 @@ class DrawerActivity : AppCompatActivity() {
         private const val IMAGE_PICK_CODE = 102
     }
 
-    private val drawerItem = mutableListOf<DrawerItem>()
+    private val drawerItems = mutableListOf<DrawerItem>()
     private lateinit var adapter: DrawerAdapter
     private var imageUri: Uri? = null
 
@@ -38,8 +37,8 @@ class DrawerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drawber)
         initData()
+        initDrawable()
         initAdapter()
-
     }
 
     override fun onRequestPermissionsResult(
@@ -61,17 +60,17 @@ class DrawerActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_CAPTURE_CODE) {
-            imageUri?.let { imageCropFunction(it) }
+            imageUri?.let { cropImage(it) }
         } else if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             imageUri = data?.data
-            imageUri?.let { imageCropFunction(it) }
+            imageUri?.let { cropImage(it) }
         } else if (resultCode == Activity.RESULT_OK && requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
             imgAvatar.setImageURI(result.uri)
         }
     }
 
-    private fun imageCropFunction(imgUri: Uri) { // Image Crop Code
+    private fun cropImage(imgUri: Uri) { // Image Crop Code
         CropImage.activity(imgUri)
                 .start(this)
     }
@@ -93,30 +92,24 @@ class DrawerActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        adapter = DrawerAdapter(drawerItem)
+        adapter = DrawerAdapter(drawerItems)
         adapter.onItemClicked = {
-            if (drawerItem[it].name.isBlank()) {
+            if (drawerItems[it].name.isBlank()) {
                 initAvatar()
             } else {
-                drawerItem[it].isStatus = true
-                for (i in 1 until drawerItem.size) {
-                    if (i != it) drawerItem[i].isStatus = false
-                }
-                adapter.notifyDataSetChanged()
+                drawerItems[it].isStatus = true
+                adapter.notifyItemChanged(it)
             }
-
         }
         recyclerView.layoutManager = LinearLayoutManager(this)
-        initDrawable()
         recyclerView.adapter = adapter
-
     }
 
     private fun initAvatar() {
-        val listDialog = arrayOf("Open Camera", "From Gallery")
+        val listDialog = arrayOf(getString(R.string.open_camera), getString(R.string.from_gallery))
         val dialogBuilder = AlertDialog.Builder(this)
         with(dialogBuilder) {
-            setTitle("Choose the Action")
+            setTitle(getString(R.string.choose_the_action))
             setItems(listDialog) { _, which ->
                 when (which) {
                     0 -> requestPermission()
@@ -125,7 +118,6 @@ class DrawerActivity : AppCompatActivity() {
             }
             show()
         }
-
     }
 
     private fun requestPermission() {
@@ -168,7 +160,7 @@ class DrawerActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        drawerItem.apply {
+        drawerItems.apply {
             add(DrawerItem(0, "", true))
             add(DrawerItem(R.drawable.selector_img_inbox, "Inbox", true))
             add(DrawerItem(R.drawable.selector_img_send, "Send", false))
