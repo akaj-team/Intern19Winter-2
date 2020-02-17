@@ -83,8 +83,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     apply from: "../ci-java.gradle"
     implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha01'
-    implementation 'de.hdodenhof:circleimageview:1.2.1'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+    implementation 'com.google.android.material:material:1.1.0'
     implementation('com.yalantis:ucrop:2.1.1@aar') {
         transitive = true
     }
