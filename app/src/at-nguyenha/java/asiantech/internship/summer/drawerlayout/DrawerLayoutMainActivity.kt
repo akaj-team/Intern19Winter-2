@@ -10,14 +10,14 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
+import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-nguyenha`.activity_drawerlayout.*
 import kotlinx.android.synthetic.`at-nguyenha`.item_header.*
-import android.view.View
-import androidx.appcompat.app.ActionBarDrawerToggle
-import com.theartofdev.edmodo.cropper.CropImage
 
 class DrawerLayoutMainActivity : AppCompatActivity() {
 
@@ -28,7 +28,8 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
     companion object {
         private const val IMAGE_PICK_CODE = 1000
         private const val IMAGE_CAPTURE_CODE = 1001
-        private const val PERMISSION_CODE = 1002
+        private const val CAMERA_PERMISSION_CODE = 2000
+        private const val GALLERY_PERMISSION_CODE = 2001
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,8 +52,8 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
         }
         if (resultCode == Activity.RESULT_OK && requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (data != null) {
-                val result = CropImage.getActivityResult(data)
-                imgAvatar.setImageURI(result.uri)
+                val resultImage = CropImage.getActivityResult(data)
+                imgAvatar.setImageURI(resultImage.uri)
             }
         }
     }
@@ -100,7 +101,7 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) ==
                     PackageManager.PERMISSION_DENIED) {
                 val permissions = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-                requestPermissions(permissions, PERMISSION_CODE)
+                requestPermissions(permissions, GALLERY_PERMISSION_CODE)
             } else {
                 openGallery()
             }
@@ -116,7 +117,7 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
                     checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     == PackageManager.PERMISSION_DENIED) {
                 val permission = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                requestPermissions(permission, PERMISSION_CODE)
+                requestPermissions(permission, CAMERA_PERMISSION_CODE)
             } else {
                 openCamera()
             }
