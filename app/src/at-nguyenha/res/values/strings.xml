@@ -33,6 +33,11 @@
     <string name="textview_text_phone">Phone</string>
     <string name="edittext_hint_phone">+84 386971275</string>
     <string name="button_text_save_profile">Save Profile</string>
+    <string name="dialog_title_gallery">Open Gallery</string>
+    <string name="dialog_title_camera">Open Camera</string>
+    <string name="dialog_title">Select Action</string>
+    <string name="media_title">New Picture</string>
+    <string name="media_description">From the Camera</string>
 
 
 </resources>

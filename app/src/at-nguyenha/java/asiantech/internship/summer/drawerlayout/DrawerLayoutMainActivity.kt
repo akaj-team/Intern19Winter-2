@@ -16,13 +16,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
 import com.theartofdev.edmodo.cropper.CropImage
-import kotlinx.android.synthetic.`at-nguyenha`.activity_drawerlayout.*
-import kotlinx.android.synthetic.`at-nguyenha`.item_header.*
+import kotlinx.android.synthetic.`at-nguyenha`.activity_drawer_layout.*
+import kotlinx.android.synthetic.`at-nguyenha`.item_drawer_header.*
 
 class DrawerLayoutMainActivity : AppCompatActivity() {
-
     private val items = mutableListOf<ItemModel>()
-    private val adapterItem = RecyclerViewAdapter(items)
+    private val adapterDrawer = DrawerAdapter(items)
     private var imageUri: Uri? = null
 
     companion object {
@@ -34,8 +33,7 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_drawerlayout)
-
+        setContentView(R.layout.activity_drawer_layout)
         initView()
         initAdapter()
         initData()
@@ -76,16 +74,16 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        recyclerDrawer.adapter = adapterItem
-        adapterItem.onItemClick = {
-            showPictureDialog()
+        recyclerDrawer.adapter = adapterDrawer
+        adapterDrawer.onItemClick = {
+            displaySelectPhotoDialog()
         }
     }
 
-    private fun showPictureDialog() {
+    private fun displaySelectPhotoDialog() {
         val pictureDialog = AlertDialog.Builder(this)
-        pictureDialog.setTitle("Select Action")
-        val pictureDialogItems = arrayOf("Select photo from gallery", "Capture photo from camera")
+        pictureDialog.setTitle(getString(R.string.dialog_title))
+        val pictureDialogItems = arrayOf(getString(R.string.dialog_title_gallery), getString(R.string.dialog_title_camera))
         pictureDialog.setItems(pictureDialogItems
         ) { _, which ->
             when (which) {
@@ -134,8 +132,8 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
 
     private fun openCamera() {
         val values = ContentValues()
-        values.put(MediaStore.Images.Media.TITLE, "New Picture")
-        values.put(MediaStore.Images.Media.DESCRIPTION, "From the Camera")
+        values.put(MediaStore.Images.Media.TITLE, getString(R.string.media_title))
+        values.put(MediaStore.Images.Media.DESCRIPTION, getString(R.string.media_description))
         imageUri = contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri)
@@ -148,12 +146,12 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        adapterItem.let {
+        adapterDrawer.let {
             items.add(ItemModel("nguyen.ha@asiantech.vn", R.drawable.ic_img_avatar, ""))
-            items.add(ItemModel("", R.drawable.ic_speaker_notes_black_24dp, "Inbox"))
-            items.add(ItemModel("", R.drawable.ic_box, "Outbox"))
-            items.add(ItemModel("", R.drawable.ic_spam, "Spam"))
-            items.add(ItemModel("", R.drawable.ic_trash, "Trash"))
+            items.add(ItemModel("", R.drawable.selector_img_outbox, "Inbox"))
+            items.add(ItemModel("", R.drawable.selector_img_inbox, "Outbox"))
+            items.add(ItemModel("", R.drawable.selector_img_spam, "Spam"))
+            items.add(ItemModel("", R.drawable.selector_img_trash, "Trash"))
         }
     }
 }
