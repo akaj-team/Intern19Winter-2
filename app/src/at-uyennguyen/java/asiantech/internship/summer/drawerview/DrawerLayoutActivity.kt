@@ -134,17 +134,6 @@ class DrawerLayoutActivity : AppCompatActivity() {
         itemModel.add(ItemModel(R.drawable.protect, R.drawable.protectcolor, "Quyền lợi", "uyen.nguyen@gmail.com"))
         itemModel.add(ItemModel(R.drawable.spam, R.drawable.spamcolor, "Lỗi", "uyen.nguyen@gmail.com"))
         itemModel.add(ItemModel(R.drawable.trash, R.drawable.trashcolor, "Thùng rác", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.protect, R.drawable.protectcolor, "Quyền lợi", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.spam, R.drawable.spamcolor, "Lỗi", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.setting, R.drawable.settingcolor, "Cài đặt", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.bell, R.drawable.bellcolor, "Thông báo", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.calendar, R.drawable.calendarcolor, "Lịch trình", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.signin, R.drawable.signincolor, "Tài khoảng", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.protect, R.drawable.protectcolor, "Quyền lợi", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.spam, R.drawable.spamcolor, "Lỗi", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.trash, R.drawable.trashcolor, "Thùng rác", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.protect, R.drawable.protectcolor, "Quyền lợi", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.spam, R.drawable.spamcolor, "Lỗi", "uyen.nguyen@gmail.com"))
         itemModel.shuffle()
     }
 
