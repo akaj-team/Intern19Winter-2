@@ -41,7 +41,7 @@ class DrawerAdapter(private val items: MutableList<ItemModel>) : RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? DrawerItemViewHolder)?.bindData(position)
+        (holder as? DrawerItemViewHolder)?.bindData()
         (holder as? DrawerItemHeaderViewHolder)?.bindData()
     }
 
@@ -73,12 +73,12 @@ class DrawerAdapter(private val items: MutableList<ItemModel>) : RecyclerView.Ad
             }
         }
 
-        internal fun bindData(position: Int) {
+        internal fun bindData() {
             items[adapterPosition].let {
                 imgIcon.setImageResource(it.image)
                 tvItem.text = it.textMenu
             }
-            if (position == positionSelected) {
+            if (adapterPosition == positionSelected) {
                 items[adapterPosition].let {
                     imgIcon.setColorFilter(Color.BLUE)
                     tvItem.setTextColor(Color.BLUE)
@@ -90,7 +90,7 @@ class DrawerAdapter(private val items: MutableList<ItemModel>) : RecyclerView.Ad
                 }
             }
             itemsView.setOnClickListener {
-                positionSelected = position
+                positionSelected = adapterPosition
                 Toast.makeText(itemsView.context, "Selected\t" + tvItem.text, Toast.LENGTH_LONG).show()
                 notifyDataSetChanged()
             }
