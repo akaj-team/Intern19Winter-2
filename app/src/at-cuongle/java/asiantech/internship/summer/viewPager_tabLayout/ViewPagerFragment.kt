@@ -1,6 +1,5 @@
 package asiantech.internship.summer.viewPager_tabLayout
 
-
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,13 +9,12 @@ import android.view.ViewGroup
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_step.*
 
-
-class StepFragment : Fragment() {
+class ViewPagerFragment : Fragment() {
 
     companion object {
         private const val KEY_POSITION = "position"
-        fun newInstance(position: Int): StepFragment {
-            val fragment = StepFragment()
+        fun newInstance(position: Int): ViewPagerFragment {
+            val fragment = ViewPagerFragment()
             fragment.arguments = Bundle().apply {
                 putInt(KEY_POSITION, position)
             }

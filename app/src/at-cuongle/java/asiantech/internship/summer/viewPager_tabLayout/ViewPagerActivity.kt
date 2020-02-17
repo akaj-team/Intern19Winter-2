@@ -7,12 +7,12 @@ import androidx.viewpager.widget.ViewPager
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.activity_home.*
 
-class HomeActivity : AppCompatActivity() {
+class ViewPagerActivity : AppCompatActivity() {
     private var currentPosition = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val adapter = HomeAdapter(supportFragmentManager)
+        val adapter = ViewPagerAdapter(supportFragmentManager)
         viewPager.adapter = adapter
         indicator.setViewPager(viewPager)
         tvAction.text = getString(R.string.tv_skip)

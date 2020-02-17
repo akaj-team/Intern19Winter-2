@@ -12,7 +12,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".viewPager_tabLayout.TabLayoutActivity"/>
         <activity android:name=".MainActivity" />
-        <activity android:name=".viewPager_tabLayout.HomeActivity">
+        <activity android:name=".viewPager_tabLayout.ViewPagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
