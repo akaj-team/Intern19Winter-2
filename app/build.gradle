@@ -65,11 +65,9 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.1'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
-
     implementation 'androidx.activity:activity-ktx:1.1.0'
-    implementation 'androidx.fragment:fragment-ktx:1.2.0'
+    implementation 'androidx.fragment:fragment-ktx:1.2.1'
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
@@ -80,6 +78,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
     androidTestImplementation 'androidx.test:runner:1.2.0'
+    implementation 'me.relex:circleindicator:2.1.4'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     apply from: "../ci-java.gradle"

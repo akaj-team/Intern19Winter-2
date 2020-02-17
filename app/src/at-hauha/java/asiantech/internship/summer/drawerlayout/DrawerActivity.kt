@@ -4,7 +4,8 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.ContentValues
 import android.content.Intent
-import android.content.pm.PackageManager.*
+import android.content.pm.PackageManager.PERMISSION_DENIED
+import android.content.pm.PackageManager.PERMISSION_GRANTED
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -96,9 +97,6 @@ class DrawerActivity : AppCompatActivity() {
         adapter.onItemClicked = {
             if (drawerItems[it].name.isBlank()) {
                 initAvatar()
-            } else {
-                drawerItems[it].isStatus = true
-                adapter.notifyItemChanged(it)
             }
         }
         recyclerView.layoutManager = LinearLayoutManager(this)

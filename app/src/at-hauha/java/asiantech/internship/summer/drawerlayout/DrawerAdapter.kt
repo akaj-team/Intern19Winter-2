@@ -1,6 +1,5 @@
 package asiantech.internship.summer.drawerlayout
 
-
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
-
 
 class DrawerAdapter(private val drawerItemItem: MutableList<DrawerItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
