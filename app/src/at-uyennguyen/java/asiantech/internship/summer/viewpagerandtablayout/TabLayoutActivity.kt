@@ -3,24 +3,24 @@ package asiantech.internship.summer.viewpagerandtablayout
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import asiantech.internship.summer.R
-import kotlinx.android.synthetic.`at-uyennguyen`.fragment_taglayout.*
+import kotlinx.android.synthetic.`at-uyennguyen`.activity_tablayout.*
 
 class TabLayoutActivity : AppCompatActivity() {
 
-    private var listFragment = mutableListOf<ListTagLayoutFragment>()
+    private var listFragment = mutableListOf<ListTagLayout>()
     private var adapterTagLayout = TabLayoutAdapter(supportFragmentManager, listFragment)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_taglayout)
+        setContentView(R.layout.activity_tablayout)
         initData()
         viewPagerOfTabLayout?.adapter = adapterTagLayout
         tabLayout?.setupWithViewPager(viewPagerOfTabLayout)
     }
 
     private fun initData() {
-        listFragment.add(ListTagLayoutFragment(FirstFragment(), "PICTURE 1"))
-        listFragment.add(ListTagLayoutFragment(SecondFragment(), "PICTURE 2"))
-        listFragment.add(ListTagLayoutFragment(ThirdFragment(), "PICTURE 3"))
+        listFragment.add(ListTagLayout(FirstTabLayoutFragment(), "PICTURE 1"))
+        listFragment.add(ListTagLayout(SecondTabLayoutFragment(), "PICTURE 2"))
+        listFragment.add(ListTagLayout(ThirdTabLayoutFragment(), "PICTURE 3"))
     }
 }
