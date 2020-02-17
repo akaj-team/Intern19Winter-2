@@ -33,7 +33,7 @@
         android:layout_marginStart="200dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="@string/texview_skip"
+        android:text="@string/textview_skip"
         android:textSize="@dimen/textsize_20"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

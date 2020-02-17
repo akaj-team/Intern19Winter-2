@@ -39,8 +39,8 @@ class HomeActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 when (position) {
                     0 -> jumpPosition = adapter.getRealCount()
-                    1 -> tvSkip.text = getString(R.string.texview_skip)
-                    3 -> tvSkip.text = getString(R.string.texview_next)
+                    1 -> tvSkip.text = getString(R.string.textview_skip)
+                    3 -> tvSkip.text = getString(R.string.textview_next)
                     4 -> jumpPosition = 1
                 }
                 pagePosition = position + 1

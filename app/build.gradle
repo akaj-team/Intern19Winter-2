@@ -65,11 +65,9 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.android.support:design:27.1.1'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
-
     implementation 'androidx.activity:activity-ktx:1.1.0'
     implementation 'androidx.fragment:fragment-ktx:1.2.0'
     implementation 'androidx.appcompat:appcompat:1.2.0-alpha02'
-
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
