@@ -29,7 +29,7 @@ class DrawerLayoutActivity : AppCompatActivity() {
 
     private lateinit var imageGallery: Uri
     private lateinit var imageCamera: Uri
-    private val items = mutableListOf<DrawerModel?>()
+    private val items = mutableListOf<DrawerItem?>()
     private val adapterDrawer = DrawerAdapter(items)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -130,13 +130,13 @@ class DrawerLayoutActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        items.add(DrawerModel(R.drawable.setting, R.drawable.settingcolor, "Cài đặt", "uyen.nguyen@gmail.com"))
-        items.add(DrawerModel(R.drawable.bell, R.drawable.bellcolor, "Thông báo", "uyen.nguyen@gmail.com"))
-        items.add(DrawerModel(R.drawable.calendar, R.drawable.calendarcolor, "Lịch trình", "uyen.nguyen@gmail.com"))
-        items.add(DrawerModel(R.drawable.signin, R.drawable.signincolor, "Tài khoảng", "uyen.nguyen@gmail.com"))
-        items.add(DrawerModel(R.drawable.protect, R.drawable.protectcolor, "Quyền lợi", "uyen.nguyen@gmail.com"))
-        items.add(DrawerModel(R.drawable.spam, R.drawable.spamcolor, "Lỗi", "uyen.nguyen@gmail.com"))
-        items.add(DrawerModel(R.drawable.trash, R.drawable.trashcolor, "Thùng rác", "uyen.nguyen@gmail.com"))
+        items.add(DrawerItem(R.drawable.setting, R.drawable.settingcolor, "Cài đặt"))
+        items.add(DrawerItem(R.drawable.bell, R.drawable.bellcolor, "Thông báo"))
+        items.add(DrawerItem(R.drawable.calendar, R.drawable.calendarcolor, "Lịch trình"))
+        items.add(DrawerItem(R.drawable.signin, R.drawable.signincolor, "Tài khoảng"))
+        items.add(DrawerItem(R.drawable.protect, R.drawable.protectcolor, "Quyền lợi"))
+        items.add(DrawerItem(R.drawable.spam, R.drawable.spamcolor, "Lỗi"))
+        items.add(DrawerItem(R.drawable.trash, R.drawable.trashcolor, "Thùng rác"))
         items.shuffle()
     }
 }

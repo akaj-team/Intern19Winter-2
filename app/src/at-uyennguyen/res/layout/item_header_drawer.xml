@@ -28,6 +28,6 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@id/imgAvatar"
         app:layout_constraintTop_toBottomOf="@id/imgAvatar"
-        tools:text="uyen@gmail.com" />
+        android:text="@string/email_header"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

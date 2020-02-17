@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 import de.hdodenhof.circleimageview.CircleImageView
 
-class DrawerAdapter(val items: MutableList<DrawerModel?>) :
+class DrawerAdapter(val items: MutableList<DrawerItem?>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
@@ -42,7 +42,7 @@ class DrawerAdapter(val items: MutableList<DrawerModel?>) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? DrawerItemViewHolder)?.bindData()
-        (holder as? DrawerItemHeaderViewHolder)?.bindData()
+        (holder as? DrawerItemHeaderViewHolder)
     }
 
     inner class DrawerItemHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -52,12 +52,6 @@ class DrawerAdapter(val items: MutableList<DrawerModel?>) :
         init {
             imgAvatar.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
-            }
-        }
-
-        fun bindData() {
-            items[adapterPosition]?.run {
-                tvEmail.text = email
             }
         }
     }

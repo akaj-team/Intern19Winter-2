@@ -43,4 +43,5 @@
     <string name="tvFrameLayout">Hello   How are you?</string>
     <string name="gallery">Gallery</string>
     <string name="camera">Camera</string>
+    <string name="email_header">uyennguyen@gmail.com</string>
 </resources>
