@@ -17,7 +17,6 @@ class ViewPagerActivity : AppCompatActivity() {
         indicator.setViewPager(viewPager)
         tvAction.text = getString(R.string.tv_skip)
         viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-
             override fun onPageScrollStateChanged(state: Int) {
             }
 

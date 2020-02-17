@@ -7,7 +7,6 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.activity_tab_layout.*
 
 class TabLayoutActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tab_layout)
