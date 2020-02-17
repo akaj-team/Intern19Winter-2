@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.`at-nguyenha`.activity_drawer_layout.*
 import kotlinx.android.synthetic.`at-nguyenha`.item_drawer_header.*
 
 class DrawerLayoutMainActivity : AppCompatActivity() {
-    private val items = mutableListOf<ItemModel>()
+    private val items = mutableListOf<DrawerItem>()
     private val adapterDrawer = DrawerAdapter(items)
     private var imageUri: Uri? = null
 
@@ -43,10 +43,10 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
             imageUri = data?.data
-            imageCropFunction(imageUri)
+            CropImage.activity(imageUri).start(this)
 
         } else if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_CAPTURE_CODE) {
-            imageCropFunction(imageUri)
+            CropImage.activity(imageUri).start(this)
         }
         if (resultCode == Activity.RESULT_OK && requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (data != null) {
@@ -77,6 +77,7 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
         recyclerDrawer.adapter = adapterDrawer
         adapterDrawer.onItemClick = {
             displaySelectPhotoDialog()
+
         }
     }
 
@@ -140,18 +141,13 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
     }
 
-    private fun imageCropFunction(imageUri: Uri?) {
-        CropImage.activity(imageUri)
-                .start(this)
-    }
-
     private fun initData() {
         adapterDrawer.let {
-            items.add(ItemModel("nguyen.ha@asiantech.vn", R.drawable.ic_img_avatar, ""))
-            items.add(ItemModel("", R.drawable.selector_img_outbox, "Inbox"))
-            items.add(ItemModel("", R.drawable.selector_img_inbox, "Outbox"))
-            items.add(ItemModel("", R.drawable.selector_img_spam, "Spam"))
-            items.add(ItemModel("", R.drawable.selector_img_trash, "Trash"))
+            items.add(DrawerItem(R.drawable.ic_img_avatar, ""))
+            items.add(DrawerItem(R.drawable.selector_img_outbox, "Inbox"))
+            items.add(DrawerItem(R.drawable.selector_img_inbox, "Outbox"))
+            items.add(DrawerItem(R.drawable.selector_img_spam, "Spam"))
+            items.add(DrawerItem(R.drawable.selector_img_trash, "Trash"))
         }
     }
 }
