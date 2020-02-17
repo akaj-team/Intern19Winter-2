@@ -19,9 +19,8 @@ class TabLayoutActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        listFragment.add(ListTagLayoutFragment(FirstFragment()))
-        listFragment.add(ListTagLayoutFragment(SecondFragment()))
-        listFragment.add(ListTagLayoutFragment(ThirdFragment()))
-        listFragment.shuffle()
+        listFragment.add(ListTagLayoutFragment(FirstFragment(), "PICTURE 1"))
+        listFragment.add(ListTagLayoutFragment(SecondFragment(), "PICTURE 2"))
+        listFragment.add(ListTagLayoutFragment(ThirdFragment(), "PICTURE 3"))
     }
 }

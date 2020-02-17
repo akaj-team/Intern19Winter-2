@@ -8,15 +8,15 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.activity_viewpager.*
 
 class ViewPagerActivity : AppCompatActivity() {
-    companion object{
+    companion object {
         private const val LAST_POSITION = 2
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_viewpager)
-        val adapter = ViewPagerAdapter(supportFragmentManager)
-        viewPager.adapter = adapter
+        val adapterViewPager = ViewPagerAdapter(supportFragmentManager)
+        viewPager.adapter = adapterViewPager
         indicator.setViewPager(viewPager)
         tvSkip.text = getString(R.string.skip)
 
