@@ -3,7 +3,4 @@
     <string name="fragment_tutorial_step">Step %d</string>
     <string name="fragment_tutorial_skip_button_title">Skip</string>
     <string name="fragment_tutorial_next_button_title">Next</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
