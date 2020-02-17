@@ -3,4 +3,9 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="tab_layout_background">#FF4081</color>
+    <color name="tab_layout_indicator">#104081</color>
+    <color name="tab_layout_selected_text">#1F4001</color>
+    <color name="tab_layout_text">#11108F</color>
 </resources>

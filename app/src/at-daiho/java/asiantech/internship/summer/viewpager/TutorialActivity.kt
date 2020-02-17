@@ -1,11 +1,12 @@
 package asiantech.internship.summer.viewpager
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import asiantech.internship.summer.R
+import asiantech.internship.summer.tablayout.TabLayoutActivity
 import kotlinx.android.synthetic.`at-daiho`.activity_tutorial.*
-import kotlinx.android.synthetic.`at-daiho`.fragment_tutorial.*
 
 class TutorialActivity : AppCompatActivity() {
 
@@ -56,11 +57,8 @@ class TutorialActivity : AppCompatActivity() {
 
     private fun btNextClickListener() {
         btNext.setOnClickListener {
-            if (viewPager.currentItem == POSITION_LAST) {
-
-            } else {
-
-            }
+            val intent = Intent(this, TabLayoutActivity::class.java)
+            startActivity(intent)
         }
     }
 }
