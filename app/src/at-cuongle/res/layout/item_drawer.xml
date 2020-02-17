@@ -4,7 +4,7 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_70dp"
-    android:background="@drawable/hint_item_color"
+    android:background="@drawable/selector_img_hint"
     android:orientation="vertical">
 
     <ImageView

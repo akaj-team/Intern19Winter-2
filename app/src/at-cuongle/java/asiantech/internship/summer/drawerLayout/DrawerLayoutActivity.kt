@@ -16,10 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import asiantech.internship.summer.R
 import com.theartofdev.edmodo.cropper.CropImage
-
 import kotlinx.android.synthetic.`at-cuongle`.activity_drawer_layout.*
-import kotlinx.android.synthetic.`at-cuongle`.row_top.*
-
+import kotlinx.android.synthetic.`at-cuongle`.item_drawer_header.*
 
 class DrawerLayoutActivity : AppCompatActivity() {
     companion object {
@@ -28,8 +26,8 @@ class DrawerLayoutActivity : AppCompatActivity() {
         private const val IMAGE_GALLERY_CODE = 110
     }
 
-    private val itemsMenu = mutableListOf<Menu>()
-    private lateinit var menuAdapter: MenuAdapter
+    private val itemsMenu = mutableListOf<DrawerItem?>()
+    private lateinit var menuAdapter: DrawerAdapter
     private var imageAvatarUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,17 +70,17 @@ class DrawerLayoutActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
-        menuAdapter = MenuAdapter(itemsMenu)
+        menuAdapter = DrawerAdapter(itemsMenu)
         menuAdapter.onItemClicked = {
-            Toast.makeText(this, "Selected " + itemsMenu[it].textTitle, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Selected " + itemsMenu[it]?.textTitle, Toast.LENGTH_SHORT).show()
+        }
+        menuAdapter.onAvatarClick = {
+            requestPermission()
         }
         recyclerView.adapter = menuAdapter
     }
 
     private fun initListeners() {
-        menuAdapter.onAvatarClick = {
-            requestPermission()
-        }
         val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
                 this,
                 drawerLayout,
@@ -98,12 +96,12 @@ class DrawerLayoutActivity : AppCompatActivity() {
     }
 
     private fun initData() {
+        itemsMenu.add(null)
         itemsMenu.apply {
-            add(Menu("", 1))
-            add(Menu("Inbox", R.drawable.custom_icon_inbox))
-            add(Menu("Outbox", R.drawable.custom_icon_send))
-            add(Menu("Trash", R.drawable.custom_icon_delete))
-            add(Menu("Spam", R.drawable.custom_icon_error))
+            add(DrawerItem("Inbox", R.drawable.selector_img_inbox))
+            add(DrawerItem("Outbox", R.drawable.selector_img_send))
+            add(DrawerItem("Trash", R.drawable.selector_img_delete))
+            add(DrawerItem("Spam", R.drawable.selector_img_error))
         }
         menuAdapter.notifyDataSetChanged()
     }
@@ -130,7 +128,6 @@ class DrawerLayoutActivity : AppCompatActivity() {
         }
     }
 
-
     private fun showDialog() {
         val dialogOption = this.let { AlertDialog.Builder(it) }
         dialogOption.apply {
@@ -146,7 +143,6 @@ class DrawerLayoutActivity : AppCompatActivity() {
             show()
         }
     }
-
 
     private fun openCamera() {
         val imgFromCamera = ContentValues()
