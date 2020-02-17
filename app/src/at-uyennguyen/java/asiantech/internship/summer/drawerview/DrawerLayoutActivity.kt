@@ -18,8 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import asiantech.internship.summer.R
 import com.theartofdev.edmodo.cropper.CropImage
 import kotlinx.android.synthetic.`at-uyennguyen`.activity_drawerlayout.*
-import kotlinx.android.synthetic.`at-uyennguyen`.row_item_header.*
-
+import kotlinx.android.synthetic.`at-uyennguyen`.item_header_drawer.*
 
 class DrawerLayoutActivity : AppCompatActivity() {
 
@@ -30,41 +29,16 @@ class DrawerLayoutActivity : AppCompatActivity() {
 
     private lateinit var imageGallery: Uri
     private lateinit var imageCamera: Uri
-    private val itemModel = mutableListOf<ItemModel?>()
-    private val itemAdapter = ItemAdapter(itemModel, this)
+    private val items = mutableListOf<DrawerModel?>()
+    private val adapterDrawer = DrawerAdapter(items)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_drawerlayout)
+        initAdapter()
         initData()
-        drawerSlide()
-        recyclerViewDrawer.adapter = itemAdapter
-        itemAdapter.onItemClicked = {
-            setAvatarDialog()
-        }
+        initListener()
     }
-
-    private fun setAvatarDialog() {
-        val avatarDialog = AlertDialog.Builder(this)
-        avatarDialog.setTitle("Choose Avatar by : ")
-        avatarDialog.setItems(arrayOf("Gallery", "Camera")) { _, which ->
-            when (which) {
-                0 -> setAvatarByGallery()
-                1 -> setAvatarByCamera()
-            }
-        }
-        avatarDialog.show()
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private fun setAvatarByGallery() {
-        requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), LOAD_IMAGE_GALLERY)
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    private fun setAvatarByCamera() {
-        requestPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), CAMERA_REQUEST_CODE)
-    }
-
 
     @SuppressLint("ShowToast")
     @TargetApi(Build.VERSION_CODES.M)
@@ -110,12 +84,41 @@ class DrawerLayoutActivity : AppCompatActivity() {
         }
     }
 
+    private fun initAdapter() {
+        recyclerViewDrawer.adapter = adapterDrawer
+        adapterDrawer.onItemClicked = {
+            displaySelectPhotoDialog()
+        }
+    }
+
+    private fun displaySelectPhotoDialog() {
+        val avatarDialog = AlertDialog.Builder(this)
+        avatarDialog.setTitle("Choose Avatar by ")
+        avatarDialog.setItems(arrayOf(getString(R.string.gallery), getString(R.string.camera))) { _, which ->
+            when (which) {
+                0 -> setAvatarByGallery()
+                1 -> setAvatarByCamera()
+            }
+        }
+        avatarDialog.show()
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private fun setAvatarByGallery() {
+        requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), LOAD_IMAGE_GALLERY)
+    }
+
+    @TargetApi(Build.VERSION_CODES.M)
+    private fun setAvatarByCamera() {
+        requestPermissions(arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE), CAMERA_REQUEST_CODE)
+    }
+
     private fun cropImage(imageUri: Uri) {
         CropImage.activity(imageUri)
                 .start(this)
     }
 
-    private fun drawerSlide() {
+    private fun initListener() {
         val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, R.string.drawer_open, R.string.drawer_close) {
             override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
                 super.onDrawerSlide(drawerView, slideOffset)
@@ -127,18 +130,13 @@ class DrawerLayoutActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        itemModel.add(ItemModel(R.drawable.setting, R.drawable.settingcolor, "Cài đặt", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.bell, R.drawable.bellcolor, "Thông báo", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.calendar, R.drawable.calendarcolor, "Lịch trình", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.signin, R.drawable.signincolor, "Tài khoảng", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.protect, R.drawable.protectcolor, "Quyền lợi", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.spam, R.drawable.spamcolor, "Lỗi", "uyen.nguyen@gmail.com"))
-        itemModel.add(ItemModel(R.drawable.trash, R.drawable.trashcolor, "Thùng rác", "uyen.nguyen@gmail.com"))
-        itemModel.shuffle()
+        items.add(DrawerModel(R.drawable.setting, R.drawable.settingcolor, "Cài đặt", "uyen.nguyen@gmail.com"))
+        items.add(DrawerModel(R.drawable.bell, R.drawable.bellcolor, "Thông báo", "uyen.nguyen@gmail.com"))
+        items.add(DrawerModel(R.drawable.calendar, R.drawable.calendarcolor, "Lịch trình", "uyen.nguyen@gmail.com"))
+        items.add(DrawerModel(R.drawable.signin, R.drawable.signincolor, "Tài khoảng", "uyen.nguyen@gmail.com"))
+        items.add(DrawerModel(R.drawable.protect, R.drawable.protectcolor, "Quyền lợi", "uyen.nguyen@gmail.com"))
+        items.add(DrawerModel(R.drawable.spam, R.drawable.spamcolor, "Lỗi", "uyen.nguyen@gmail.com"))
+        items.add(DrawerModel(R.drawable.trash, R.drawable.trashcolor, "Thùng rác", "uyen.nguyen@gmail.com"))
+        items.shuffle()
     }
-
 }
-
-
-
-

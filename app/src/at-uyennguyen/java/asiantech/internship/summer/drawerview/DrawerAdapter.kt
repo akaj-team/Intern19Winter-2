@@ -1,18 +1,17 @@
 package asiantech.internship.summer.drawerview
 
-import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 import de.hdodenhof.circleimageview.CircleImageView
 
-class ItemAdapter(val itemModel: MutableList<ItemModel?>, context: Context) :
+class DrawerAdapter(val items: MutableList<DrawerModel?>) :
         RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
@@ -32,54 +31,60 @@ class ItemAdapter(val itemModel: MutableList<ItemModel?>, context: Context) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         if (viewType == TYPE_HEADER) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.row_item_header, parent, false)
-            return HeaderViewHolder(view)
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_header_drawer, parent, false)
+            return DrawerItemHeaderViewHolder(view)
         }
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.row_item, parent, false)
-        return ItemViewHolder(view)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_drawer, parent, false)
+        return DrawerItemViewHolder(view)
     }
 
-    override fun getItemCount(): Int = itemModel.size
+    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? ItemViewHolder)?.bindData(position)
-        (holder as? HeaderViewHolder)?.bindData(position)
+        (holder as? DrawerItemViewHolder)?.bindData()
+        (holder as? DrawerItemHeaderViewHolder)?.bindData()
     }
 
-    inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DrawerItemHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvEmail: TextView = itemView.findViewById(R.id.tvEmail)
         private val imgAvatar: CircleImageView = itemView.findViewById(R.id.imgAvatar)
-        fun bindData(position: Int) {
-            itemModel[position]?.run {
-                tvEmail.text = email
-            }
+
+        init {
             imgAvatar.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
             }
         }
+
+        fun bindData() {
+            items[adapterPosition]?.run {
+                tvEmail.text = email
+            }
+        }
     }
 
-    inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class DrawerItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imgIcon: ImageView = itemView.findViewById(R.id.imgIcon)
         private val tvName: TextView = itemView.findViewById(R.id.tvName)
-        fun bindData(position: Int) {
-            if (position == selectedPosition) {
-                itemModel[position]?.run {
+
+        init {
+            itemView.setOnClickListener {
+                selectedPosition = adapterPosition
+                Toast.makeText(itemView.context, items[adapterPosition]?.name, Toast.LENGTH_LONG).show()
+                notifyDataSetChanged()
+            }
+        }
+
+        fun bindData() {
+            items[adapterPosition]?.run {
+                if (adapterPosition == selectedPosition) {
                     imgIcon.setImageResource(iconcolor)
                     tvName.text = name
-                    tvName.setTextColor(Color.parseColor("#FF5252"))
-                }
-            } else {
-                itemModel[position]?.run {
+                    tvName.setTextColor(ContextCompat.getColor(itemView.context, R.color.orange))
+                } else {
                     imgIcon.setImageResource(icon)
                     tvName.text = name
-                    tvName.setTextColor(Color.parseColor("#0A0A0A"))
+                    tvName.setTextColor(ContextCompat.getColor(itemView.context, R.color.black))
                 }
-            }
-            itemView.setOnClickListener {
-                selectedPosition = position
-                Toast.makeText(itemView.context, itemModel[position]?.name, Toast.LENGTH_LONG).show()
-                notifyDataSetChanged()
             }
         }
     }
