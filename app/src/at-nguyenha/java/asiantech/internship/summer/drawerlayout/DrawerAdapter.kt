@@ -1,6 +1,7 @@
 package asiantech.internship.summer.drawerlayout
 
 import android.graphics.Color
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 
-class DrawerAdapter(private val items: MutableList<DrawerItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DrawerAdapter(private val items: MutableList<DrawerItem>, var imageUri : Uri?) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val TYPE_HEADER = 0
@@ -40,7 +41,7 @@ class DrawerAdapter(private val items: MutableList<DrawerItem>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? DrawerItemViewHolder)?.bindData()
-        (holder as? DrawerItemHeaderViewHolder)
+        (holder as? DrawerItemHeaderViewHolder)?.bindData()
     }
 
     inner class DrawerItemHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -50,6 +51,10 @@ class DrawerAdapter(private val items: MutableList<DrawerItem>) : RecyclerView.A
             imgAvatar.setOnClickListener {
                 onItemClick.invoke(adapterPosition)
             }
+        }
+
+        fun bindData() {
+            imgAvatar.setImageURI(imageUri)
         }
     }
 

@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.`at-nguyenha`.item_drawer_header.*
 
 class DrawerLayoutMainActivity : AppCompatActivity() {
     private val items = mutableListOf<DrawerItem>()
-    private val adapterDrawer = DrawerAdapter(items)
+    private lateinit var adapterDrawer : DrawerAdapter// = DrawerAdapter(items)
     private var imageUri: Uri? = null
 
     companion object {
@@ -50,8 +50,9 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
         }
         if (resultCode == Activity.RESULT_OK && requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (data != null) {
-                val resultImage = CropImage.getActivityResult(data)
-                imgAvatar.setImageURI(resultImage.uri)
+                imageUri = CropImage.getActivityResult(data).uri
+                initAdapter()
+                //imgAvatar.setImageURI(resultImage.uri)
             }
         }
     }
@@ -74,10 +75,10 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
     }
 
     private fun initAdapter() {
+        adapterDrawer = DrawerAdapter(items, imageUri)
         recyclerDrawer.adapter = adapterDrawer
         adapterDrawer.onItemClick = {
             displaySelectPhotoDialog()
-
         }
     }
 
@@ -143,7 +144,7 @@ class DrawerLayoutMainActivity : AppCompatActivity() {
 
     private fun initData() {
         adapterDrawer.let {
-            items.add(DrawerItem(R.drawable.ic_img_avatar, ""))
+            items.add(DrawerItem(0, ""))
             items.add(DrawerItem(R.drawable.selector_img_outbox, "Inbox"))
             items.add(DrawerItem(R.drawable.selector_img_inbox, "Outbox"))
             items.add(DrawerItem(R.drawable.selector_img_spam, "Spam"))

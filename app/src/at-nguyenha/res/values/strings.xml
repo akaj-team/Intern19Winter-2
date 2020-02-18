@@ -38,6 +38,7 @@
     <string name="dialog_title">Select Action</string>
     <string name="media_title">New Picture</string>
     <string name="media_description">From the Camera</string>
+    <string name="textview_text_email_header">nguyen.ha@asiantech.vn</string>
 
 
 </resources>
