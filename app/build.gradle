@@ -82,4 +82,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     apply from: "../ci-java.gradle"
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    implementation 'androidx.cardview:cardview:1.0.0'
 }
