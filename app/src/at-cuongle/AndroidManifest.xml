@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="asiantech.internship.summer">
 
     <application
@@ -13,6 +12,9 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".service_broadcastReceiver.ServiceBroadCastActivity">
 
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity" />
+        <activity android:name=".layout.LayoutMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
                 <action android:name="android.intent.action.MAIN" />

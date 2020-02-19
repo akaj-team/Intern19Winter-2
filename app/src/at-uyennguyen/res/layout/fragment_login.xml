@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/button"
+            android:fontFamily="Nunito-Bold"
+            android:gravity="center"
+            android:text="@string/login"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="@id/edtPass"
+            app:layout_constraintRight_toRightOf="@+id/edtPass"
+            app:layout_constraintTop_toBottomOf="@id/edtPass" />
+
+        <EditText
+            android:id="@+id/edtEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_email_in_login"
+            android:inputType="textEmailAddress"
+            android:textColorHint="@color/greyOfHint"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvEmail"
+            app:layout_constraintTop_toBottomOf="@id/tvEmail"
+            tools:ignore="Autofill" />
+
+        <EditText
+            android:id="@+id/edtPass"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:fontFamily="Nunito-Regular"
+            android:hint="@string/your_password_in_login"
+            android:inputType="textPassword"
+            android:textColorHint="@color/greyOfHint"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tvPass"
+            app:layout_constraintTop_toBottomOf="@id/tvPass"
+            tools:ignore="Autofill" />
+
+        <ImageView
+            android:id="@+id/tvHead"
+            android:layout_width="match_parent"
+            android:layout_height="285dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/header"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="17.8dp"
+            android:layout_height="25.81dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="56dp"
+            android:src="@drawable/img_loco"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/scratch"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/imgLogo"
+            app:layout_constraintStart_toEndOf="@id/imgLogo"
+            app:layout_constraintTop_toTopOf="@id/imgLogo" />
+
+        <TextView
+            android:id="@+id/tvWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="72dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/welcome_back"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@id/imgLogo"
+            app:layout_constraintTop_toBottomOf="@id/imgLogo" />
+
+        <TextView
+            android:id="@+id/tvPlease"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/please_login_to_continue"
+            android:textColor="@color/grey"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/tvWelcome"
+            app:layout_constraintTop_toBottomOf="@id/tvHead" />
+
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/email_address"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/tvPlease"
+            app:layout_constraintTop_toBottomOf="@id/tvPlease" />
+
+        <TextView
+            android:id="@+id/tvPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/password"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/edtEmail"
+            app:layout_constraintTop_toBottomOf="@id/edtEmail" />
+
+        <TextView
+            android:id="@+id/tvForgot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="140dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/forgot_password"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@id/tvPass"
+            app:layout_constraintTop_toTopOf="@id/tvPass" />
+
+        <TextView
+            android:id="@+id/tvScratch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/new_to_scratch"
+            android:textColor="@color/greyOfHint"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+        <TextView
+            android:id="@+id/tvCreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="50dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/create_account_here"
+            android:textColor="@color/green"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/tvScratch"
+            app:layout_constraintTop_toBottomOf="@+id/tvScratch" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
