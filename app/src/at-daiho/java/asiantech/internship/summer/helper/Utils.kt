@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 
-public class Utils {
+class Utils {
 
     companion object {
         fun checkPermission(context: Context, permission: String?): Boolean {
