@@ -37,4 +37,8 @@
     <string name="edittext_1_234_567_89">+1 234 567 89</string>
     <string name="edittext_hint_input_phone_number">Input Phone Number</string>
     <string name="textview_save_profile">Save Profile</string>
+    <string name="kh_ng_c_b_i_h_t">Không có bài hát</string>
+    <string name="permision_granted">Permission Granted</string>
+    <string name="ten_bai_hat">Ten bai hat</string>
+    <string name="ca_si">Ca si</string>
 </resources>

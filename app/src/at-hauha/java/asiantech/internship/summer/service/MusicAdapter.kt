@@ -1,24 +1,19 @@
 package asiantech.internship.summer.service
 
 import android.content.Context
-import android.media.MediaPlayer
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 import asiantech.internship.summer.service.model.Song
-import asiantech.internship.summer.service.model.SongUtils
 
 class MusicAdapter(private val songList: MutableList<Song>, var mContext: Context) : RecyclerView.Adapter<MusicAdapter.SongViewHolder>() {
-
-    private var positionSelected = -1
-    private lateinit var mediaPlayer: MediaPlayer
-    private var isPlaying = false
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.song_item, parent, false)
@@ -42,8 +37,6 @@ class MusicAdapter(private val songList: MutableList<Song>, var mContext: Contex
         init {
             cardViewItem.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
-                positionSelected = adapterPosition
-                notifyDataSetChanged()
             }
         }
 
@@ -51,20 +44,13 @@ class MusicAdapter(private val songList: MutableList<Song>, var mContext: Contex
             val song = songList[adapterPosition]
             tvTitle.text = song.title
             tvArtist.text = song.artist
-            var bitmap = SongUtils.songArt(Uri.parse(song.path), mContext)
+            var bitmap = Utils.songArt(Uri.parse(song.path), mContext)
             if (bitmap != null) {
                 imgSong.setImageBitmap(bitmap)
             } else {
                 imgSong.setImageResource(R.drawable.default_song)
             }
-                if (adapterPosition == positionSelected) {
-                    if (isPlaying) {
-                        mediaPlayer.release()
-                    }
-                    var mMediaPlayer = MediaPlayer.create(mContext, Uri.parse(songList[adapterPosition].path))
-                    mMediaPlayer.start()
-                }
-            }
         }
     }
+}
 

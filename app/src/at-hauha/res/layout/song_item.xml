@@ -8,17 +8,18 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewItem"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
+        <ImageView
             android:id="@+id/imgSong"
-            android:layout_marginEnd="350dp"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:layout_gravity="left"
             android:src="@drawable/ic_avatar" />
 
         <TextView
@@ -26,25 +27,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="80dp"
-            android:text="Ten bai hat"
+            android:text="@string/ten_bai_hat"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvArtist"
-            android:layout_marginStart="80dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:text="Ca si"
+            android:layout_marginStart="80dp"
+            android:layout_gravity="bottom"
+            android:text="@string/ca_si"
             android:textColor="@color/colorAccent"
             android:textSize="16sp" />
 
         <ImageView
-            android:layout_marginStart="350dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_gravity="right|center"
             android:src="@drawable/ic_more_vert_black_24dp" />
 
     </androidx.cardview.widget.CardView>

@@ -1,4 +1,4 @@
-package asiantech.internship.summer.service.model
+package asiantech.internship.summer.service
 
 import android.content.Context
 import android.database.Cursor
@@ -7,8 +7,9 @@ import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.MediaStore
+import asiantech.internship.summer.service.model.Song
 
-object SongUtils {
+object Utils {
     private const val TITLE = 0
     private const val ARTIST_ID = 1
     private const val ARTIST = 2
@@ -27,13 +28,17 @@ object SongUtils {
     )
 
     fun getSongDevices(context: Context): MutableList<Song> {
-        var cursor: Cursor? = null
-        try {
-            cursor = context.contentResolver.query(MUSIC_URI, cursorCols, null, null, null)
-        } catch (e: SecurityException) {
-            cursor?.close()
+        var cursor: Cursor? = context.contentResolver?.query(MUSIC_URI, cursorCols, null, null, null)
+        cursor?.let {
+            if(it != null && it.moveToFirst()){
+                while (!it.isAfterLast) {
+                    allDeviceSong.add(getSongCursor(it))
+                    it.moveToNext()
+                }
+            }
         }
-        return getSongs(cursor!!)
+        cursor?.close()
+        return allDeviceSong
     }
 
     fun songArt(path: Uri, context: Context): Bitmap? {
@@ -46,19 +51,8 @@ object SongUtils {
         return null
     }
 
-    private fun getSongs(cursor: Cursor): MutableList<Song> {
-        val songs = ArrayList<Song>()
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                val song = getSongCursor(cursor)
-                if (song.duration >= 30000 && song.artist != "<unknown>") {
-                    songs.add(song)
-                    allDeviceSong.add(song)
-                }
-            } while (cursor.moveToNext())
-        }
-        cursor?.close()
-        return songs
+    fun convertTime(milliseconds : Int): String{
+        return (String.format("%02d",milliseconds / 1000/ 60 )+":"+String.format("%02d",milliseconds / 1000% 60 ))
     }
 
     private fun getSongCursor(cursor: Cursor) = Song(cursor.getString(TITLE), cursor.getInt(ARTIST_ID), cursor.getString(ARTIST), cursor.getString(PATH), cursor.getInt(DURATION))
