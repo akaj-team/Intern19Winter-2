@@ -34,6 +34,7 @@ class SongsAdapter(private val songs: MutableList<Song>) : RecyclerView.Adapter<
             val item = songs[adapterPosition]
             tvTitle.text = item.title
             tvArtist.text = item.artist
+            imgCover.setImageURI(item.cover)
         }
     }
 }

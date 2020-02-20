@@ -7,7 +7,6 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.helper.Utils
@@ -83,7 +82,6 @@ class MainActivity : AppCompatActivity() {
             val albumArtUri: Uri = ContentUris.withAppendedId(sArtWorkUri, albumId)
             songs.add(Song(title, artist, duration, albumArtUri))
         }
-        Log.d("xxx", songs.size.toString())
         reloadData()
     }
 }
