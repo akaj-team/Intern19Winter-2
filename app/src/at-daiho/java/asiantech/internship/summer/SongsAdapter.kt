@@ -1,5 +1,6 @@
 package asiantech.internship.summer
 
+import android.os.AsyncTask
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,9 +27,16 @@ class SongsAdapter(private val songs: MutableList<Song>) : RecyclerView.Adapter<
     }
 
     inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val vContent: ImageView = itemView.findViewById(R.id.vContent)
         private val imgCover: ImageView = itemView.findViewById(R.id.imgCover)
         private val tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
         private val tvArtist: TextView = itemView.findViewById(R.id.tvArtist)
+
+        init {
+            vContent.setOnClickListener {
+                onItemClicked.invoke(adapterPosition)
+            }
+        }
 
         fun bindData() {
             val item = songs[adapterPosition]
@@ -36,5 +44,21 @@ class SongsAdapter(private val songs: MutableList<Song>) : RecyclerView.Adapter<
             tvArtist.text = item.artist
             imgCover.setImageURI(item.cover)
         }
+    }
+}
+
+
+class MyTask: AsyncTask<String, String, String>() {
+
+    override fun onPreExecute() {
+        super.onPreExecute()
+    }
+
+    override fun doInBackground(vararg params: String?): String {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onPostExecute(result: String?) {
+
     }
 }

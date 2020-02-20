@@ -6,5 +6,6 @@ data class Song(
         var title: String,
         var artist: String,
         var duration: Int,
-        var cover: Uri
+        var cover: Uri,
+        var path: Uri
 )
