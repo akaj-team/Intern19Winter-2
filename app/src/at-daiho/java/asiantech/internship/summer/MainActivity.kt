@@ -7,7 +7,10 @@ import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.transition.Visibility
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.helper.Utils
 import asiantech.internship.summer.model.Song
@@ -25,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        miniPlayerContainer.visibility = View.GONE
         initAdapter()
         if (checkStorePermission()) {
             getSongs()
@@ -41,6 +45,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun reloadData() {
         adapter.notifyDataSetChanged()
+        val frm = MiniPlayerFragment()
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.miniPlayerContainer, frm)
+        miniPlayerContainer.visibility = View.VISIBLE
+        transaction.commit()
     }
 
     private fun showRequestPermission() {

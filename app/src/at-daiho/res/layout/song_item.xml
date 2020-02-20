@@ -4,20 +4,20 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="70dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgCover"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="10dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_margin="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="20dp"
-        android:layout_margin="10dp"
+        android:layout_margin="7dp"
         android:textColor="@color/colorBlack"
         android:textSize="@dimen/textSize16"
         app:layout_constraintEnd_toEndOf="parent"
