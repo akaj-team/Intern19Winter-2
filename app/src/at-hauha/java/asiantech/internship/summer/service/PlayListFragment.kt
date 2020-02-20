@@ -1,11 +1,14 @@
 package asiantech.internship.summer.service
 
 import android.Manifest
+import android.content.ComponentName
 import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
+import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,14 +27,18 @@ class PlayListFragment : Fragment() {
         private const val PERMISSION_REQUEST_CODE = 1
     }
 
-    private var position: Int = -1
-    private var isPlaying: Boolean = false
-    private val songList = mutableListOf<Song>()
+    private val songList = ArrayList<Song>()
     private lateinit var adapter: MusicAdapter
-    private lateinit var mediaPlayer: MediaPlayer
+    private var position = 0
+    private var musicService = PlayMusicService()
+    private var playIntent: Intent? = null
+    private var musicBound = false
+    private var isPlaying = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_playlist, container, false)
+        val view = inflater.inflate(R.layout.fragment_playlist, container, false)
+
+        return view
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -64,27 +71,40 @@ class PlayListFragment : Fragment() {
 
     private fun initAdapter(context: Context) {
         adapter = MusicAdapter(songList, context)
-        adapter.onItemClicked = {
-            position = it + 1
-            imgNext.isSelected = true
-            if (position > songList.size - 1) {
-                position = -1
+        adapter.onItemClicked = { it ->
+            startMusic(context, songList, it)
+        }
+        imgNext.setOnClickListener {
+            nextMusic()
+        }
+        imgPlay.setOnClickListener {
+            if (musicService.getPosition() < 0) {
+                startMusic(requireContext(), songList, position)
+            } else {
+                pauseSong()
             }
-            val uriSong = Uri.parse(songList[it].path)
-            setMusic(songList[it])
-            if (isPlaying) {
-                mediaPlayer.release()
-            }
-            startMusic(uriSong)
-            isPlaying = true
-            pauseMusic()
-            nextMusic(position)
         }
         cardView.setOnClickListener {
-            if (position > -1) {
-                mediaPlayer.release()
-                (activity as? MusicActivity)?.replaceMusicFragment(position - 1)
-            }
+
+        }
+    }
+
+    private fun startMusic(context: Context, songList: ArrayList<Song>, position: Int) {
+        setMusic(songList[position])
+        imgNext.isSelected = true
+        isPlaying = true
+        context.startService(PlayMusicService.getMusicDataIntent(context, songList, position))
+    }
+
+    private fun pauseSong() {
+        if (!isPlaying) {
+            musicService.playSong()
+            isPlaying = true
+            imgPlay.isSelected = false
+        } else {
+            musicService.pauseSong()
+            imgPlay.isSelected = true
+            isPlaying = false
         }
     }
 
@@ -94,37 +114,6 @@ class PlayListFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    private fun pauseMusic() {
-        imgPlay.setOnClickListener {
-            if (!isPlaying) {
-                mediaPlayer.start()
-                isPlaying = true
-                imgPlay.isSelected = false
-            } else {
-                mediaPlayer.pause()
-                isPlaying = false
-                imgPlay.isSelected = true
-            }
-        }
-    }
-
-    private fun nextMusic(position: Int) {
-        var mPosition = position + 1
-        imgNext.setOnClickListener {
-            if(mPosition > 0) {
-                mediaPlayer.release()
-                startMusic(Uri.parse(songList[mPosition].path))
-                setMusic(songList[mPosition])
-                mPosition++
-            }
-        }
-    }
-
-    private fun startMusic(uri: Uri) {
-        mediaPlayer = MediaPlayer.create(requireContext(), uri)
-        mediaPlayer.start()
-    }
-
     private fun setMusic(song: Song) {
         tvSongName.text = song.title
         val bitmap = Utils.songArt(Uri.parse(song.path), requireContext())
@@ -132,4 +121,32 @@ class PlayListFragment : Fragment() {
         imgSongPlay.startAnimation(rotate)
         imgSongPlay.setImageBitmap(bitmap)
     }
+
+    private var musicConnection = object : ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName?) {
+            musicBound = false
+        }
+
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder = service as PlayMusicService.MusicBinder
+            musicService = binder.getService
+            position.let { musicService.getPosition() }
+            musicBound = true
+        }
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (playIntent == null) {
+            playIntent = Intent(context, PlayMusicService::class.java)
+            context?.bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE)
+        }
+    }
+
+    private fun nextMusic() {
+        musicService.nextSong()
+        setMusic(songList[musicService.getPosition()])
+    }
+
 }

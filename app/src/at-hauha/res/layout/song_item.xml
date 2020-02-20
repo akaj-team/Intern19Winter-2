@@ -19,6 +19,7 @@
             android:id="@+id/imgSong"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:elevation="10dp"
             android:layout_gravity="left"
             android:src="@drawable/ic_avatar" />
 

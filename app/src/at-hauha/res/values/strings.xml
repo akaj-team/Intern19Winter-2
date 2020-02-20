@@ -41,4 +41,6 @@
     <string name="permision_granted">Permission Granted</string>
     <string name="ten_bai_hat">Ten bai hat</string>
     <string name="ca_si">Ca si</string>
+    <string name="play_list">Playlist</string>
+    <string name="start_time">00:00</string>
 </resources>

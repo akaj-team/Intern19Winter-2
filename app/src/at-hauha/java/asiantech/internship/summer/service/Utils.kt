@@ -15,6 +15,10 @@ object Utils {
     private const val ARTIST = 2
     private const val PATH = 3
     private const val DURATION = 4
+    const val SONGLIST = "songList"
+    const val POSITION = "position"
+    const val PLAYSONG = 1
+    const val DEFAUlT_POS = 0
     private val MUSIC_URI: Uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
 
     private val allDeviceSong = ArrayList<Song>()
