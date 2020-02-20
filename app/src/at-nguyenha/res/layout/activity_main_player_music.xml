@@ -23,12 +23,66 @@
         android:layout_marginTop="50dp"
         android:src="@drawable/ic_maroon5"/>
 
+    <TextView
+        android:id="@+id/tvMusicNamePlayingMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textview_text_girls_like_you"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/sbMusicRealTime"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgDiskPlayer" />
+
+    <TextView
+        android:id="@+id/tvMusicArtistPlayingMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textview_text_marroon5"
+        android:textSize="18sp"
+        app:layout_constraintLeft_toLeftOf="@id/tvMusicNamePlayingMain"
+        app:layout_constraintRight_toRightOf="@id/tvMusicNamePlayingMain"
+        app:layout_constraintTop_toBottomOf="@id/tvMusicNamePlayingMain" />
+
+    <TextView
+        android:id="@+id/tvTimeStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textview_text_start_time"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/sbMusicRealTime"
+        app:layout_constraintRight_toLeftOf="@id/sbMusicRealTime"
+        app:layout_constraintTop_toTopOf="@id/sbMusicRealTime" />
+
+    <TextView
+        android:id="@+id/tvTimeEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/textview_text_start_time"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/sbMusicRealTime"
+        app:layout_constraintLeft_toRightOf="@id/sbMusicRealTime"
+        app:layout_constraintTop_toTopOf="@id/sbMusicRealTime" />
+
+
+    <SeekBar
+        android:id="@+id/sbMusicRealTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toTopOf="@id/imgPlayButtonMain"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <ImageView
         android:id="@+id/imgPlayButtonMain"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginBottom="50dp"
-        android:src="@drawable/ic_play"
+        android:src="@drawable/ic_pause"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />

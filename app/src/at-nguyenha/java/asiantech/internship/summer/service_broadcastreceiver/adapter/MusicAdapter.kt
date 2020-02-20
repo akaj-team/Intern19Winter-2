@@ -1,4 +1,4 @@
-package asiantech.internship.summer.service_broadcastreceiver
+package asiantech.internship.summer.service_broadcastreceiver.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -43,7 +43,11 @@ class MusicAdapter(private val listMusic: ArrayList<MusicModel>) : RecyclerView.
                 musicName.text = it.musicName
                 musicDuration.text = Units.convertTimeMusic(it.musicDuration)
                 musicArtist.text = it.musicArtist
-                imgPlay.setImageURI(Uri.parse(it.musicImage))
+                if (Uri.parse(it.musicImage) != null) {
+                    imgPlay.setImageURI(Uri.parse(it.musicImage))
+                } else {
+                    imgPlay.setImageResource(R.drawable.ic_maroon5)
+                }
             }
         }
     }

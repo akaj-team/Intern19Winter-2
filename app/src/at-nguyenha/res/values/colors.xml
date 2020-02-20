@@ -6,4 +6,5 @@
     <color name="textview_color_account">#30BE76</color>
     <color name="itemview_color_background">#d4d4d4</color>
     <color name="color_background">#ededed</color>
+    <color name="color_text">#787878</color>
 </resources>

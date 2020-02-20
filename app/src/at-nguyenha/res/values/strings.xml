@@ -30,6 +30,10 @@
     <string name="textview_text_phone">Phone</string>
     <string name="edittext_hint_phone">+84 386971275</string>
     <string name="button_text_save_profile">Save Profile</string>
+    <string name="textview_text_start_time">00:00</string>
+    <string name="textview_text_girls_like_you">Girls like you</string>
+    <string name="textview_text_marroon5">Marroon 5</string>
+    <string name="textview_text_not_music">Không có bài hát</string>
 
 
 </resources>

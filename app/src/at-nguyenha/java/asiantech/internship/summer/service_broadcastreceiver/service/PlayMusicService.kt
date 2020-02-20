@@ -1,4 +1,4 @@
-package asiantech.internship.summer.service_broadcastreceiver
+package asiantech.internship.summer.service_broadcastreceiver.service
 
 import android.app.Service
 import android.content.Intent

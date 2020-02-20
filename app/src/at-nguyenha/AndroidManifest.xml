@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".service_broadcastreceiver.MainPlayerMusicActivity"></activity>
-        <activity android:name=".service_broadcastreceiver.ListMusicActivity">
+        <activity android:name=".service_broadcastreceiver.MyMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -25,7 +25,7 @@
         <activity android:name=".layout.MyMainActivity" />
         <activity android:name=".MainActivity" />
 
-        <service android:name=".service_broadcastreceiver.PlayMusicService" />
+        <service android:name=".service_broadcastreceiver.service.PlayMusicService" />
     </application>
 
 </manifest>
