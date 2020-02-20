@@ -26,10 +26,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initAdapter()
-        if (checkStorePermission(STORAGE_PERMISSION_ID)) {
+        if (checkStorePermission()) {
             getSongs()
         } else {
-            showRequestPermission(STORAGE_PERMISSION_ID)
+            showRequestPermission()
         }
     }
 
@@ -43,16 +43,12 @@ class MainActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun showRequestPermission(requestCode: Int) {
-        Utils.requestPermission(this, requestCode, Manifest.permission.READ_EXTERNAL_STORAGE)
+    private fun showRequestPermission() {
+        Utils.requestPermission(this, STORAGE_PERMISSION_ID, Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
-    private fun checkStorePermission(permission: Int): Boolean {
-        return if (permission == STORAGE_PERMISSION_ID) {
-            Utils.checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-        } else {
-            true
-        }
+    private fun checkStorePermission(): Boolean {
+        return Utils.checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -76,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         while (cursor != null && cursor.moveToNext()) {
             val title = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
             val artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
-            val duration = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
+            val duration = cursor.getInt(cursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
             val albumId: Long = cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
             val sArtWorkUri: Uri = Uri.parse("content://media/external/audio/albumart")
             val albumArtUri: Uri = ContentUris.withAppendedId(sArtWorkUri, albumId)
