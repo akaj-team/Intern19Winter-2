@@ -82,6 +82,7 @@ class MainActivity : AppCompatActivity() {
             val albumArtUri: Uri = ContentUris.withAppendedId(sArtWorkUri, albumId)
             songs.add(Song(title, artist, duration, albumArtUri))
         }
+        cursor?.close()
         reloadData()
     }
 }
