@@ -25,6 +25,12 @@ import kotlinx.android.synthetic.`at-hauha`.fragment_playlist.*
 class PlayListFragment : Fragment() {
     companion object {
         private const val PERMISSION_REQUEST_CODE = 1
+        private const val ARG_POS = "position"
+        fun newInstance(position: Int) = PlayListFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ARG_POS, position)
+            }
+        }
     }
 
     private val songList = ArrayList<Song>()
@@ -36,9 +42,7 @@ class PlayListFragment : Fragment() {
     private var isPlaying = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_playlist, container, false)
-
-        return view
+        return inflater.inflate(R.layout.fragment_playlist, container, false)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -47,6 +51,13 @@ class PlayListFragment : Fragment() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(requireContext(), getString(R.string.permision_granted), Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.apply {
+            position = getInt(ARG_POS)
         }
     }
 
@@ -85,7 +96,7 @@ class PlayListFragment : Fragment() {
             }
         }
         cardView.setOnClickListener {
-
+            (activity as? MusicActivity)?.replaceMusicFragment(musicService.getPosition(), songList)
         }
     }
 
@@ -109,6 +120,10 @@ class PlayListFragment : Fragment() {
     }
 
     private fun initListener() {
+        if(position>0){
+            setMusic(songList[position])
+            imgNext.isSelected = true
+        }
         initAdapter(requireContext())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
@@ -133,7 +148,6 @@ class PlayListFragment : Fragment() {
             position.let { musicService.getPosition() }
             musicBound = true
         }
-
     }
 
     override fun onStart() {
@@ -148,5 +162,4 @@ class PlayListFragment : Fragment() {
         musicService.nextSong()
         setMusic(songList[musicService.getPosition()])
     }
-
 }

@@ -39,6 +39,9 @@ class MusicFragment : Fragment() {
     private var musicBound = false
     private lateinit var songList: ArrayList<Song>
     private var isPlaying = false
+    private var isShuffle = false
+    private val mHandler = Handler()
+    private var runnable = Runnable {  }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,14 +52,24 @@ class MusicFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_music, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_music, container, false)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Toast.makeText(requireContext(),"True",Toast.LENGTH_LONG).show()
+        mHandler.removeCallbacks(runnable)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mHandler.removeCallbacks(runnable)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Toast.makeText(requireContext(), position.toString(), Toast.LENGTH_LONG).show()
         val song = songList[position]
+        imgShuffle.isSelected = false
         setMusic(song)
         updateMusic()
         imgPlay.setOnClickListener {
@@ -69,6 +82,23 @@ class MusicFragment : Fragment() {
         imgPrevious.setOnClickListener {
             prevMusic()
             setMusic(songList[musicService.getPosition()])
+        }
+        tvBack.setOnClickListener {
+            (activity as? MusicActivity)?.replacePlayListPragment(musicService.getPosition())
+        }
+        imgShuffle.setOnClickListener {
+            shuffleMusic()
+        }
+    }
+
+    private fun shuffleMusic(){
+        if (!isShuffle) {
+            imgShuffle.isSelected = true
+            isShuffle = true
+            musicService.shuffleMusic()
+        } else {
+            imgShuffle.isSelected = false
+            isShuffle = false
         }
     }
 
@@ -94,7 +124,7 @@ class MusicFragment : Fragment() {
         }
     }
 
-    private fun setMusic(song: Song) {
+    fun setMusic(song: Song) {
         val bitmap = Utils.songArt(Uri.parse(song.path), requireContext())
         imgSong.setImageBitmap(bitmap)
         rotateImage()
@@ -138,11 +168,11 @@ class MusicFragment : Fragment() {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-
+                seekBar?.let { musicService.seekToMedia(it) }
             }
         })
-        val mHandler = Handler()
-        val runnable = object : Runnable {
+
+        runnable = object : Runnable {
             override fun run() {
                 val currentPosition = musicService?.currentPosition()
                 if (currentPosition != null) {

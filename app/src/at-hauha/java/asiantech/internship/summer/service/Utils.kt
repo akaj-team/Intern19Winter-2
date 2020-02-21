@@ -19,8 +19,10 @@ object Utils {
     const val POSITION = "position"
     const val PLAYSONG = 1
     const val DEFAUlT_POS = 0
+    private const val SHUFFLE = "KEY_SHUFFLE"
+    private const val REPEAT = "KEY_REPEAT"
+    private const val PREFERENCE = "MyMusic"
     private val MUSIC_URI: Uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
-
     private val allDeviceSong = ArrayList<Song>()
 
     private val cursorCols = arrayOf(
@@ -34,7 +36,7 @@ object Utils {
     fun getSongDevices(context: Context): MutableList<Song> {
         var cursor: Cursor? = context.contentResolver?.query(MUSIC_URI, cursorCols, null, null, null)
         cursor?.let {
-            if(it != null && it.moveToFirst()){
+            if (it != null && it.moveToFirst()) {
                 while (!it.isAfterLast) {
                     allDeviceSong.add(getSongCursor(it))
                     it.moveToNext()
@@ -55,8 +57,8 @@ object Utils {
         return null
     }
 
-    fun convertTime(milliseconds : Int): String{
-        return (String.format("%02d",milliseconds / 1000/ 60 )+":"+String.format("%02d",milliseconds / 1000% 60 ))
+    fun convertTime(milliseconds: Int): String {
+        return (String.format("%02d", milliseconds / 1000 / 60) + ":" + String.format("%02d", milliseconds / 1000 % 60))
     }
 
     private fun getSongCursor(cursor: Cursor) = Song(cursor.getString(TITLE), cursor.getInt(ARTIST_ID), cursor.getString(ARTIST), cursor.getString(PATH), cursor.getInt(DURATION))
