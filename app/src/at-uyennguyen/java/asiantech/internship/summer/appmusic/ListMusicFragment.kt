@@ -1,10 +1,11 @@
 package asiantech.internship.summer.appmusic
 
 import android.app.Activity
-import android.content.ContentUris
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.IBinder
 import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
@@ -15,9 +16,11 @@ import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_list_music.*
 
-
 class ListMusicFragment : Fragment() {
+    private var isPlay: Boolean = false
+    private lateinit var playMusicService: PlayMusicService
     var position: Int = 0
+    var musicPos : Int =0
     lateinit var listMusicAdapter: ListMusicAdapter
     private var listMedia = arrayListOf<Media>()
 
@@ -37,7 +40,14 @@ class ListMusicFragment : Fragment() {
             loadMedia()
         }
         listMusicAdapter.onItemClicked = {
+            val intent = Intent(context, PlayMusicService::class.java)
+            intent.putParcelableArrayListExtra(PlayMusicFragment.MUSICLIST, listMedia)
+            intent.putExtra(PlayMusicFragment.MUSICITEMPOSITION, it)
+            context?.startService(intent)
             listMedia[it].run {
+                position = it
+                musicPos = position
+                imgBottomPlay.setImageResource(R.drawable.ic_play)
                 tvBottomName.text = listMedia[it].nameSong
                 tvBottomSinger.text = listMedia[it].singer
                 imgBottomThumbnail.setImageURI(Uri.parse(listMedia[it].thumbnail))
@@ -45,10 +55,70 @@ class ListMusicFragment : Fragment() {
                     imgBottomThumbnail.setImageResource(R.drawable.ic_music_note)
                 }
             }
-            activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.frameLayout, PlayMusicFragment.newInstance(listMedia, it, listMedia[it]))
-                    ?.addToBackStack(null)
-                    ?.commit()
+            context?.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+        }
+        imgBottomPlay.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                if (!isPlay) {
+                    playMusicService.pauseMusic()
+                    imgBottomPlay.setImageResource(R.drawable.ic_pause)
+                    isPlay = true
+                } else {
+                    imgBottomPlay.setImageResource(R.drawable.ic_play)
+                    playMusicService.runContinueMusic()
+                    isPlay = false
+                }
+            }
+
+        })
+        imgBottomNext.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                isPlay = false
+                musicPos = position + 1
+                imgBottomThumbnail.setImageURI(Uri.parse(listMedia[musicPos].thumbnail))
+                if(imgBottomThumbnail.drawable==null){
+                    imgBottomThumbnail.setImageResource(R.drawable.ic_music_note)
+                }
+                tvBottomName.text = listMedia[musicPos].nameSong
+                tvBottomSinger.text = listMedia[musicPos].singer
+                position = musicPos
+                imgBottomPlay.setImageResource(R.drawable.ic_play)
+                playMusicService.nextMusic()
+            }
+        })
+        imgBottomPrevious.setOnClickListener(object  : View.OnClickListener{
+            override fun onClick(v: View?) {
+                isPlay = false
+                musicPos = position - 1
+                imgBottomThumbnail.setImageURI(Uri.parse(listMedia[musicPos].thumbnail))
+                if(imgBottomThumbnail.drawable==null){
+                    imgBottomThumbnail.setImageResource(R.drawable.ic_music_note)
+                }
+                tvBottomName.text = listMedia[musicPos].nameSong
+                tvBottomSinger.text = listMedia[musicPos].singer
+                position = musicPos
+                imgBottomPlay.setImageResource(R.drawable.ic_play)
+                playMusicService.previousMusic()
+            }
+        })
+        contrainLayoutPlay.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                activity?.supportFragmentManager?.beginTransaction()
+                        ?.add(R.id.frameLayout, PlayMusicFragment.newInstance(listMedia, musicPos, isPlay))
+                        ?.addToBackStack(null)
+                        ?.commit()
+            }
+
+        })
+    }
+    private var serviceConnection = object : ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName?) {
+
+        }
+
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder: PlayMusicService.MediaBinder = service as PlayMusicService.MediaBinder
+            playMusicService = binder.getService()
         }
     }
 
@@ -75,61 +145,10 @@ class ListMusicFragment : Fragment() {
                 songSinger = ""
             }
 
-            val time = convertDuration(songTime).toString()
             listMedia.add(Media(songName, songSinger, songTime.toString(), albumArtUri.toString(), songPath))
         }
 
         listMusicAdapter = listMedia.let { context?.let { it1 -> ListMusicAdapter(it, it1) } }!!
         recyclerView.adapter = listMusicAdapter
     }
-
-    private fun convertDuration(duration: Long): String? {
-        var out: String? = null
-        var hours: Long = 0
-        try {
-            hours = (duration / 3600000).toLong()
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return out
-        }
-
-        val remainingMinutes = (duration - hours * 3600000) / 60000
-        var minutes = remainingMinutes.toString()
-        if (minutes.equals(0)) {
-            minutes = "00"
-        }
-        val remaining_seconds = duration - hours * 3600000 - remainingMinutes * 60000
-        var seconds = remaining_seconds.toString()
-        if (seconds.length < 2) {
-            seconds = "00"
-        } else {
-            seconds = seconds.substring(0, 2)
-        }
-
-        if (hours > 0) {
-            out = "$hours:$minutes:$seconds"
-        } else {
-            out = "$minutes:$seconds"
-        }
-
-        return out
-    }
-//    private fun initAdapter(){
-//        listMusicAdapter.onItemClicked = {
-//            val playMusicActivity : PlayMusicFragment = PlayMusicFragment()
-//            activity?.supportFragmentManager?.beginTransaction()
-//                    ?.replace(R.id.framelayout, playMusicActivity)
-//                    ?.addToBackStack(null)
-//                    ?.commit()
-//            var musicDataIntent = Intent()
-//                tvBottomSongName?.setText(nameSong)
-//                tvBottomSinger?.setText(singer)
-//                if (thumbnail != null) {
-//                    imgBottomThumbnail?.setImageURI(thumbnail)
-//                }
-//                if (imgThumbnail.drawable == null) {
-//                    imgBottomThumbnail?.setImageResource(R.drawable.bg_music)
-//                }
-//            }
-//        }
 }

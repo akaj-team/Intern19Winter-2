@@ -42,6 +42,7 @@ class ListMusicAdapter(val listMedia: ArrayList<Media>, val context: Context) : 
             listMedia[position].run {
                 tvSongName.setText(nameSong)
                 tvSinger.setText(singer)
+                val time = convertDuration(time.toLong())
                 tvTime.setText(time)
                 imgThumbnail.setImageURI(Uri.parse(thumbnail))
                 if (imgThumbnail.drawable == null) {
@@ -57,5 +58,37 @@ class ListMusicAdapter(val listMedia: ArrayList<Media>, val context: Context) : 
                 }
             })
         }
+    }
+
+    private fun convertDuration(duration: Long): String? {
+        var out: String? = null
+        var hours: Long = 0
+        try {
+            hours = (duration / 3600000).toLong()
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return out
+        }
+
+        val remainingMinutes = (duration - hours * 3600000) / 60000
+        var minutes = remainingMinutes.toString()
+        if (minutes.equals(0)) {
+            minutes = "00"
+        }
+        val remaining_seconds = duration - hours * 3600000 - remainingMinutes * 60000
+        var seconds = remaining_seconds.toString()
+        if (seconds.length < 2) {
+            seconds = "00"
+        } else {
+            seconds = seconds.substring(0, 2)
+        }
+
+        if (hours > 0) {
+            out = "$hours:$minutes:$seconds"
+        } else {
+            out = "$minutes:$seconds"
+        }
+
+        return out
     }
 }

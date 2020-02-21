@@ -28,13 +28,13 @@ class PlayMusicFragment : Fragment() {
         var MUSICITEMPOSITION = "pos"
         const val LISTSONG = "name"
         const val POSITION = "position"
-        const val MEDIA = "media"
-        fun newInstance(listSong: ArrayList<Media>, position: Int, media: Media): PlayMusicFragment {
+        const val ISPLAY = "isplay"
+        fun newInstance(listSong: ArrayList<Media>, position: Int, isplay : Boolean ): PlayMusicFragment {
             val playMusicFragment = PlayMusicFragment()
             val bundle = Bundle()
             bundle.putParcelableArrayList(LISTSONG, listSong)
             bundle.putInt(POSITION, position)
-            bundle.putParcelable(MEDIA, media)
+            bundle.putBoolean(ISPLAY, isplay)
             playMusicFragment.arguments = bundle
             return playMusicFragment
         }
@@ -43,16 +43,22 @@ class PlayMusicFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         listSong = arguments?.getParcelableArrayList<Media>(LISTSONG) as ArrayList<Media>
         position = arguments?.getInt(POSITION, 0) ?: 0
-        media = arguments?.getParcelable(MEDIA)!!
-        val intent = Intent(context, PlayMusicService::class.java)
-        intent.putParcelableArrayListExtra(MUSICLIST, listSong)
-        intent.putExtra(MUSICITEMPOSITION, position)
-        context?.startService(intent)
+        isPlay = arguments?.getBoolean(ISPLAY)!!
+//        val intent = Intent(context, PlayMusicService::class.java)
+//        intent.putParcelableArrayListExtra(MUSICLIST, listSong)
+//        intent.putExtra(MUSICITEMPOSITION, position)
+//        context?.startService(intent)
         return inflater.inflate(R.layout.fragment_play_music, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if(isPlay==false){
+            btnPlay.setImageResource(R.drawable.ic_play)
+        }
+        else{
+            btnPlay.setImageResource(R.drawable.ic_pause)
+        }
         imgThumbnailPlay.setImageURI(Uri.parse(listSong[position].thumbnail))
         if(imgThumbnailPlay.drawable==null){
             imgThumbnailPlay.setImageResource(R.drawable.ic_music_note)
@@ -119,18 +125,6 @@ class PlayMusicFragment : Fragment() {
             boundService = true
         }
     }
-
-//    private fun updateMusic() {
-//
-//        var mHandler = Handler()
-//        val runnable = object : Runnable {
-//            override fun run() {
-//                seekBar.progress = mediaPlayer.currentPosition
-//                mHandler.postDelayed(this, 1000)
-//            }
-//        }
-//        mHandler.post(runnable)
-//    }
 
     fun convertDuration(duration: Long): String? {
         var out: String? = null
