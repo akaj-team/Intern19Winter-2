@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -96,11 +97,12 @@ class PlayListFragment : Fragment() {
             }
         }
         cardView.setOnClickListener {
-            (activity as? MusicActivity)?.replaceMusicFragment(musicService.getPosition(), songList)
+            (activity as? MusicActivity)?.replaceMusicFragment(musicService.getPosition(), songList, isPlaying)
         }
     }
 
     private fun startMusic(context: Context, songList: ArrayList<Song>, position: Int) {
+        imgPlay.isSelected = true
         setMusic(songList[position])
         imgNext.isSelected = true
         isPlaying = true
@@ -110,12 +112,14 @@ class PlayListFragment : Fragment() {
     private fun pauseSong() {
         if (!isPlaying) {
             musicService.playSong()
+            imgPlay.isSelected = true
             isPlaying = true
-            imgPlay.isSelected = false
+            Log.i("XXX",isPlaying.toString())
         } else {
             musicService.pauseSong()
-            imgPlay.isSelected = true
             isPlaying = false
+            imgPlay.isSelected = false
+            Log.i("XXX",isPlaying.toString())
         }
     }
 

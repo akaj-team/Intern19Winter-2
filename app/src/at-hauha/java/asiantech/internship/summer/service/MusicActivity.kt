@@ -20,9 +20,9 @@ class MusicActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun replaceMusicFragment(position: Int, songList: ArrayList<Song>) {
+    fun replaceMusicFragment(position: Int, songList: ArrayList<Song>, isPlaying : Boolean) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.action_container, MusicFragment.newInstance(position,songList), null)
+                .replace(R.id.action_container, MusicFragment.newInstance(position,songList,isPlaying), null)
                 .addToBackStack(null)
                 .commit()
     }

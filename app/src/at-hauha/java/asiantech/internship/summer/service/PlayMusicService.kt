@@ -45,6 +45,7 @@ class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.
     }
 
     override fun onBind(intent: Intent?): IBinder? {
+
         return musicBinder
     }
 

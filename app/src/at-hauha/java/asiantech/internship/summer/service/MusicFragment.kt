@@ -25,10 +25,12 @@ class MusicFragment : Fragment() {
         private const val DELAY_TIME: Long = 500
         private const val ARG_POSITION = "position"
         private const val ARG_LIST = "songList"
-        fun newInstance(mPosition: Int, songList: ArrayList<Song>) = MusicFragment().apply {
+        private const val ARG_ISPLAYING = "isPlaying"
+        fun newInstance(mPosition: Int, songList: ArrayList<Song>, isPlaying : Boolean) = MusicFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_POSITION, mPosition)
                 putParcelableArrayList(ARG_LIST, songList)
+                putBoolean(ARG_ISPLAYING,isPlaying)
             }
         }
     }
@@ -41,13 +43,14 @@ class MusicFragment : Fragment() {
     private var isPlaying = false
     private var isShuffle = false
     private val mHandler = Handler()
-    private var runnable = Runnable {  }
+    private var runnable = Runnable { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.apply {
             position = getInt(ARG_POSITION)
             songList = getParcelableArrayList<Song>(ARG_LIST) as ArrayList<Song>
+            isPlaying = getBoolean(ARG_ISPLAYING)
         }
     }
 
@@ -57,7 +60,7 @@ class MusicFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Toast.makeText(requireContext(),"True",Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), "True", Toast.LENGTH_LONG).show()
         mHandler.removeCallbacks(runnable)
     }
 
@@ -69,6 +72,7 @@ class MusicFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val song = songList[position]
+        imgPlay.isSelected = isPlaying
         imgShuffle.isSelected = false
         setMusic(song)
         updateMusic()
@@ -77,11 +81,11 @@ class MusicFragment : Fragment() {
         }
         imgNext.setOnClickListener {
             nextMusic()
-            setMusic(songList[musicService.getPosition()])
+            setMusic(songList[position])
         }
         imgPrevious.setOnClickListener {
             prevMusic()
-            setMusic(songList[musicService.getPosition()])
+            setMusic(songList[position])
         }
         tvBack.setOnClickListener {
             (activity as? MusicActivity)?.replacePlayListPragment(musicService.getPosition())
@@ -91,7 +95,7 @@ class MusicFragment : Fragment() {
         }
     }
 
-    private fun shuffleMusic(){
+    private fun shuffleMusic() {
         if (!isShuffle) {
             imgShuffle.isSelected = true
             isShuffle = true
@@ -142,24 +146,23 @@ class MusicFragment : Fragment() {
         musicService.nextSong()
     }
 
-    private fun prevMusic(){
+    private fun prevMusic() {
         musicService.prevSong()
     }
 
     private fun pauseSong() {
-        if (!isPlaying) {
+        if (isPlaying) {
             musicService.playSong()
-            isPlaying = true
+            isPlaying = false
             imgPlay.isSelected = false
         } else {
             musicService.pauseSong()
             imgPlay.isSelected = true
-            isPlaying = false
+            isPlaying = true
         }
     }
 
     private fun updateMusic() {
-
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
             }
@@ -171,12 +174,17 @@ class MusicFragment : Fragment() {
                 seekBar?.let { musicService.seekToMedia(it) }
             }
         })
-
+        var currentPos = position
         runnable = object : Runnable {
             override fun run() {
                 val currentPosition = musicService?.currentPosition()
+                if (position > currentPos) {
+                    currentPos = position
+                    setMusic(songList[currentPos])
+                }
                 if (currentPosition != null) {
                     seekBar.progress = currentPosition
+                    position = musicService.getPosition()
                     tvStart.text = Utils.convertTime(currentPosition)
                 }
                 mHandler.postDelayed(this, DELAY_TIME)
