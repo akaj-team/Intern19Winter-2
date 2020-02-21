@@ -38,4 +38,5 @@
     <string name="your_password_in_signin">Your password</string>
     <string name="your_email_in_login">Your email</string>
     <string name="your_password_in_login">Your password</string>
+    <string name="playlist">PLAYLIST</string>
 </resources>

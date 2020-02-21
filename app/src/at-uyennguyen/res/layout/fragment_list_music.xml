@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/orangeB40"
+        android:fontFamily="sans-serif-light"
+        android:gravity="center"
+        android:text="@string/playlist"
+        android:textColor="@color/grey46555"
+        android:textSize="30dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="60dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintTop_toBottomOf="@id/tv_header" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/orangeB40"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgBottomThumbnail"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvBottomName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textColor="@android:color/black"
+            app:layout_constraintStart_toEndOf="@id/imgBottomThumbnail"
+            app:layout_constraintTop_toTopOf="@id/imgBottomThumbnail" />
+
+        <TextView
+            android:id="@+id/tvBottomSinger"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tvBottomName"
+            app:layout_constraintTop_toBottomOf="@id/tvBottomName" />
+
+        <ImageView
+            android:id="@+id/imgBottomNext"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgBottomThumbnail" />
+
+        <ImageView
+            android:id="@+id/imgBottomPlay"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_pause"
+            app:layout_constraintEnd_toStartOf="@id/imgBottomNext"
+            app:layout_constraintTop_toTopOf="@id/imgBottomNext" />
+
+        <ImageView
+            android:id="@+id/imgBottomPrevious"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_previous"
+            app:layout_constraintEnd_toStartOf="@id/imgBottomPlay"
+            app:layout_constraintTop_toTopOf="@id/imgBottomNext" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
