@@ -14,6 +14,10 @@ import asiantech.internship.summer.service_broadcastreceiver.model.Units
 class MusicAdapter(private val listMusic: ArrayList<MusicModel>) : RecyclerView.Adapter<MusicAdapter.MusicViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
+    companion object{
+        const val MUSIC_LIST = "musiclist"
+        const val MUSIC_ITEM_POSSITION = "position"
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_music, parent, false)

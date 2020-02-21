@@ -5,8 +5,10 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
+        android:name=".service_broadcastreceiver.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -14,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".service_broadcastreceiver.MainPlayerMusicActivity"></activity>
         <activity android:name=".service_broadcastreceiver.MyMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

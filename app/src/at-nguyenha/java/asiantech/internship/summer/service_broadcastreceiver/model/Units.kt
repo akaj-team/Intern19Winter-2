@@ -6,6 +6,9 @@ import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.MediaStore
 import java.util.concurrent.TimeUnit
@@ -18,6 +21,16 @@ object Units {
         return String.format("%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(millis),
                 TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
+    }
+
+    fun songArt(path: Uri, context: Context): Bitmap? {
+        val retriever = MediaMetadataRetriever()
+        retriever.setDataSource(context, path)
+        val byteArray = retriever.embeddedPicture
+        if (byteArray != null) {
+            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        }
+        return null
     }
 
     @SuppressLint("Recycle", "InlinedApi")

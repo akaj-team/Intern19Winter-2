@@ -1,34 +1,39 @@
 package asiantech.internship.summer.service_broadcastreceiver.fragment
 
-
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
+import android.os.IBinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import asiantech.internship.summer.service_broadcastreceiver.model.MusicModel
-import asiantech.internship.summer.service_broadcastreceiver.model.Units
+import asiantech.internship.summer.service_broadcastreceiver.service.PlayMusicService
 import kotlinx.android.synthetic.`at-nguyenha`.activity_main_player_music.*
 
 class MainPlayerMusicFragment : Fragment() {
 
-    private lateinit var mediaPlayer: MediaPlayer
-    private var listMainMusic: ArrayList<MusicModel> = arrayListOf()
+    private lateinit var mMediaPlayer: MediaPlayer
+    private var listMainMusic: ArrayList<MusicModel> = ArrayList()
     private var mPosition = 0
-    private var isPlaying = false
+    var mBounded: Boolean = false
+    var boundService: PlayMusicService? = null
 
     companion object {
         const val POSITION_KEY = "position"
-        fun newInstace(mPosition: Int) = MainPlayerMusicFragment().apply {
+        const val LIST_MUSIC_KEY = "listmusic"
+        fun newInstace(listMusic : ArrayList<MusicModel>, position : Int) = MainPlayerMusicFragment().apply {
             arguments = Bundle().apply {
-                putInt(POSITION_KEY, mPosition)
+                putParcelableArrayList(LIST_MUSIC_KEY, listMusic)
+                putInt(POSITION_KEY, position)
             }
         }
     }
@@ -41,55 +46,39 @@ class MainPlayerMusicFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
+            listMainMusic = it.getParcelableArrayList<MusicModel>(LIST_MUSIC_KEY)!!
             mPosition = it.getInt(POSITION_KEY)
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        imgPlayButtonMain.setOnClickListener {
-            val ronate = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
-            imgDiskPlayer.startAnimation(ronate)
-            imgPlayButtonMain.setImageResource(R.drawable.ic_play)
-        }
-        initData()
         initView()
-        playMusic(Uri.parse(listMainMusic[mPosition].path))
         initListener()
         updateMusic()
     }
 
-    private fun playMusic(uri: Uri) {
-        mediaPlayer = MediaPlayer.create(requireContext(), uri)
-        mediaPlayer.start()
-        isPlaying = (true)
-    }
-
-    private fun initData() {
-        listMainMusic.apply {
-            addAll(Units.insertData(requireContext()))
-        }
-    }
-
     private fun initView() {
+        //mPosition = boundService?.initPosition()!!
         imgDiskPlayer.setImageURI(Uri.parse(listMainMusic[mPosition].musicImage))
         tvMusicNamePlayingMain.text = listMainMusic[mPosition].musicName
         tvMusicArtistPlayingMain.text = listMainMusic[mPosition].musicArtist
     }
 
     private fun initListener(){
+        imgPlayButtonMain.setOnClickListener {
+            boundService?.initPlayPause()
+        }
         imgNextMain.setOnClickListener {
             mPosition++
             if (mPosition > listMainMusic.size - 1) mPosition = 0
-            mediaPlayer.release()
-            playMusic(Uri.parse(listMainMusic[mPosition].path))
+            boundService?.initNextMusic()
             initView()
         }
         imgPreviousMain.setOnClickListener {
             mPosition--
             if (mPosition < listMainMusic.size - 1) mPosition = listMainMusic.size - 1
-            mediaPlayer.release()
-            playMusic(Uri.parse(listMainMusic[mPosition].path))
+            boundService?.initPreviousMusic()
             initView()
         }
     }
@@ -97,25 +86,50 @@ class MainPlayerMusicFragment : Fragment() {
     private fun updateMusic() {
         sbMusicRealTime.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                Log.i("XXXX", progress.toString())
             }
 
             override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                Log.i("XXXX", "onStartTrackingTouch")
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                mediaPlayer.seekTo(sbMusicRealTime.progress)
+                mMediaPlayer.seekTo(sbMusicRealTime.progress)
             }
         })
         val mHandler = Handler()
         val runnable = object : Runnable {
             override fun run() {
-                sbMusicRealTime.progress = mediaPlayer.currentPosition
-                tvTimeStart.text = Units.convertTimeMusic(mediaPlayer.currentPosition.toLong())
+//                sbMusicRealTime.progress = mMediaPlayer.currentPosition
+//                tvTimeStart.text = Units.convertTimeMusic(mMediaPlayer.currentPosition.toLong())
                 mHandler.postDelayed(this, 1000)
             }
         }
         mHandler.post(runnable)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val mIntent = Intent(requireContext(), PlayMusicService::class.java)
+        context?.bindService(mIntent, mConnection, Context.BIND_AUTO_CREATE)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (mBounded) {
+            context?.unbindService(mConnection)
+            mBounded = false
+        }
+    }
+
+    private var mConnection: ServiceConnection = object : ServiceConnection {
+        override fun onServiceDisconnected(name: ComponentName) {
+            mBounded = false
+            boundService = null
+        }
+
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            mBounded = true
+            val mLocalBinder = service as PlayMusicService.LocalBinder
+            boundService = mLocalBinder.getServerInstance
+        }
     }
 }
