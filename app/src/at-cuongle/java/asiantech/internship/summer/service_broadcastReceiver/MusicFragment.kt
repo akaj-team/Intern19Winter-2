@@ -1,15 +1,14 @@
 package asiantech.internship.summer.service_broadcastReceiver
 
 import android.Manifest
-import android.annotation.SuppressLint
-import android.content.ContentUris
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.provider.MediaStore
+import android.os.IBinder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,21 +16,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import asiantech.internship.summer.MainActivity
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_list_music.*
-import java.text.FieldPosition
 
-
-class MusicFragment : Fragment() {
+class MusicFragment : Fragment(), View.OnClickListener {
     companion object {
         private const val PERMISSION_CODE = 101
+        private const val DEFAULT_VALUE = 0
     }
 
-    private lateinit var mediaPlayer: MediaPlayer
-    private lateinit var runnable: Runnable
+    private var positionMusicPlaying = DEFAULT_VALUE
+    private var musicService = ForegroundService()
+    private var musicBound = false
     private var isPlaying = false
-    private var handler: Handler = Handler()
     private val music = mutableListOf<Music>()
     private lateinit var musicAdapter: MusicAdapter
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -41,83 +38,74 @@ class MusicFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        musicAdapter = MusicAdapter(music)
         requestPermission()
         initAdapter()
-        getMusic()
+        initData()
         initListeners()
+        Log.i("XXX", musicService.hashCode().toString())
     }
 
-    private fun initAdapter() {
-        musicAdapter = MusicAdapter(music)
-        rvMusic.adapter = musicAdapter
+    override fun onStart() {
+        super.onStart()
+        val intent = Intent(context, ForegroundService::class.java)
+        context?.bindService(intent, musicConnection, Context.BIND_AUTO_CREATE)
     }
 
-    private fun initListeners() {
-        var positionMusicPlaying = 0
-        musicAdapter.onSongClicked = {
-            positionMusicPlaying = it
-            Toast.makeText(context, music[it].name, Toast.LENGTH_SHORT).show()
-            if (isPlaying) {
-                mediaPlayer.release()
-            }
-            playMusic(it)
-        }
-        onPausePlayMusic()
-        btnNext.setOnClickListener {
-            if (isPlaying) {
-                mediaPlayer.release()
-                playMusic(positionMusicPlaying++)
-//                if (positionMusicPlaying == music.size-1){
-//                    playMusic(0)
-//                }
-            }
-        }
-        cardViewBottom.setOnLongClickListener {
-            (activity as? ServiceBroadCastActivity)?.replaceFragment(MainScreenMusicFragment())
-            true
+    private var musicConnection = object : ServiceConnection {
+        override fun onServiceDisconnected(p0: ComponentName?) {
+            musicBound = false
         }
 
+        override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+            val binder = p1 as ForegroundService.LocalBinder
+            musicService = binder.getService
+            musicBound = true
+        }
     }
 
-    //    private fun playMusic(uriMusic: Uri) {
-//        mediaPlayer = MediaPlayer.create(context, uriMusic)
-//        mediaPlayer.start()
-//        isPlaying = true
-//        btnPP.isSelected = true
-//    }
+
+    override fun onClick(view: View?) {
+        when (view) {
+            btnNext -> playNext()
+            btnPlayPause -> onPausePlayMusic()
+        }
+    }
+
+
+    private fun playNext() {
+        if (isPlaying) {
+            musicService.playNext()
+            positionMusicPlaying++
+            setStatus()
+        }
+    }
+
     private fun playMusic(position: Int) {
-        mediaPlayer = MediaPlayer.create(context, music[position].uri)
-        mediaPlayer.start()
-        Log.i("XXX", "position:${position}")
-        imgMusicBottom.setImageURI(music[position].image)
-        tvNameMusicBottom.text = music[position].name
-        tvArtistBottom.text = music[position].artist
+        ForegroundService.startService(requireContext(), position)
+        setStatus()
         isPlaying = true
-        btnPP.isSelected = true
+        btnPlayPause.isSelected = true
+    }
+
+    internal fun setStatus() {
+        imgMusicBottom.setImageURI(music[positionMusicPlaying].image)
+        tvNameMusicBottom.text = music[positionMusicPlaying].name
+        tvArtistBottom.text = music[positionMusicPlaying].artist
     }
 
     private fun onPausePlayMusic() {
-        btnPP.setOnClickListener {
+        btnPlayPause.setOnClickListener {
             isPlaying = if (!isPlaying) {
-                mediaPlayer.start()
-                btnPP.isSelected = true
+                musicService.playSong()
+                btnPlayPause.isSelected = true
                 true
             } else {
-                btnPP.isSelected = false
-                mediaPlayer.pause()
+                btnPlayPause.isSelected = false
+                musicService.pauseMusic()
                 false
             }
         }
     }
-
-//    private fun nextMusic(position: Int) {
-//        btnNext.setOnClickListener {
-//            mediaPlayer.release()
-//            Log.i("XXX", "$position")
-//            playMusic(music[position + 1].uri)
-//        }
-//    }
 
     private fun requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -135,29 +123,31 @@ class MusicFragment : Fragment() {
                 val permission =
                         arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 requestPermissions(permission, PERMISSION_CODE)
-            } else {
             }
-        } else {
         }
     }
 
-    @SuppressLint("InlinedApi", "Recycle")
-    private fun getMusic() {
-        val songCursor = context?.contentResolver?.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
-        val idColumn = songCursor?.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
-        while (songCursor != null && songCursor.moveToNext()) {
-            val id = idColumn?.let { songCursor.getLong(it) }
-            val songName = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.TITLE))
-            val songDuration = songCursor.getInt(songCursor.getColumnIndex(MediaStore.Audio.Media.DURATION))
-            val songArtist = songCursor.getString(songCursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
-            val uri: Uri = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, id!!)
-            val albumId: Long? = songCursor.getLong(songCursor.getColumnIndexOrThrow(MediaStore.Audio.Media.ALBUM_ID))
-            val sArtworkUri = Uri.parse("content://media/external/audio/albumart")
-            val albumArtUri = ContentUris.withAppendedId(sArtworkUri, albumId!!)
-            music.apply {
-                add(Music(songDuration, songName, uri, songArtist, albumArtUri))
-            }
-            musicAdapter.notifyDataSetChanged()
+    private fun initAdapter() {
+        musicAdapter = MusicAdapter(music)
+        rvMusic.adapter = musicAdapter
+    }
+
+    private fun initData() {
+        music.clear()
+        music.addAll(MusicData.getMusic(requireContext()))
+    }
+
+    private fun initListeners() {
+        musicAdapter.onSongClicked = {
+            Toast.makeText(context, music[it].name, Toast.LENGTH_SHORT).show()
+            positionMusicPlaying = it
+            playMusic(it)
         }
+        cardViewBottom.setOnLongClickListener {
+            (activity as? ServiceBroadCastActivity)?.replaceFragment(MainScreenMusicFragment.newInstance(positionMusicPlaying))
+            true
+        }
+        btnPlayPause.setOnClickListener(this)
+        btnNext.setOnClickListener(this)
     }
 }

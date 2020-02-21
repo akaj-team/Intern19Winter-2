@@ -22,7 +22,7 @@
             android:background="@drawable/ic_skip_next_red_a400_24dp" />
 
         <Button
-            android:id="@+id/btnPP"
+            android:id="@+id/btnPlayPause"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginLeft="260dp"
