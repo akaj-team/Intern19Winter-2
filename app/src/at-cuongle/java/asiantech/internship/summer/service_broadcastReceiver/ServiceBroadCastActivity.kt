@@ -20,10 +20,4 @@ class ServiceBroadCastActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
     }
-
-    internal fun toMin(millis: Long): String {
-        return resources.getString(R.string.tv_duration, TimeUnit.MILLISECONDS.toMinutes(millis),
-                TimeUnit.MILLISECONDS.toSeconds(millis) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
-    }
 }

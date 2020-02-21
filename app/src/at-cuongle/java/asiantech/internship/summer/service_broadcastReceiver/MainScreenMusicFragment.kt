@@ -4,11 +4,9 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +16,7 @@ import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_main_screen_music.*
+import java.util.concurrent.TimeUnit
 
 class MainScreenMusicFragment : Fragment() {
 
@@ -71,7 +70,6 @@ class MainScreenMusicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         startRotatingImage()
         initData()
-        imgMusic.setImageURI(music[position].image)
         btnNextMain.setOnClickListener {
             musicService.playNext()
         }
@@ -82,7 +80,9 @@ class MainScreenMusicFragment : Fragment() {
         super.onDestroyView()
         handler.removeCallbacks(runnable)
     }
-
+    private fun setImage(){
+        imgMusic.setImageURI(music[position].image)
+    }
     private fun startRotatingImage() {
         val startRotateAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.animation_rotate)
         imgMusic.startAnimation(startRotateAnimation)
@@ -91,7 +91,6 @@ class MainScreenMusicFragment : Fragment() {
 
     private fun handleSeekBar() {
         seekBar.max = music[position].duration
-        tvDuration.text = music[position].duration.toString()
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
             }
@@ -100,16 +99,18 @@ class MainScreenMusicFragment : Fragment() {
             }
 
             override fun onStopTrackingTouch(p0: SeekBar?) {
-//                mediaPlayer.seekTo(seekBar.progress)
+                musicService.seekTo(seekBar.progress)
             }
         })
         runnable = object : Runnable {
             override fun run() {
-                val currentPosition = musicService.getCurrentDuration()
-                Log.i("XXX", "aaaaaa${currentPosition.toString()}")
-                if (currentPosition != null) {
-                    seekBar.progress = currentPosition
-                    tvCurrentDuration.text = currentPosition.toString()
+                position = musicService.getPosition()
+                setImage()
+                val currentDuration = musicService.getCurrentDuration()
+                if (currentDuration != null) {
+                    seekBar.progress = currentDuration
+                    tvDuration.text = toMin(music[position].duration.toLong())
+                    tvCurrentDuration.text = toMin(currentDuration.toLong())
                 }
                 handler.postDelayed(this, DELAY_TIME)
             }
@@ -122,4 +123,9 @@ class MainScreenMusicFragment : Fragment() {
         music.addAll(MusicData.getMusic(requireContext()))
     }
 
+    internal fun toMin(millis: Long): String {
+        return resources.getString(R.string.tv_duration, TimeUnit.MILLISECONDS.toMinutes(millis),
+                TimeUnit.MILLISECONDS.toSeconds(millis) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
+    }
 }

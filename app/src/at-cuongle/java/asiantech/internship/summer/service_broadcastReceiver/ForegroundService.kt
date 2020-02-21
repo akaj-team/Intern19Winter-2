@@ -57,7 +57,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         startForeground(1, notification)
         playMusic()
         when (intent.action) {
-            MusicAction().TOTALTIME ->{
+            MusicAction().TOTALTIME -> {
 
             }
         }
@@ -116,16 +116,20 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
         playMusic()
     }
 
-    fun pauseMusic() {
+    internal fun pauseMusic() {
         mediaPlayer?.pause()
     }
 
-    fun playSong() {
+    internal fun playSong() {
         mediaPlayer?.start()
     }
 
     fun getPosition(): Int {
         return positionSong
+    }
+
+    internal fun seekTo(currentDuration: Int) {
+        mediaPlayer?.seekTo(currentDuration)
     }
 
     fun getCurrentDuration(): Int? {

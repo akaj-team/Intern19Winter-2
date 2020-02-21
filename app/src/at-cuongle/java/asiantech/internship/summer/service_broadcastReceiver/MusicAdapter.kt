@@ -4,18 +4,13 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.media.MediaMetadataRetriever
-import android.media.MediaPlayer
 import android.net.Uri
-import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
-import kotlinx.android.synthetic.`at-cuongle`.fragment_list_music.view.*
 import kotlinx.android.synthetic.`at-cuongle`.item_recycler_music.view.*
-import java.io.ByteArrayOutputStream
 import java.util.concurrent.TimeUnit
 
 class MusicAdapter(private val recyclerViewHolder: MutableList<Music>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

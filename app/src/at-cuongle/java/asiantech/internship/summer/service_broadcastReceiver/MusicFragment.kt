@@ -42,7 +42,6 @@ class MusicFragment : Fragment(), View.OnClickListener {
         initAdapter()
         initData()
         initListeners()
-        Log.i("XXX", musicService.hashCode().toString())
     }
 
     override fun onStart() {
@@ -87,7 +86,7 @@ class MusicFragment : Fragment(), View.OnClickListener {
         btnPlayPause.isSelected = true
     }
 
-    internal fun setStatus() {
+    private fun setStatus() {
         imgMusicBottom.setImageURI(music[positionMusicPlaying].image)
         tvNameMusicBottom.text = music[positionMusicPlaying].name
         tvArtistBottom.text = music[positionMusicPlaying].artist
