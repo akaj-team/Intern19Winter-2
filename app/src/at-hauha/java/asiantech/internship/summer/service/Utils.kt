@@ -19,9 +19,9 @@ object Utils {
     const val POSITION = "position"
     const val PLAYSONG = 1
     const val DEFAUlT_POS = 0
-    private const val SHUFFLE = "KEY_SHUFFLE"
-    private const val REPEAT = "KEY_REPEAT"
-    private const val PREFERENCE = "MyMusic"
+    const val PLAY_ACTION = "PLAY"
+    const val NEXT_ACTION = "NEXT"
+    const val PREV_ACTION = "PREV"
     private val MUSIC_URI: Uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI
     private val allDeviceSong = ArrayList<Song>()
 

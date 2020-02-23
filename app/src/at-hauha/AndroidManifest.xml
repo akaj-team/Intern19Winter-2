@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <service android:name=".service.PlayMusicService"/>
+        <receiver android:name=".service.NotificationBroadCast"/>
     </application>
 
 </manifest>

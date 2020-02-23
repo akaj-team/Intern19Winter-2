@@ -117,7 +117,6 @@ class MusicFragment : Fragment() {
             position.let { musicService.getPosition() }
             musicBound = true
         }
-
     }
 
     override fun onStart() {
