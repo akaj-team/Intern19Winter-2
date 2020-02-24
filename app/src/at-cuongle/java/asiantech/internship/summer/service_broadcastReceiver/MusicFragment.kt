@@ -1,10 +1,7 @@
 package asiantech.internship.summer.service_broadcastReceiver
 
 import android.Manifest
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -25,6 +22,7 @@ class MusicFragment : Fragment(), View.OnClickListener {
         private const val DEFAULT_VALUE = 0
     }
 
+    private lateinit var receiver: BroadcastReceiver
     private var positionMusicPlaying = DEFAULT_VALUE
     private var musicService = ForegroundService()
     private var musicBound = false
@@ -44,10 +42,46 @@ class MusicFragment : Fragment(), View.OnClickListener {
         initListeners()
     }
 
+    private fun createIntentFilter() {
+        val filter = IntentFilter()
+        filter.apply {
+            addAction(MusicAction().PRIVIOUS)
+            addAction(MusicAction().PAUSE)
+            addAction(MusicAction().NEXT)
+        }
+        requireContext().registerReceiver(receiver, filter)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        receiver = object : MusicReceiver(ForegroundService()) {
+            override fun onReceive(context: Context?, intent: Intent?) {
+                if (intent?.extras != null) {
+                    val action = intent.action
+                    Log.i("XXX", "Music Fragment action: $action")
+                    when (intent?.action) {
+                        MusicAction().NEXT -> {
+                            positionMusicPlaying++
+                            setStatus()
+                        }
+                    }
+                }
+            }
+        }
+        createIntentFilter()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireContext().unregisterReceiver(receiver)
+    }
+
     override fun onStart() {
         super.onStart()
         val intent = Intent(context, ForegroundService::class.java)
         context?.bindService(intent, musicConnection, Context.BIND_AUTO_CREATE)
+        positionMusicPlaying = musicService.getPosition()
+        setStatus()
     }
 
     private var musicConnection = object : ServiceConnection {
@@ -62,28 +96,22 @@ class MusicFragment : Fragment(), View.OnClickListener {
         }
     }
 
-
     override fun onClick(view: View?) {
         when (view) {
-            btnNext -> playNext()
+            btnNext -> {
+                sendAction(MusicAction().NEXT)
+                positionMusicPlaying++
+                setStatus()
+            }
             btnPlayPause -> onPausePlayMusic()
-        }
-    }
-
-
-    private fun playNext() {
-        if (isPlaying) {
-            musicService.playNext()
-            positionMusicPlaying++
-            setStatus()
         }
     }
 
     private fun playMusic(position: Int) {
         ForegroundService.startService(requireContext(), position)
         setStatus()
-        isPlaying = true
         btnPlayPause.isSelected = true
+        isPlaying = true
     }
 
     private fun setStatus() {
@@ -95,12 +123,12 @@ class MusicFragment : Fragment(), View.OnClickListener {
     private fun onPausePlayMusic() {
         btnPlayPause.setOnClickListener {
             isPlaying = if (!isPlaying) {
-                musicService.playSong()
+                sendAction(MusicAction().PLAY)
                 btnPlayPause.isSelected = true
                 true
             } else {
                 btnPlayPause.isSelected = false
-                musicService.pauseMusic()
+                sendAction(MusicAction().PAUSE)
                 false
             }
         }
@@ -148,5 +176,12 @@ class MusicFragment : Fragment(), View.OnClickListener {
         }
         btnPlayPause.setOnClickListener(this)
         btnNext.setOnClickListener(this)
+    }
+
+    private fun sendAction(action: String) {
+        val intent = Intent(requireContext(), ForegroundService::class.java)
+        intent.action = action
+        intent.putExtra(action, "1")
+        context?.startService(intent)
     }
 }

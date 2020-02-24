@@ -1,24 +1,22 @@
 package asiantech.internship.summer.service_broadcastReceiver
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.SeekBar
+import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_main_screen_music.*
 import java.util.concurrent.TimeUnit
 
-class MainScreenMusicFragment : Fragment() {
+class MainScreenMusicFragment : Fragment(), View.OnClickListener {
 
     companion object {
         private const val DELAY_TIME: Long = 1000
@@ -35,6 +33,7 @@ class MainScreenMusicFragment : Fragment() {
     private var musicService = ForegroundService()
     private var musicBound = false
     private var position = 0
+    private var isPlaying = false
     private val music = mutableListOf<Music>()
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -70,24 +69,62 @@ class MainScreenMusicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         startRotatingImage()
         initData()
-        btnNextMain.setOnClickListener {
-            musicService.playNext()
-        }
+        btnNextMain.setOnClickListener(this)
+        btnPreviousMain.setOnClickListener(this)
+        btnPausePlay.setOnClickListener(this)
         handleSeekBar()
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         handler.removeCallbacks(runnable)
     }
-    private fun setImage(){
+
+    private fun setImage() {
         imgMusic.setImageURI(music[position].image)
     }
+
+    private fun sendAction(action: String) {
+        val intent = Intent(requireContext(),ForegroundService::class.java)
+        intent.action = action
+        intent.putExtra(action, "1")
+        context?.startService(intent)
+    }
+
+    private fun createIntentFilter() {
+        val filter = IntentFilter()
+        filter.apply {
+            addAction(MusicAction().PRIVIOUS)
+            addAction(MusicAction().PAUSE)
+            addAction(MusicAction().NEXT)
+        }
+        requireContext().registerReceiver(receiver, filter)
+    }
+
+    private val receiver = object : MusicReceiver(ForegroundService()) {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            if (intent?.extras != null) {
+                val action = intent.action
+                Log.i("XXX", "Main Fragment action: $action")
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        createIntentFilter()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        requireContext().unregisterReceiver(receiver)
+    }
+
     private fun startRotatingImage() {
         val startRotateAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.animation_rotate)
         imgMusic.startAnimation(startRotateAnimation)
     }
-
 
     private fun handleSeekBar() {
         seekBar.max = music[position].duration
@@ -105,6 +142,8 @@ class MainScreenMusicFragment : Fragment() {
         runnable = object : Runnable {
             override fun run() {
                 position = musicService.getPosition()
+                btnPausePlay.isSelected = true
+//                isPlaying = true
                 setImage()
                 val currentDuration = musicService.getCurrentDuration()
                 if (currentDuration != null) {
@@ -127,5 +166,31 @@ class MainScreenMusicFragment : Fragment() {
         return resources.getString(R.string.tv_duration, TimeUnit.MILLISECONDS.toMinutes(millis),
                 TimeUnit.MILLISECONDS.toSeconds(millis) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
+    }
+
+    override fun onClick(view: View?) {
+        when (view) {
+            btnNextMain -> {
+                sendAction(MusicAction().NEXT)
+            }
+            btnPausePlay -> {
+                onPausePlayMusic()
+            }
+            btnPreviousMain -> {
+                sendAction(MusicAction().PRIVIOUS)
+            }
+        }
+    }
+
+    private fun onPausePlayMusic() {
+        isPlaying = if (!isPlaying) {
+            sendAction(MusicAction().PLAY)
+            btnPausePlay.isSelected = true
+            true
+        } else {
+            sendAction(MusicAction().PAUSE)
+            btnPausePlay.isSelected = false
+            false
+        }
     }
 }

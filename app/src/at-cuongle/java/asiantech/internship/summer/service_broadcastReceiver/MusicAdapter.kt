@@ -47,7 +47,7 @@ class MusicAdapter(private val recyclerViewHolder: MutableList<Music>) : Recycle
             }
         }
 
-        private fun convertUriToBitmap(path: Uri, context: Context): Bitmap? {
+        internal fun convertUriToBitmap(path: Uri, context: Context): Bitmap? {
             val retriever = MediaMetadataRetriever()
             retriever.setDataSource(context, path)
             val byteArray = retriever.embeddedPicture
