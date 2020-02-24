@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="asiantech.internship.summer.layout.RegisterFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLineRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
+
+        <ImageView
+            android:id="@+id/imgHeader"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_img_img_header"
+            android:scaleType="centerCrop"
+            android:src="@drawable/image_header"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp" />
+
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="@dimen/layout_width_92"
+            android:layout_height="@dimen/layout_height_32dp"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginTop="@dimen/layout_margintop_60dp"
+            android:src="@drawable/image_logo"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvContentHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginTop="@dimen/layout_margintop_44dp"
+            android:fontFamily="Nunito-Bold"
+            android:text="@string/textview_text_start_from_scratch"
+            android:textSize="@dimen/textview_textsize_24sp"
+            app:layout_constraintLeft_toLeftOf="@id/imgLogo"
+            app:layout_constraintTop_toBottomOf="@id/imgLogo" />
+
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:fontFamily="Nunito-Regular"
+            android:text="@string/textview_text_create_account_here"
+            android:textSize="@dimen/textview_textsize_14sp"
+            app:layout_constraintLeft_toLeftOf="@+id/guideLineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/imgHeader" />
+
+        <TextView
+            android:id="@+id/tvFullName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margintop_20dp"
+            android:text="@string/textview_text_fullname"
+            android:textSize="@dimen/textview_textsize_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/guideLineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/tvLogin" />
+
+        <EditText
+            android:id="@+id/edtFullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginRight="@dimen/layout_marginright_20dp"
+            android:hint="@string/edittext_hint_fullname"
+            android:inputType="text"
+            android:textSize="@dimen/textview_textsize_20sp"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
+            app:layout_constraintTop_toBottomOf="@+id/tvFullName"
+            tools:ignore="Autofill" />
+
+        <TextView
+            android:id="@+id/tvEmailRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margintop_20dp"
+            android:text="@string/textview_text_email"
+            android:textSize="@dimen/textview_textsize_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/guideLineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/edtFullName" />
+
+        <EditText
+            android:id="@+id/edtEmailRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginRight="@dimen/layout_marginright_20dp"
+            android:hint="@string/edittext_hint_user_email"
+            android:inputType="textEmailAddress"
+            android:textSize="@dimen/textview_textsize_20sp"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
+            app:layout_constraintTop_toBottomOf="@+id/tvEmailRegister"
+            tools:ignore="Autofill" />
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margintop_20dp"
+            android:text="@string/textview_text_password"
+            android:textSize="@dimen/textview_textsize_14sp"
+            app:layout_constraintLeft_toRightOf="@+id/guideLineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/edtEmailRegister" />
+
+        <EditText
+            android:id="@+id/edtPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginRight="@dimen/layout_marginright_20dp"
+            android:hint="@string/edittext_hint_password"
+            android:inputType="textPassword"
+            android:textSize="@dimen/textview_textsize_20sp"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
+            app:layout_constraintTop_toBottomOf="@+id/tvPassword"
+            tools:ignore="Autofill" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/layout_height_52dp"
+            android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+            android:layout_marginTop="@dimen/layout_margintop_20dp"
+            android:layout_marginRight="@dimen/layout_marginright_20dp"
+            android:background="@drawable/button"
+            android:text="@string/button_text_create_account"
+            android:textColor="@android:color/white"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
+            app:layout_constraintTop_toBottomOf="@id/edtPassword" />
+
+        <TextView
+            android:id="@+id/tvScratch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/layout_margintop_20dp"
+            android:text="@string/textview_text_already_have_an_account"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
+            app:layout_constraintTop_toBottomOf="@id/btnRegister" />
+
+        <TextView
+            android:id="@+id/tvLoginHere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/layout_marginbottom_32dp"
+            android:text="@string/textview_text_login_here"
+            android:textColor="@color/textview_color_account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
+            app:layout_constraintRight_toRightOf="@id/guideLineRight"
+            app:layout_constraintTop_toBottomOf="@id/tvScratch" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
