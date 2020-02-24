@@ -1,9 +1,6 @@
 package asiantech.internship.summer.service
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -16,6 +13,9 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import asiantech.internship.summer.service.Utils.NEXT_ACTION
+import asiantech.internship.summer.service.Utils.PLAY_ACTION
+import asiantech.internship.summer.service.Utils.PREV_ACTION
 import asiantech.internship.summer.service.model.Song
 import kotlinx.android.synthetic.`at-hauha`.fragment_music.*
 
@@ -25,16 +25,17 @@ class MusicFragment : Fragment() {
         private const val DELAY_TIME: Long = 500
         private const val ARG_POSITION = "position"
         private const val ARG_LIST = "songList"
-        private const val ARG_ISPLAYING = "isPlaying"
-        fun newInstance(mPosition: Int, songList: ArrayList<Song>, isPlaying : Boolean) = MusicFragment().apply {
+        private const val ARG_PLAYING = "isPlaying"
+        fun newInstance(mPosition: Int, songList: ArrayList<Song>, isPlaying: Boolean) = MusicFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_POSITION, mPosition)
                 putParcelableArrayList(ARG_LIST, songList)
-                putBoolean(ARG_ISPLAYING,isPlaying)
+                putBoolean(ARG_PLAYING, isPlaying)
             }
         }
     }
 
+    private var notification: Notification? = null
     private var position = 0
     private var musicService = PlayMusicService()
     private var playIntent: Intent? = null
@@ -50,7 +51,7 @@ class MusicFragment : Fragment() {
         arguments?.apply {
             position = getInt(ARG_POSITION)
             songList = getParcelableArrayList<Song>(ARG_LIST) as ArrayList<Song>
-            isPlaying = getBoolean(ARG_ISPLAYING)
+            isPlaying = getBoolean(ARG_PLAYING)
         }
     }
 
@@ -60,13 +61,14 @@ class MusicFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Toast.makeText(requireContext(), "True", Toast.LENGTH_LONG).show()
         mHandler.removeCallbacks(runnable)
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         mHandler.removeCallbacks(runnable)
+        requireContext().unregisterReceiver(broadcastReceiver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,14 +87,50 @@ class MusicFragment : Fragment() {
         }
         imgPrevious.setOnClickListener {
             prevMusic()
-            setMusic(songList[position])
+            setMusic(songList[musicService.getPosition()])
         }
         tvBack.setOnClickListener {
-            (activity as? MusicActivity)?.replacePlayListPragment(musicService.getPosition())
+            (activity as? MusicActivity)?.replacePlayListFragment(musicService.getPosition(),isPlaying)
+            //Toast.makeText(requireContext(),position.toString(),Toast.LENGTH_LONG).show()
         }
         imgShuffle.setOnClickListener {
             shuffleMusic()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.apply {
+            addAction(PLAY_ACTION)
+            addAction(NEXT_ACTION)
+            addAction(PREV_ACTION)
+        }
+        requireContext().registerReceiver(broadcastReceiver, filter)
+    }
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.action) {
+                PREV_ACTION -> {
+                    prevMusic()
+                    setMusic(songList[musicService.getPosition()])
+                }
+                PLAY_ACTION -> {
+                    pauseSong()
+                }
+                NEXT_ACTION -> {
+                    nextMusic()
+                    setMusic(songList[musicService.getPosition()])
+                }
+            }
+        }
+    }
+
+    private fun createNotification(position: Int) {
+        notification = Notification(musicService)
+        val notification = notification?.createNotification(songList[position], isPlaying)
+        musicService.startForeground(1, notification)
     }
 
     private fun shuffleMusic() {
@@ -143,22 +181,25 @@ class MusicFragment : Fragment() {
 
     private fun nextMusic() {
         musicService.nextSong()
+        createNotification(musicService.getPosition())
     }
 
     private fun prevMusic() {
         musicService.prevSong()
+        createNotification(musicService.getPosition())
     }
 
     private fun pauseSong() {
         if (isPlaying) {
-            musicService.playSong()
+            musicService.pauseSong()
             isPlaying = false
             imgPlay.isSelected = false
         } else {
-            musicService.pauseSong()
+            musicService.playSong()
             imgPlay.isSelected = true
             isPlaying = true
         }
+        createNotification(musicService.getPosition())
     }
 
     private fun updateMusic() {
@@ -176,7 +217,7 @@ class MusicFragment : Fragment() {
         var currentPos = position
         runnable = object : Runnable {
             override fun run() {
-                val currentPosition = musicService?.currentPosition()
+                val currentPosition = musicService.currentPosition()
                 if (position > currentPos) {
                     currentPos = position
                     setMusic(songList[currentPos])
@@ -191,4 +232,5 @@ class MusicFragment : Fragment() {
         }
         mHandler.post(runnable)
     }
+
 }

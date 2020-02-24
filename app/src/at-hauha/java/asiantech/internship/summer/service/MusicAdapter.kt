@@ -5,7 +5,6 @@ import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
@@ -44,7 +43,7 @@ class MusicAdapter(private val songList: MutableList<Song>, var mContext: Contex
             val song = songList[adapterPosition]
             tvTitle.text = song.title
             tvArtist.text = song.artist
-            var bitmap = Utils.songArt(Uri.parse(song.path), mContext)
+            val bitmap = Utils.songArt(Uri.parse(song.path), mContext)
             if (bitmap != null) {
                 imgSong.setImageBitmap(bitmap)
             } else {
@@ -52,5 +51,5 @@ class MusicAdapter(private val songList: MutableList<Song>, var mContext: Contex
             }
         }
     }
-}
 
+}

@@ -18,11 +18,8 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
     private var currentPos = -1
     private var mediaPlayer: MediaPlayer? = null
     private var musicBinder = MusicBinder()
-    private var notificationManager: NotificationManager? = null
 
     companion object {
-        private const val REQUEST_CODE = 101
-        private const val CHANNEL_ID = "action.CHANNEL_ID"
         fun getMusicDataIntent(context: Context, songList: ArrayList<Song>, currentPos: Int): Intent {
             val musicDataIntent = Intent(context, PlayMusicService::class.java)
             musicDataIntent.apply {
@@ -49,9 +46,6 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
             currentPos = getIntExtra(POSITION, DEFAUlT_POS)
         }
         playMusic()
-        notificationManager = NotificationManager(this)
-        val notification = notificationManager?.createNotification()
-        startForeground(1, notification)
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -62,10 +56,6 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
     inner class MusicBinder : Binder() {
         internal val getService: PlayMusicService
             get() = this@PlayMusicService
-    }
-
-    fun currentSong(): Song {
-        return songList[currentPos]
     }
 
     private fun playMusic() {
@@ -100,7 +90,6 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
         playMusic()
     }
 
-
     fun currentPosition(): Int? {
         return mediaPlayer?.currentPosition
     }
@@ -128,4 +117,7 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
         mediaPlayer?.seekTo(seekBar.progress)
     }
 
+    fun getSize(): Int{
+        return songList.size
+    }
 }

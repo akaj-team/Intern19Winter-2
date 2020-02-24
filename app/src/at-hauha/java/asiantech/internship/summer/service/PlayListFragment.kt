@@ -1,15 +1,11 @@
 package asiantech.internship.summer.service
 
 import android.Manifest
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +16,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
+import asiantech.internship.summer.service.Utils.NEXT_ACTION
+import asiantech.internship.summer.service.Utils.PLAY_ACTION
+import asiantech.internship.summer.service.Utils.PREV_ACTION
 import asiantech.internship.summer.service.model.Song
 import kotlinx.android.synthetic.`at-hauha`.fragment_playlist.*
 
@@ -27,9 +26,11 @@ class PlayListFragment : Fragment() {
     companion object {
         private const val PERMISSION_REQUEST_CODE = 1
         private const val ARG_POS = "position"
-        fun newInstance(position: Int) = PlayListFragment().apply {
+        private const val ARG_PLAYING = "isPlaying"
+        fun newInstance(position: Int, isPlaying: Boolean) = PlayListFragment().apply {
             arguments = Bundle().apply {
                 putInt(ARG_POS, position)
+                putBoolean(ARG_PLAYING, isPlaying)
             }
         }
     }
@@ -41,9 +42,33 @@ class PlayListFragment : Fragment() {
     private var playIntent: Intent? = null
     private var musicBound = false
     private var isPlaying = false
+    private var notification: Notification? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.apply {
+            position = getInt(ARG_POS)
+            isPlaying = getBoolean(ARG_PLAYING)
+        }
+    }
+
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_playlist, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        checkPermission()
+        initListener()
+        if (isPlaying) {
+            imgPlay.isSelected = isPlaying
+        } else {
+            imgPlay.isSelected = isPlaying
+        }
+        if (musicService.getPosition() > -1) {
+            setMusic(songList[musicService.getPosition()])
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -55,17 +80,41 @@ class PlayListFragment : Fragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.apply {
-            position = getInt(ARG_POS)
+    override fun onResume() {
+        super.onResume()
+        val filter = IntentFilter()
+        filter.apply {
+            addAction(PLAY_ACTION)
+            addAction(NEXT_ACTION)
+            addAction(PREV_ACTION)
         }
+        requireContext().registerReceiver(broadcastReceiver, filter)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        checkPermission()
-        initListener()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireContext().unregisterReceiver(broadcastReceiver)
+    }
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.action) {
+                PREV_ACTION -> {
+                    prevSong()
+                    setMusic(songList[musicService.getPosition()])
+                    createNotification(musicService.getPosition())
+                }
+                PLAY_ACTION -> {
+                    pauseSong()
+                    createNotification(musicService.getPosition())
+                }
+                NEXT_ACTION -> {
+                    nextMusic()
+                    setMusic(songList[musicService.getPosition()])
+                    createNotification(musicService.getPosition())
+                }
+            }
+        }
     }
 
     private fun checkPermission() {
@@ -85,6 +134,7 @@ class PlayListFragment : Fragment() {
         adapter = MusicAdapter(songList, context)
         adapter.onItemClicked = { it ->
             startMusic(context, songList, it)
+            createNotification(it)
         }
         imgNext.setOnClickListener {
             nextMusic()
@@ -109,22 +159,30 @@ class PlayListFragment : Fragment() {
         context.startService(PlayMusicService.getMusicDataIntent(context, songList, position))
     }
 
+    private fun createNotification(position: Int) {
+        notification = Notification(musicService)
+        val notification = notification?.createNotification(songList[position], isPlaying)
+        musicService.startForeground(1, notification)
+    }
+
     private fun pauseSong() {
         if (!isPlaying) {
             musicService.playSong()
             imgPlay.isSelected = true
             isPlaying = true
-            Log.i("XXX",isPlaying.toString())
         } else {
             musicService.pauseSong()
             isPlaying = false
             imgPlay.isSelected = false
-            Log.i("XXX",isPlaying.toString())
         }
     }
 
+    private fun prevSong() {
+        musicService.prevSong()
+    }
+
     private fun initListener() {
-        if(position>0){
+        if (position > 0) {
             setMusic(songList[position])
             imgNext.isSelected = true
         }
@@ -144,13 +202,14 @@ class PlayListFragment : Fragment() {
     private var musicConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
             musicBound = false
+
         }
 
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-            val binder = service as PlayMusicService.MusicBinder
-            musicService = binder.getService
-            position.let { musicService.getPosition() }
             musicBound = true
+            val binder: PlayMusicService.MusicBinder = service as PlayMusicService.MusicBinder
+            musicService = binder.getService
+            position = musicService.getPosition()
         }
     }
 

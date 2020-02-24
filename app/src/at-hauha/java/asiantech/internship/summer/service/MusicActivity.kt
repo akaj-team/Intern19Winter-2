@@ -10,19 +10,20 @@ class MusicActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_music)
-        replacePlayListPragment(0)
+        replacePlayListFragment(0,false)
     }
 
-    fun replacePlayListPragment(position: Int){
+    fun replacePlayListFragment(position: Int, isPlaying: Boolean) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.action_container, PlayListFragment.newInstance(position), null)
+                .replace(R.id.action_container, PlayListFragment.newInstance(position, isPlaying).apply {
+                }, null)
                 .addToBackStack(null)
                 .commit()
     }
 
-    fun replaceMusicFragment(position: Int, songList: ArrayList<Song>, isPlaying : Boolean) {
+    fun replaceMusicFragment(position: Int, songList: ArrayList<Song>, isPlaying: Boolean) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.action_container, MusicFragment.newInstance(position,songList,isPlaying), null)
+                .replace(R.id.action_container, MusicFragment.newInstance(position, songList, isPlaying), null)
                 .addToBackStack(null)
                 .commit()
     }

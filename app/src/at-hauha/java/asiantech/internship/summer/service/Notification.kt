@@ -14,27 +14,26 @@ import asiantech.internship.summer.R
 import asiantech.internship.summer.service.Utils.NEXT_ACTION
 import asiantech.internship.summer.service.Utils.PLAY_ACTION
 import asiantech.internship.summer.service.Utils.PREV_ACTION
+import asiantech.internship.summer.service.model.Song
 
-class NotificationManager internal constructor(private val musicService: PlayMusicService) {
-
-    private val manager: NotificationManager = musicService.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    var builder: NotificationCompat.Builder? = null
-    private val context: Context = musicService.baseContext
-    private var mediaSession: MediaSessionCompat? = null
-
+class Notification(musicService: PlayMusicService) {
     companion object {
         private const val REQUEST_CODE = 101
-        private const val CHANNEL_ID = "action.CHANNEL_ID"
+        private const val CHANNEL_ID = "CHANNEL_ID"
     }
 
+    private var builder: NotificationCompat.Builder? = null
+    private val context: Context = musicService.baseContext
+    private var session: MediaSessionCompat? = null
+    private val manager: NotificationManager = musicService.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
     private fun intentAction(action: String): PendingIntent {
-        val broadCastIntent = Intent(context, NotificationBroadCast::class.java)
+        val broadCastIntent = Intent()
         broadCastIntent.action = action
         return PendingIntent.getBroadcast(context, REQUEST_CODE, broadCastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
     }
 
-    fun createNotification(): Notification? {
-        val song = musicService.currentSong()
+    fun createNotification(song: Song, isPlaying: Boolean): Notification? {
         builder = NotificationCompat.Builder(context, CHANNEL_ID)
         createNotificationChannel()
         val intentActivity = Intent(context, MusicActivity::class.java)
@@ -45,7 +44,7 @@ class NotificationManager internal constructor(private val musicService: PlayMus
         builder?.apply {
             setStyle(
                     androidx.media.app.NotificationCompat.MediaStyle()
-                            .setMediaSession(mediaSession?.sessionToken)
+                            .setMediaSession(session?.sessionToken)
                             .setShowActionsInCompactView(0, 1, 2)
             )
             setContentTitle(song.title)
@@ -55,18 +54,23 @@ class NotificationManager internal constructor(private val musicService: PlayMus
             setContentIntent(pendingIntent)
             setAutoCancel(true)
             setOnlyAlertOnce(true)
-            addAction(notificationAction(PREV_ACTION))
-            addAction(notificationAction(PLAY_ACTION))
-            addAction(notificationAction(NEXT_ACTION))
+            addAction(notificationAction(PREV_ACTION, isPlaying))
+            addAction(notificationAction(PLAY_ACTION, isPlaying))
+            addAction(notificationAction(NEXT_ACTION, isPlaying))
         }
         return builder?.build()
     }
 
-    private fun notificationAction(action: String): NotificationCompat.Action {
+    private fun notificationAction(action: String, isPlaying: Boolean): NotificationCompat.Action {
 
         val icon: Int = when (action) {
             PREV_ACTION -> R.drawable.ic_skip_previous_pink_400_24dp
-            PLAY_ACTION -> R.drawable.play_button
+            PLAY_ACTION -> if (isPlaying) {
+                R.drawable.ic_pause_black_24dp
+
+            } else {
+                R.drawable.ic_play_arrow_black_24dp
+            }
             NEXT_ACTION -> R.drawable.next_button
             else -> R.drawable.ic_skip_previous_pink_400_24dp
         }
