@@ -26,6 +26,7 @@
         <activity android:name=".layout.MyMainActivity" />
         <activity android:name=".MainActivity" />
 
+        <receiver android:name=".service_broadcastreceiver.NotificationActionService" />
         <service android:name=".service_broadcastreceiver.service.PlayMusicService" />
     </application>
 

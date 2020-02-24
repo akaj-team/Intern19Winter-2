@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/itemview_color_background"
+    android:background="@drawable/ic_background_media"
     android:orientation="vertical"
     android:weightSum="10"
     tools:context="asiantech.internship.summer.service_broadcastreceiver.MyMainActivity">
@@ -48,7 +48,7 @@
             <ImageView
                 android:id="@+id/imgPlaying"
                 android:layout_width="40dp"
-                android:layout_height="24dp"
+                android:layout_height="40dp"
                 android:src="@drawable/ic_music" />
 
         </androidx.cardview.widget.CardView>

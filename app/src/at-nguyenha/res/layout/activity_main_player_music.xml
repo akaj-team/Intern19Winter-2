@@ -4,7 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_background_media"
     tools:context="asiantech.internship.summer.service_broadcastreceiver.MainPlayerMusicActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:id="@+id/tvBack"
+        android:text="@string/textview_text_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideLineCenter"
@@ -93,7 +103,7 @@
         android:layout_height="40dp"
         android:src="@drawable/ic_previous"
         app:layout_constraintBottom_toBottomOf="@id/imgPlayButtonMain"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imgShuffle"
         app:layout_constraintRight_toLeftOf="@id/imgPlayButtonMain"
         app:layout_constraintTop_toTopOf="@id/imgPlayButtonMain" />
 
@@ -104,7 +114,27 @@
         android:src="@drawable/ic_next"
         app:layout_constraintBottom_toBottomOf="@id/imgPlayButtonMain"
         app:layout_constraintLeft_toRightOf="@id/imgPlayButtonMain"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/imgRenew"
         app:layout_constraintTop_toTopOf="@id/imgPlayButtonMain" />
 
+    <ImageView
+        android:id="@+id/imgShuffle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_shufflle"
+        app:layout_constraintBottom_toBottomOf="@id/imgPlayButtonMain"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/imgPreviousMain"
+        app:layout_constraintTop_toTopOf="@id/imgPlayButtonMain" />
+
+
+    <ImageView
+        android:id="@+id/imgRenew"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_autorenew_black_24dp"
+        app:layout_constraintBottom_toBottomOf="@id/imgPlayButtonMain"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/imgNextMain"
+        app:layout_constraintTop_toTopOf="@id/imgPlayButtonMain" />
 </androidx.constraintlayout.widget.ConstraintLayout>

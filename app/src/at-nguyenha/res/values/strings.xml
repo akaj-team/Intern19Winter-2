@@ -34,6 +34,7 @@
     <string name="textview_text_girls_like_you">Girls like you</string>
     <string name="textview_text_marroon5">Marroon 5</string>
     <string name="textview_text_not_music">Không có bài hát</string>
+    <string name="textview_text_back">Back</string>
 
 
 </resources>

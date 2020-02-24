@@ -35,8 +35,10 @@ class ListMusicFragment : Fragment() {
     private var listMusic: ArrayList<MusicModel> = arrayListOf()
     private var listPath: ArrayList<String> = ArrayList()
     private var adapter = MusicAdapter(listMusic)
-    private var position: Int = 0
+    private var mPosition: Int = 0
     var mBounded: Boolean = false
+    private var isPlaying = true
+
     var boundService: PlayMusicService? = null
 
     companion object {
@@ -62,8 +64,9 @@ class ListMusicFragment : Fragment() {
     }
 
     private fun initBottomView() {
-        imgPlaying.setImageURI(Uri.parse(listMusic[boundService?.initPosition()!!].musicImage))
-        tvPlaying.text = listMusic[boundService?.initPosition()!!].musicName
+        imgPlaying.setImageURI(Uri.parse(listMusic[mPosition].musicImage))
+        tvPlaying.text = listMusic[mPosition].musicName
+
     }
 
     private fun initView() {
@@ -80,31 +83,45 @@ class ListMusicFragment : Fragment() {
     private fun initAdapter() {
         recyclerMusicActivity.adapter = adapter
         adapter.onItemClicked = {
-            position = it
+            mPosition = it
             Toast.makeText(requireContext(), "Playing " + listMusic[it].musicName, Toast.LENGTH_SHORT).show()
             val musicDataIntent = Intent(requireContext(), PlayMusicService::class.java)
             musicDataIntent.putStringArrayListExtra(MusicAdapter.MUSIC_LIST, listPath)
             musicDataIntent.putParcelableArrayListExtra(MusicAdapter.MUSIC_LIST, listMusic)
-            musicDataIntent.putExtra(MusicAdapter.MUSIC_ITEM_POSSITION, position)
+            musicDataIntent.putExtra(MusicAdapter.MUSIC_ITEM_POSSITION, mPosition)
             requireContext().startForegroundService(musicDataIntent)
+            initBottomView()
         }
     }
 
     private fun initListener() {
         imgPlayPause.setOnClickListener {
+            isPlaying = when (isPlaying) {
+                true -> {
+                    imgPlayPause.setImageResource(R.drawable.ic_play)
+                    false
+                }
+                else -> {
+                    imgPlayPause.setImageResource(R.drawable.ic_pause)
+                    true
+                }
+            }
+
             boundService?.initPlayPause()
-            imgPlayPause.setImageResource(R.drawable.ic_play)
         }
         imgNext.setOnClickListener {
             boundService?.initNextMusic()
+            mPosition = boundService?.initPosition()!!
             initBottomView()
         }
         imgPrevious.setOnClickListener {
             boundService?.initPreviousMusic()
+            mPosition = boundService?.initPosition()!!
             initBottomView()
         }
+
         cardViewPlayMusic.setOnClickListener {
-            (activity as MyMainActivity).replaceFragment(MainPlayerMusicFragment.newInstace(listMusic, position), true)
+            (activity as MyMainActivity).replaceFragment(MainPlayerMusicFragment.newInstance(listMusic), true)
         }
     }
 
@@ -130,7 +147,6 @@ class ListMusicFragment : Fragment() {
             mBounded = false
         }
     }
-
     private var mConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
             mBounded = false
@@ -141,6 +157,8 @@ class ListMusicFragment : Fragment() {
             mBounded = true
             val mLocalBinder = service as LocalBinder
             boundService = mLocalBinder.getServerInstance
+            mPosition = boundService?.initPosition()!!
+            initBottomView()
         }
     }
 }
