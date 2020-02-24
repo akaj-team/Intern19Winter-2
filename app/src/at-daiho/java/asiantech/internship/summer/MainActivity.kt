@@ -18,13 +18,12 @@ import kotlinx.android.synthetic.`at-daiho`.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val musicService = Intent(this, MediaPlayerService::class.java)
-
     companion object {
         private const val STORAGE_PERMISSION_ID = 0
     }
 
     private lateinit var adapter: SongsAdapter
+    private lateinit var mediaPlayerService: MediaPlayerService
     private var songs: MutableList<Song> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,7 +46,6 @@ class MainActivity : AppCompatActivity() {
             val song = songs[it]
             playAudio(song.path)
         }
-        startService(musicService)
     }
 
     private fun reloadData() {
@@ -67,6 +65,16 @@ class MainActivity : AppCompatActivity() {
         return Utils.checkPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
     }
 
+    private var serviceConnection = object : ServiceConnection {
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            val binder: MediaPlayerService.MediaPlayerBinder = service as MediaPlayerService.MediaPlayerBinder
+            mediaPlayerService = binder.getService()
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+
+        }
+    }
 
     private fun getSongs() {
         // Get the external storage media store audio uri

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="asiantech.internship.summer">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,8 +13,8 @@
         android:theme="@style/AppTheme">
         <service
             android:name=".MediaPlayerService"
-            android:enabled="true"
-            android:exported="true"></service>
+            android:enabled="true">
+        </service>
 
         <activity android:name=".MainActivity">
             <intent-filter>
