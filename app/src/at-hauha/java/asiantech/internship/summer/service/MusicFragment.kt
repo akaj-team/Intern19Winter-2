@@ -1,6 +1,7 @@
 package asiantech.internship.summer.service
 
 import android.content.*
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
@@ -46,6 +47,7 @@ class MusicFragment : Fragment() {
     private var isReplay = false
     private val mHandler = Handler()
     private var runnable = Runnable { }
+    private lateinit var audioManager : AudioManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +82,7 @@ class MusicFragment : Fragment() {
         setMusic(song)
         updateMusic()
         onClick()
+        changeVolume()
     }
 
     private fun onClick(){
@@ -276,6 +279,23 @@ class MusicFragment : Fragment() {
             }
         }
         mHandler.post(runnable)
+    }
+
+    private fun changeVolume(){
+        audioManager = activity?.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        seekBarVolume.max = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC)
+        seekBarVolume.progress = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        seekBarVolume.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,progress,0)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+            }
+        })
     }
 
 }

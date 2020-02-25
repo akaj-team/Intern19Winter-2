@@ -6,6 +6,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.net.Uri
 import android.os.Build
 import android.support.v4.media.session.MediaSessionCompat
@@ -34,6 +35,12 @@ class Notification(musicService: PlayMusicService) {
     }
 
     fun createNotification(song: Song, isPlaying: Boolean): Notification? {
+        val filter = IntentFilter()
+        filter.apply {
+            addAction(PLAY_ACTION)
+            addAction(NEXT_ACTION)
+            addAction(PREV_ACTION)
+        }
         builder = NotificationCompat.Builder(context, CHANNEL_ID)
         createNotificationChannel()
         val intentActivity = Intent(context, MusicActivity::class.java)

@@ -3,6 +3,7 @@ package asiantech.internship.summer.service
 import android.Manifest
 import android.content.*
 import android.content.pm.PackageManager
+import android.media.AudioManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -61,14 +62,10 @@ class PlayListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_playlist, container, false)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkPermission()
         initListener()
-//        if (musicService.getPosition() > -1) {
-//            setMusic(songList[musicService.getPosition()])
-//        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -228,6 +225,7 @@ class PlayListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        activity?.volumeControlStream = AudioManager.STREAM_MUSIC
         playIntent = Intent(requireContext(), PlayMusicService::class.java)
         context?.bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE)
     }
