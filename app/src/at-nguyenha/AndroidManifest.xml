@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
-        android:name=".service_broadcastreceiver.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,7 +25,6 @@
         <activity android:name=".layout.MyMainActivity" />
         <activity android:name=".MainActivity" />
 
-        <receiver android:name=".service_broadcastreceiver.NotificationActionService" />
         <service android:name=".service_broadcastreceiver.service.PlayMusicService" />
     </application>
 

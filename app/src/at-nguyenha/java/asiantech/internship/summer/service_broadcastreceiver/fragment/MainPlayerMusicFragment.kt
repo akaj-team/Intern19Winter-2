@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,24 +17,31 @@ import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import asiantech.internship.summer.service_broadcastreceiver.Notification
 import asiantech.internship.summer.service_broadcastreceiver.model.MusicModel
 import asiantech.internship.summer.service_broadcastreceiver.model.Units
 import asiantech.internship.summer.service_broadcastreceiver.service.PlayMusicService
+import asiantech.internship.summer.service_broadcastreceiver.service.PlayMusicService.Companion.isReNew
+import asiantech.internship.summer.service_broadcastreceiver.service.PlayMusicService.Companion.isShuffle
 import kotlinx.android.synthetic.`at-nguyenha`.activity_main_player_music.*
 
 class MainPlayerMusicFragment : Fragment() {
 
     private var listMainMusic: ArrayList<MusicModel> = ArrayList()
     private var mPosition = 0
-    var mBounded: Boolean = false
-    var boundService: PlayMusicService? = null
+    private var notification: Notification? = null
     private val mHandler = Handler()
+    private var mBounded: Boolean = false
+    private var isPlaying = false
+    private var boundService = PlayMusicService()
 
     companion object {
         const val LIST_MUSIC_KEY = "listmusic"
-        fun newInstance(listMusic: ArrayList<MusicModel>) = MainPlayerMusicFragment().apply {
+        const val IS_PLAYING_KEY = "isplaying"
+        fun newInstance(listMusic: ArrayList<MusicModel>, isPlaying: Boolean) = MainPlayerMusicFragment().apply {
             arguments = Bundle().apply {
                 putParcelableArrayList(LIST_MUSIC_KEY, listMusic)
+                putBoolean(IS_PLAYING_KEY, isPlaying)
             }
         }
     }
@@ -47,6 +55,7 @@ class MainPlayerMusicFragment : Fragment() {
         super.onCreate(savedInstanceState)
         arguments?.let {
             listMainMusic = it.getParcelableArrayList<MusicModel>(LIST_MUSIC_KEY)!!
+            isPlaying = it.getBoolean(IS_PLAYING_KEY)
         }
     }
 
@@ -74,50 +83,71 @@ class MainPlayerMusicFragment : Fragment() {
         imgDiskPlayer.setImageURI(Uri.parse(listMainMusic[mPosition].musicImage))
         tvMusicNamePlayingMain.text = listMainMusic[mPosition].musicName
         tvMusicArtistPlayingMain.text = listMainMusic[mPosition].musicArtist
+        if (isReNew) {
+            imgRenew.setColorFilter(Color.MAGENTA)
+        } else {
+            imgRenew.setColorFilter(Color.GRAY)
+        }
+        if (isShuffle) {
+            imgShuffle.setColorFilter(Color.MAGENTA)
+        } else {
+            imgShuffle.setColorFilter(Color.GRAY)
+        }
         val rotation = AnimationUtils.loadAnimation(requireContext(), R.anim.rotate)
         imgDiskPlayer.startAnimation(rotation)
+        initButtonPlay()
+    }
 
+    private fun initButtonPlay() {
+        if (isPlaying) {
+            imgPlayButtonMain.setImageResource(R.drawable.ic_pause)
+        } else {
+            imgPlayButtonMain.setImageResource(R.drawable.ic_play)
+        }
     }
 
     private fun initListener(){
         imgPlayButtonMain.setOnClickListener {
-            val isPlaying = boundService?.isPlaying()
-            if (isPlaying!!) {
+            isPlaying = if (isPlaying) {
                 imgPlayButtonMain.setImageResource(R.drawable.ic_play)
+                false
             } else {
                 imgPlayButtonMain.setImageResource(R.drawable.ic_pause)
+                true
             }
-            boundService?.initPlayPause()
+            boundService.initPlayPause()
         }
         imgNextMain.setOnClickListener {
             mPosition++
             if (mPosition > listMainMusic.size - 1) mPosition = 0
-            boundService?.initNextMusic()
+            boundService.initNextMusic()
+            createNotification(mPosition)
             initView()
         }
         imgPreviousMain.setOnClickListener {
             mPosition--
             if (mPosition < 0) mPosition = listMainMusic.size - 1
-            boundService?.initPreviousMusic()
+            boundService.initPreviousMusic()
             initView()
         }
         imgShuffle.setOnClickListener {
-            if (!PlayMusicService.isShuffle) {
+            if (!isShuffle) {
                 imgShuffle.setColorFilter(Color.MAGENTA)
-                PlayMusicService.isShuffle = true
+                isShuffle = true
             } else {
                 imgShuffle.setColorFilter(Color.GRAY)
-                PlayMusicService.isShuffle = false
+                isShuffle = false
             }
         }
         imgRenew.setOnClickListener {
-            if (!PlayMusicService.isReNew) {
+            if (!isReNew) {
                 imgRenew.setColorFilter(Color.MAGENTA)
-                PlayMusicService.isReNew = true
+                isReNew = true
             } else {
                 imgRenew.setColorFilter(Color.GRAY)
-                PlayMusicService.isReNew = false
+                isReNew = false
             }
+            Log.i("XXX", boundService.isRenew().toString())
         }
     }
 
@@ -130,22 +160,24 @@ class MainPlayerMusicFragment : Fragment() {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                boundService?.seekTo(sbMusicRealTime.progress)
+                boundService.seekTo(sbMusicRealTime.progress)
             }
         })
         val runnable = object : Runnable {
             override fun run() {
-                val currentPosition = boundService?.currentPosition()
+                val position = mPosition
+                sbMusicRealTime?.max = listMainMusic[mPosition].musicDuration
+                val currentPosition = boundService.currentPosition()
                 if (currentPosition != null) {
                     sbMusicRealTime?.progress = currentPosition
                     tvTimeStart?.text = Units.convertTimeMusic(sbMusicRealTime.progress)
                     tvTimeEnd?.text = Units.convertTimeMusic(listMainMusic[mPosition].musicDuration)
-                    if (currentPosition == listMainMusic[mPosition].musicDuration) {
-                        boundService?.initNextMusic()
-                    }
+                }
+                mPosition = boundService.initPosition()
+                if (mPosition > position) {
+                    initView()
                 }
                 mHandler.postDelayed(this, 1000)
-                sbMusicRealTime?.max = listMainMusic[mPosition].musicDuration
             }
         }
         mHandler.post(runnable)
@@ -154,16 +186,24 @@ class MainPlayerMusicFragment : Fragment() {
     private var mConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
             mBounded = false
-            boundService = null
+            boundService.stopSelf()
         }
 
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
             mBounded = true
             val mLocalBinder = service as PlayMusicService.LocalBinder
             boundService = mLocalBinder.getServerInstance
-            mPosition = boundService?.initPosition()!!
+            mPosition = boundService.initPosition()
+            isPlaying = boundService.isPlaying()
             initView()
         }
     }
 
+    private fun createNotification(position: Int) {
+        notification = Notification(boundService)
+        val notification = notification?.createNotification(listMainMusic[position], isPlaying)
+        boundService.startForeground(1, notification)
+        isPlaying = boundService.isPlaying()
+        isReNew = boundService.isRenew()
+    }
 }

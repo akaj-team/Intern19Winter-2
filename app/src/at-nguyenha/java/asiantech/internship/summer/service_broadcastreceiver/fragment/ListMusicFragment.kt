@@ -22,12 +22,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
 import asiantech.internship.summer.service_broadcastreceiver.MyMainActivity
+import asiantech.internship.summer.service_broadcastreceiver.Notification
 import asiantech.internship.summer.service_broadcastreceiver.adapter.MusicAdapter
 import asiantech.internship.summer.service_broadcastreceiver.model.MusicModel
 import asiantech.internship.summer.service_broadcastreceiver.model.Units
 import asiantech.internship.summer.service_broadcastreceiver.service.PlayMusicService
 import asiantech.internship.summer.service_broadcastreceiver.service.PlayMusicService.LocalBinder
 import kotlinx.android.synthetic.`at-nguyenha`.fragment_list_music.*
+import kotlinx.android.synthetic.`at-nguyenha`.item_music.*
 
 
 class ListMusicFragment : Fragment() {
@@ -36,10 +38,12 @@ class ListMusicFragment : Fragment() {
     private var listPath: ArrayList<String> = ArrayList()
     private var adapter = MusicAdapter(listMusic)
     private var mPosition: Int = 0
-    var mBounded: Boolean = false
-    private var isPlaying = true
+    private var notification: Notification? = null
 
-    var boundService: PlayMusicService? = null
+    var mBounded: Boolean = false
+    private var isPlaying = false
+
+    private var boundService = PlayMusicService()
 
     companion object {
         private const val REQUEST_CODE = 1000
@@ -66,7 +70,7 @@ class ListMusicFragment : Fragment() {
     private fun initBottomView() {
         imgPlaying.setImageURI(Uri.parse(listMusic[mPosition].musicImage))
         tvPlaying.text = listMusic[mPosition].musicName
-
+        initButtonPlay()
     }
 
     private fun initView() {
@@ -74,8 +78,17 @@ class ListMusicFragment : Fragment() {
     }
 
     private fun initData() {
+        listMusic.clear()
         listMusic.apply {
             addAll(Units.insertData(requireContext()))
+        }
+    }
+
+    private fun initButtonPlay() {
+        if (isPlaying) {
+            imgPlay.setImageResource(R.drawable.ic_pause)
+        } else {
+            imgPlay.setImageResource(R.drawable.ic_play)
         }
     }
 
@@ -91,6 +104,8 @@ class ListMusicFragment : Fragment() {
             musicDataIntent.putExtra(MusicAdapter.MUSIC_ITEM_POSSITION, mPosition)
             requireContext().startForegroundService(musicDataIntent)
             initBottomView()
+            isPlaying = true
+            //createNotification(it)
         }
     }
 
@@ -98,30 +113,32 @@ class ListMusicFragment : Fragment() {
         imgPlayPause.setOnClickListener {
             isPlaying = when (isPlaying) {
                 true -> {
-                    imgPlayPause.setImageResource(R.drawable.ic_play)
+                    imgPlayPause.setImageResource(R.drawable.ic_pause)
                     false
                 }
                 else -> {
-                    imgPlayPause.setImageResource(R.drawable.ic_pause)
+                    imgPlayPause.setImageResource(R.drawable.ic_play)
                     true
                 }
             }
 
-            boundService?.initPlayPause()
+            boundService.initPlayPause()
         }
         imgNext.setOnClickListener {
-            boundService?.initNextMusic()
-            mPosition = boundService?.initPosition()!!
+            boundService.initNextMusic()
+            mPosition = boundService.initPosition()
+            createNotification(mPosition)
             initBottomView()
         }
         imgPrevious.setOnClickListener {
-            boundService?.initPreviousMusic()
-            mPosition = boundService?.initPosition()!!
+            boundService.initPreviousMusic()
+            mPosition = boundService.initPosition()
+            createNotification(mPosition)
             initBottomView()
         }
 
         cardViewPlayMusic.setOnClickListener {
-            (activity as MyMainActivity).replaceFragment(MainPlayerMusicFragment.newInstance(listMusic), true)
+            (activity as MyMainActivity).replaceFragment(MainPlayerMusicFragment.newInstance(listMusic, isPlaying), true)
         }
     }
 
@@ -150,15 +167,22 @@ class ListMusicFragment : Fragment() {
     private var mConnection: ServiceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName) {
             mBounded = false
-            boundService = null
+            boundService.stopSelf()
         }
 
         override fun onServiceConnected(name: ComponentName, service: IBinder) {
             mBounded = true
             val mLocalBinder = service as LocalBinder
             boundService = mLocalBinder.getServerInstance
-            mPosition = boundService?.initPosition()!!
+            mPosition = boundService.initPosition()
             initBottomView()
         }
+    }
+
+    private fun createNotification(position: Int) {
+        notification = Notification(boundService)
+        val notification = notification?.createNotification(listMusic[position], isPlaying)
+        boundService.startForeground(1, notification)
+        isPlaying = boundService.isPlaying()
     }
 }

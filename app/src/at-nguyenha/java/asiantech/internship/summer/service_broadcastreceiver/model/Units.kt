@@ -6,6 +6,9 @@ import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.provider.MediaStore
 import java.util.concurrent.TimeUnit
@@ -13,6 +16,9 @@ import java.util.concurrent.TimeUnit
 object Units {
 
     private var listMusic: ArrayList<MusicModel> = arrayListOf()
+    const val ACTION_PLAY_PAUSE = "playpause"
+    const val ACTION_SKIP_NEXT = "skipnext"
+    const val ACTION_PREVIOUS = "previous"
 
 
     fun convertTimeMusic(millis: Int): String {
@@ -21,8 +27,20 @@ object Units {
                 TimeUnit.MILLISECONDS.toSeconds(millis.toLong()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis.toLong())))
     }
 
+    fun songArt(path: Uri, context: Context): Bitmap? {
+        val retriever = MediaMetadataRetriever()
+        retriever.setDataSource(context, path)
+        val byteArray = retriever.embeddedPicture
+        if (byteArray != null) {
+            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        }
+        return null
+    }
+
+
     @SuppressLint("Recycle", "InlinedApi")
     fun insertData(context: Context): ArrayList<MusicModel> {
+        listMusic.clear()
         val musicCursor: Cursor? = context.contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 null,
                 null,

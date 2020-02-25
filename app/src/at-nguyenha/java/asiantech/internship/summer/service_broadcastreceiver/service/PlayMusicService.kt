@@ -1,37 +1,39 @@
 package asiantech.internship.summer.service_broadcastreceiver.service
 
-import android.app.PendingIntent
 import android.app.Service
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Binder
 import android.os.IBinder
-import android.provider.MediaStore
-import android.support.v4.media.session.MediaSessionCompat
-import androidx.core.app.NotificationCompat
-import asiantech.internship.summer.R
-import asiantech.internship.summer.service_broadcastreceiver.MyMainActivity
+import android.util.Log
+import asiantech.internship.summer.service_broadcastreceiver.Notification
 import asiantech.internship.summer.service_broadcastreceiver.adapter.MusicAdapter
 import asiantech.internship.summer.service_broadcastreceiver.model.MusicModel
+import asiantech.internship.summer.service_broadcastreceiver.model.Units
 
-@Suppress("UNREACHABLE_CODE", "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS", "DEPRECATION")
 class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
     override fun onCompletion(mp: MediaPlayer?) {
-        mMediaPlayer?.reset()
-        initNextMusic()
+        if (!isReNew) {
+            initNextMusic()
+        } else playMedia(currentPosition)
+        createNotification(currentPosition)
     }
 
     companion object {
-        private const val CHANNEL_ID = "ForegroundServiceChannel"
-        internal var isShuffle = false
-        internal var isReNew = false
+        var isShuffle = false
+        var isReNew = false
     }
 
     private var currentPosition = 0
     private var musicDataList: ArrayList<MusicModel> = ArrayList()
-    private var mMediaPlayer: MediaPlayer? = null
+    private var mMediaPlayer: MediaPlayer? = MediaPlayer()
     private val mBinder = LocalBinder()
+    private var isPlaying = false
+    private var notification: Notification? = null
 
     override fun onBind(intent: Intent?): IBinder? {
         return mBinder
@@ -39,57 +41,28 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-        currentPosition = intent!!.getIntExtra(MusicAdapter.MUSIC_ITEM_POSSITION, 0)
-        getData(intent)
-        isReNew = false
-        isShuffle = true
+        intent?.apply {
+            currentPosition = intent.getIntExtra(MusicAdapter.MUSIC_ITEM_POSSITION, 0)
+            musicDataList = intent.getParcelableArrayListExtra(MusicAdapter.MUSIC_LIST)
+        }
+        createNotification(currentPosition)
         playMedia(currentPosition)
+        addAction()
         return START_NOT_STICKY
-    }
-
-    private fun getData(intent: Intent?) {
-        musicDataList = intent!!.getParcelableArrayListExtra(MusicAdapter.MUSIC_LIST)
     }
 
     private fun playMedia(position: Int) {
         if (mMediaPlayer != null) {
+            mMediaPlayer?.stop()
             mMediaPlayer?.release()
-            mMediaPlayer = null
         }
         mMediaPlayer = MediaPlayer()
+        mMediaPlayer?.setOnCompletionListener(this)
         mMediaPlayer?.setDataSource(musicDataList[position].path)
         mMediaPlayer?.prepare()
         mMediaPlayer?.setOnPreparedListener {
             mMediaPlayer?.start()
         }
-        createNotification()
-    }
-
-    private fun createNotification() {
-        val mediaSessionCompat = MediaSessionCompat(this, "tag")
-        val notificationIntent = Intent(this, MyMainActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this,
-                0,
-                notificationIntent,
-                0)
-        val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_music)
-                .setContentTitle(musicDataList[currentPosition].musicName)
-                .setContentText(musicDataList[currentPosition].musicArtist)
-                .setLargeIcon(MediaStore.Images.Media.getBitmap(
-                        this.contentResolver,
-                        Uri.parse(musicDataList[currentPosition].musicImage)))
-                .setShowWhen(false)
-                .setPriority(NotificationCompat.PRIORITY_LOW)
-                .addAction(R.drawable.ic_previous, "Previous", pendingIntent)
-                .addAction(R.drawable.ic_play, "PlayPause", pendingIntent)
-                .addAction(R.drawable.ic_next, "Next", pendingIntent)
-                .setStyle(androidx.media.app.NotificationCompat.MediaStyle()
-                        .setShowActionsInCompactView(0, 1, 2)
-                        .setMediaSession(mediaSessionCompat.sessionToken))
-                .setContentIntent(pendingIntent)
-                .build()
-        startForeground(1, notification)
     }
 
     fun initNextMusic() {
@@ -98,6 +71,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
             currentPosition = 0
         }
         playMedia(currentPosition)
+        Log.i("XXXX", "isnext")
     }
 
     fun initPreviousMusic() {
@@ -122,12 +96,50 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
     fun currentPosition() = mMediaPlayer?.currentPosition
 
-    fun isPlaying(): Boolean? = mMediaPlayer?.isPlaying
-
     fun initPosition(): Int = currentPosition
+
+    fun isPlaying(): Boolean = mMediaPlayer?.isPlaying!!
+
+    fun isRenew(): Boolean = isReNew
 
     inner class LocalBinder : Binder() {
         internal val getServerInstance: PlayMusicService
             get() = this@PlayMusicService
+    }
+
+    private fun createNotification(position: Int) {
+        notification = Notification(this)
+        val notification = notification?.createNotification(musicDataList[position], isPlaying)
+        this.startForeground(1, notification)
+        isPlaying = this.isPlaying()
+    }
+
+    private val broadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            when (intent?.action) {
+                Units.ACTION_PREVIOUS -> {
+                    initPreviousMusic()
+                    createNotification(currentPosition)
+                }
+                Units.ACTION_PLAY_PAUSE -> {
+                    initPlayPause()
+                    createNotification(currentPosition)
+                }
+                Units.ACTION_SKIP_NEXT -> {
+                    initNextMusic()
+                    createNotification(currentPosition)
+                }
+            }
+        }
+    }
+
+    private fun addAction() {
+        val filter = IntentFilter()
+        filter.apply {
+            addAction(Units.ACTION_PLAY_PAUSE)
+            addAction(Units.ACTION_SKIP_NEXT)
+            addAction(Units.ACTION_PREVIOUS)
+        }
+        registerReceiver(broadcastReceiver, filter)
     }
 }

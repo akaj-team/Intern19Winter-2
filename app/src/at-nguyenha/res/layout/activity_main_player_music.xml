@@ -5,16 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/ic_background_media"
-    tools:context="asiantech.internship.summer.service_broadcastreceiver.MainPlayerMusicActivity">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:id="@+id/tvBack"
-        android:text="@string/textview_text_back"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"/>
+    tools:context="asiantech.internship.summer.service_broadcastreceiver.MyMainActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideLineCenter"
@@ -126,7 +117,6 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/imgPreviousMain"
         app:layout_constraintTop_toTopOf="@id/imgPlayButtonMain" />
-
 
     <ImageView
         android:id="@+id/imgRenew"
