@@ -31,13 +31,6 @@ class ListMusicAdapter(val listMedia: ArrayList<Media>, val context: Context) : 
         private var tvSongName: TextView = itemView.findViewById(R.id.tvName)
         private var tvSinger: TextView = itemView.findViewById(R.id.tvSinger)
         private var tvTime: TextView = itemView.findViewById(R.id.tvCurrentPosition)
-        private var imgBottomThumbnail: ImageView? = itemView.findViewById(R.id.imgBottomThumbnail)
-        private var tvBottomSongName: TextView? = itemView.findViewById(R.id.tvBottomName)
-        private var tvBottomSinger: TextView? = itemView.findViewById(R.id.tvBottomSinger)
-        private var imgBottomNext: ImageView? = itemView.findViewById(R.id.imgBottomNext)
-        private var imgBottomPlay: ImageView? = itemView.findViewById(R.id.imgBottomPlay)
-        private var imgBottomBack: ImageView? = itemView.findViewById(R.id.imgBottomPrevious)
-
         internal fun bindData(position: Int) {
             listMedia[position].run {
                 tvSongName.setText(nameSong)

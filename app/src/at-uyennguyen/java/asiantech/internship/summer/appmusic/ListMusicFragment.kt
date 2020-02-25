@@ -7,11 +7,13 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_list_music.*
@@ -21,11 +23,22 @@ class ListMusicFragment : Fragment() {
     private lateinit var playMusicService: PlayMusicService
     var position: Int = 0
     var musicPos : Int =0
+    var media : Media ?= null
     lateinit var listMusicAdapter: ListMusicAdapter
     private var listMedia = arrayListOf<Media>()
 
     companion object {
         private var READ_CODE_REQUEST = 111
+        const val ISPLAY= "isplay"
+        const val POSITION = "position"
+        fun newInstance( position : Int, isplay : Boolean): ListMusicFragment {
+            val listMusicFragment = ListMusicFragment()
+            val bundle = Bundle()
+            bundle.putBoolean(ISPLAY, isplay)
+            bundle.putInt(POSITION,position)
+            listMusicFragment.arguments = bundle
+            return listMusicFragment
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -104,13 +117,52 @@ class ListMusicFragment : Fragment() {
         contrainLayoutPlay.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {
                 activity?.supportFragmentManager?.beginTransaction()
-                        ?.add(R.id.frameLayout, PlayMusicFragment.newInstance(listMedia, musicPos, isPlay))
+                        ?.add(R.id.frameLayout, PlayMusicFragment.newInstance(listMedia, position, isPlay))
                         ?.addToBackStack(null)
                         ?.commit()
             }
 
         })
     }
+
+    override fun onResume() {
+        super.onResume()
+        val pos = arguments?.getInt(POSITION)
+        var play : Boolean? = arguments?.getBoolean(ISPLAY)
+        if (play != null) {
+            isPlay = play
+        }
+        if (pos != null) {
+            position = pos
+        }
+        if (isPlay) {
+            imgBottomPlay.setImageResource(R.drawable.ic_pause)
+            isPlay = true
+        } else {
+            imgBottomPlay.setImageResource(R.drawable.ic_play)
+            isPlay = false
+        }
+        tvBottomName.text= listMedia[position].nameSong
+        tvBottomSinger.text = listMedia[position].singer
+        imgBottomThumbnail.setImageURI(Uri.parse(listMedia[position].thumbnail))
+        if(imgBottomThumbnail.drawable==null){
+            imgBottomThumbnail.setImageResource(R.drawable.ic_music_note)
+        }
+        val intent = Intent(context, PlayMusicService::class.java)
+        intent.putParcelableArrayListExtra(PlayMusicFragment.MUSICLIST, listMedia)
+        intent.putExtra(PlayMusicFragment.MUSICITEMPOSITION,position)
+        context?.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+        contrainLayoutPlay.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                activity?.supportFragmentManager?.beginTransaction()
+                        ?.add(R.id.frameLayout, PlayMusicFragment.newInstance(listMedia,position, isPlay))
+                        ?.addToBackStack(null)
+                        ?.commit()
+            }
+
+        })
+    }
+
     private var serviceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
 

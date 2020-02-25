@@ -8,9 +8,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_play_music.*
@@ -20,8 +22,9 @@ class PlayMusicFragment : Fragment() {
     private var position: Int = 0
     private lateinit var media: Media
     private var boundService: Boolean = false
-    private lateinit var playMusicService: PlayMusicService
+    private var playMusicService: PlayMusicService ?= null
     private var isPlay: Boolean = false
+    private var handler= Handler()
 
     companion object {
         var MUSICLIST = "musiclist"
@@ -51,8 +54,16 @@ class PlayMusicFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_play_music, container, false)
     }
 
+    override fun onPause() {
+        super.onPause()
+        activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.frameLayout, ListMusicFragment.newInstance(position, isPlay))
+                ?.commit()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        seekBar()
         if(isPlay==false){
             btnPlay.setImageResource(R.drawable.ic_play)
         }
@@ -63,7 +74,6 @@ class PlayMusicFragment : Fragment() {
         if(imgThumbnailPlay.drawable==null){
             imgThumbnailPlay.setImageResource(R.drawable.ic_music_note)
         }
-        tvCurrentPosition.text = listSong[position].time
         tvNamePlay.text = listSong[position].nameSong
         tvSingerPlay.text = listSong[position].singer
         val intent = Intent(context, PlayMusicService::class.java)
@@ -73,12 +83,12 @@ class PlayMusicFragment : Fragment() {
 
         btnPlay.setOnClickListener {
             if (!isPlay) {
-                playMusicService.pauseMusic()
+                playMusicService?.pauseMusic()
                 btnPlay.setImageResource(R.drawable.ic_pause)
                 isPlay = true
             } else {
                 btnPlay.setImageResource(R.drawable.ic_play)
-                playMusicService.runContinueMusic()
+                playMusicService?.runContinueMusic()
                 isPlay = false
             }
         }
@@ -90,12 +100,11 @@ class PlayMusicFragment : Fragment() {
             if(imgThumbnailPlay.drawable==null){
                 imgThumbnailPlay.setImageResource(R.drawable.ic_music_note)
             }
-            tvCurrentPosition.text = listSong[musicPos].time
             tvNamePlay.text = listSong[musicPos].nameSong
             tvSingerPlay.text = listSong[musicPos].singer
             position = musicPos
             btnPlay.setImageResource(R.drawable.ic_play)
-            playMusicService.nextMusic()
+            playMusicService?.nextMusic()
         }
 
         btnPrevious.setOnClickListener {
@@ -105,14 +114,46 @@ class PlayMusicFragment : Fragment() {
             if(imgThumbnailPlay.drawable==null){
                 imgThumbnailPlay.setImageResource(R.drawable.ic_music_note)
             }
-            tvCurrentPosition.text = listSong[musicPos].time
             tvNamePlay.text = listSong[musicPos].nameSong
             tvSingerPlay.text = listSong[musicPos].singer
             position = musicPos
             btnPlay.setImageResource(R.drawable.ic_play)
-            playMusicService.previousMusic()
+            playMusicService?.previousMusic()
         }
     }
+
+    fun seekBar(){
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                if (seekBar != null) {
+                    playMusicService?.seekTo(seekBar.progress)
+                }
+            }
+
+        })
+        val runnable = object : Runnable{
+            override fun run() {
+                var currenPosision = playMusicService?.getCurrentPosition()
+                if(currenPosision!=null){
+                    seekBar?.progress = currenPosision
+                    tvDuration?.text=convertDuration(listSong[position].time.toLong())
+                    tvCurrentPosition?.text= convertDuration(currenPosision.toString().toLong())
+                }
+                handler.postDelayed(this,200)
+                seekBar?.max= listSong[position].time.toInt()
+            }
+        }
+        handler.post(runnable)
+    }
+
 
     private var serviceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {
@@ -123,6 +164,9 @@ class PlayMusicFragment : Fragment() {
             val binder: PlayMusicService.MediaBinder = service as PlayMusicService.MediaBinder
             playMusicService = binder.getService()
             boundService = true
+            service.getService().onItemClicked = {
+                Log.i("vinh","music position: "+it)
+            }
         }
     }
 
