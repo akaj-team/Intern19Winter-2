@@ -4,18 +4,22 @@ import android.Manifest
 import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
+import asiantech.internship.summer.service.Utils.DEFAUlT_POS
 import asiantech.internship.summer.service.Utils.NEXT_ACTION
 import asiantech.internship.summer.service.Utils.PLAY_ACTION
 import asiantech.internship.summer.service.Utils.PREV_ACTION
@@ -57,18 +61,14 @@ class PlayListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_playlist, container, false)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkPermission()
         initListener()
-        if (isPlaying) {
-            imgPlay.isSelected = isPlaying
-        } else {
-            imgPlay.isSelected = isPlaying
-        }
-        if (musicService.getPosition() > -1) {
-            setMusic(songList[musicService.getPosition()])
-        }
+//        if (musicService.getPosition() > -1) {
+//            setMusic(songList[musicService.getPosition()])
+//        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -130,10 +130,10 @@ class PlayListFragment : Fragment() {
         songList.addAll(Utils.getSongDevices(requireContext()))
     }
 
-    private fun initAdapter(context: Context) {
-        adapter = MusicAdapter(songList, context)
+    private fun initAdapter() {
+        adapter = MusicAdapter(songList, requireContext())
         adapter.onItemClicked = { it ->
-            startMusic(context, songList, it)
+            startMusic(requireContext(), songList, it)
             createNotification(it)
         }
         imgNext.setOnClickListener {
@@ -141,7 +141,7 @@ class PlayListFragment : Fragment() {
         }
         imgPlay.setOnClickListener {
             if (musicService.getPosition() < 0) {
-                startMusic(requireContext(), songList, position)
+                startMusic(requireContext(), songList, DEFAUlT_POS)
             } else {
                 pauseSong()
             }
@@ -156,7 +156,7 @@ class PlayListFragment : Fragment() {
         setMusic(songList[position])
         imgNext.isSelected = true
         isPlaying = true
-        context.startService(PlayMusicService.getMusicDataIntent(context, songList, position))
+        context.startService(PlayMusicService.getMusicDataIntent(requireContext(), songList, position))
     }
 
     private fun createNotification(position: Int) {
@@ -186,7 +186,7 @@ class PlayListFragment : Fragment() {
             setMusic(songList[position])
             imgNext.isSelected = true
         }
-        initAdapter(requireContext())
+        initAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
     }
@@ -200,25 +200,36 @@ class PlayListFragment : Fragment() {
     }
 
     private var musicConnection = object : ServiceConnection {
-        override fun onServiceDisconnected(name: ComponentName?) {
+        override fun onServiceDisconnected(name: ComponentName) {
             musicBound = false
 
         }
 
-        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
             musicBound = true
-            val binder: PlayMusicService.MusicBinder = service as PlayMusicService.MusicBinder
+            val binder = service as PlayMusicService.MusicBinder
             musicService = binder.getService
             position = musicService.getPosition()
+            if(position>-1){
+                setMusic(songList[position])
+                imgNext.isSelected = true
+                imgPlay.isSelected = musicService.isPlaying()
+            }
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if(musicBound){
+            context?.unbindService(musicConnection)
+            musicBound = false
         }
     }
 
     override fun onStart() {
         super.onStart()
-        if (playIntent == null) {
-            playIntent = Intent(context, PlayMusicService::class.java)
-            context?.bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE)
-        }
+        playIntent = Intent(requireContext(), PlayMusicService::class.java)
+        context?.bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE)
     }
 
     private fun nextMusic() {

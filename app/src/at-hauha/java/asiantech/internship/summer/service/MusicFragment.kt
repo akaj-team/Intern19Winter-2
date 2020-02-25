@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.SeekBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import asiantech.internship.summer.service.Utils.NEXT_ACTION
@@ -26,9 +25,9 @@ class MusicFragment : Fragment() {
         private const val ARG_POSITION = "position"
         private const val ARG_LIST = "songList"
         private const val ARG_PLAYING = "isPlaying"
-        fun newInstance(mPosition: Int, songList: ArrayList<Song>, isPlaying: Boolean) = MusicFragment().apply {
+        fun newInstance(position: Int, songList: ArrayList<Song>, isPlaying: Boolean) = MusicFragment().apply {
             arguments = Bundle().apply {
-                putInt(ARG_POSITION, mPosition)
+                putInt(ARG_POSITION, position)
                 putParcelableArrayList(ARG_LIST, songList)
                 putBoolean(ARG_PLAYING, isPlaying)
             }
@@ -43,6 +42,8 @@ class MusicFragment : Fragment() {
     private lateinit var songList: ArrayList<Song>
     private var isPlaying = false
     private var isShuffle = false
+    private var isLoop = false
+    private var isReplay = false
     private val mHandler = Handler()
     private var runnable = Runnable { }
 
@@ -78,6 +79,10 @@ class MusicFragment : Fragment() {
         imgShuffle.isSelected = false
         setMusic(song)
         updateMusic()
+        onClick()
+    }
+
+    private fun onClick(){
         imgPlay.setOnClickListener {
             pauseSong()
         }
@@ -91,10 +96,15 @@ class MusicFragment : Fragment() {
         }
         tvBack.setOnClickListener {
             (activity as? MusicActivity)?.replacePlayListFragment(musicService.getPosition(),isPlaying)
-            //Toast.makeText(requireContext(),position.toString(),Toast.LENGTH_LONG).show()
         }
         imgShuffle.setOnClickListener {
             shuffleMusic()
+        }
+        imgLoop.setOnClickListener {
+            loopMusic()
+        }
+        imgReplay.setOnClickListener {
+            replayMusic()
         }
     }
 
@@ -140,7 +150,30 @@ class MusicFragment : Fragment() {
             musicService.shuffleMusic()
         } else {
             imgShuffle.isSelected = false
+            musicService.unShuffle()
             isShuffle = false
+        }
+    }
+
+    private fun loopMusic() {
+        if (!isLoop) {
+            imgLoop.isSelected = true
+            musicService.loopMusic()
+            isLoop = true
+        } else {
+            imgLoop.isSelected = false
+            isLoop = false
+        }
+    }
+
+    private fun replayMusic() {
+        if (!isReplay) {
+            musicService.isReplay()
+            imgReplay.isSelected = true
+            isReplay = true
+        } else {
+            imgReplay.isSelected = false
+            isReplay = false
         }
     }
 
@@ -160,9 +193,19 @@ class MusicFragment : Fragment() {
     override fun onStart() {
         super.onStart()
         if (playIntent == null) {
-            playIntent = Intent(context, PlayMusicService::class.java)
+            playIntent = Intent(requireContext(), PlayMusicService::class.java)
             context?.bindService(playIntent, musicConnection, Context.BIND_AUTO_CREATE)
         }
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if(musicBound){
+            context?.unbindService(musicConnection)
+            musicBound = false
+        }
+
     }
 
     fun setMusic(song: Song) {
@@ -225,6 +268,8 @@ class MusicFragment : Fragment() {
                 if (currentPosition != null) {
                     seekBar.progress = currentPosition
                     position = musicService.getPosition()
+                    songList = musicService.songList()
+                    imgReplay.isSelected = musicService.getIsReplay()
                     tvStart.text = Utils.convertTime(currentPosition)
                 }
                 mHandler.postDelayed(this, DELAY_TIME)

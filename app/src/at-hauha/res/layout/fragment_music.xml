@@ -71,7 +71,7 @@
         android:id="@+id/imgNext"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="40dp"
         android:src="@drawable/ic_skip_next_pink_400_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -81,7 +81,7 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginTop="40dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="40dp"
         android:src="@drawable/play_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,18 +91,39 @@
         android:id="@+id/imgPrevious"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="40dp"
         android:src="@drawable/ic_skip_previous_pink_400_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imgLoop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/loop_button"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSongName" />
+
     <ImageView
         android:id="@+id/imgShuffle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/shuffle_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgPlay"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@id/imgLoop"
+        app:layout_constraintStart_toEndOf="@id/imgReplay"
+        app:layout_constraintTop_toBottomOf="@id/tvSongName" />
+
+    <ImageView
+        android:id="@+id/imgReplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/replay_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvSongName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

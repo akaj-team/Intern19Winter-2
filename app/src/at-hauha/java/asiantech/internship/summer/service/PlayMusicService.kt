@@ -12,12 +12,18 @@ import asiantech.internship.summer.service.Utils.POSITION
 import asiantech.internship.summer.service.Utils.SONGLIST
 import asiantech.internship.summer.service.model.Song
 
-open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
+class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
 
     private lateinit var songList: ArrayList<Song>
-    private var currentPos = -1
+    private lateinit var songShuffle: ArrayList<Song>
+    private lateinit var songs: ArrayList<Song>
+    private var position = -1
     private var mediaPlayer: MediaPlayer? = null
     private var musicBinder = MusicBinder()
+    private var isPlaying = false
+    private var isLoop = false
+    private var isReplay = false
+    private var replay = 0
 
     companion object {
         fun getMusicDataIntent(context: Context, songList: ArrayList<Song>, currentPos: Int): Intent {
@@ -28,11 +34,9 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
             }
             return musicDataIntent
         }
-
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-
         return musicBinder
     }
 
@@ -43,14 +47,26 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent?.apply {
             songList = getParcelableArrayListExtra<Song>(SONGLIST) as ArrayList<Song>
-            currentPos = getIntExtra(POSITION, DEFAUlT_POS)
+            position = getIntExtra(POSITION, DEFAUlT_POS)
         }
+        songs = songList
         playMusic()
-        return super.onStartCommand(intent, flags, startId)
+        return START_NOT_STICKY
     }
 
     override fun onCompletion(mp: MediaPlayer?) {
-        nextSong()
+        if (isLoop) {
+            playMusic()
+        } else {
+            if (isReplay && replay < 1) {
+                replay++
+                playMusic()
+            } else {
+                mediaPlayer?.reset()
+                nextSong()
+                isReplay = false
+            }
+        }
     }
 
     inner class MusicBinder : Binder() {
@@ -64,28 +80,47 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
         mediaPlayer?.setOnPreparedListener {
             mediaPlayer?.start()
         }
+        isPlaying = true
+    }
+
+    fun loopMusic() {
+        isLoop = true
+    }
+
+    fun isReplay() {
+        replay = 0
+        isReplay = true
     }
 
     fun shuffleMusic() {
         songList.shuffle()
     }
 
-    fun playSong() {
-        mediaPlayer?.start()
+    fun unShuffle() {
+        songList = songs
     }
 
+    fun playSong() {
+        mediaPlayer?.start()
+        isPlaying = true
+    }
+
+    fun isPlaying() = isPlaying
+
+    fun getIsReplay() = isReplay
+
     fun nextSong() {
-        currentPos++
-        if (currentPos >= songList.size) {
-            currentPos = DEFAUlT_POS
+        position++
+        if (position >= songList.size) {
+            position = DEFAUlT_POS
         }
         playMusic()
     }
 
     fun prevSong() {
-        currentPos--
-        if (currentPos < 0) run {
-            currentPos = songList.size - 1
+        position--
+        if (position < 0) run {
+            position = songList.size - 1
         }
         playMusic()
     }
@@ -96,6 +131,7 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
 
     fun pauseSong() {
         mediaPlayer?.pause()
+        isPlaying = false
     }
 
     private fun initMediaPlayer() {
@@ -106,18 +142,17 @@ open class PlayMusicService : Service(), MediaPlayer.OnPreparedListener, MediaPl
         }
         mediaPlayer = MediaPlayer()
         mediaPlayer?.setOnCompletionListener(this)
-        mediaPlayer?.setDataSource(songList[currentPos].path)
+        mediaPlayer?.setDataSource(songList[position].path)
     }
 
-    fun getPosition(): Int {
-        return currentPos
-    }
+    fun getPosition() = position
 
     fun seekToMedia(seekBar: SeekBar) {
         mediaPlayer?.seekTo(seekBar.progress)
     }
 
-    fun getSize(): Int{
-        return songList.size
+    fun songList(): ArrayList<Song> {
+        return songList
     }
+
 }
