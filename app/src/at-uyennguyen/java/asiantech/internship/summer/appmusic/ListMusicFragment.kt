@@ -7,35 +7,35 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_list_music.*
 
+@Suppress("DEPRECATION")
 class ListMusicFragment : Fragment() {
     private var isPlay: Boolean = false
     private lateinit var playMusicService: PlayMusicService
     var position: Int = 0
-    var musicPos : Int =0
-    var media : Media ?= null
+    var musicPos: Int = 0
+    var media: Media? = null
     lateinit var listMusicAdapter: ListMusicAdapter
     private var listMedia = arrayListOf<Media>()
+    private var appNotification: AppNotification? = null
 
     companion object {
         private var READ_CODE_REQUEST = 111
-        const val ISPLAY= "isplay"
+        const val ISPLAY = "isplay"
         const val POSITION = "position"
-        fun newInstance( position : Int, isplay : Boolean): ListMusicFragment {
+        fun newInstance(position: Int, isplay: Boolean): ListMusicFragment {
             val listMusicFragment = ListMusicFragment()
             val bundle = Bundle()
             bundle.putBoolean(ISPLAY, isplay)
-            bundle.putInt(POSITION,position)
+            bundle.putInt(POSITION, position)
             listMusicFragment.arguments = bundle
             return listMusicFragment
         }
@@ -56,11 +56,15 @@ class ListMusicFragment : Fragment() {
             val intent = Intent(context, PlayMusicService::class.java)
             intent.putParcelableArrayListExtra(PlayMusicFragment.MUSICLIST, listMedia)
             intent.putExtra(PlayMusicFragment.MUSICITEMPOSITION, it)
+//            notification()
             context?.startService(intent)
+            appNotification = AppNotification(playMusicService, listMedia[it], isPlay)
+            val notification = appNotification?.createNotifi()
+            playMusicService.startForeground(1, notification)
             listMedia[it].run {
                 position = it
                 musicPos = position
-                imgBottomPlay.setImageResource(R.drawable.ic_play)
+                imgBottomPlay.setImageResource(R.drawable.ic_pause_white_36dp)
                 tvBottomName.text = listMedia[it].nameSong
                 tvBottomSinger.text = listMedia[it].singer
                 imgBottomThumbnail.setImageURI(Uri.parse(listMedia[it].thumbnail))
@@ -70,51 +74,68 @@ class ListMusicFragment : Fragment() {
             }
             context?.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
         }
-        imgBottomPlay.setOnClickListener(object : View.OnClickListener{
+        imgBottomPlay.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 if (!isPlay) {
                     playMusicService.pauseMusic()
-                    imgBottomPlay.setImageResource(R.drawable.ic_pause)
+                    imgBottomPlay.setImageResource(R.drawable.ic_play_circle)
                     isPlay = true
                 } else {
-                    imgBottomPlay.setImageResource(R.drawable.ic_play)
+                    imgBottomPlay.setImageResource(R.drawable.ic_pause_white_36dp)
                     playMusicService.runContinueMusic()
                     isPlay = false
                 }
+                appNotification = AppNotification(playMusicService, listMedia[musicPos], isPlay)
+                val notification = appNotification?.createNotifi()
+                playMusicService.startForeground(1, notification)
             }
 
         })
-        imgBottomNext.setOnClickListener(object : View.OnClickListener{
+        imgBottomNext.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 isPlay = false
-                musicPos = position + 1
+                if (musicPos == listMedia.size - 1) {
+                    musicPos = 0
+                } else {
+                    musicPos = position + 1
+                }
+                appNotification = AppNotification(playMusicService, listMedia[musicPos], isPlay)
+                val notification = appNotification?.createNotifi()
+                playMusicService.startForeground(1, notification)
                 imgBottomThumbnail.setImageURI(Uri.parse(listMedia[musicPos].thumbnail))
-                if(imgBottomThumbnail.drawable==null){
+                if (imgBottomThumbnail.drawable == null) {
                     imgBottomThumbnail.setImageResource(R.drawable.ic_music_note)
                 }
                 tvBottomName.text = listMedia[musicPos].nameSong
                 tvBottomSinger.text = listMedia[musicPos].singer
                 position = musicPos
-                imgBottomPlay.setImageResource(R.drawable.ic_play)
+                imgBottomPlay.setImageResource(R.drawable.ic_pause_white_36dp)
                 playMusicService.nextMusic()
             }
         })
-        imgBottomPrevious.setOnClickListener(object  : View.OnClickListener{
+        imgBottomPrevious.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 isPlay = false
-                musicPos = position - 1
+                if (musicPos <= 0) {
+                    musicPos = listMedia.size - 1
+                } else {
+                    musicPos = position - 1
+                }
+                appNotification = AppNotification(playMusicService, listMedia[musicPos], isPlay)
+                val notification = appNotification?.createNotifi()
+                playMusicService.startForeground(1, notification)
                 imgBottomThumbnail.setImageURI(Uri.parse(listMedia[musicPos].thumbnail))
-                if(imgBottomThumbnail.drawable==null){
+                if (imgBottomThumbnail.drawable == null) {
                     imgBottomThumbnail.setImageResource(R.drawable.ic_music_note)
                 }
                 tvBottomName.text = listMedia[musicPos].nameSong
                 tvBottomSinger.text = listMedia[musicPos].singer
                 position = musicPos
-                imgBottomPlay.setImageResource(R.drawable.ic_play)
+                imgBottomPlay.setImageResource(R.drawable.ic_pause_white_36dp)
                 playMusicService.previousMusic()
             }
         })
-        contrainLayoutPlay.setOnClickListener(object : View.OnClickListener{
+        contrainLayoutPlay.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 activity?.supportFragmentManager?.beginTransaction()
                         ?.add(R.id.frameLayout, PlayMusicFragment.newInstance(listMedia, position, isPlay))
@@ -128,7 +149,7 @@ class ListMusicFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val pos = arguments?.getInt(POSITION)
-        var play : Boolean? = arguments?.getBoolean(ISPLAY)
+        var play: Boolean? = arguments?.getBoolean(ISPLAY)
         if (play != null) {
             isPlay = play
         }
@@ -136,26 +157,26 @@ class ListMusicFragment : Fragment() {
             position = pos
         }
         if (isPlay) {
-            imgBottomPlay.setImageResource(R.drawable.ic_pause)
+            imgBottomPlay.setImageResource(R.drawable.ic_play_circle)
             isPlay = true
         } else {
-            imgBottomPlay.setImageResource(R.drawable.ic_play)
+            imgBottomPlay.setImageResource(R.drawable.ic_pause_white_36dp)
             isPlay = false
         }
-        tvBottomName.text= listMedia[position].nameSong
+        tvBottomName.text = listMedia[position].nameSong
         tvBottomSinger.text = listMedia[position].singer
         imgBottomThumbnail.setImageURI(Uri.parse(listMedia[position].thumbnail))
-        if(imgBottomThumbnail.drawable==null){
+        if (imgBottomThumbnail.drawable == null) {
             imgBottomThumbnail.setImageResource(R.drawable.ic_music_note)
         }
         val intent = Intent(context, PlayMusicService::class.java)
         intent.putParcelableArrayListExtra(PlayMusicFragment.MUSICLIST, listMedia)
-        intent.putExtra(PlayMusicFragment.MUSICITEMPOSITION,position)
+        intent.putExtra(PlayMusicFragment.MUSICITEMPOSITION, position)
         context?.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-        contrainLayoutPlay.setOnClickListener(object : View.OnClickListener{
+        contrainLayoutPlay.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 activity?.supportFragmentManager?.beginTransaction()
-                        ?.add(R.id.frameLayout, PlayMusicFragment.newInstance(listMedia,position, isPlay))
+                        ?.add(R.id.frameLayout, PlayMusicFragment.newInstance(listMedia, position, isPlay))
                         ?.addToBackStack(null)
                         ?.commit()
             }
@@ -173,6 +194,13 @@ class ListMusicFragment : Fragment() {
             playMusicService = binder.getService()
         }
     }
+
+//    fun notification(){
+//        appNotification = AppNotification(playMusicService)
+//        var notification = notification
+//        playMusicService.startForeground(1,appNotification)
+//        Log.d("abcd","notification")
+//    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == READ_CODE_REQUEST && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
