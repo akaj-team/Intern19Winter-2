@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +21,6 @@ class MusicFragment : Fragment(), View.OnClickListener {
         private const val DEFAULT_VALUE = 0
     }
 
-    private lateinit var receiver: BroadcastReceiver
     private var positionMusicPlaying = DEFAULT_VALUE
     private var musicService = ForegroundService()
     private var musicBound = false
@@ -42,45 +40,12 @@ class MusicFragment : Fragment(), View.OnClickListener {
         initListeners()
     }
 
-    private fun createIntentFilter() {
-        val filter = IntentFilter()
-        filter.apply {
-            addAction(MusicAction().PRIVIOUS)
-            addAction(MusicAction().PAUSE)
-            addAction(MusicAction().NEXT)
-        }
-        requireContext().registerReceiver(receiver, filter)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        receiver = object : MusicReceiver(ForegroundService()) {
-            override fun onReceive(context: Context?, intent: Intent?) {
-                if (intent?.extras != null) {
-                    val action = intent.action
-                    Log.i("XXX", "Music Fragment action: $action")
-                    when (intent?.action) {
-                        MusicAction().NEXT -> {
-                            positionMusicPlaying++
-                            setStatus()
-                        }
-                    }
-                }
-            }
-        }
-        createIntentFilter()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        requireContext().unregisterReceiver(receiver)
-    }
-
     override fun onStart() {
         super.onStart()
         val intent = Intent(context, ForegroundService::class.java)
         context?.bindService(intent, musicConnection, Context.BIND_AUTO_CREATE)
         positionMusicPlaying = musicService.getPosition()
+        btnPlayPause.isSelected = musicService.isPlaying()
         setStatus()
     }
 
@@ -92,6 +57,9 @@ class MusicFragment : Fragment(), View.OnClickListener {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
             val binder = p1 as ForegroundService.LocalBinder
             musicService = binder.getService
+            positionMusicPlaying = musicService.getPosition()
+            btnPlayPause.isSelected = musicService.isPlaying()
+            setStatus()
             musicBound = true
         }
     }
@@ -99,7 +67,7 @@ class MusicFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view) {
             btnNext -> {
-                sendAction(MusicAction().NEXT)
+                sendAction(MusicAction.NEXT)
                 positionMusicPlaying++
                 setStatus()
             }
@@ -121,16 +89,14 @@ class MusicFragment : Fragment(), View.OnClickListener {
     }
 
     private fun onPausePlayMusic() {
-        btnPlayPause.setOnClickListener {
-            isPlaying = if (!isPlaying) {
-                sendAction(MusicAction().PLAY)
-                btnPlayPause.isSelected = true
-                true
-            } else {
-                btnPlayPause.isSelected = false
-                sendAction(MusicAction().PAUSE)
-                false
-            }
+        isPlaying = if (!isPlaying) {
+            sendAction(MusicAction.PLAY)
+            btnPlayPause.isSelected = true
+            true
+        } else {
+            btnPlayPause.isSelected = false
+            sendAction(MusicAction.PAUSE)
+            false
         }
     }
 

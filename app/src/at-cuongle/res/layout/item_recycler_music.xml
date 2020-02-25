@@ -27,6 +27,8 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:textColor="#FFFFFF"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintLeft_toLeftOf="@+id/imgMusic"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imgMusic" />

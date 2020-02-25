@@ -30,10 +30,26 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:layout_marginTop="10dp"
-        android:onClick="onClickShowBroadcast"
         android:background="@drawable/ic_skip_previous_red_a400_24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/seekBar" />
+
+    <Button
+        android:id="@+id/btnShuffle"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="@dimen/margin_top_40_dp"
+        android:background="@drawable/ic_shuffle_red_a400_24dp"
+        app:layout_constraintStart_toStartOf="@+id/imgMusic"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLoop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_loop_red_a400_24dp"
+        app:layout_constraintEnd_toEndOf="@+id/imgMusic"
+        app:layout_constraintTop_toTopOf="@+id/btnShuffle" />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -45,21 +61,21 @@
         app:layout_constraintTop_toBottomOf="@+id/imgMusic" />
 
     <TextView
-        android:id="@+id/tvCurrentDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="90dp"
-        android:textColor="#80828A"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgMusic" />
-
-    <TextView
         android:id="@+id/tvDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
         android:textColor="#80828A"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgMusic" />
+
+    <TextView
+        android:id="@+id/tvCurrentDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="90dp"
+        android:textColor="#80828A"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imgMusic" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -71,10 +87,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!--    <TextView-->
-    <!--        app:layout_constraintTop_toBottomOf="@+id/seekBar"-->
-    <!--        android:id="@+id/tvTiming"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

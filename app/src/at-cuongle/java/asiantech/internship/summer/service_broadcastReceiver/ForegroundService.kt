@@ -7,16 +7,21 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.MediaMetadataRetriever
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import asiantech.internship.summer.R
+import java.lang.Exception
 
 class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener, MediaPlayer.OnCompletionListener {
     companion object {
@@ -28,7 +33,7 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
             ContextCompat.startForegroundService(context, startIntent)
         }
 
-        fun stopService(context: Context) {
+        fun stopService1(context: Context) {
             val stopIntent = Intent(context, ForegroundService::class.java)
             context.stopService(stopIntent)
         }
@@ -37,44 +42,58 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     private val filter = IntentFilter()
     private var binder = LocalBinder()
     private var positionSong: Int = 0
+    private var isPlaying = false
     private var mediaPlayer: MediaPlayer? = null
     private val music = mutableListOf<Music>()
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         val input = intent.getIntExtra("inputExtra", DEFAULT_VALUE_POSITION)
         if (input != DEFAULT_VALUE_POSITION) {
             positionSong = input
+            playMusic()
+            isPlaying = true
         }
-        Log.i("XXX", positionSong.toString())
-        createNotificationChannel()
-        playMusic()
-        Log.i("XXX", "Foreground action: ${intent.action}")
+        Log.i("XXX", intent.action.toString())
         when (intent?.action) {
-            MusicAction().NEXT -> {
+            MusicAction.NEXT -> {
                 playNext()
             }
-            MusicAction().PAUSE -> {
+            MusicAction.PAUSE -> {
+                isPlaying = false
                 pauseMusic()
             }
-            MusicAction().PLAY -> {
+            MusicAction.PLAY -> {
                 playSong()
+                isPlaying = true
             }
-            MusicAction().PRIVIOUS -> {
+            MusicAction.PRIVIOUS -> {
                 playPrevious()
             }
+            MusicAction.SHUFFLE -> {
+                shuffleMusic()
+            }
+            MusicAction.LOOP -> {
+                loopMusic()
+            }
+            MusicAction.CLOSE -> {
+                stopService1(ForegroundService())
+            }
+
         }
-        return START_NOT_STICKY
+        createNotificationChannel()
+        return START_REDELIVER_INTENT
     }
 
     private fun createNotificationChannel() {
         val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(music[positionSong].name)
                 .setSmallIcon(R.drawable.ic_music)
-                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_music))
-                .addAction(R.drawable.ic_skip_previous_red_a400_24dp, "previous", createAction(MusicAction().PRIVIOUS))
-                .addAction(R.drawable.ic_play_circle_outline_red_a400_24dp, "play", createAction(MusicAction().PAUSE))
-                .addAction(R.drawable.ic_skip_next_red_a400_24dp, "next", createAction(MusicAction().NEXT))
-                .addAction(R.drawable.ic_close_black_24dp, "close", createAction(MusicAction().CLOSE))
-                .setStyle(androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView(1, 2, 3))
+//                .setLargeIcon(convertUriToBitmap(Uri.parse(music[positionSong].image.toString()), ForegroundService()))
+                .addAction(R.drawable.ic_skip_previous_red_a400_24dp, "previous", createAction(MusicAction.PRIVIOUS))
+                .addAction(R.drawable.ic_play_circle_outline_red_a400_24dp, "play", createAction(MusicAction.PLAY))
+                .addAction(R.drawable.ic_pause_circle_outline_red_a400_24dp, "pause", createAction(MusicAction.PAUSE))
+                .addAction(R.drawable.ic_skip_next_red_a400_24dp, "next", createAction(MusicAction.NEXT))
+                .addAction(R.drawable.ic_close_black_24dp, "close", createAction(MusicAction.CLOSE))
+                .setStyle(androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView(1, 2, 3, 4))
                 .build()
         startForeground(1, notification)
         createIntentFilter()
@@ -87,19 +106,20 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     }
 
     private fun createAction(action: String): PendingIntent? {
-        val intent = Intent()
+        val intent = Intent(this, ForegroundService::class.java)
         intent.action = action
-        return PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        return PendingIntent.getService(this, 0, intent, 0)
     }
 
     private fun createIntentFilter() {
         filter.apply {
-            addAction(MusicAction().PRIVIOUS)
-            addAction(MusicAction().PAUSE)
-            addAction(MusicAction().NEXT)
-            addAction(MusicAction().CLOSE)
+            addAction(MusicAction.PRIVIOUS)
+            addAction(MusicAction.PAUSE)
+            addAction(MusicAction.NEXT)
+            addAction(MusicAction.PLAY)
+            addAction(MusicAction.CLOSE)
         }
-        registerReceiver(MusicReceiver(this), filter)
+        registerReceiver(MusicReceiver(), filter)
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -129,6 +149,9 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
             mediaPlayer?.release()
         }
         mediaPlayer = MediaPlayer()
+        mediaPlayer?.setOnCompletionListener {
+            playNext()
+        }
     }
 
     private fun playMusic() {
@@ -148,6 +171,17 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
     private fun playPrevious() {
         positionSong--
         playMusic()
+    }
+
+    private fun shuffleMusic() {
+    }
+
+    internal fun isPlaying(): Boolean {
+        return isPlaying
+    }
+
+    private fun loopMusic() {
+        mediaPlayer?.isLooping = true
     }
 
     private fun pauseMusic() {
@@ -179,4 +213,14 @@ class ForegroundService : Service(), MediaPlayer.OnPreparedListener, MediaPlayer
 
     override fun onCompletion(p0: MediaPlayer?) {
     }
+//
+//    private fun convertUriToBitmap(path: Uri, context: Context): Bitmap? {
+//        val retriever = MediaMetadataRetriever()
+//        retriever.setDataSource(context, path)
+//        val byteArray = retriever.embeddedPicture
+//        if (byteArray != null) {
+//            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+//        }
+//        return null
+//    }
 }

@@ -20,12 +20,9 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver android:name=".service_broadcastReceiver.MusicReceiver"/>
         <service android:name=".service_broadcastReceiver.ForegroundService" />
     </application>
 

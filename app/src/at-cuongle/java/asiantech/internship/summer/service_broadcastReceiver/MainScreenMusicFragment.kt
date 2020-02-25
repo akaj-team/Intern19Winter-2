@@ -55,6 +55,8 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
         override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
             val binder = p1 as ForegroundService.LocalBinder
             musicService = binder.getService
+            btnPausePlay.isSelected = musicService.isPlaying()
+            isPlaying = musicService.isPlaying()
             musicBound = true
         }
     }
@@ -72,6 +74,8 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
         btnNextMain.setOnClickListener(this)
         btnPreviousMain.setOnClickListener(this)
         btnPausePlay.setOnClickListener(this)
+        btnShuffle.setOnClickListener(this)
+        btnLoop.setOnClickListener(this)
         handleSeekBar()
 
     }
@@ -92,35 +96,6 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
         context?.startService(intent)
     }
 
-    private fun createIntentFilter() {
-        val filter = IntentFilter()
-        filter.apply {
-            addAction(MusicAction().PRIVIOUS)
-            addAction(MusicAction().PAUSE)
-            addAction(MusicAction().NEXT)
-        }
-        requireContext().registerReceiver(receiver, filter)
-    }
-
-    private val receiver = object : MusicReceiver(ForegroundService()) {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            if (intent?.extras != null) {
-                val action = intent.action
-                Log.i("XXX", "Main Fragment action: $action")
-            }
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        createIntentFilter()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        requireContext().unregisterReceiver(receiver)
-    }
-
     private fun startRotatingImage() {
         val startRotateAnimation: Animation = AnimationUtils.loadAnimation(context, R.anim.animation_rotate)
         imgMusic.startAnimation(startRotateAnimation)
@@ -128,6 +103,8 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
 
     private fun handleSeekBar() {
         seekBar.max = music[position].duration
+        btnPausePlay.isSelected = true
+
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
             }
@@ -142,8 +119,6 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
         runnable = object : Runnable {
             override fun run() {
                 position = musicService.getPosition()
-                btnPausePlay.isSelected = true
-//                isPlaying = true
                 setImage()
                 val currentDuration = musicService.getCurrentDuration()
                 if (currentDuration != null) {
@@ -171,24 +146,32 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
     override fun onClick(view: View?) {
         when (view) {
             btnNextMain -> {
-                sendAction(MusicAction().NEXT)
+                sendAction(MusicAction.NEXT)
             }
             btnPausePlay -> {
                 onPausePlayMusic()
             }
             btnPreviousMain -> {
-                sendAction(MusicAction().PRIVIOUS)
+                sendAction(MusicAction.PRIVIOUS)
+            }
+            btnShuffle ->{
+                sendAction(MusicAction.SHUFFLE)
+            }
+            btnLoop -> {
+                sendAction(MusicAction.LOOP)
             }
         }
     }
 
     private fun onPausePlayMusic() {
         isPlaying = if (!isPlaying) {
-            sendAction(MusicAction().PLAY)
+            sendAction(MusicAction.PLAY)
             btnPausePlay.isSelected = true
+            Log.i("XXX","play")
             true
         } else {
-            sendAction(MusicAction().PAUSE)
+            sendAction(MusicAction.PAUSE)
+            Log.i("XXX","pause")
             btnPausePlay.isSelected = false
             false
         }
