@@ -12,10 +12,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_list_music.*
 
-class MusicFragment : Fragment(), View.OnClickListener {
+class ListMusicFragment : Fragment(), View.OnClickListener {
     companion object {
         private const val PERMISSION_CODE = 101
         private const val DEFAULT_VALUE = 0

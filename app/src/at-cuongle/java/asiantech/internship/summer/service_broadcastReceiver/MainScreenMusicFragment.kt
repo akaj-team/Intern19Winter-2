@@ -77,7 +77,26 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
         btnShuffle.setOnClickListener(this)
         btnLoop.setOnClickListener(this)
         handleSeekBar()
+    }
 
+    override fun onClick(view: View?) {
+        when (view) {
+            btnNextMain -> {
+                sendAction(MusicAction.NEXT)
+            }
+            btnPausePlay -> {
+                onPausePlayMusic()
+            }
+            btnPreviousMain -> {
+                sendAction(MusicAction.PREVIOUS)
+            }
+            btnShuffle -> {
+                sendAction(MusicAction.SHUFFLE)
+            }
+            btnLoop -> {
+                sendAction(MusicAction.LOOP)
+            }
+        }
     }
 
     override fun onDestroyView() {
@@ -90,7 +109,7 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
     }
 
     private fun sendAction(action: String) {
-        val intent = Intent(requireContext(),ForegroundService::class.java)
+        val intent = Intent(requireContext(), ForegroundService::class.java)
         intent.action = action
         intent.putExtra(action, "1")
         context?.startService(intent)
@@ -123,8 +142,8 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
                 val currentDuration = musicService.getCurrentDuration()
                 if (currentDuration != null) {
                     seekBar.progress = currentDuration
-                    tvDuration.text = toMin(music[position].duration.toLong())
-                    tvCurrentDuration.text = toMin(currentDuration.toLong())
+                    tvDuration.text = MusicData.toMin(music[position].duration.toLong(), requireContext())
+                    tvCurrentDuration.text = MusicData.toMin(currentDuration.toLong(), requireContext())
                 }
                 handler.postDelayed(this, DELAY_TIME)
             }
@@ -137,41 +156,13 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
         music.addAll(MusicData.getMusic(requireContext()))
     }
 
-    internal fun toMin(millis: Long): String {
-        return resources.getString(R.string.tv_duration, TimeUnit.MILLISECONDS.toMinutes(millis),
-                TimeUnit.MILLISECONDS.toSeconds(millis) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
-    }
-
-    override fun onClick(view: View?) {
-        when (view) {
-            btnNextMain -> {
-                sendAction(MusicAction.NEXT)
-            }
-            btnPausePlay -> {
-                onPausePlayMusic()
-            }
-            btnPreviousMain -> {
-                sendAction(MusicAction.PRIVIOUS)
-            }
-            btnShuffle ->{
-                sendAction(MusicAction.SHUFFLE)
-            }
-            btnLoop -> {
-                sendAction(MusicAction.LOOP)
-            }
-        }
-    }
-
     private fun onPausePlayMusic() {
         isPlaying = if (!isPlaying) {
             sendAction(MusicAction.PLAY)
             btnPausePlay.isSelected = true
-            Log.i("XXX","play")
             true
         } else {
             sendAction(MusicAction.PAUSE)
-            Log.i("XXX","pause")
             btnPausePlay.isSelected = false
             false
         }

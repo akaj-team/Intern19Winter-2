@@ -1,11 +1,11 @@
 package asiantech.internship.summer.service_broadcastReceiver
 
-object  MusicAction {
-    internal val NEXT = "next"
-    internal val PRIVIOUS = "back"
-    internal val PAUSE = "pause"
-    internal val PLAY = "play"
-    internal val CLOSE = "close"
-    internal val SHUFFLE = "shuffle"
-    internal val LOOP = "loop"
+object MusicAction {
+    internal const val NEXT = "next"
+    internal const val PREVIOUS = "back"
+    internal const val PAUSE = "pause"
+    internal const val PLAY = "play"
+    internal const val CLOSE = "close"
+    internal const val SHUFFLE = "shuffle"
+    internal const val LOOP = "loop"
 }

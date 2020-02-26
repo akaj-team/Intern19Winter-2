@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/color_background"
-    tools:context="asiantech.internship.summer.service_broadcastReceiver.MusicFragment">
+    android:background="@drawable/ic_background"
+    tools:context="asiantech.internship.summer.service_broadcastReceiver.ListMusicFragment">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewBottom"
@@ -36,12 +36,12 @@
 
         <TextView
             android:id="@+id/tvNameMusicBottom"
-            android:layout_width="200dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="60dp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:textColor="#191B1E" />
+            android:textColor="@color/color_textview_song" />
 
         <TextView
             android:id="@+id/tvArtistBottom"
@@ -50,7 +50,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="60dp"
             android:maxLines="1"
-            android:textColor="#80828A" />
+            android:textColor="@color/color_textview_artist" />
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView

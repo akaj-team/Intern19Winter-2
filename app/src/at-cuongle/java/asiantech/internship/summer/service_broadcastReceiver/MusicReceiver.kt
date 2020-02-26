@@ -8,6 +8,5 @@ import androidx.core.content.ContentProviderCompat.requireContext
 
 class MusicReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
-        Log.i("XXX", "Music Receiver action: ${intent?.action}")
         }
     }

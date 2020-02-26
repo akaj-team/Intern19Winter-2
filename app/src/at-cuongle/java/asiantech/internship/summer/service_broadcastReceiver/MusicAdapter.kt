@@ -1,17 +1,12 @@
 package asiantech.internship.summer.service_broadcastReceiver
 
-import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.media.MediaMetadataRetriever
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
-import kotlinx.android.synthetic.`at-cuongle`.item_recycler_music.view.*
-import java.util.concurrent.TimeUnit
 
 class MusicAdapter(private val recyclerViewHolder: MutableList<Music>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     internal var onSongClicked: (position: Int) -> Unit = {}
@@ -27,19 +22,10 @@ class MusicAdapter(private val recyclerViewHolder: MutableList<Music>) : Recycle
     }
 
     inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal fun bindData() {
-            itemView.run {
-                recyclerViewHolder[adapterPosition].let {
-                    tvNameMusic.text = it.name
-                    tvTime.text = toMin(it.duration.toLong())
-                    tvArtist.text = it.artist
-                    val bitmap = convertUriToBitmap(it.uri, context)
-                    if (bitmap != null) {
-                        imgMusic.setImageURI(it.image)
-                    } else imgMusic.setImageResource(R.drawable.ic_music)
-                }
-            }
-        }
+        private var tvNameMusic: TextView = itemView.findViewById(R.id.tvNameMusic)
+        private var tvTime: TextView = itemView.findViewById(R.id.tvTime)
+        private var tvArtist: TextView = itemView.findViewById(R.id.tvArtist)
+        private var imgMusic: ImageView = itemView.findViewById(R.id.imgMusic)
 
         init {
             itemView.setOnClickListener {
@@ -47,20 +33,18 @@ class MusicAdapter(private val recyclerViewHolder: MutableList<Music>) : Recycle
             }
         }
 
-        internal fun convertUriToBitmap(path: Uri, context: Context): Bitmap? {
-            val retriever = MediaMetadataRetriever()
-            retriever.setDataSource(context, path)
-            val byteArray = retriever.embeddedPicture
-            if (byteArray != null) {
-                return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        internal fun bindData() {
+            recyclerViewHolder[adapterPosition].let {
+                tvNameMusic.text = it.name
+                tvTime.text = MusicData.toMin(it.duration.toLong(), itemView.context)
+                tvArtist.text = it.artist
+                val bitmap = MusicData.convertUriToBitmap(it.uri, itemView.context)
+                if (bitmap != null) {
+                    imgMusic.setImageURI(it.image)
+                } else {
+                    imgMusic.setImageResource(R.drawable.ic_music)
+                }
             }
-            return null
-        }
-
-        private fun toMin(millis: Long): String {
-            return itemView.context.getString(R.string.tv_duration, TimeUnit.MILLISECONDS.toMinutes(millis),
-                    TimeUnit.MILLISECONDS.toSeconds(millis) -
-                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
         }
     }
 }

@@ -9,4 +9,6 @@
     <color name="color_title">#606060</color>
     <color name="color_black">#030F09</color>
     <color name="color_background">#191B1E</color>
+    <color name="color_textview_song">#191B1E</color>
+    <color name="color_textview_artist">#80828A</color>
 </resources>
