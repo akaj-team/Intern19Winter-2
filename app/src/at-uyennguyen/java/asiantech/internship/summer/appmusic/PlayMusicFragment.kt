@@ -12,6 +12,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
@@ -20,12 +22,13 @@ import kotlinx.android.synthetic.`at-uyennguyen`.fragment_play_music.*
 class PlayMusicFragment : Fragment() {
     private lateinit var listSong: ArrayList<Media>
     private var position: Int = 0
-    var musicPos: Int = 0
+    private var musicPos: Int = 0
     private var boundService: Boolean = false
     private var playMusicService: PlayMusicService? = null
     private var isPlay: Boolean = false
     private var handler = Handler()
     private var appNotification: AppNotification? = null
+//    private var rotateAnimation : Animation? = AnimationUtils.loadAnimation(,R.anim.animation)
 
     companion object {
         var MUSICLIST = "musiclist"
@@ -48,31 +51,21 @@ class PlayMusicFragment : Fragment() {
         listSong = arguments?.getParcelableArrayList<Media>(LISTSONG) as ArrayList<Media>
         position = arguments?.getInt(POSITION, 0) ?: 0
         isPlay = arguments?.getBoolean(ISPLAY)!!
-//        val intent = Intent(context, PlayMusicService::class.java)
-//        intent.putParcelableArrayListExtra(MUSICLIST, listSong)
-//        intent.putExtra(MUSICITEMPOSITION, position)
-//        context?.startService(intent)
         return inflater.inflate(R.layout.fragment_play_music, container, false)
-    }
-
-    override fun onPause() {
-        super.onPause()
-        activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.frameLayout, ListMusicFragment.newInstance(position, isPlay))
-                ?.commit()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         seekBar()
         if (isPlay == false) {
+//            imgThumbnailPlay.startAnimation(rotateAnimation)
             btnPlay.setImageResource(R.drawable.ic_pause_white_36dp)
         } else {
             btnPlay.setImageResource(R.drawable.ic_play_circle)
         }
         imgThumbnailPlay.setImageURI(Uri.parse(listSong[position].thumbnail))
         if (imgThumbnailPlay.drawable == null) {
-            imgThumbnailPlay.setImageResource(R.drawable.ic_music_note)
+            imgThumbnailPlay.setImageResource(R.drawable.ic_music_note_white_36dp)
         }
         tvNamePlay.text = listSong[position].nameSong
         tvSingerPlay.text = listSong[position].singer
@@ -91,8 +84,8 @@ class PlayMusicFragment : Fragment() {
                 playMusicService?.runContinueMusic()
                 isPlay = false
             }
-            appNotification = playMusicService?.let { it1 -> AppNotification(it1, listSong[musicPos], isPlay) }
-            val notification = appNotification?.createNotifi()
+            appNotification = playMusicService?.let { it1 -> AppNotification(it1) }
+            val notification = appNotification?.createNotifi(listSong[musicPos], isPlay)
             playMusicService?.startForeground(1, notification)
         }
 
@@ -103,12 +96,12 @@ class PlayMusicFragment : Fragment() {
             } else {
                 musicPos = position + 1
             }
-            appNotification = playMusicService?.let { it1 -> AppNotification(it1, listSong[musicPos], isPlay) }
-            val notification = appNotification?.createNotifi()
+            appNotification = playMusicService?.let { it1 -> AppNotification(it1) }
+            val notification = appNotification?.createNotifi(listSong[musicPos], isPlay)
             playMusicService?.startForeground(1, notification)
             imgThumbnailPlay.setImageURI(Uri.parse(listSong[musicPos].thumbnail))
             if (imgThumbnailPlay.drawable == null) {
-                imgThumbnailPlay.setImageResource(R.drawable.ic_music_note)
+                imgThumbnailPlay.setImageResource(R.drawable.ic_music_note_white_36dp)
             }
             tvNamePlay.text = listSong[musicPos].nameSong
             tvSingerPlay.text = listSong[musicPos].singer
@@ -124,12 +117,12 @@ class PlayMusicFragment : Fragment() {
             } else {
                 musicPos = position - 1
             }
-            appNotification = playMusicService?.let { it1 -> AppNotification(it1, listSong[musicPos], isPlay) }
-            val notification = appNotification?.createNotifi()
+            appNotification = playMusicService?.let { it1 -> AppNotification(it1) }
+            val notification = appNotification?.createNotifi(listSong[musicPos], isPlay)
             playMusicService?.startForeground(1, notification)
             imgThumbnailPlay.setImageURI(Uri.parse(listSong[musicPos].thumbnail))
             if (imgThumbnailPlay.drawable == null) {
-                imgThumbnailPlay.setImageResource(R.drawable.ic_music_note)
+                imgThumbnailPlay.setImageResource(R.drawable.ic_music_note_white_36dp)
             }
             tvNamePlay.text = listSong[musicPos].nameSong
             tvSingerPlay.text = listSong[musicPos].singer
@@ -137,9 +130,17 @@ class PlayMusicFragment : Fragment() {
             btnPlay.setImageResource(R.drawable.ic_pause_white_36dp)
             playMusicService?.previousMusic()
         }
+
     }
 
-    fun seekBar() {
+    override fun onPause() {
+        super.onPause()
+        activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.frameLayout, ListMusicFragment.newInstance(position, isPlay))
+                ?.commit()
+    }
+
+    private fun seekBar() {
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
 
@@ -158,7 +159,7 @@ class PlayMusicFragment : Fragment() {
         })
         val runnable = object : Runnable {
             override fun run() {
-                var currenPosision = playMusicService?.getCurrentPosition()
+                val currenPosision = playMusicService?.getCurrentPosition()
                 if (currenPosision != null) {
                     seekBar?.progress = currenPosision
                     tvDuration?.text = convertDuration(listSong[position].time.toLong())
@@ -189,9 +190,9 @@ class PlayMusicFragment : Fragment() {
 
     fun convertDuration(duration: Long): String? {
         var out: String? = null
-        var hours: Long
+        val hours: Long
         try {
-            hours = (duration / 3600000).toLong()
+            hours = (duration / 3600000)
         } catch (e: Exception) {
             e.printStackTrace()
             return out
