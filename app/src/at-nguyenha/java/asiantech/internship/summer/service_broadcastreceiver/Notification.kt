@@ -13,6 +13,7 @@ import androidx.core.app.NotificationCompat
 import asiantech.internship.summer.R
 import asiantech.internship.summer.service_broadcastreceiver.model.MusicModel
 import asiantech.internship.summer.service_broadcastreceiver.model.Units
+import asiantech.internship.summer.service_broadcastreceiver.model.Units.ACTION_KILL_MEDIA
 import asiantech.internship.summer.service_broadcastreceiver.model.Units.ACTION_PLAY_PAUSE
 import asiantech.internship.summer.service_broadcastreceiver.model.Units.ACTION_PREVIOUS
 import asiantech.internship.summer.service_broadcastreceiver.model.Units.ACTION_SKIP_NEXT
@@ -48,7 +49,7 @@ class Notification(playMusicService: PlayMusicService) {
             setStyle(
                     androidx.media.app.NotificationCompat.MediaStyle()
                             .setMediaSession(session?.sessionToken)
-                            .setShowActionsInCompactView(0, 1, 2)
+                            .setShowActionsInCompactView(0, 1, 2, 3)
             )
             setContentTitle(music.musicName)
             setSmallIcon(R.drawable.ic_music)
@@ -57,15 +58,16 @@ class Notification(playMusicService: PlayMusicService) {
             setContentIntent(pendingIntent)
             setAutoCancel(true)
             setOnlyAlertOnce(true)
+            setOngoing(true)
             addAction(notificationAction(ACTION_PREVIOUS, isPlaying))
             addAction(notificationAction(ACTION_PLAY_PAUSE, isPlaying))
             addAction(notificationAction(ACTION_SKIP_NEXT, isPlaying))
+            addAction(notificationAction(ACTION_KILL_MEDIA, isPlaying))
         }
         return builder?.build()
     }
 
     private fun notificationAction(action: String, isPlaying: Boolean): NotificationCompat.Action {
-
         val icon: Int = when (action) {
             ACTION_PREVIOUS -> R.drawable.ic_previous
             ACTION_PLAY_PAUSE -> if (isPlaying) {
@@ -74,6 +76,7 @@ class Notification(playMusicService: PlayMusicService) {
                 R.drawable.ic_pause
             }
             ACTION_SKIP_NEXT -> R.drawable.ic_next
+            ACTION_KILL_MEDIA -> R.drawable.ic_close_black_24dp
             else -> R.drawable.ic_previous
         }
         return NotificationCompat.Action.Builder(

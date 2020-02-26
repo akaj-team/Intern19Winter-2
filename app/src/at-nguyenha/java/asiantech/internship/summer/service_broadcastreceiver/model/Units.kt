@@ -19,6 +19,7 @@ object Units {
     const val ACTION_PLAY_PAUSE = "playpause"
     const val ACTION_SKIP_NEXT = "skipnext"
     const val ACTION_PREVIOUS = "previous"
+    const val ACTION_KILL_MEDIA = "killmedia"
 
 
     fun convertTimeMusic(millis: Int): String {

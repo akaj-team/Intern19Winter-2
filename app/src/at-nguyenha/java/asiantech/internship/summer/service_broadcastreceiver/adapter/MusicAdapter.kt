@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 import asiantech.internship.summer.service_broadcastreceiver.model.MusicModel
 import asiantech.internship.summer.service_broadcastreceiver.model.Units
+import com.bumptech.glide.Glide
 
 class MusicAdapter(private val listMusic: ArrayList<MusicModel>) : RecyclerView.Adapter<MusicAdapter.MusicViewHolder>() {
 
@@ -47,11 +48,9 @@ class MusicAdapter(private val listMusic: ArrayList<MusicModel>) : RecyclerView.
                 musicName.text = it.musicName
                 musicDuration.text = Units.convertTimeMusic(it.musicDuration)
                 musicArtist.text = it.musicArtist
-                if (Uri.parse(it.musicImage) != null) {
-                    imgPlay.setImageURI(Uri.parse(it.musicImage))
-                } else {
-                    imgPlay.setImageResource(R.drawable.ic_maroon5)
-                }
+                Glide.with(itemView).load(Uri.parse(it.musicImage))
+                        .placeholder(R.drawable.ic_music)
+                        .into(imgPlay)
             }
         }
     }

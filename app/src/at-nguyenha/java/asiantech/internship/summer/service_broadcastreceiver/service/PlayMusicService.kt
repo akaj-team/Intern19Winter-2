@@ -8,7 +8,6 @@ import android.content.IntentFilter
 import android.media.MediaPlayer
 import android.os.Binder
 import android.os.IBinder
-import android.util.Log
 import asiantech.internship.summer.service_broadcastreceiver.Notification
 import asiantech.internship.summer.service_broadcastreceiver.adapter.MusicAdapter
 import asiantech.internship.summer.service_broadcastreceiver.model.MusicModel
@@ -71,7 +70,6 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
             currentPosition = 0
         }
         playMedia(currentPosition)
-        Log.i("XXXX", "isnext")
     }
 
     fun initPreviousMusic() {
@@ -102,6 +100,8 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
 
     fun isRenew(): Boolean = isReNew
 
+    fun isShulle(): Boolean = isShuffle
+
     inner class LocalBinder : Binder() {
         internal val getServerInstance: PlayMusicService
             get() = this@PlayMusicService
@@ -129,6 +129,11 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
                     initNextMusic()
                     createNotification(currentPosition)
                 }
+                Units.ACTION_KILL_MEDIA -> {
+                    mMediaPlayer?.stop()
+                    mMediaPlayer?.release()
+                    stopForeground(true)
+                }
             }
         }
     }
@@ -139,6 +144,7 @@ class PlayMusicService : Service(), MediaPlayer.OnCompletionListener {
             addAction(Units.ACTION_PLAY_PAUSE)
             addAction(Units.ACTION_SKIP_NEXT)
             addAction(Units.ACTION_PREVIOUS)
+            addAction(Units.ACTION_KILL_MEDIA)
         }
         registerReceiver(broadcastReceiver, filter)
     }

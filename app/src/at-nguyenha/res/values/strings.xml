@@ -35,6 +35,10 @@
     <string name="textview_text_marroon5">Marroon 5</string>
     <string name="textview_text_not_music">Không có bài hát</string>
     <string name="textview_text_back">Back</string>
+    <string name="toast_shuffle_enable">Shuffle is enable</string>
+    <string name="toast_shuffle_disable">Shuffle is enable</string>
+    <string name="toast_replay_enable">Replay is enable</string>
+    <string name="toast_replay_disable">Replay is disable</string>
 
 
 </resources>
