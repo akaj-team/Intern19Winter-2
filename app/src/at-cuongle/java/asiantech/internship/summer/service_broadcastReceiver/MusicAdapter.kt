@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
+import com.bumptech.glide.Glide
 
 class MusicAdapter(private val recyclerViewHolder: MutableList<Music>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     internal var onSongClicked: (position: Int) -> Unit = {}
@@ -38,12 +39,10 @@ class MusicAdapter(private val recyclerViewHolder: MutableList<Music>) : Recycle
                 tvNameMusic.text = it.name
                 tvTime.text = MusicData.toMin(it.duration.toLong(), itemView.context)
                 tvArtist.text = it.artist
-                val bitmap = MusicData.convertUriToBitmap(it.uri, itemView.context)
-                if (bitmap != null) {
-                    imgMusic.setImageURI(it.image)
-                } else {
-                    imgMusic.setImageResource(R.drawable.ic_music)
-                }
+                Glide.with(itemView.context)
+                        .load(it.image)
+                        .placeholder(R.drawable.icon_song)
+                        .into(imgMusic)
             }
         }
     }

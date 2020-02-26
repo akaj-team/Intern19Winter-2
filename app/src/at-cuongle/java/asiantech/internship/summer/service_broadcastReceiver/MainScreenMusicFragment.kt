@@ -4,7 +4,6 @@ import android.content.*
 import android.os.Bundle
 import android.os.Handler
 import android.os.IBinder
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,8 @@ import android.view.animation.AnimationUtils
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-cuongle`.fragment_main_screen_music.*
-import java.util.concurrent.TimeUnit
 
 class MainScreenMusicFragment : Fragment(), View.OnClickListener {
 
@@ -106,6 +105,10 @@ class MainScreenMusicFragment : Fragment(), View.OnClickListener {
 
     private fun setImage() {
         imgMusic.setImageURI(music[position].image)
+        Glide.with(requireContext())
+                .load(music[position].image)
+                .placeholder(R.drawable.icon_song)
+                .into(imgMusic)
     }
 
     private fun sendAction(action: String) {

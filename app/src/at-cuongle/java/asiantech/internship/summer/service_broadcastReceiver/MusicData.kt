@@ -1,5 +1,6 @@
 package asiantech.internship.summer.service_broadcastReceiver
 
+import android.annotation.SuppressLint
 import android.content.ContentUris
 import android.content.Context
 import android.graphics.Bitmap
@@ -12,6 +13,7 @@ import java.util.concurrent.TimeUnit
 
 object MusicData {
     private val musicData = mutableListOf<Music>()
+    @SuppressLint("InlinedApi", "Recycle")
     fun getMusic(context: Context): MutableList<Music> {
         val songCursor = context.contentResolver?.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, null)
         val idColumn = songCursor?.getColumnIndexOrThrow(MediaStore.Video.Media._ID)
