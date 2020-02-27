@@ -8,18 +8,20 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-cuongle`.fragment_login.*
+import kotlinx.android.synthetic.`at-cuongle`.fragment_login.edtEmail
+import kotlinx.android.synthetic.`at-cuongle`.fragment_sign_up.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class LoginFragment : Fragment() {
+class UserLoginFragment : Fragment() {
     private var mName = ""
     private var mEmail = ""
 
     companion object {
         private const val ARG_NAME = "name"
         private const val ARG_EMAIL = "email"
-        fun newInstance(mName: String, mEmail: String) = LoginFragment().apply {
+        fun newInstance(mName: String, mEmail: String) = UserLoginFragment().apply {
             arguments = Bundle().apply {
                 putString(ARG_NAME, mName)
                 putString(ARG_EMAIL, mEmail)
@@ -46,6 +48,9 @@ class LoginFragment : Fragment() {
         btnLogin.setOnClickListener {
             mEmail = edtEmail.text.toString()
             (activity as? LayoutMainActivity)?.replaceFragment(UserProfileFragment.newInstance(mName, mEmail, ""))
+        }
+        tvCreateAccount.setOnClickListener {
+            (activity as? LayoutMainActivity)?.replaceFragment(SignUpFragment())
         }
     }
 }

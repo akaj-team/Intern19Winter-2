@@ -7,11 +7,13 @@
 
     <Button
         android:id="@+id/btnAddToDo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="Add" />
+        android:layout_marginBottom="@dimen/padding_left_20dp"
+        android:layout_marginRight="@dimen/padding_left_20dp"
+        android:background="@drawable/ic_add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvToDo"

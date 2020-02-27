@@ -13,7 +13,8 @@
         <activity android:name=".MainActivity" />
         <activity
             android:name=".layout.LayoutMainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" />
+        <activity android:name=".layout.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,8 +22,9 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
 </manifest>

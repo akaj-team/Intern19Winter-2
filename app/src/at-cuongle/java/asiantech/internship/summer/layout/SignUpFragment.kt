@@ -50,7 +50,7 @@ class SignUpFragment : Fragment() {
         btnCreateAccount.setOnClickListener {
             mName = edtFullName.text.toString()
             mEmail = edtEmail.text.toString()
-            (activity as? LayoutMainActivity)?.replaceFragment(LoginFragment.newInstance(mName, mEmail))
+            (activity as? LayoutMainActivity)?.replaceFragment(UserLoginFragment.newInstance(mName, mEmail))
         }
     }
 }

@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/tablayout_height_80dp"
-    android:orientation="vertical">
+    android:layout_height="80dp"
+    android:orientation="vertical"
+    app:clickToClose="true">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_delete_red_600_24dp" />
 
     <TextView
-        android:textColor="@color/color_black"
-        android:textSize="30dp"
         android:id="@+id/tvRowToDo"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_black"
+        android:textSize="30dp" />
+
+</com.daimajia.swipe.SwipeLayout>
