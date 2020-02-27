@@ -12,7 +12,7 @@ import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import asiantech.internship.summer.R
 
-class AppNotification(playMusicService: PlayMusicService) {
+class Notification(playMusicService: PlayMusicService) {
 
     companion object {
         private const val BROADCAST_CODE = 111

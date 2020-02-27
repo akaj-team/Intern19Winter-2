@@ -20,7 +20,7 @@ class PlayMusicService : Service() {
         private const val PAUSE = "pause"
     }
 
-    private var appNotification: AppNotification? = null
+    private var notification: Notification? = null
     private var currentPos: Int = 0
     private var listSize: Int = 0
     private var isPlay = false
@@ -73,8 +73,8 @@ class PlayMusicService : Service() {
     }
 
     private fun createNotification() {
-        appNotification = AppNotification(this)
-        val notification = appNotification?.createNotifi(musicDataList[currentPos], isPlay)
+        notification = Notification(this)
+        val notification = notification?.createNotifi(musicDataList[currentPos], isPlay)
         this.startForeground(1, notification)
     }
 

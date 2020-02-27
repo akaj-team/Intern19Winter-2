@@ -44,6 +44,7 @@ class ListMusicAdapter(val listMedia: ArrayList<Media>, val context: Context) : 
                 }
             }
         }
+
         init {
             itemView.setOnClickListener(object : View.OnClickListener {
                 override fun onClick(v: View?) {

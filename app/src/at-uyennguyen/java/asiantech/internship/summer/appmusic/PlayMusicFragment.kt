@@ -27,9 +27,9 @@ class PlayMusicFragment : Fragment() {
     private var playMusicService: PlayMusicService? = null
     private var isPlay: Boolean = false
     private var handler = Handler()
-    lateinit var runnable : Runnable
-    private var appNotification: AppNotification? = null
-//    private var rotateAnimation : Animation? = AnimationUtils.loadAnimation(,R.anim.animation)
+    lateinit var runnable: Runnable
+    private var notification: Notification? = null
+    private lateinit var rotateAnimation: Animation
 
     companion object {
         var MUSICLIST = "musiclist"
@@ -49,6 +49,7 @@ class PlayMusicFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        rotateAnimation = AnimationUtils.loadAnimation(context, R.anim.animation)
         listSong = arguments?.getParcelableArrayList<Media>(LISTSONG) as ArrayList<Media>
         position = arguments?.getInt(POSITION, 0) ?: 0
         isPlay = arguments?.getBoolean(ISPLAY)!!
@@ -59,7 +60,7 @@ class PlayMusicFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         seekBar()
         if (!isPlay) {
-//            imgThumbnailPlay.startAnimation(rotateAnimation)
+            imgThumbnailPlay.startAnimation(rotateAnimation)
             btnPlay.setImageResource(R.drawable.ic_pause_white_36dp)
         } else {
             btnPlay.setImageResource(R.drawable.ic_play_circle)
@@ -77,16 +78,18 @@ class PlayMusicFragment : Fragment() {
 
         btnPlay.setOnClickListener {
             if (!isPlay) {
+                imgThumbnailPlay.clearAnimation()
                 playMusicService?.pauseMusic()
                 btnPlay.setImageResource(R.drawable.ic_play_circle)
                 isPlay = true
             } else {
+                imgThumbnailPlay.startAnimation(rotateAnimation)
                 btnPlay.setImageResource(R.drawable.ic_pause_white_36dp)
                 playMusicService?.runContinueMusic()
                 isPlay = false
             }
-            appNotification = playMusicService?.let { it1 -> AppNotification(it1) }
-            val notification = appNotification?.createNotifi(listSong[musicPos], isPlay)
+            notification = playMusicService?.let { it1 -> Notification(it1) }
+            val notification = notification?.createNotifi(listSong[musicPos], isPlay)
             playMusicService?.startForeground(1, notification)
         }
 
@@ -97,8 +100,8 @@ class PlayMusicFragment : Fragment() {
             } else {
                 musicPos = position + 1
             }
-            appNotification = playMusicService?.let { it1 -> AppNotification(it1) }
-            val notification = appNotification?.createNotifi(listSong[musicPos], isPlay)
+            notification = playMusicService?.let { it1 -> Notification(it1) }
+            val notification = notification?.createNotifi(listSong[musicPos], isPlay)
             playMusicService?.startForeground(1, notification)
             imgThumbnailPlay.setImageURI(Uri.parse(listSong[musicPos].thumbnail))
             if (imgThumbnailPlay.drawable == null) {
@@ -118,8 +121,8 @@ class PlayMusicFragment : Fragment() {
             } else {
                 musicPos = position - 1
             }
-            appNotification = playMusicService?.let { it1 -> AppNotification(it1) }
-            val notification = appNotification?.createNotifi(listSong[musicPos], isPlay)
+            notification = playMusicService?.let { it1 -> Notification(it1) }
+            val notification = notification?.createNotifi(listSong[musicPos], isPlay)
             playMusicService?.startForeground(1, notification)
             imgThumbnailPlay.setImageURI(Uri.parse(listSong[musicPos].thumbnail))
             if (imgThumbnailPlay.drawable == null) {
@@ -171,7 +174,6 @@ class PlayMusicFragment : Fragment() {
         }
         handler.post(runnable)
     }
-
 
     private var serviceConnection = object : ServiceConnection {
         override fun onServiceDisconnected(name: ComponentName?) {

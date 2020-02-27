@@ -25,7 +25,7 @@ class ListMusicFragment : Fragment() {
     private var musicPos: Int = 0
     lateinit var listMusicAdapter: ListMusicAdapter
     private var listMedia = arrayListOf<Media>()
-    private var appNotification: AppNotification? = null
+    private var notification: Notification? = null
 
     companion object {
         private var READ_CODE_REQUEST = 111
@@ -57,8 +57,8 @@ class ListMusicFragment : Fragment() {
             intent.putParcelableArrayListExtra(PlayMusicFragment.MUSICLIST, listMedia)
             intent.putExtra(PlayMusicFragment.MUSICITEMPOSITION, it)
             context?.startService(intent)
-            appNotification = AppNotification(playMusicService)
-            val notification = appNotification?.createNotifi(listMedia[it], isPlay)
+            notification = Notification(playMusicService)
+            val notification = notification?.createNotifi(listMedia[it], isPlay)
             playMusicService.startForeground(1, notification)
             listMedia[it].run {
                 position = it
@@ -84,8 +84,8 @@ class ListMusicFragment : Fragment() {
                     playMusicService.runContinueMusic()
                     isPlay = false
                 }
-                appNotification = AppNotification(playMusicService)
-                val notification = appNotification?.createNotifi(listMedia[musicPos], isPlay)
+                notification = Notification(playMusicService)
+                val notification = notification?.createNotifi(listMedia[musicPos], isPlay)
                 playMusicService.startForeground(1, notification)
             }
 
@@ -98,8 +98,8 @@ class ListMusicFragment : Fragment() {
                 } else {
                     musicPos = position + 1
                 }
-                appNotification = AppNotification(playMusicService)
-                val notification = appNotification?.createNotifi(listMedia[musicPos], isPlay)
+                notification = Notification(playMusicService)
+                val notification = notification?.createNotifi(listMedia[musicPos], isPlay)
                 playMusicService.startForeground(1, notification)
                 imgBottomThumbnail.setImageURI(Uri.parse(listMedia[musicPos].thumbnail))
                 if (imgBottomThumbnail.drawable == null) {
@@ -120,8 +120,8 @@ class ListMusicFragment : Fragment() {
                 } else {
                     musicPos = position - 1
                 }
-                appNotification = AppNotification(playMusicService)
-                val notification = appNotification?.createNotifi(listMedia[musicPos], isPlay)
+                notification = Notification(playMusicService)
+                val notification = notification?.createNotifi(listMedia[musicPos], isPlay)
                 playMusicService.startForeground(1, notification)
                 imgBottomThumbnail.setImageURI(Uri.parse(listMedia[musicPos].thumbnail))
                 if (imgBottomThumbnail.drawable == null) {
