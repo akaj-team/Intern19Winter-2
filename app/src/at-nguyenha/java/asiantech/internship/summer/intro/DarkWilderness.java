@@ -37,7 +37,7 @@ public class DarkWilderness {
      * and the second item weighs weight2 and is worth value2.
      * What is the total maximum value of the items you can take with you,
      * assuming that your max weight capacity is
-     * maxW and you can't come ic_previous for the items later?
+     * maxW and you can't come back for the items later?
      * <p>
      * Note that there are only two items and you can't
      * bring more than one item of each type, i.e. you

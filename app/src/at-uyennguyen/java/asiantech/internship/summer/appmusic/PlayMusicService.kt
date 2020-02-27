@@ -65,11 +65,11 @@ class PlayMusicService : Service() {
                 mp?.start()
             }
         })
-        mediaPlayer.setOnCompletionListener(object : MediaPlayer.OnCompletionListener {
-            override fun onCompletion(mp: MediaPlayer?) {
-                nextMusic()
-            }
-        })
+//        mediaPlayer.setOnCompletionListener(object : MediaPlayer.OnCompletionListener {
+//            override fun onCompletion(mp: MediaPlayer?) {
+//                nextMusic()
+//            }
+//        })
     }
 
     private fun createNotification() {

@@ -27,6 +27,7 @@ class PlayMusicFragment : Fragment() {
     private var playMusicService: PlayMusicService? = null
     private var isPlay: Boolean = false
     private var handler = Handler()
+    lateinit var runnable : Runnable
     private var appNotification: AppNotification? = null
 //    private var rotateAnimation : Animation? = AnimationUtils.loadAnimation(,R.anim.animation)
 
@@ -57,7 +58,7 @@ class PlayMusicFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         seekBar()
-        if (isPlay == false) {
+        if (!isPlay) {
 //            imgThumbnailPlay.startAnimation(rotateAnimation)
             btnPlay.setImageResource(R.drawable.ic_pause_white_36dp)
         } else {
@@ -130,7 +131,6 @@ class PlayMusicFragment : Fragment() {
             btnPlay.setImageResource(R.drawable.ic_pause_white_36dp)
             playMusicService?.previousMusic()
         }
-
     }
 
     override fun onPause() {

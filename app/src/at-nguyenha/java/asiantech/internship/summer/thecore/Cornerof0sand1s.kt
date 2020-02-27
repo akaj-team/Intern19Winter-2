@@ -20,7 +20,7 @@ fun main() {
  * More specifically, in the given number n the kth bit
  * from the right was initially set to 0, but its current
  * value might be different. It's now up to you to write
- * a function that will change the kth bit of n ic_previous to 0.
+ * a function that will change the kth bit of n back to 0.
  */
 fun killKthBit(n: Int, k: Int): Int {
     return n and (1 shl k - 1).inv()
@@ -32,7 +32,7 @@ fun killKthBit(n: Int, k: Int): Int {
 
  * Your task is to pack these integers into one number M in the following way:
  * The first element of the array occupies the first 8 bits of M;
- * The second element occupies ic_next 8 bits, and so on.
+ * The second element occupies next 8 bits, and so on.
 
  * Return the obtained integer M.
  */

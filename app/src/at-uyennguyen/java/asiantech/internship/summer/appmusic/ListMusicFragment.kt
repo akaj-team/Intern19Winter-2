@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.`at-uyennguyen`.fragment_list_music.*
 
 @Suppress("DEPRECATION")
 class ListMusicFragment : Fragment() {
-    private var isPlay: Boolean = true
+    private var isPlay: Boolean = false
     private lateinit var playMusicService: PlayMusicService
     private var position: Int = 0
     private var musicPos: Int = 0
@@ -80,9 +80,9 @@ class ListMusicFragment : Fragment() {
                     imgBottomPlay.setImageResource(R.drawable.ic_play_circle)
                     isPlay = true
                 } else {
-                        imgBottomPlay.setImageResource(R.drawable.ic_pause_white_36dp)
-                        playMusicService.runContinueMusic()
-                        isPlay = false
+                    imgBottomPlay.setImageResource(R.drawable.ic_pause_white_36dp)
+                    playMusicService.runContinueMusic()
+                    isPlay = false
                 }
                 appNotification = AppNotification(playMusicService)
                 val notification = appNotification?.createNotifi(listMedia[musicPos], isPlay)

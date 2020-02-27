@@ -10,12 +10,12 @@ fun main() {
 /**
  * 09
  * You are playing an RPG game. Currently your experience points (XP)
- * total is equal to experience. To reach the ic_next level your XP
+ * total is equal to experience. To reach the next level your XP
  * should be at least at threshold. If you kill the monster in front of you,
  * you will gain more experience points in the amount of the reward.
 
  * Given values experience, threshold and reward,
- * check if you reach the ic_next level after killing the monster.
+ * check if you reach the next level after killing the monster.
  */
 fun reachNextLevel(experience: Int, threshold: Int, reward: Int): Boolean {
     if ((experience + reward) >= threshold) {
@@ -30,7 +30,7 @@ fun reachNextLevel(experience: Int, threshold: Int, reward: Int): Boolean {
  * The first item weighs weight1 and is worth value1,
  * and the second item weighs weight2 and is worth value2.
  * What is the total maximum value of the items you can take with you,
- * assuming that your max weight capacity is maxW and you can't come ic_previous for the items later?
+ * assuming that your max weight capacity is maxW and you can't come back for the items later?
  */
 fun knapsackLight(value1: Int, weight1: Int, value2: Int, weight2: Int, maxW: Int): Int {
     var value: Int = 0
