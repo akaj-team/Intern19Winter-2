@@ -11,16 +11,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".layout.MyMainActivity">
+        <activity android:name=".savedata.activity.EditToDoActivity"></activity>
+        <activity android:name=".savedata.activity.EditProfileActivity" />
+        <activity android:name=".savedata.activity.ToDoActivity" />
+        <activity android:name=".savedata.activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".layout.MyMainActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

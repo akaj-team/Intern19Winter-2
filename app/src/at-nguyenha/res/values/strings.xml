@@ -30,6 +30,31 @@
     <string name="textview_text_phone">Phone</string>
     <string name="edittext_hint_phone">+84 386971275</string>
     <string name="button_text_save_profile">Save Profile</string>
+    <string name="textview_text_user_bio">Potato Master</string>
+    <string name="edittext_hint_enter_your_bio">Enter your bio</string>
+    <string name="textview_text_my_kitchen">My Kitchen</string>
+    <string name="textview_text_nick_evans">Nick Evans</string>
+    <string name="textview_text_potato_master">Potato Master</string>
+    <string name="textview_text_settings">Settings</string>
+    <string name="textview_text_23k_likes">23k likes</string>
+    <string name="textview_text_584_followers">584 followers</string>
+    <string name="textview_text_text_dot">.</string>
+    <string name="textview_text_email_header">nguyen.ha@asiantech.vn</string>
+    <string name="textview_text_delete">Delete</string>
+    <string name="textview_text_edit">Edit</string>
+    <string name="textview_text_your_username">Your username</string>
+    <string name="textview_text_confirm_password">Confirm Password</string>
+    <string name="textview_text_username">Username</string>
+    <string name="textview_text_your_nickname">Your nickname</string>
+    <string name="textview_text_nickname">Nickname</string>
+    <string name="textview_text_add_todo">Add Todo</string>
+    <string name="textview_text_logout">Logout</string>
+    <string name="textview_text_update_to_do">Update To Do</string>
+    <string name="textview_hint_fill_something">Fill something</string>
+    <string name="drawer_open">open</string>
+    <string name="drawer_close">close</string>
+    <string name="button_text_edit_profile">Edit Profile</string>
+    <string name="textview_text_choose_avater">Choose your avatar from gallery</string>
 
 
 </resources>
