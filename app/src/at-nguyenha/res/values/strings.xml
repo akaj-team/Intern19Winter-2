@@ -55,6 +55,8 @@
     <string name="drawer_close">close</string>
     <string name="button_text_edit_profile">Edit Profile</string>
     <string name="textview_text_choose_avater">Choose your avatar from gallery</string>
+    <string name="button_text_add_todo">Add Todo</string>
+    <string name="button_text_edit_todo">Edit Todo</string>
 
 
 </resources>

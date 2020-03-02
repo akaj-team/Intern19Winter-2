@@ -6,23 +6,18 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import asiantech.internship.summer.R
+import asiantech.internship.summer.savedata.Utils
 import asiantech.internship.summer.savedata.adapter.ToDoAdapter
 import kotlinx.android.synthetic.`at-nguyenha`.activity_to_do.*
 
 class ToDoActivity : AppCompatActivity() {
 
-    companion object {
-        const val ACTION_EDIT = "edit"
-    }
-
     private val adapterToDO = ToDoAdapter(supportFragmentManager)
-
-    private val action = "edit"
+    private lateinit var setAction : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_to_do)
-
         initView()
         initListener()
     }
@@ -49,11 +44,14 @@ class ToDoActivity : AppCompatActivity() {
     private fun initListener() {
         layoutEditProfileItem.setOnClickListener {
             val intent = Intent(this, EditProfileActivity::class.java)
-            intent.putExtra(ACTION_EDIT, action)
+            setAction = Utils.ACTION_EDIT_PROFILE
+            intent.putExtra(Utils.ACTION, setAction)
             startActivity(intent)
         }
         layoutAddToDoItem.setOnClickListener {
-            val intent = Intent(this, EditToDoActivity::class.java)
+            val intent = Intent(this, AddEditToDoActivity::class.java)
+            setAction = Utils.ACTION_ADD
+            intent.putExtra(Utils.ACTION, setAction)
             startActivity(intent)
         }
         layoutLogoutItem.setOnClickListener {

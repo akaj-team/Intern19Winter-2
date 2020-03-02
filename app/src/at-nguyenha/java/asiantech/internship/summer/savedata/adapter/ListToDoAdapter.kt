@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 import asiantech.internship.summer.savedata.model.ToDoModel
 
-class ListToDoAdapter(private val listToDo: MutableList<ToDoModel>) : RecyclerView.Adapter<ListToDoAdapter.ListToDoViewHolder>() {
+class ListToDoAdapter(private val listToDo: List<ToDoModel>) : RecyclerView.Adapter<ListToDoAdapter.ListToDoViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListToDoViewHolder {
@@ -36,7 +36,7 @@ class ListToDoAdapter(private val listToDo: MutableList<ToDoModel>) : RecyclerVi
         fun bindData() {
             listToDo[adapterPosition].let {
                 tvToDoName.text = it.toDoName
-                cbStatus.isChecked = it.status == 0
+                cbStatus.isChecked = it.status == 1
             }
         }
     }

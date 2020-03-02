@@ -10,7 +10,7 @@ class EditProfileActivity : AppCompatActivity() {
     private var getAction: String? = ""
 
     companion object {
-        private const val ACTION_EDIT = "edit"
+        private const val ACTION_EDIT = "editprofile"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

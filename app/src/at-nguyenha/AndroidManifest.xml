@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="asiantech.internship.summer">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".savedata.activity.EditToDoActivity"></activity>
+        <activity android:name=".savedata.activity.AddEditToDoActivity" />
         <activity android:name=".savedata.activity.EditProfileActivity" />
         <activity android:name=".savedata.activity.ToDoActivity" />
         <activity android:name=".savedata.activity.LoginActivity">
