@@ -2,67 +2,45 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/loginContainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@drawable/ic_background_edit"
     android:orientation="vertical">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:layout_marginTop="48dp"
-        android:elevation="10dp"
-        android:src="@drawable/ic_conghau_logo"
+        android:id="@+id/imgAvatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="200dp"
+        android:elevation="5dp"
+        android:src="@drawable/ic_empty_avatar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="200dp"
-        android:text="@string/textview_welcome_back"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgLogo" />
-
-    <TextView
-        android:id="@+id/tvSignIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:text="@string/textview_sign_in_to_continue"
-        android:textColor="@color/colorBlue"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
-
-    <TextView
         android:id="@+id/tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/textview_e_mail"
+        android:layout_marginTop="112dp"
+        android:text="@string/textview_email_address"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
     <EditText
         android:id="@+id/edtEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
+        android:elevation="2dp"
         android:hint="@string/hint_email_gmail_com"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
+        android:paddingVertical="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvEmail"
@@ -74,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:text="@string/textview_password"
+        android:text="@string/hint_password"
         android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,40 +63,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
-        android:hint="@string/textview_password"
+        android:elevation="2dp"
+        android:hint="@string/hint_password"
         android:importantForAutofill="no"
         android:inputType="textPassword"
+        android:paddingVertical="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvPassword"
         tools:targetApi="o" />
 
-    <TextView
-        android:id="@+id/tvLogin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="40dp"
-        android:layout_marginTop="100dp"
-        android:background="@drawable/login_button"
-        android:gravity="center"
-        android:paddingVertical="10dp"
-        android:text="@string/textview_login"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgExit"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/ic_cancel_red_600_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.11"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edtPassword"
-        tools:ignore="UnusedAttribute" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.931" />
 
-    <TextView
-        android:id="@+id/tvSignUp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/sign_up"
-        android:textSize="14sp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgSave"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/ic_check_circle_green_600_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.92"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLogin" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.928" />
 </androidx.constraintlayout.widget.ConstraintLayout>

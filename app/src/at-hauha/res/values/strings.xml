@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NhatNguyen</string>
+    <string name="app_name">HaCongHau</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -44,4 +44,17 @@
     <string name="textview_23k_likes">23k likes</string>
     <string name="sign_up">New user? Sign up</string>
     <string name="textview_beginner">Beginner</string>
+    <string name="textview_todo">todo</string>
+    <string name="textview_register">REGISTER</string>
+    <string name="hint_email_gmail_com">email@gmail.com</string>
+    <string name="hint_password">Password</string>
+    <string name="textview_register_now">Register Now!</string>
+    <string name="textview_e_mail">E-mail</string>
+    <string name="textview_sign_in_to_continue">Sign in to continue</string>
+    <string name="alert">Username or Password is not correct</string>
+    <string name="add_todo">Add todo</string>
+    <string name="textview_input_todo">Input todo</string>
+    <string name="edit_text_todo">Todo</string>
+    <string name="button_add">Add</string>
+    <string name="button_cancel">Cancel</string>
 </resources>

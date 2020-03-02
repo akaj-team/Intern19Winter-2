@@ -10,7 +10,9 @@ import asiantech.internship.summer.R
 
 class SplashFragment : Fragment() {
 
-    private val DELAY_TIME: Long = 5000
+    companion object {
+        private const val DELAY_TIME: Long = 3000
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_splash, container, false)

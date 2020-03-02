@@ -1,28 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeLayout"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-    <TextView
-        android:id="@+id/tvTodo"
-        android:paddingVertical="20dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingStart="40dp"
-        android:textSize="16sp"
-        android:text="todo"
+    <LinearLayout
+        android:id="@+id/llItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imgEdit"
+            android:src="@drawable/ic_delete_white_24dp"
+            android:background="#e60707"
+            android:layout_width="wrap_content"
+            android:padding="20dp"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:id="@+id/imgDelete"
+            android:src="@drawable/ic_mode_edit_white_24dp"
+            android:background="#e66407"
+            android:layout_width="wrap_content"
+            android:padding="20dp"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <TextView
-        android:layout_marginHorizontal="40dp"
-        android:background="@drawable/line"
-        app:layout_constraintTop_toBottomOf="@id/tvTodo"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_height="74dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="UnusedAttribute" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:background="@drawable/line"
+            tools:ignore="UnusedAttribute" />
+
+        <TextView
+            android:id="@+id/tvTodo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:paddingStart="40dp"
+            android:text="@string/textview_todo"
+            android:textSize="16sp"
+            tools:targetApi="o" />
+        <CheckBox
+            android:layout_gravity="center|right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </androidx.cardview.widget.CardView>
+
+</com.daimajia.swipe.SwipeLayout>
