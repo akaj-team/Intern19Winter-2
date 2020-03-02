@@ -43,5 +43,8 @@
     <string name="tablayout_title_recipes">20  \n  Recipes</string>
     <string name="tablayout_title_saved">75  \n  Saved</string>
     <string name="tablayout_title_following">248  \n Following</string>
+    <string name="tv_title_create_account">Do you want Create Account</string>
+    <string name="toast_create_now">Create Now</string>
+    <string name="toast_cancel">Canceled</string>
 
 </resources>

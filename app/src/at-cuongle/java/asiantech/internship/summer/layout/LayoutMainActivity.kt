@@ -6,16 +6,13 @@ import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
 
 class LayoutMainActivity : AppCompatActivity() {
-    private var isLogin = true
+    private var isLogin = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_layout_main)
-//        replaceFragment(UserProfileFragment.newInstance("Nick Evans", "asiantech@gmail.com", ""))
-//        if (isLogin) {
-            replaceFragment(MainScreenFragment())
-//        } else {
 //            replaceFragment(UserLoginFragment())
-//        }
+        replaceFragment(MainScreenFragment())
+//        replaceFragment(SignUpFragment())
     }
 
     internal fun replaceFragment(fragment: Fragment) {

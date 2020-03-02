@@ -24,13 +24,14 @@ class MainScreenFragment : Fragment() {
     }
 
     private fun initView() {
-        val adapter = ToDoAdapter(childFragmentManager)
+        val adapter = TabLayoutAdapter(childFragmentManager)
         adapter.apply {
             addFragment(ToDoFragment(), "TODO")
             addFragment(DoneFragment(), "DONE")
         }
         viewPagerTodo.adapter = adapter
         tabLayoutTodo.setupWithViewPager(viewPagerTodo)
-        tabLayoutTodo.setBackgroundColor(Color.GREEN)
+        tabLayoutTodo.setSelectedTabIndicatorColor(Color.BLACK)
+        tabLayoutTodo.setBackgroundColor(Color.RED)
     }
 }

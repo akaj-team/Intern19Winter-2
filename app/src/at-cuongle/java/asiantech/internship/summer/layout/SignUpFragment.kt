@@ -1,38 +1,45 @@
 package asiantech.internship.summer.layout
 
-
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import asiantech.internship.summer.layout.database.DataConnection
+import asiantech.internship.summer.layout.database.model.User
 import kotlinx.android.synthetic.`at-cuongle`.fragment_sign_up.*
 
-
-/**
- * A simple [Fragment] subclass.
- */
 class SignUpFragment : Fragment() {
-    private var mName = ""
-    private var mEmail = ""
 
     companion object {
-        private const val ARG_NAME = "name"
-        private const val ARG_EMAIL = "email"
-        fun newInstance(mName: String, mEmail: String) = SignUpFragment().apply {
+        private const val ARG_IMAGE = "image"
+        private const val PERMISSION_CODE = 100
+        fun newInstance(uri: String) = SignUpFragment().apply {
             arguments = Bundle().apply {
-                putString(ARG_NAME, mName)
-                putString(ARG_EMAIL, mEmail)
+                putString(ARG_IMAGE, uri)
             }
         }
     }
 
+    private var uriImage = ""
+    private var db: DataConnection? = null
+    private var user: User? = null
+    var onOk: (() -> Unit)? = null
+    var onCancel: (() -> Unit)? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            mName = it.getString(ARG_NAME).toString()
-            mEmail = it.getString(ARG_EMAIL).toString()
+            uriImage = it.getString(ARG_IMAGE).toString()
         }
     }
 
@@ -45,12 +52,66 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        edtFullName.setText(mName)
-        edtEmail.setText(mEmail)
+        connectDataBase()
+        initListeners()
+        setImageAvatar()
+    }
+
+    private fun initListeners() {
+        imgAvatar.setOnClickListener {
+            showDialog()
+        }
         btnCreateAccount.setOnClickListener {
-            mName = edtFullName.text.toString()
-            mEmail = edtEmail.text.toString()
-            (activity as? LayoutMainActivity)?.replaceFragment(UserLoginFragment.newInstance(mName, mEmail))
+            user = User(userName = edtEmail.text.toString(), password = edtPassword.text.toString(), path = uriImage)
+            user?.let { itl -> db?.userDao()?.insertAll(itl) }
+            (activity as? LayoutMainActivity)?.replaceFragment(UserLoginFragment())
+        }
+    }
+
+    private fun connectDataBase() {
+        db = DataConnection.connectData(requireContext())
+    }
+
+    private fun setImageAvatar() {
+        if (uriImage.isNotBlank()) {
+            imgAvatar.setImageURI(uriImage.toUri())
+        }
+    }
+
+    private fun showDialog() {
+        val dialogOption = this.let { AlertDialog.Builder(requireContext()) }
+        dialogOption.apply {
+            setTitle("Do you want Change the Avatar")
+            setPositiveButton(android.R.string.ok) { _, _ ->
+                onOk?.invoke()
+                requestPermission()
+                Toast.makeText(context, "Create Now", Toast.LENGTH_SHORT).show()
+            }
+            setNegativeButton(android.R.string.cancel) { _, _ ->
+                onCancel?.invoke()
+                Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show()
+            }
+            show()
+        }
+    }
+
+    private fun requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (context?.let {
+                        ContextCompat.checkSelfPermission(
+                                it,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        )
+                    }
+                    == PackageManager.PERMISSION_DENIED) {
+                val permission =
+                        arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                requestPermissions(permission, PERMISSION_CODE)
+            } else {
+                (activity as? LayoutMainActivity)?.replaceFragment(GalleryFragment())
+            }
+        } else {
+            (activity as? LayoutMainActivity)?.replaceFragment(GalleryFragment())
         }
     }
 }

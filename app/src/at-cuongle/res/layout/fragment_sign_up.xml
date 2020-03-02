@@ -182,5 +182,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_end="24dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="@dimen/imgAvatar_width_100dp"
+            android:layout_height="@dimen/imgAvatar_height_100dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/img_avatar"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/tvStartFromScratch" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
