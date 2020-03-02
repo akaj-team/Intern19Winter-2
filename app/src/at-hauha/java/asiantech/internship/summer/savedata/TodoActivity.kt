@@ -31,9 +31,9 @@ class TodoActivity : AppCompatActivity() {
                 .commit()
     }
 
-    fun replaceRegisterFragment() {
+    fun replaceRegisterFragment(uri : String) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.flContainer, RegisterFragment(), null)
+                .replace(R.id.flContainer, RegisterFragment.newInstance(uri), null)
                 .addToBackStack(null)
                 .commit()
     }
@@ -43,4 +43,19 @@ class TodoActivity : AppCompatActivity() {
                 .addToBackStack(null)
                 .commit()
     }
+
+    fun replacePictureFragment(user: User) {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flContainer, PictureEditFragment.newInstance(user), null)
+                .addToBackStack(null)
+                .commit()
+    }
+
+    fun replaceEditPictureFragment() {
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.flContainer, PictureFragment(), null)
+                .addToBackStack(null)
+                .commit()
+    }
+
 }

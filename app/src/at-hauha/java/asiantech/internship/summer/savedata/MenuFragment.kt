@@ -8,13 +8,16 @@ import android.view.ViewGroup
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
+import asiantech.internship.summer.savedata.adapter.DoneFragment
+import asiantech.internship.summer.savedata.adapter.DrawerAdapter
+import asiantech.internship.summer.savedata.adapter.MenuAdapter
+import asiantech.internship.summer.savedata.model.AppDatabase
 import asiantech.internship.summer.savedata.model.DrawerItem
+import asiantech.internship.summer.savedata.model.Todo
 import asiantech.internship.summer.savedata.model.User
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.`at-hauha`.fragment_menu.*
 
 class MenuFragment : Fragment() {
@@ -22,7 +25,9 @@ class MenuFragment : Fragment() {
     private val drawerList = mutableListOf<DrawerItem>()
     private lateinit var adapterDrawer: DrawerAdapter
     private var user: User? = null
-    private lateinit var dialogAdd : Dialog
+    private var todo: Todo? = null
+    private lateinit var dialogAdd: Dialog
+    private var db: AppDatabase? = null
 
     companion object {
         private const val ARG_USER = "user"
@@ -60,10 +65,7 @@ class MenuFragment : Fragment() {
         adapterDrawer.onItemClicked = {
             when (it) {
                 1 -> user?.let { it1 -> (activity as? TodoActivity)?.replaceEditProfileFragment(it1) }
-                2 -> {
-                    Toast.makeText(requireContext(),"ADD",Toast.LENGTH_SHORT).show()
-                    showDialog()
-                }
+                2 -> showDialog()
             }
         }
 
@@ -89,39 +91,36 @@ class MenuFragment : Fragment() {
     private fun setPager() {
         val adapter = MenuAdapter(childFragmentManager)
         adapter.apply {
-            addFragment(TodoFragment(), "todo")
-            addFragment(DoneFragment(), "done")
+            user?.id?.let { TodoFragment.newInstance(it, false) }?.let { addFragment(it, "todo") }
+            user?.id?.let { DoneFragment.newInstance(it, true) }?.let { addFragment(it, "Done") }
         }
-        tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-            }
-        })
         viewPager.adapter = adapter
         tabs.setupWithViewPager(viewPager)
     }
 
-    private fun showDialog(){
+    private fun showDialog() {
+
         dialogAdd = Dialog(requireContext())
         dialogAdd.apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
             setCancelable(false)
             setContentView(R.layout.dialog_add)
         }
-        val edtTodo : EditText = dialogAdd .findViewById(R.id.edtTodo)
-        val btnCancel : Button = dialogAdd .findViewById(R.id.btnCancel)
-        val btnAdd : Button = dialogAdd .findViewById(R.id.btnAdd)
+        db = AppDatabase.connectDatabase(requireContext())
+        val edtTodo: EditText = dialogAdd.findViewById(R.id.edtTodo)
+        val btnCancel: Button = dialogAdd.findViewById(R.id.btnCancel)
+        val btnAdd: Button = dialogAdd.findViewById(R.id.btnAdd)
         btnCancel.setOnClickListener {
-            Toast.makeText(requireContext(),"ADD",Toast.LENGTH_SHORT).show()
+            user?.let { it1 -> (activity as? TodoActivity)?.replaceMenuFragment(it1) }
+            dialogAdd.cancel()
         }
         btnAdd.setOnClickListener {
-            Toast.makeText(requireContext(),"CANCEL",Toast.LENGTH_SHORT).show()
+            todo = user?.id?.let { it1 -> Todo(todo = edtTodo.text.toString(), isStatus = false, userId = it1) }
+            todo?.let { it1 -> db?.todoDao()?.insertTodo(it1) }
+            dialogAdd.cancel()
         }
-        dialogAdd .show()
+        dialogAdd.show()
+        dialogAdd.window?.setLayout(1400, 800)
     }
 }
+

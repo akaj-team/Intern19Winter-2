@@ -51,7 +51,7 @@ class LoginFragment : Fragment() {
             }
         }
         tvSignUp.setOnClickListener {
-            (activity as? TodoActivity)?.replaceRegisterFragment()
+            (activity as? TodoActivity)?.replaceRegisterFragment("")
         }
     }
 }

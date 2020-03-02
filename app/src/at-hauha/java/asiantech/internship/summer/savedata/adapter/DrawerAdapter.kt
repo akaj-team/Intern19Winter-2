@@ -1,4 +1,4 @@
-package asiantech.internship.summer.savedata
+package asiantech.internship.summer.savedata.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater

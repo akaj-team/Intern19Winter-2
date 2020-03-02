@@ -1,11 +1,12 @@
-package asiantech.internship.summer.savedata
+package asiantech.internship.summer.savedata.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
+@Suppress("DEPRECATION")
 class MenuAdapter(fm: FragmentManager) :
-    FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+        FragmentStatePagerAdapter(fm) {
 
     private val fragmentList: ArrayList<Fragment> = ArrayList()
     private val titleList: ArrayList<String> = ArrayList()
