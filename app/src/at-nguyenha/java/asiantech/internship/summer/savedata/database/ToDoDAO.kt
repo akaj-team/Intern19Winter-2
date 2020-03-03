@@ -12,15 +12,21 @@ interface ToDoDAO {
     fun updateTask(vararg todoTitle: ToDoModel)
 
     @Delete
-    fun deleteTask(vararg todoTitle: ToDoModel)
+    fun deleteToDo(todo: ToDoModel)
 
     @Query("select * from todo_table")
-    fun getAllToDo() : List<ToDoModel>
+    fun getAllToDo() : MutableList<ToDoModel>
 
     @Query("select * from todo_table where idToDo = :id")
     fun selectById(id : Int) : ToDoModel
 
-    @Query("select * from todo_table where status <> 0")
-    fun selectDone() : List<ToDoModel>
+    @Query("select * from todo_table where status = :status")
+    fun selectToDo(status : Boolean) : MutableList<ToDoModel>
+
+    @Query("update todo_table set status = :isStatus where idToDo = :id")
+    fun updateStatus(id: Int, isStatus :Boolean)
+
+    @Query("update todo_table set todoname = :toDoName where idToDo = :id")
+    fun editStatus(id: Int, toDoName : String)
 
 }

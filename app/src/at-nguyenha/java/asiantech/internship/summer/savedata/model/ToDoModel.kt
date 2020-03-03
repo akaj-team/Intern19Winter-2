@@ -9,4 +9,4 @@ data class ToDoModel(
         @PrimaryKey(autoGenerate = true) val idToDo: Int = 0,
         @ColumnInfo(name = "accountid") val accountId: Int,
         @ColumnInfo(name = "todoname") var toDoName: String?,
-        @ColumnInfo(name = "status") var status: Int = 0)
+        @ColumnInfo(name = "status") var status: Boolean)

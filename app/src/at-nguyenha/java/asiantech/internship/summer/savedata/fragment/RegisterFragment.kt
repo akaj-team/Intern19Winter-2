@@ -8,26 +8,27 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import asiantech.internship.summer.savedata.Utils.GALLERY_PERMISSION_CODE
+import asiantech.internship.summer.savedata.Utils.IMAGE_PICK_CODE
 import asiantech.internship.summer.savedata.database.ConnectDataBase
 import asiantech.internship.summer.savedata.model.AccountModel
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.`at-nguyenha`.fragment_register_savedata.*
 
 class RegisterFragment : Fragment() {
 
-    companion object {
-        private const val IMAGE_PICK_CODE = 1000
-        private const val GALLERY_PERMISSION_CODE = 2001
-    }
-
     private var db: ConnectDataBase? = null
     private var imageUri: Uri? = null
     private var account: AccountModel? = null
+    private var check: AccountModel? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -37,7 +38,41 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = ConnectDataBase.getInMemoryDatabase(requireContext())
+        initListener()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            imageUri = data?.data
+            Glide.with(layoutEditProfile).load(imageUri)
+                    .placeholder(R.drawable.ic_account)
+                    .into(imgAvatarRegister)
+        }
+    }
+
+    private fun initListener() {
         btnRegisterSaveData.setOnClickListener {
+            if (TextUtils.isEmpty(edtUserNameRegister.text.toString()) ||
+                    TextUtils.isEmpty(edtNickNameRegister.text.toString()) ||
+                    TextUtils.isEmpty(edtPasswordRegister.text.toString())) {
+                Toast.makeText(requireContext(), "Please enter full", Toast.LENGTH_SHORT).show()
+            } else if (edtPasswordRegister.text.toString() != edtConfirmPasswordRegister.text.toString()) {
+                Toast.makeText(requireContext(), "Password is not match", Toast.LENGTH_SHORT).show()
+            } else {
+                registerAccount()
+            }
+        }
+        imgAvatarRegister.setOnClickListener {
+            requestPermission()
+        }
+    }
+
+    private fun registerAccount() {
+        check = db?.accountDao()?.checkAccountExist(edtUserNameRegister.text.toString())
+        if (check != null) {
+            Toast.makeText(requireContext(), "Username is already Exist", Toast.LENGTH_SHORT).show()
+        }else{
             account = AccountModel(
                     userName = edtUserNameRegister.text.toString(),
                     nickName = edtNickNameRegister.text.toString(),
@@ -48,18 +83,8 @@ class RegisterFragment : Fragment() {
             edtUserNameRegister.setText("")
             edtNickNameRegister.setText("")
             edtPasswordRegister.setText("")
-            Toast.makeText(requireContext(), "Register Successfully", Toast.LENGTH_SHORT).show()
-        }
-        imgAvatarRegister.setOnClickListener {
-            requestPermission()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == IMAGE_PICK_CODE) {
-            imageUri = data?.data
-            imgAvatarRegister.setImageURI(imageUri)
+            edtConfirmPasswordRegister.setText("")
+            Toast.makeText(requireContext(), getString(R.string.toast_register_success), Toast.LENGTH_SHORT).show()
         }
     }
 

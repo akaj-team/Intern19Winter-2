@@ -12,26 +12,27 @@
         android:id="@+id/layoutToDo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/layout_marginleft_20dp"
-        android:layout_marginRight="@dimen/layout_marginleft_20dp"
         android:orientation="vertical"
         android:weightSum="10">
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tabToDo"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="40dp"
-            android:layout_weight=".7" />
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vpToDo"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="9.3" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabToDo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight=".7"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/textview_color_account"
+            app:tabIndicatorGravity="stretch"
+            app:tabMode="fixed"
+            app:tabRippleColor="@null"
+            app:tabSelectedTextColor="@color/textview_textcolor_white"
+            app:tabTextColor="@color/textview_color_account" />
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout

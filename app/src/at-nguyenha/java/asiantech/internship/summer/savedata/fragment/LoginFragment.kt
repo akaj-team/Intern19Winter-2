@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import asiantech.internship.summer.savedata.Utils
 import asiantech.internship.summer.savedata.activity.ToDoActivity
 import asiantech.internship.summer.savedata.database.ConnectDataBase
 import asiantech.internship.summer.savedata.model.AccountModel
@@ -19,6 +20,7 @@ class LoginFragment : Fragment() {
 
     private var account: AccountModel? = null
     private var db: ConnectDataBase? = null
+    private var idLogin = -1
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -27,12 +29,12 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        db = ConnectDataBase.getInMemoryDatabase(requireContext())
+        loginAccount()
+    }
 
-
-
-
+    private fun loginAccount() {
         btnLoginSaveData.setOnClickListener {
-            db = ConnectDataBase.getInMemoryDatabase(requireContext())
             val username = edtUserName.text.toString()
             val password = edtPasswordLogin.text.toString()
             if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
@@ -40,13 +42,16 @@ class LoginFragment : Fragment() {
             } else {
                 account = db?.accountDao()?.checkLogin(username, password)
                 if (account != null) {
+                    idLogin = account!!.accountId
                     val intent = Intent(activity, ToDoActivity::class.java)
+                    val bundle = Bundle()
+                    bundle.putInt(Utils.PUT_ID, idLogin)
+                    intent.putExtras(bundle)
                     startActivity(intent)
                 } else {
                     Toast.makeText(requireContext(), "Username/password is incorrect", Toast.LENGTH_SHORT).show()
                 }
             }
         }
-
     }
 }

@@ -19,7 +19,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.7"
-        android:background="@color/textview_color_account"
-        app:tabTextColor="@color/textview_textcolor_white" />
+        app:tabIndicatorColor="@color/textview_color_account"
+        app:tabIndicatorGravity="stretch"
+        app:tabMode="fixed"
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="@color/textview_textcolor_white"
+        app:tabTextColor="@color/textview_color_account" />
 
 </LinearLayout>

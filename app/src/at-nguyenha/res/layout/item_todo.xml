@@ -9,6 +9,7 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardAction"
         android:layout_height="match_parent"
         android:layout_width="100dp"
         android:paddingTop="10dp"
@@ -28,7 +29,6 @@
                 android:layout_weight="1"
                 android:background="@android:color/holo_red_light"
                 android:src="@drawable/ic_delete" />
-
 
             <ImageView
                 android:id="@+id/imgEditItem"
@@ -71,8 +71,6 @@
 
         </LinearLayout>
 
-
     </androidx.cardview.widget.CardView>
-
 
 </com.daimajia.swipe.SwipeLayout>

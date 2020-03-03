@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TamLe</string>
+    <string name="app_name">NguyenHa</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -57,6 +57,7 @@
     <string name="textview_text_choose_avater">Choose your avatar from gallery</string>
     <string name="button_text_add_todo">Add Todo</string>
     <string name="button_text_edit_todo">Edit Todo</string>
+    <string name="toast_register_success">Register Successfully</string>
 
 
 </resources>
