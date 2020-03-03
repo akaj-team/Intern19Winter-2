@@ -29,6 +29,7 @@ class TodoFragment : Fragment() {
         private const val ARG_ID = "userId"
         private const val ARG_STATUS = "isStatus"
         private const val DELAY_TIME: Long = 1000
+        private const val OFFSET: Int = 12
 
         fun newInstance(userId: Int, isStatus: Boolean) = TodoFragment().apply {
             arguments = Bundle().apply {
@@ -125,7 +126,7 @@ class TodoFragment : Fragment() {
                         progressBar.visibility = View.VISIBLE
                         isLoading = true
                         Handler().postDelayed({
-                            val listAdd: MutableList<Todo>? = db?.todoDao()?.selectOffset(isStatus, userId, lastItem, (lastItem + 12))
+                            val listAdd: MutableList<Todo>? = db?.todoDao()?.selectOffset(isStatus, userId, lastItem,OFFSET)
                             if (listAdd != null) {
                                 todoList!!.addAll(listAdd)
                                 adapter?.notifyDataSetChanged()

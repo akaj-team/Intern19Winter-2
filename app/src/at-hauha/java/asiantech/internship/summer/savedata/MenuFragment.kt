@@ -3,7 +3,6 @@ package asiantech.internship.summer.savedata
 import android.app.AlertDialog
 import android.os.Bundle
 import android.text.InputType
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
