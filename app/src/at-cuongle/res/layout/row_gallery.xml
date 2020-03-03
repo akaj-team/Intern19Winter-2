@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="130dp"
     android:layout_margin="4dp"
-    android:orientation="vertical"
-    card_view:cardCornerRadius="12dp"
-    card_view:cardElevation="4dp">
+    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/imgGallery"
         android:layout_width="100dp"
         android:layout_height="100dp" />
-</androidx.cardview.widget.CardView>
+</RelativeLayout>

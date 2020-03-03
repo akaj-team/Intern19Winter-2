@@ -11,7 +11,6 @@ import asiantech.internship.summer.R
 import asiantech.internship.summer.layout.database.DataConnection
 import asiantech.internship.summer.layout.database.model.User
 import kotlinx.android.synthetic.`at-cuongle`.fragment_login.*
-import kotlinx.android.synthetic.`at-cuongle`.fragment_login.edtEmail
 
 class UserLoginFragment : Fragment() {
     private var mName = ""
@@ -52,8 +51,10 @@ class UserLoginFragment : Fragment() {
         btnLogin.setOnClickListener {
             user = db?.userDao()?.findByName(edtEmail.text.toString(), edtPasswordSign.text.toString())
             if (user != null) {
-                (activity as? LayoutMainActivity)?.replaceFragment(MainScreenFragment())
+                saveLogin(true, edtEmail.text.toString())
+                user?.let { (activity as? LayoutMainActivity)?.replaceFragment(MainScreenFragment.newInstance(it)) }
             } else {
+                saveLogin(false, edtEmail.text.toString())
                 showDialog()
             }
         }
@@ -74,5 +75,13 @@ class UserLoginFragment : Fragment() {
             }
             show()
         }
+    }
+
+    private fun saveLogin(isLogin: Boolean, userEmail: String) {
+        val sharedPreferences = requireContext().getSharedPreferences("MyPref", 0)
+        val editor = sharedPreferences.edit()
+        editor.putBoolean("isLogin", isLogin)
+        editor.putString("userEmail", userEmail)
+        editor.apply()
     }
 }

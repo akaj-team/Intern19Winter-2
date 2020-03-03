@@ -53,9 +53,9 @@ class UserProfileFragment : Fragment() {
         if (mAvatar != "") {
             imgAvatar.setImageURI(mAvatar.toUri())
         }
-        imgEditProfile.setOnClickListener {
-            (activity as LayoutMainActivity).replaceFragment(EditProfileFragment.newInstance(mName, mEmail, mAvatar))
-        }
+//        imgEditProfile.setOnClickListener {
+//            (activity as LayoutMainActivity).replaceFragment(EditProfileFragment.newInstance(mName, mEmail, mAvatar))
+//        }
         setupViewPager()
     }
 

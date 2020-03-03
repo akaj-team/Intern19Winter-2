@@ -11,10 +11,11 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".MainActivity" />
-        <activity android:name=".layout.SplashActivity"/>
         <activity
             android:name=".layout.LayoutMainActivity"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait" />
+        <activity android:name=".layout.SplashActivity">
+
             <intent-filter>
 
                 <action android:name="android.intent.action.MAIN" />

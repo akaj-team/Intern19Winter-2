@@ -10,9 +10,14 @@ class LayoutMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_layout_main)
-//            replaceFragment(UserLoginFragment())
-        replaceFragment(MainScreenFragment())
-//        replaceFragment(SignUpFragment())
+        val sharedPreferences = this.getSharedPreferences("MyPref", 0)
+        isLogin = sharedPreferences?.getBoolean("isLogin", false) ?: false
+
+        if (isLogin) {
+            replaceFragment(MainScreenFragment())
+        } else {
+            replaceFragment(UserLoginFragment())
+        }
     }
 
     internal fun replaceFragment(fragment: Fragment) {

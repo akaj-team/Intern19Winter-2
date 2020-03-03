@@ -46,5 +46,9 @@
     <string name="tv_title_create_account">Do you want Create Account</string>
     <string name="toast_create_now">Create Now</string>
     <string name="toast_cancel">Canceled</string>
+    <string name="toast_added">Added</string>
+    <string name="toast_edited">Edited</string>
+    <string name="title_dialog_add_todo">Add To Do</string>
+    <string name="dialog_title_edit">Edit To Do</string>
 
 </resources>

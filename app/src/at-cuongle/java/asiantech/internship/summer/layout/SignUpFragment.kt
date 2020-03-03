@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +32,6 @@ class SignUpFragment : Fragment() {
     private var uriImage = ""
     private var db: DataConnection? = null
     private var user: User? = null
-    var onOk: (() -> Unit)? = null
-    var onCancel: (() -> Unit)? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,8 +60,13 @@ class SignUpFragment : Fragment() {
         }
         btnCreateAccount.setOnClickListener {
             user = User(userName = edtEmail.text.toString(), password = edtPassword.text.toString(), path = uriImage)
-            user?.let { itl -> db?.userDao()?.insertAll(itl) }
-            (activity as? LayoutMainActivity)?.replaceFragment(UserLoginFragment())
+            if (edtEmail.text.isBlank() || edtPassword.text.isBlank() || uriImage.isBlank()) {
+                Toast.makeText(context, "Please insert enough data", Toast.LENGTH_SHORT).show()
+            } else {
+                user?.let { itl -> db?.userDao()?.insertAll(itl) }
+                (activity as? LayoutMainActivity)?.replaceFragment(UserLoginFragment())
+            }
+
         }
     }
 
@@ -83,12 +85,10 @@ class SignUpFragment : Fragment() {
         dialogOption.apply {
             setTitle("Do you want Change the Avatar")
             setPositiveButton(android.R.string.ok) { _, _ ->
-                onOk?.invoke()
                 requestPermission()
                 Toast.makeText(context, "Create Now", Toast.LENGTH_SHORT).show()
             }
             setNegativeButton(android.R.string.cancel) { _, _ ->
-                onCancel?.invoke()
                 Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show()
             }
             show()

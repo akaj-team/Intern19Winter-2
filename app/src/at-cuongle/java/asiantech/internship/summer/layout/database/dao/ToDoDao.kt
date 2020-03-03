@@ -1,25 +1,37 @@
 package asiantech.internship.summer.layout.database.dao
 
-import androidx.room.*
+import androidx.room.Dao
+import androidx.room.Delete
+import androidx.room.Insert
+import androidx.room.Query
 import asiantech.internship.summer.layout.database.model.ToDoList
 
 @Dao
 interface ToDoDao {
-    @Query("SELECT * FROM todo")
-    fun getAllTask(): MutableList<ToDoList>
+    @Query("SELECT * FROM todo WHERE isDone = 0")
+    fun getAllTaskStatusFalse(): MutableList<ToDoList>
+
+    @Query("SELECT * FROM todo WHERE isDone = 1")
+    fun getAllTaskStatusTrue(): MutableList<ToDoList>
+//
+//    @Query("SELECT * FROM todo WHERE isDone =0 ORDER BY todo.id ASC LIMIT :index,:lastIndex")
+//    fun selectOffset(isStatus: Boolean, uid: Int, index: Int, lastIndex: Int): MutableList<ToDoList>
 
     @Query("SELECT * FROM todo WHERE id = :id")
     fun findTaskById(id: Int): ToDoList
 
-    @Insert
-    fun insertTask(vararg todoTitle: ToDoList)
+    @Query("SELECT todo.id FROM todo WHERE todo.todoTitle = :title")
+    fun findId(title: String): Int
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateTask(vararg todoTitle: ToDoList)
-//    @Query("UPDATE todo SET todoTitle =:todoTitle WHERE id =:id")
-//    fun updateTask( todoTitle: String, id: Int)
+    @Insert
+    fun insertTask(todoTitle: ToDoList)
+
+    @Query("UPDATE todo SET todoTitle =:title WHERE id =:id ")
+    fun updateTask(id: Int, title: String)
 
     @Delete
-    fun deleteTask(vararg todoTitle: ToDoList)
+    fun deleteTask(toDoList: ToDoList)
 
+    @Query("UPDATE todo SET isDone =:status WHERE id =:id")
+    fun updateStatus(id: Int, status: Boolean)
 }

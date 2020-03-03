@@ -15,6 +15,7 @@ class ToDoAdapter(private val toDo: MutableList<ToDoList>) : RecyclerView.Adapte
     internal var onItemEditClick: (position: Int) -> Unit = {}
     internal var onItemDeleteClick: (position: Int) -> Unit = {}
     internal var onItemCheckBoxClick: (position: Int) -> Unit = {}
+    internal var onItemClick: (position: Int) -> Unit = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListToDoViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_todo, parent, false)
         return ListToDoViewHolder(view)
@@ -40,9 +41,13 @@ class ToDoAdapter(private val toDo: MutableList<ToDoList>) : RecyclerView.Adapte
             btnEdit.setOnClickListener {
                 onItemEditClick.invoke(adapterPosition)
             }
-            chkIsDone.setOnCheckedChangeListener { buttomView, isChecked ->
+            chkIsDone.setOnCheckedChangeListener { _, _ ->
                 onItemCheckBoxClick.invoke(adapterPosition)
             }
+            itemView.setOnClickListener {
+                onItemClick.invoke(adapterPosition)
+            }
+
         }
 
         internal fun bindData() {

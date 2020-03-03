@@ -2,34 +2,23 @@ package asiantech.internship.summer.layout
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import asiantech.internship.summer.layout.database.DataConnection
+import asiantech.internship.summer.layout.database.model.ToDoList
 import kotlinx.android.synthetic.`at-cuongle`.fragment_done.*
 
 class DoneFragment : Fragment() {
-    companion object {
-        private const val ARG_TITLE = "title"
-        internal fun newInstance(title: String) = DoneFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_TITLE, title)
-            }
-        }
-    }
-
-    private lateinit var doneAdapter: Done
-    private var doneItems = mutableListOf<ToDo>()
-    private var titleDone = ""
-
+    private var doneAdapter: Done? = null
+    private var doneList: MutableList<ToDoList>? = null
+    private var db: DataConnection? = null
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            arguments.let {
-                titleDone = it?.getString(ARG_TITLE).toString()
-                Log.i("XXX", titleDone)
-            }
+            initAdapter()
         }
     }
 
@@ -40,30 +29,17 @@ class DoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        db = DataConnection.connectData(requireContext())
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         initAdapter()
-        initData()
     }
 
     private fun initAdapter() {
-        doneAdapter = Done(doneItems)
+        doneList = db?.toDoDao()?.getAllTaskStatusTrue()
+        doneAdapter = doneList?.let { Done(it) }
         recyclerViewDone.adapter = doneAdapter
-    }
-
-    private fun initData() {
-        doneItems.apply {
-            add(ToDo("Eat", true))
-            add(ToDo("Eat", true))
-            add(ToDo("Eat", true))
-            add(ToDo("Eat", true))
-            add(ToDo("Eat", true))
-            add(ToDo("Eat", true))
-            add(ToDo("Eat", true))
-            add(ToDo("Eat", true))
-        }
-        doneAdapter.notifyDataSetChanged()
     }
 }
