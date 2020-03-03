@@ -1,17 +1,17 @@
 package asiantech.internship.summer.savedata
 
-import android.app.Dialog
+import android.app.AlertDialog
 import android.os.Bundle
+import android.text.InputType
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
-import asiantech.internship.summer.savedata.adapter.DoneFragment
 import asiantech.internship.summer.savedata.adapter.DrawerAdapter
 import asiantech.internship.summer.savedata.adapter.MenuAdapter
 import asiantech.internship.summer.savedata.model.AppDatabase
@@ -26,7 +26,6 @@ class MenuFragment : Fragment() {
     private lateinit var adapterDrawer: DrawerAdapter
     private var user: User? = null
     private var todo: Todo? = null
-    private lateinit var dialogAdd: Dialog
     private var db: AppDatabase? = null
 
     companion object {
@@ -55,6 +54,8 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        db = AppDatabase.connectDatabase(requireContext())
+        initDrawable()
         setPager()
         initData()
         initAdapter()
@@ -98,29 +99,38 @@ class MenuFragment : Fragment() {
         tabs.setupWithViewPager(viewPager)
     }
 
-    private fun showDialog() {
 
-        dialogAdd = Dialog(requireContext())
-        dialogAdd.apply {
-            requestWindowFeature(Window.FEATURE_NO_TITLE)
-            setCancelable(false)
-            setContentView(R.layout.dialog_add)
+    private fun initDrawable() {
+        val actionBarDrawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(
+                activity,
+                todoContainer,
+                R.string.Open,
+                R.string.Close
+        ) {
+            override fun onDrawerClosed(drawerView: View) {
+                super.onDrawerClosed(drawerView)
+                user?.let { it -> (activity as? TodoActivity)?.replaceMenuFragment(it) }
+            }
         }
-        db = AppDatabase.connectDatabase(requireContext())
-        val edtTodo: EditText = dialogAdd.findViewById(R.id.edtTodo)
-        val btnCancel: Button = dialogAdd.findViewById(R.id.btnCancel)
-        val btnAdd: Button = dialogAdd.findViewById(R.id.btnAdd)
-        btnCancel.setOnClickListener {
-            user?.let { it1 -> (activity as? TodoActivity)?.replaceMenuFragment(it1) }
-            dialogAdd.cancel()
+        todoContainer.addDrawerListener(actionBarDrawerToggle)
+    }
+
+    private fun showDialog() {
+        val dialogOption = this.let { AlertDialog.Builder(requireContext()) }
+        val editText = EditText(context)
+        editText.inputType = InputType.TYPE_CLASS_TEXT
+        dialogOption.apply {
+            setTitle("Add todo")
+            dialogOption.setView(editText)
+            setPositiveButton(android.R.string.ok) { _, _ ->
+                todo = user?.id?.let { Todo(todo = editText.text.toString(), isStatus = false, userId = it) }
+                todo?.let { db?.todoDao()?.insertTodo(it) }
+            }
+            setNegativeButton(android.R.string.cancel) { _, _ ->
+                user?.let { it -> (activity as? TodoActivity)?.replaceMenuFragment(it) }
+            }
+            show()
         }
-        btnAdd.setOnClickListener {
-            todo = user?.id?.let { it1 -> Todo(todo = edtTodo.text.toString(), isStatus = false, userId = it1) }
-            todo?.let { it1 -> db?.todoDao()?.insertTodo(it1) }
-            dialogAdd.cancel()
-        }
-        dialogAdd.show()
-        dialogAdd.window?.setLayout(1400, 800)
     }
 }
 

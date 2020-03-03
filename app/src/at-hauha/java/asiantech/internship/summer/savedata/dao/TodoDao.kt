@@ -11,8 +11,11 @@ interface TodoDao {
     @Query("SELECT * FROM todo")
     fun selectAll(): MutableList<Todo>
 
-    @Query("SELECT * FROM todo WHERE todo.isStatus = :isStatus AND userId = :uid")
+    @Query("SELECT * FROM todo WHERE todo.isStatus = :isStatus AND userId = :uid ORDER BY todo.id ASC LIMIT 12")
     fun selectAllByStatus(isStatus: Boolean, uid: Int): MutableList<Todo>
+
+    @Query("SELECT * FROM todo WHERE todo.isStatus = :isStatus AND userId = :uid ORDER BY todo.id ASC LIMIT :index,:lastIndex")
+    fun selectOffset(isStatus: Boolean, uid: Int, index: Int, lastIndex: Int): MutableList<Todo>
 
     @Query("SELECT * FROM todo WHERE userId = :uid")
     fun selectTodoById(uid: Int): List<Todo>
@@ -27,5 +30,5 @@ interface TodoDao {
     fun deleteTodo(todo: Todo)
 
     @Insert
-    fun insertTodo(todo: Todo)
+    fun insertTodo(vararg todo: Todo)
 }

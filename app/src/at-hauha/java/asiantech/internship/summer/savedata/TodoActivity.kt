@@ -11,10 +11,7 @@ class TodoActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo)
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.flContainer, SplashFragment(), null)
-                .addToBackStack(null)
-                .commit()
+        replaceLoginFragment()
     }
 
     fun replaceMenuFragment(user: User) {

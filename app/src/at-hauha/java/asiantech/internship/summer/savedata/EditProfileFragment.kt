@@ -50,7 +50,7 @@ class EditProfileFragment : Fragment() {
         edtEmail.text = Editable.Factory.getInstance().newEditable(user?.username)
         edtPassword.text = Editable.Factory.getInstance().newEditable(user?.password)
         if (user?.path?.run { isEmpty() }!!) {
-            imgAvatar.setImageResource(R.drawable.ic_empty_avatar)
+            imgAvatar.setImageResource(R.drawable.ic_avatar)
         } else {
             imgAvatar.setImageURI(Uri.parse(user?.path))
         }

@@ -1,4 +1,4 @@
-package asiantech.internship.summer.savedata.adapter
+package asiantech.internship.summer.savedata
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
+import asiantech.internship.summer.savedata.adapter.TodoAdapter
 import asiantech.internship.summer.savedata.model.AppDatabase
 import asiantech.internship.summer.savedata.model.Todo
 import kotlinx.android.synthetic.`at-hauha`.fragment_todo.*

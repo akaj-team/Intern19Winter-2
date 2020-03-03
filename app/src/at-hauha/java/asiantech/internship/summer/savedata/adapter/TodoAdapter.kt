@@ -34,7 +34,7 @@ class TodoAdapter(private val todoList: List<Todo>) : RecyclerView.Adapter<TodoA
         private val sample: SwipeLayout = itemView.findViewById(R.id.swipeLayout)
         private val imgEdit: ImageView = itemView.findViewById(R.id.imgEdit)
         private val imgDelete: ImageView = itemView.findViewById(R.id.imgDelete)
-        private val chkTodo : CheckBox = itemView.findViewById(R.id.chkTodo)
+        private val chkTodo: CheckBox = itemView.findViewById(R.id.chkTodo)
 
         init {
             chkTodo.setOnCheckedChangeListener { _, _ ->
@@ -52,7 +52,7 @@ class TodoAdapter(private val todoList: List<Todo>) : RecyclerView.Adapter<TodoA
             todoList[adapterPosition].let {
                 tvTodo.text = it.todo
                 sample.showMode = SwipeLayout.ShowMode.LayDown
-                if(it.isStatus){
+                if (it.isStatus) {
                     chkTodo.visibility = View.INVISIBLE
                 }
             }

@@ -67,10 +67,11 @@ class DrawerAdapter(private val drawerItem: MutableList<DrawerItem>) : RecyclerV
                 if (it.icon.isNotEmpty()) {
                     imgAvatar.setImageURI(Uri.parse(it.icon))
                 }else{
-                    imgAvatar.setImageResource(R.drawable.ic_empty_avatar)
+                    imgAvatar.setImageResource(R.drawable.ic_avatar)
                 }
                 tvEmail.text = it.action
             }
         }
     }
+
 }
