@@ -161,7 +161,7 @@
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintRight_toRightOf="@id/guideLineRight"
-            app:layout_constraintTop_toBottomOf="@id/btnRegister" />
+            app:layout_constraintTop_toBottomOf="@id/btnEdit" />
 
         <TextView
             android:id="@+id/tvLoginHere"

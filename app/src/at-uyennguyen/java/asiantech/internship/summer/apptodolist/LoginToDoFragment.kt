@@ -31,23 +31,29 @@ class LoginToDoFragment : Fragment() {
         context?.apply { sharedPreferences = this.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE) }
         val idDefault = sharedPreferences?.getInt(SHARED_ID, ID_DEFAULT)
         if (idDefault != ID_DEFAULT) {
-            val homeToDoFragment = HomeToDoFragment()
-            activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.frameLayoutTodo, homeToDoFragment)
-                    ?.commit()
-        } else {
+            val user = idDefault?.let { databaseManager.getUserById(it) } //val user = databaseManager.getUserById(idDefault)
+            if (user != null) {
+                if (user.size > 0 && user[0].idUser != -1) {
+                    val homeToDoFragment = HomeToDoFragment(user[0])
+                    activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.frameLayoutTodo, homeToDoFragment)
+                            ?.commit()
+                }
+            }
+        }
+        else {
             btnLogin.setOnClickListener {
                 val nameLogin = edtUsernameLogin.text.toString()
                 val passLogin = edtPasswordLogin.text.toString()
                 val user = databaseManager.loginUser(nameLogin, passLogin)
                 if (user.size > 0 && user[0].idUser != -1) {
                     databaseManager.addIdSharedPreferences(user[0].idUser)
-                    val homeToDoFragment = HomeToDoFragment()
+                    val homeToDoFragment = HomeToDoFragment(user[0])
                     activity?.supportFragmentManager?.beginTransaction()
                             ?.replace(R.id.frameLayoutTodo, homeToDoFragment)
                             ?.commit()
                 } else {
-                    Toast.makeText(context, "Please enter password or username again ", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Username or password is incorrect", Toast.LENGTH_LONG).show()
                 }
             }
         }

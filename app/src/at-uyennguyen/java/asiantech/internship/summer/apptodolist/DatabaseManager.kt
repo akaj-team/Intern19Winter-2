@@ -20,11 +20,13 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         private const val COL_NAME = "Name"
         private const val COL_NICKNAME = "Nickname"
         private const val COL_PASSWORD = "Password"
+        private const val COL_AVATAR = "Avatar"
         private val CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME + " (" +
                 COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL_NAME + " TEXT, " +
                 COL_NICKNAME + " TEXT, " +
-                COL_PASSWORD + " TEXT)"
+                COL_PASSWORD + " TEXT, "+
+                COL_AVATAR + " TEXT)"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -41,6 +43,7 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         value.put(COL_NAME, user.nameUser)
         value.put(COL_NICKNAME, user.nickName)
         value.put(COL_PASSWORD, user.passWord)
+        value.put(COL_AVATAR, user.avatar)
         val idUser: Int = db.insert(TABLE_NAME, null, value).toInt()
         addIdSharedPreferences(idUser)
         db.close()
@@ -54,24 +57,24 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         editor.apply()
     }
 
-    fun getAllUsers(): ArrayList<User> {
-        val listUser: ArrayList<User> = ArrayList()
-        val selectQuery: String = "SELECT * FROM " + TABLE_NAME
-        val db: SQLiteDatabase = this.writableDatabase
-        val cursor: Cursor = db.rawQuery(selectQuery, null)
-        if (cursor.moveToFirst()) {
-            do {
-                val id = cursor.getInt(0)
-                val name = cursor.getString(1)
-                val nickname = cursor.getString(2)
-                val password: String = cursor.getString(3)
-                val user: User = User(id, name, nickname, password)
-                listUser.add(user)
-            } while (cursor.moveToNext())
-        }
-        db.close()
-        return listUser
-    }
+//    fun getAllUsers(): ArrayList<User> {
+//        val listUser: ArrayList<User> = ArrayList()
+//        val selectQuery: String = "SELECT * FROM " + TABLE_NAME
+//        val db: SQLiteDatabase = this.writableDatabase
+//        val cursor: Cursor = db.rawQuery(selectQuery, null)
+//        if (cursor.moveToFirst()) {
+//            do {
+//                val id = cursor.getInt(0)
+//                val name = cursor.getString(1)
+//                val nickname = cursor.getString(2)
+//                val password: String = cursor.getString(3)
+//                val user: User = User(id, name, nickname, password)
+//                listUser.add(user)
+//            } while (cursor.moveToNext())
+//        }
+//        db.close()
+//        return listUser
+//    }
 
     fun loginUser(userName: String, password: String): ArrayList<User> {
         val listUser: ArrayList<User> = ArrayList()
@@ -84,8 +87,31 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
                 val name = cursor.getString(1)
                 val nickname = cursor.getString(2)
                 val password = cursor.getString(3)
-                val user = User(id, name, nickname, password)
+                val avatar = cursor.getString(4)
+                val user = User(id, name, nickname, password, avatar)
                 listUser.add(user)
+                cursor.moveToNext()
+            }
+        }
+        db.close()
+        return listUser
+    }
+
+    fun getUserById(id : Int): ArrayList<User> {
+        val listUser: ArrayList<User> = ArrayList()
+        val selectQuery: String = "SELECT * FROM $TABLE_NAME  WHERE $COL_ID= ?"
+        val db: SQLiteDatabase = this.writableDatabase
+        val cursor: Cursor = db.rawQuery(selectQuery, arrayOf(id.toString()))
+        if (cursor.moveToFirst()) {
+            while (!cursor.isAfterLast) {
+                val id = cursor.getInt(0)
+                val name = cursor.getString(1)
+                val nickname = cursor.getString(2)
+                val password = cursor.getString(3)
+                val avatar = cursor.getString(4)
+                val user = User(id, name, nickname, password, avatar)
+                listUser.add(user)
+
                 cursor.moveToNext()
             }
         }
