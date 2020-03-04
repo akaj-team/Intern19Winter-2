@@ -14,9 +14,9 @@ object GalleryUtils {
     private var projection = arrayOf(MediaStore.MediaColumns.DATA,
             MediaStore.Images.Media.BUCKET_DISPLAY_NAME)
 
-    @SuppressLint("Recycle")
+    @SuppressLint("Recycle", "InlinedApi")
     internal fun getImage(context: Context): MutableList<Gallery> {
-        val cursor = context?.contentResolver.query(imageUri, projection, null, null, null)
+        val cursor = context.contentResolver.query(imageUri, projection, null, null, null)
         column_index_data = cursor?.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA)!!
         column_index_folder_name = cursor
                 .getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME)

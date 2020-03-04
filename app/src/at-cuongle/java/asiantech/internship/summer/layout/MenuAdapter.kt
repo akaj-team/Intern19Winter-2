@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 import com.bumptech.glide.Glide
@@ -42,7 +41,6 @@ class MenuAdapter(private val menu: MutableList<Menu?>) : RecyclerView.Adapter<R
 
     inner class HeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val imgAvatar = itemView.findViewById<CircleImageView>(R.id.imgAvatar)
-        private val tvEmail = itemView.findViewById<TextView>(R.id.tvEmail)
         internal fun bindData() {
             Glide.with(itemView).load(menu[adapterPosition]?.item).into(imgAvatar)
         }
@@ -59,7 +57,7 @@ class MenuAdapter(private val menu: MutableList<Menu?>) : RecyclerView.Adapter<R
 
         internal fun bindData() {
             tvMenu.text = menu[adapterPosition]?.item
-            tvMenu.setCompoundDrawables(menu[adapterPosition]?.icon?.toDrawable(), null, null, null)
+            menu[adapterPosition]?.icon?.let { tvMenu.setCompoundDrawablesWithIntrinsicBounds(it, 0, 0, 0) }
         }
     }
 }

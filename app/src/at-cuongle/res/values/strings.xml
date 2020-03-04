@@ -48,7 +48,20 @@
     <string name="toast_cancel">Canceled</string>
     <string name="toast_added">Added</string>
     <string name="toast_edited">Edited</string>
-    <string name="title_dialog_add_todo">Add To Do</string>
+    <string name="dialog_title_add_todo">Add To Do</string>
     <string name="dialog_title_edit">Edit To Do</string>
+    <string name="toast_please_insert">Please insert to do</string>
+    <string name="toast_done">Done Task</string>
+    <string name="toast_please_insert_data">Please insert enough data</string>
+    <string name="toast_creat_now">Create Now</string>
+    <string name="toast_permission_denied">Permission denied</string>
+    <string name="dialog_title_change_avatar">Change the Avatar</string>
+    <string name="title_button_open_camera">Open Camera</string>
+    <string name="title_button_open_gallery">Open Gallery</string>
+    <string name="tab_layout_todo">TODO</string>
+    <string name="tab_layout_done">DONE</string>
+    <string name="title_menu_edit">Edit Profile</string>
+    <string name="title_menu_logout">Log out</string>
+    <string name="title_action_change_avatar">Do you want Change the Avatar</string>
 
 </resources>

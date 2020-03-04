@@ -1,7 +1,6 @@
 package asiantech.internship.summer.layout
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,12 @@ import asiantech.internship.summer.layout.database.model.ToDoList
 import kotlinx.android.synthetic.`at-cuongle`.fragment_done.*
 
 class DoneFragment : Fragment() {
+    companion object {
+        private const val DEFAULT_VALUE = ""
+        private const val ARG_USER_EMAIL = "userEmail"
+        private const val ARG_PREFERENCES = "MyPref"
+    }
+
     private var doneAdapter: Done? = null
     private var doneList: MutableList<ToDoList>? = null
     private var db: DataConnection? = null
@@ -38,8 +43,13 @@ class DoneFragment : Fragment() {
     }
 
     private fun initAdapter() {
-        doneList = db?.toDoDao()?.getAllTaskStatusTrue()
+        doneList = db?.userDao()?.findByEmail(getUserName())?.uid?.let { db?.toDoDao()?.getAllTaskStatusTrue(it) }
         doneAdapter = doneList?.let { Done(it) }
         recyclerViewDone.adapter = doneAdapter
+    }
+
+    private fun getUserName(): String {
+        val sharedPreferences = requireContext().getSharedPreferences(ARG_PREFERENCES, 0)
+        return sharedPreferences?.getString(ARG_USER_EMAIL, DEFAULT_VALUE) ?: DEFAULT_VALUE
     }
 }

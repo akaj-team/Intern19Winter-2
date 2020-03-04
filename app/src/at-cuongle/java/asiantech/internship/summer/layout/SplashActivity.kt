@@ -13,7 +13,7 @@ class SplashActivity : AppCompatActivity() {
     private var delayHandler: Handler? = null
     private val runnable = Runnable {
         if (!isFinishing) {
-            val intent = Intent(applicationContext, LayoutMainActivity::class.java)
+            val intent = Intent(applicationContext, TodoMainActivity::class.java)
             startActivity(intent)
             finish()
         }

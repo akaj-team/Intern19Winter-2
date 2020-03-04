@@ -13,30 +13,13 @@ import asiantech.internship.summer.layout.database.model.User
 import kotlinx.android.synthetic.`at-cuongle`.fragment_login.*
 
 class UserLoginFragment : Fragment() {
-    private var mName = ""
-    private var mEmail = ""
     private var db: DataConnection? = null
     private var user: User? = null
-    var onOk: (() -> Unit)? = null
-    var onCancel: (() -> Unit)? = null
 
     companion object {
-        private const val ARG_NAME = "name"
-        private const val ARG_EMAIL = "email"
-        fun newInstance(mName: String, mEmail: String) = UserLoginFragment().apply {
-            arguments = Bundle().apply {
-                putString(ARG_NAME, mName)
-                putString(ARG_EMAIL, mEmail)
-            }
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            mName = it.getString(ARG_NAME).toString()
-            mEmail = it.getString(ARG_EMAIL).toString()
-        }
+        private const val ARG_USER_EMAIL = "userEmail"
+        private const val ARG_IS_LOGIN = "isLogin"
+        private const val ARG_PREFERENCES = "MyPref"
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -47,12 +30,11 @@ class UserLoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = DataConnection.connectData(requireContext())
-        edtEmail.setText(mEmail)
         btnLogin.setOnClickListener {
             user = db?.userDao()?.findByName(edtEmail.text.toString(), edtPasswordSign.text.toString())
             if (user != null) {
                 saveLogin(true, edtEmail.text.toString())
-                user?.let { (activity as? LayoutMainActivity)?.replaceFragment(MainScreenFragment.newInstance(it)) }
+                (activity as? TodoMainActivity)?.replaceFragment(MainScreenFragment())
             } else {
                 saveLogin(false, edtEmail.text.toString())
                 showDialog()
@@ -65,12 +47,10 @@ class UserLoginFragment : Fragment() {
         dialogOption.apply {
             setTitle(getString(R.string.tv_title_create_account))
             setPositiveButton(android.R.string.ok) { _, _ ->
-                onOk?.invoke()
                 Toast.makeText(context, getString(R.string.toast_create_now), Toast.LENGTH_SHORT).show()
-                (activity as? LayoutMainActivity)?.replaceFragment(SignUpFragment())
+                (activity as? TodoMainActivity)?.replaceFragment(SignUpFragment())
             }
             setNegativeButton(android.R.string.cancel) { _, _ ->
-                onCancel?.invoke()
                 Toast.makeText(context, getString(R.string.toast_cancel), Toast.LENGTH_SHORT).show()
             }
             show()
@@ -78,10 +58,10 @@ class UserLoginFragment : Fragment() {
     }
 
     private fun saveLogin(isLogin: Boolean, userEmail: String) {
-        val sharedPreferences = requireContext().getSharedPreferences("MyPref", 0)
+        val sharedPreferences = requireContext().getSharedPreferences(ARG_PREFERENCES, 0)
         val editor = sharedPreferences.edit()
-        editor.putBoolean("isLogin", isLogin)
-        editor.putString("userEmail", userEmail)
+        editor.putBoolean(ARG_IS_LOGIN, isLogin)
+        editor.putString(ARG_USER_EMAIL, userEmail)
         editor.apply()
     }
 }

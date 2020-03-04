@@ -9,11 +9,9 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.InputType
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -65,7 +63,7 @@ class EditProfileFragment : Fragment() {
         btnSave.setOnClickListener {
             userEmail = edtEmail.text.toString()
             user?.let { user?.uid?.let { it1 -> db?.userDao()?.updateData(it1, userEmail, user?.path) } }
-            user?.let { (activity as? LayoutMainActivity)?.replaceFragment(MainScreenFragment.newInstance(it)) }
+            user?.let { (activity as? TodoMainActivity)?.replaceFragment(MainScreenFragment()) }
         }
     }
 
@@ -101,7 +99,7 @@ class EditProfileFragment : Fragment() {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     openCamera()
                 } else {
-                    Toast.makeText(context, "Permission denied", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, getString(R.string.toast_permission_denied), Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -128,20 +126,16 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun showDialog() {
-        val editText = EditText(context)
-        editText.inputType = InputType.TYPE_CLASS_TEXT
         val dialogOption = this.let { AlertDialog.Builder(requireContext()) }
-        dialogOption.setView(editText)
         dialogOption.apply {
-            setTitle("Change the Avatar")
-            setPositiveButton("Open Camera") { _, _ ->
+            setTitle(getString(R.string.dialog_title_change_avatar))
+            setPositiveButton(getString(R.string.title_button_open_camera)) { _, _ ->
                 openCamera()
             }
-            setNegativeButton("Open Gallery") { _, _ ->
-                (activity as? LayoutMainActivity)?.replaceFragment(GalleryFragment())
+            setNegativeButton(getString(R.string.title_button_open_gallery)) { _, _ ->
+                (activity as? TodoMainActivity)?.replaceFragment(GalleryFragment())
             }
             show()
         }
     }
-
 }

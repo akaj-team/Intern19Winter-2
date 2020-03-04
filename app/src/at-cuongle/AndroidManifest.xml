@@ -12,7 +12,7 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".layout.LayoutMainActivity"
+            android:name=".layout.TodoMainActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".layout.SplashActivity">
 

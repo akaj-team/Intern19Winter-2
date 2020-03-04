@@ -1,6 +1,5 @@
 package asiantech.internship.summer.layout
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -42,7 +41,7 @@ class GalleryFragment : Fragment() {
 
     private fun initListeners() {
         galleryAdapter.onImageClicked = {
-            (activity as? LayoutMainActivity)?.replaceFragment(SignUpFragment.newInstance(imagePath[it].uri))
+            (activity as? TodoMainActivity)?.replaceFragment(SignUpFragment.newInstance(imagePath[it].uri))
         }
     }
 }

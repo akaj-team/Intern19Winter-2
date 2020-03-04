@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "todo")
 data class ToDoList(@PrimaryKey(autoGenerate = true) var id: Int = 0,
                     @ColumnInfo(name = "todoTitle") var todoTitle: String?,
-                    @ColumnInfo(name = "isDone") var isDone: Boolean
-//                    @ColumnInfo(name = "uid") var uid: Int
+                    @ColumnInfo(name = "isDone") var isDone: Boolean,
+                    @ColumnInfo(name = "uid") var uid: Int
 )

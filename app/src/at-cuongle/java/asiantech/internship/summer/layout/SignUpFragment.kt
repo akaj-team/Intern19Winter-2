@@ -61,10 +61,10 @@ class SignUpFragment : Fragment() {
         btnCreateAccount.setOnClickListener {
             user = User(userName = edtEmail.text.toString(), password = edtPassword.text.toString(), path = uriImage)
             if (edtEmail.text.isBlank() || edtPassword.text.isBlank() || uriImage.isBlank()) {
-                Toast.makeText(context, "Please insert enough data", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.toast_please_insert_data), Toast.LENGTH_SHORT).show()
             } else {
                 user?.let { itl -> db?.userDao()?.insertAll(itl) }
-                (activity as? LayoutMainActivity)?.replaceFragment(UserLoginFragment())
+                (activity as? TodoMainActivity)?.replaceFragment(UserLoginFragment())
             }
 
         }
@@ -83,13 +83,13 @@ class SignUpFragment : Fragment() {
     private fun showDialog() {
         val dialogOption = this.let { AlertDialog.Builder(requireContext()) }
         dialogOption.apply {
-            setTitle("Do you want Change the Avatar")
+            setTitle(getString(R.string.title_action_change_avatar))
             setPositiveButton(android.R.string.ok) { _, _ ->
                 requestPermission()
-                Toast.makeText(context, "Create Now", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.toast_creat_now), Toast.LENGTH_SHORT).show()
             }
             setNegativeButton(android.R.string.cancel) { _, _ ->
-                Toast.makeText(context, "Canceled", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, getString(R.string.toast_cancel), Toast.LENGTH_SHORT).show()
             }
             show()
         }
@@ -108,10 +108,10 @@ class SignUpFragment : Fragment() {
                         arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 requestPermissions(permission, PERMISSION_CODE)
             } else {
-                (activity as? LayoutMainActivity)?.replaceFragment(GalleryFragment())
+                (activity as? TodoMainActivity)?.replaceFragment(GalleryFragment())
             }
         } else {
-            (activity as? LayoutMainActivity)?.replaceFragment(GalleryFragment())
+            (activity as? TodoMainActivity)?.replaceFragment(GalleryFragment())
         }
     }
 }
