@@ -59,4 +59,5 @@
     <string name="button_cancel">Cancel</string>
     <string name="Close">Close</string>
     <string name="Open">Open</string>
+    <string name="toat_wrong">Input username or password</string>
 </resources>

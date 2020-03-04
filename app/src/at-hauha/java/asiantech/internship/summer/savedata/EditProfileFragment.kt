@@ -63,7 +63,7 @@ class EditProfileFragment : Fragment() {
             val password = edtPassword.text.toString().trim()
             var path = user?.path
             if (name.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Input username or password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), getString(R.string.toat_wrong), Toast.LENGTH_SHORT).show()
             } else {
                 if (imageUri.isNotBlank()) {
                     path = imageUri
@@ -71,10 +71,10 @@ class EditProfileFragment : Fragment() {
                 user?.id?.let { it1 -> path?.let { it2 -> db?.userDao()?.updateData(name, password, it2, it1) } }
             }
             user = db?.userDao()?.findUser(name, password)
-            user?.let { it -> (activity as? TodoActivity)?.replaceMenuFragment(it) }
+            user?.id?.let { it1 -> (activity as? TodoActivity)?.replaceMenuFragment(it1) }
         }
         imgExit.setOnClickListener {
-            user?.let { it -> (activity as? TodoActivity)?.replaceMenuFragment(it) }
+            user?.id?.let { it1 -> (activity as? TodoActivity)?.replaceMenuFragment(it1) }
         }
     }
 

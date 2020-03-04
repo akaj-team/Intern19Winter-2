@@ -1,5 +1,6 @@
 package asiantech.internship.summer.savedata
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import asiantech.internship.summer.R
@@ -7,33 +8,40 @@ import asiantech.internship.summer.savedata.model.User
 
 
 class TodoActivity : AppCompatActivity() {
+    private var logined: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_todo)
-        replaceLoginFragment()
+        getShareReference()
+        if (logined != Utils.DEFAULT_ID) {
+            replaceMenuFragment(logined)
+        } else {
+            replaceLoginFragment()
+        }
     }
 
-    fun replaceMenuFragment(user: User) {
+    fun replaceMenuFragment(id: Int) {
         supportFragmentManager.beginTransaction()
-                .replace(R.id.flContainer, MenuFragment.newInstance(user), null)
+                .replace(R.id.flContainer, MenuFragment.newInstance(id), null)
                 .addToBackStack(null)
                 .commit()
     }
 
-    fun replaceLoginFragment(){
+    fun replaceLoginFragment() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.flContainer, LoginFragment(), null)
                 .addToBackStack(null)
                 .commit()
     }
 
-    fun replaceRegisterFragment(uri : String) {
+    fun replaceRegisterFragment(uri: String) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.flContainer, RegisterFragment.newInstance(uri), null)
                 .addToBackStack(null)
                 .commit()
     }
+
     fun replaceEditProfileFragment(user: User) {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.flContainer, EditProfileFragment.newInstance(user), null)
@@ -55,4 +63,9 @@ class TodoActivity : AppCompatActivity() {
                 .commit()
     }
 
+    private fun getShareReference() {
+        val sharedPreferences = this
+                .getSharedPreferences(Utils.SHARE_REF, Context.MODE_PRIVATE)
+        logined = sharedPreferences.getInt(Utils.PUT_ID, Utils.DEFAULT_ID)
+    }
 }

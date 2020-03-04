@@ -1,6 +1,8 @@
 package asiantech.internship.summer.savedata
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.InputType
 import android.view.LayoutInflater
@@ -11,6 +13,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
+import asiantech.internship.summer.savedata.Utils.DEFAULT_ID
+import asiantech.internship.summer.savedata.Utils.PUT_ID
+import asiantech.internship.summer.savedata.Utils.SHARE_REF
 import asiantech.internship.summer.savedata.adapter.DrawerAdapter
 import asiantech.internship.summer.savedata.adapter.MenuAdapter
 import asiantech.internship.summer.savedata.model.AppDatabase
@@ -26,12 +31,13 @@ class MenuFragment : Fragment() {
     private var user: User? = null
     private var todo: Todo? = null
     private var db: AppDatabase? = null
+    private var userId : Int = 0
 
     companion object {
-        private const val ARG_USER = "user"
-        fun newInstance(user: User) = MenuFragment().apply {
+        private const val ARG_ID = "id"
+        fun newInstance(id: Int) = MenuFragment().apply {
             arguments = Bundle().apply {
-                putSerializable(ARG_USER, user)
+                putInt(ARG_ID, id)
             }
         }
     }
@@ -39,7 +45,7 @@ class MenuFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.apply {
-            user = getSerializable(ARG_USER) as User?
+            userId = getInt(ARG_ID)
         }
     }
 
@@ -54,6 +60,7 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = AppDatabase.connectDatabase(requireContext())
+        user = db?.userDao()?.findUserById(userId)
         initDrawable()
         setPager()
         initData()
@@ -66,6 +73,10 @@ class MenuFragment : Fragment() {
             when (it) {
                 1 -> user?.let { it1 -> (activity as? TodoActivity)?.replaceEditProfileFragment(it1) }
                 2 -> showDialog()
+                3 -> {
+                    (activity as TodoActivity).replaceLoginFragment()
+                    removeSharedPreferences()
+                }
             }
         }
 
@@ -84,7 +95,7 @@ class MenuFragment : Fragment() {
             path?.let { name?.let { it1 -> DrawerItem(it, it1) } }?.let { add(it) }
             add(DrawerItem(R.drawable.ic_people_black_24dp.toString(), "Edit profile"))
             add(DrawerItem(R.drawable.ic_playlist_add_black_24dp.toString(), "Add todo"))
-            add(DrawerItem(R.drawable.ic_notifications_none_black_24dp.toString(), ""))
+            add(DrawerItem(R.drawable.ic_notifications_none_black_24dp.toString(), "Log out"))
         }
     }
 
@@ -108,7 +119,7 @@ class MenuFragment : Fragment() {
         ) {
             override fun onDrawerClosed(drawerView: View) {
                 super.onDrawerClosed(drawerView)
-                user?.let { it -> (activity as? TodoActivity)?.replaceMenuFragment(it) }
+                user?.id.let { (activity as? TodoActivity)?.replaceMenuFragment(userId) }
             }
         }
         todoContainer.addDrawerListener(actionBarDrawerToggle)
@@ -126,10 +137,17 @@ class MenuFragment : Fragment() {
                 todo?.let { db?.todoDao()?.insertTodo(it) }
             }
             setNegativeButton(android.R.string.cancel) { _, _ ->
-                user?.let { it -> (activity as? TodoActivity)?.replaceMenuFragment(it) }
+                user?.id.let {(activity as? TodoActivity)?.replaceMenuFragment(userId) }
             }
             show()
         }
+    }
+    private fun removeSharedPreferences(){
+        val sharedPreferences = requireContext()
+                .getSharedPreferences(SHARE_REF, Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putInt(PUT_ID, DEFAULT_ID)
+        editor.apply()
     }
 }
 

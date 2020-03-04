@@ -11,6 +11,9 @@ object Utils {
     private var column_index_data = 0
     private var column_index_folder_name: Int = 0
     private var absolutePathOfImage: String? = null
+    const val PUT_ID = "PUT_ID"
+    const val SHARE_REF = "SHARE_REF"
+    const val DEFAULT_ID = 0
 
     @SuppressLint("InlinedApi")
     private var projection = arrayOf(MediaStore.MediaColumns.DATA,

@@ -59,7 +59,7 @@ class RegisterFragment : Fragment() {
             val password = edtPassword.text.toString().trim()
             var path = ""
             if (name.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Input username or password", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.toat_wrong, Toast.LENGTH_SHORT).show()
             } else {
                 if (imageUri.isNotBlank()) {
                     path = imageUri

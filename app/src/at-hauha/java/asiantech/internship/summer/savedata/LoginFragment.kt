@@ -1,6 +1,8 @@
 package asiantech.internship.summer.savedata
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -11,6 +13,8 @@ import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import asiantech.internship.summer.savedata.Utils.PUT_ID
+import asiantech.internship.summer.savedata.Utils.SHARE_REF
 import asiantech.internship.summer.savedata.model.AppDatabase
 import asiantech.internship.summer.savedata.model.User
 import kotlinx.android.synthetic.`at-hauha`.fragment_data_login.*
@@ -39,7 +43,9 @@ class LoginFragment : Fragment() {
         tvLogin.setOnClickListener {
             user = db?.userDao()?.findUser(edtEmail.text.toString(), edtPassword.text.toString())
             if (user != null) {
-                user?.let { it -> (activity as? TodoActivity)?.replaceMenuFragment(it)}
+                user?.id?.let { it1 -> saveLogin(it1) }
+                user?.id?.let { it2 -> (activity as? TodoActivity)?.replaceMenuFragment(it2)}
+
                 edtEmail.text = Editable.Factory.getInstance().newEditable("")
                 edtPassword.text = Editable.Factory.getInstance().newEditable("")
             } else {
@@ -53,5 +59,13 @@ class LoginFragment : Fragment() {
         tvSignUp.setOnClickListener {
             (activity as? TodoActivity)?.replaceRegisterFragment("")
         }
+    }
+
+    private fun saveLogin(id : Int){
+        val sharedPreferences = requireContext()
+                .getSharedPreferences(SHARE_REF, Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putInt(PUT_ID, id)
+        editor.apply()
     }
 }
