@@ -81,6 +81,7 @@ class MainScreenFragment : Fragment() {
         val sharedPreferences = requireContext().getSharedPreferences(ARG_PREFERENCES, 0)
         val editor = sharedPreferences.edit()
         editor.remove(ARG_IS_LOGIN)
+                .remove(ARG_USER_EMAIL)
                 .apply()
     }
 
