@@ -11,12 +11,13 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardAction"
         android:layout_height="match_parent"
-        android:layout_width="100dp"
+        android:layout_width="140dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         app:cardCornerRadius="5dp">
 
         <LinearLayout
+            android:id="@+id/layoutAction"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -43,7 +44,7 @@
     <androidx.cardview.widget.CardView
         app:cardCornerRadius="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="70dp">
 
         <LinearLayout
             android:paddingTop="10dp"

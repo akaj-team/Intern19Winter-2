@@ -1,7 +1,26 @@
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/recyclerDone"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/color_background"
-    tools:context="asiantech.internship.summer.savedata.fragment.DoneFragment" />
+    tools:context="asiantech.internship.summer.savedata.fragment.DoneFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerDone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ProgressBar
+        android:id="@+id/progressLoadDone"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

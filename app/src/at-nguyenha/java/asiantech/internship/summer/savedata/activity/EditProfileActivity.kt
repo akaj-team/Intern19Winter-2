@@ -10,7 +10,7 @@ import android.os.Bundle
 import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import asiantech.internship.summer.R
-import asiantech.internship.summer.savedata.Utils
+import asiantech.internship.summer.savedata.model.Utils
 import asiantech.internship.summer.savedata.database.ConnectDataBase
 import asiantech.internship.summer.savedata.model.AccountModel
 import com.bumptech.glide.Glide
@@ -46,7 +46,7 @@ class EditProfileActivity : AppCompatActivity() {
 
     private fun getDataBundle(){
         val bundle = intent.extras
-        idToEdit = bundle?.getInt(Utils.PUT_ID)
+        idToEdit = bundle?.getInt(Utils.PUT_ID_ACCOUNT)
         getAction = bundle?.getString(Utils.ACTION)
         account = idToEdit?.let { it1 -> db?.accountDao()?.getAccountById(it1) }
     }

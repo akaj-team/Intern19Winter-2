@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import asiantech.internship.summer.R
-import asiantech.internship.summer.savedata.Utils
+import asiantech.internship.summer.savedata.model.Utils
 
-class LaucherActivity : AppCompatActivity() {
+class SplashScreenActivity : AppCompatActivity() {
 
     private var idLogined: Int? = null
 
@@ -16,7 +16,6 @@ class LaucherActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_laucher)
         loadLogin()
-
     }
 
     private fun loadLogin() {
@@ -24,17 +23,18 @@ class LaucherActivity : AppCompatActivity() {
         handler.postDelayed({
             val sharedPreferences = this
                     .getSharedPreferences(Utils.SHARED_PREFS, Context.MODE_PRIVATE)
-            idLogined = sharedPreferences.getInt(Utils.PUT_ID, Utils.ID_DEFAULT)
+            idLogined = sharedPreferences.getInt(Utils.PUT_ID_ACCOUNT, Utils.ID_DEFAULT)
             if (idLogined != Utils.ID_DEFAULT) {
                 val intent = Intent(this, ToDoActivity::class.java)
                 val bundle = Bundle()
-                bundle.putInt(Utils.PUT_ID, idLogined!!)
+                bundle.putInt(Utils.PUT_ID_ACCOUNT, idLogined!!)
                 intent.putExtras(bundle)
                 startActivity(intent)
             } else {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }
+            finish()
         }, Utils.DELAY_TIME)
     }
 }

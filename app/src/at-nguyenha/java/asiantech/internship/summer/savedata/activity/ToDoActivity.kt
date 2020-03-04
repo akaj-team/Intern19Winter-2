@@ -2,7 +2,6 @@ package asiantech.internship.summer.savedata.activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.LocusId
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
@@ -10,12 +9,11 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import asiantech.internship.summer.R
-import asiantech.internship.summer.savedata.Utils
+import asiantech.internship.summer.savedata.model.Utils
 import asiantech.internship.summer.savedata.adapter.ToDoAdapter
 import asiantech.internship.summer.savedata.database.ConnectDataBase
 import asiantech.internship.summer.savedata.model.AccountModel
 import com.bumptech.glide.Glide
-import com.bumptech.glide.util.Util
 import kotlinx.android.synthetic.`at-nguyenha`.activity_to_do.*
 
 class ToDoActivity : AppCompatActivity() {
@@ -24,14 +22,14 @@ class ToDoActivity : AppCompatActivity() {
     private var db: ConnectDataBase? = null
     private val adapterToDO = ToDoAdapter(supportFragmentManager)
     private lateinit var setAction : String
-    private var id = -1
+    private var idLogined = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_to_do)
         val bundle: Bundle? = intent.extras
         if (bundle != null) {
-            id = bundle.getInt(Utils.PUT_ID)
+            idLogined = bundle.getInt(Utils.PUT_ID_ACCOUNT)
         }
         db = ConnectDataBase.getInMemoryDatabase(this)
         initView()
@@ -63,7 +61,7 @@ class ToDoActivity : AppCompatActivity() {
     }
 
     private fun initDrawer() {
-        account = db?.accountDao()?.getAccountById(id)
+        account = db?.accountDao()?.getAccountById(idLogined)
         if (account != null) {
             tvNickName.text = account?.nickName
             Glide.with(drawerToDo).load(Uri.parse(account?.avatarAccount))
@@ -78,7 +76,7 @@ class ToDoActivity : AppCompatActivity() {
             setAction = Utils.ACTION_EDIT_PROFILE
             val bundle = Bundle()
             bundle.putString(Utils.ACTION, setAction)
-            bundle.putInt(Utils.PUT_ID, id)
+            bundle.putInt(Utils.PUT_ID_ACCOUNT, idLogined)
             intent.putExtras(bundle)
             startActivity(intent)
         }
@@ -100,7 +98,7 @@ class ToDoActivity : AppCompatActivity() {
         val sharedPreferences = this
                 .getSharedPreferences(Utils.SHARED_PREFS, Context.MODE_PRIVATE)
         val editor : SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putInt(Utils.PUT_ID, Utils.ID_DEFAULT)
+        editor.putInt(Utils.PUT_ID_ACCOUNT, Utils.ID_DEFAULT)
         editor.apply()
     }
 }

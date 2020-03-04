@@ -1,6 +1,5 @@
 package asiantech.internship.summer.savedata.fragment
 
-
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -12,7 +11,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
-import asiantech.internship.summer.savedata.Utils
+import asiantech.internship.summer.savedata.model.Utils
 import asiantech.internship.summer.savedata.activity.ToDoActivity
 import asiantech.internship.summer.savedata.database.ConnectDataBase
 import asiantech.internship.summer.savedata.model.AccountModel
@@ -23,8 +22,6 @@ class LoginFragment : Fragment() {
     private var account: AccountModel? = null
     private var db: ConnectDataBase? = null
     private var idLogin = -1
-    private var idLogined : Int? = null
-    //private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -49,7 +46,7 @@ class LoginFragment : Fragment() {
                     idLogin = account!!.accountId
                     val intent = Intent(activity, ToDoActivity::class.java)
                     val bundle = Bundle()
-                    bundle.putInt(Utils.PUT_ID, idLogin)
+                    bundle.putInt(Utils.PUT_ID_ACCOUNT, idLogin)
                     intent.putExtras(bundle)
                     saveLogin(idLogin)
                     startActivity(intent)
@@ -64,9 +61,7 @@ class LoginFragment : Fragment() {
         val sharedPreferences = requireContext()
                 .getSharedPreferences(Utils.SHARED_PREFS, Context.MODE_PRIVATE)
         val editor : SharedPreferences.Editor = sharedPreferences.edit()
-        editor.putInt(Utils.PUT_ID, id)
+        editor.putInt(Utils.PUT_ID_ACCOUNT, id)
         editor.apply()
     }
-
-
 }
