@@ -1,7 +1,9 @@
 package asiantech.internship.summer.savedata.fragment
 
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -21,6 +23,8 @@ class LoginFragment : Fragment() {
     private var account: AccountModel? = null
     private var db: ConnectDataBase? = null
     private var idLogin = -1
+    private var idLogined : Int? = null
+    //private var sharedPreferences: SharedPreferences? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -47,6 +51,7 @@ class LoginFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putInt(Utils.PUT_ID, idLogin)
                     intent.putExtras(bundle)
+                    saveLogin(idLogin)
                     startActivity(intent)
                 } else {
                     Toast.makeText(requireContext(), "Username/password is incorrect", Toast.LENGTH_SHORT).show()
@@ -54,4 +59,14 @@ class LoginFragment : Fragment() {
             }
         }
     }
+
+    private fun saveLogin(id : Int){
+        val sharedPreferences = requireContext()
+                .getSharedPreferences(Utils.SHARED_PREFS, Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putInt(Utils.PUT_ID, id)
+        editor.apply()
+    }
+
+
 }

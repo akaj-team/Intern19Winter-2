@@ -1,6 +1,9 @@
 package asiantech.internship.summer.savedata.activity
 
+import android.content.Context
 import android.content.Intent
+import android.content.LocusId
+import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -88,7 +91,16 @@ class ToDoActivity : AppCompatActivity() {
         layoutLogoutItem.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            removeSharedPreferences()
             finish()
         }
+    }
+
+    private fun removeSharedPreferences(){
+        val sharedPreferences = this
+                .getSharedPreferences(Utils.SHARED_PREFS, Context.MODE_PRIVATE)
+        val editor : SharedPreferences.Editor = sharedPreferences.edit()
+        editor.putInt(Utils.PUT_ID, Utils.ID_DEFAULT)
+        editor.apply()
     }
 }
