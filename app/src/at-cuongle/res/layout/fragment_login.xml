@@ -22,7 +22,7 @@
             android:textSize="16dp"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/edtPasswordLogin" />
+            app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
 
         <EditText
             android:id="@+id/edtPassword"
@@ -37,7 +37,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/tvPasswordLogin"
+            app:layout_constraintTop_toBottomOf="@+id/tvPassword"
             tools:ignore="Autofill,LabelFor" />
 
         <EditText
@@ -124,11 +124,11 @@
             android:text="@string/textview_forgot_password"
             android:textColor="@color/color_title"
             android:textSize="14dp"
-            app:layout_constraintBottom_toBottomOf="@+id/tvPasswordLogin"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPassword"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/tvPasswordLogin"
-            app:layout_constraintTop_toTopOf="@+id/tvPasswordLogin"
+            app:layout_constraintStart_toEndOf="@+id/tvPassword"
+            app:layout_constraintTop_toTopOf="@+id/tvPassword"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView

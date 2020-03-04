@@ -21,7 +21,7 @@
             android:textColor="@color/color_while"
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/edtPasswordLogin" />
+            app:layout_constraintTop_toBottomOf="@+id/edtPassword" />
 
         <EditText
             android:id="@+id/edtPassword"
@@ -33,7 +33,7 @@
             app:layout_constraintEnd_toStartOf="@+id/guidelineRight"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/tvPasswordLogin"
+            app:layout_constraintTop_toBottomOf="@+id/tvPassword"
             tools:ignore="Autofill,LabelFor" />
 
         <EditText

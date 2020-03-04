@@ -135,7 +135,7 @@
             android:textSize="@dimen/textview_textsize_20sp"
             app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintRight_toRightOf="@id/guideLineRight"
-            app:layout_constraintTop_toBottomOf="@+id/tvPasswordLogin"
+            app:layout_constraintTop_toBottomOf="@+id/tvPassword"
             tools:ignore="Autofill" />
 
         <Button
@@ -150,7 +150,7 @@
             android:textColor="@android:color/white"
             app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintRight_toRightOf="@id/guideLineRight"
-            app:layout_constraintTop_toBottomOf="@id/edtPasswordLogin" />
+            app:layout_constraintTop_toBottomOf="@id/edtPassword" />
 
         <TextView
             android:id="@+id/tvScratch"
@@ -161,7 +161,7 @@
             android:textSize="14sp"
             app:layout_constraintLeft_toLeftOf="@id/guideLineLeft"
             app:layout_constraintRight_toRightOf="@id/guideLineRight"
-            app:layout_constraintTop_toBottomOf="@id/btnEdit" />
+            app:layout_constraintTop_toBottomOf="@id/btnRegister" />
 
         <TextView
             android:id="@+id/tvLoginHere"
