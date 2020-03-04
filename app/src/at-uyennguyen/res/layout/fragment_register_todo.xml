@@ -2,7 +2,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -21,7 +22,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tvUsernameEdit"
+            android:id="@+id/tvUsernameRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
@@ -31,7 +32,7 @@
             app:layout_constraintTop_toBottomOf="@id/imgAvatarProfile" />
 
         <EditText
-            android:id="@+id/edtUsernameEdit"
+            android:id="@+id/edtUsernameRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
@@ -41,20 +42,20 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvUsernameEdit" />
+            app:layout_constraintTop_toBottomOf="@id/tvUsernameRegister" />
 
         <TextView
-            android:id="@+id/tvNicknameEdit"
+            android:id="@+id/tvNicknameRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:text="Nick name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edtUsernameEdit" />
+            app:layout_constraintTop_toBottomOf="@+id/edtUsernameRegister" />
 
         <EditText
-            android:id="@+id/edtNicknameEdit"
+            android:id="@+id/edtNicknameRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
@@ -64,20 +65,20 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNicknameEdit" />
+            app:layout_constraintTop_toBottomOf="@id/tvNicknameRegister" />
 
         <TextView
-            android:id="@+id/tvPasswordEdit"
+            android:id="@+id/tvPasswordRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:layout_marginTop="30dp"
             android:text="Password"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edtNicknameEdit" />
+            app:layout_constraintTop_toBottomOf="@id/edtNicknameRegister" />
 
         <EditText
-            android:id="@+id/edtPasswordEdit"
+            android:id="@+id/edtPasswordRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
@@ -87,10 +88,10 @@
             android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvPasswordEdit" />
+            app:layout_constraintTop_toBottomOf="@id/tvPasswordRegister" />
 
         <Button
-            android:id="@+id/btnEdit"
+            android:id="@+id/btRegister"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="30dp"
@@ -99,7 +100,7 @@
             android:background="@drawable/button"
             android:text="REGISTER"
             android:textColor="@android:color/white"
-            app:layout_constraintTop_toBottomOf="@id/edtPasswordEdit" />
+            app:layout_constraintTop_toBottomOf="@id/edtPasswordRegister" />
 
         <TextView
             android:id="@+id/tvLoginhere"
@@ -110,7 +111,7 @@
             android:textColor="#12613A"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnEdit" />
+            app:layout_constraintTop_toBottomOf="@id/btRegister" />
 
         <View
             android:layout_width="match_parent"

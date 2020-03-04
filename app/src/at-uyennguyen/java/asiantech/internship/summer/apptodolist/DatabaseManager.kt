@@ -1,5 +1,6 @@
 package asiantech.internship.summer.apptodolist
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
@@ -15,36 +16,75 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         private const val SHARED_ID = "id"
         private const val DATABASE_NAME = "user.db"
         private const val DATABASE_VER = 1
-        private const val TABLE_NAME = "User"
-        private const val COL_ID = "Id"
+        private const val TABLE_USER = "User"
+        private const val COL_ID_USER = "Id"
         private const val COL_NAME = "Name"
         private const val COL_NICKNAME = "Nickname"
         private const val COL_PASSWORD = "Password"
         private const val COL_AVATAR = "Avatar"
-        private val CREATE_TABLE_QUERY = "CREATE TABLE " + TABLE_NAME + " (" +
-                COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+
+        private const val TABLE_TODO = "Todo"
+        private const val COL_ID_TODO = "IdTodo"
+        private const val COL_TEXT_TODO = "TextTodo"
+        private const val COL_ID_USER_TODO = "IdUserTodo"
+
+        private const val TABLE_DONE_TODO = "DoneTodo"
+        private const val COL_ID_DONE_TODO = "IdDoneTodo"
+        private const val COL_TEXT_DONE_TODO = "TextDoneTodo"
+
+        private const val CREATE_TABLE_USER = "CREATE TABLE " + TABLE_USER + " (" +
+                COL_ID_USER + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COL_NAME + " TEXT, " +
                 COL_NICKNAME + " TEXT, " +
-                COL_PASSWORD + " TEXT, "+
+                COL_PASSWORD + " TEXT, " +
                 COL_AVATAR + " TEXT)"
+        private const val CREATE_TABLE_TODO = "CREATE TABLE " + TABLE_TODO + " (" +
+                COL_ID_TODO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_ID_USER_TODO + " INTEGER REFERENCES $TABLE_USER, " +
+                COL_TEXT_TODO + " TEXT)"
+        private const val CREATE_TABLE_DONE_TODO = "CREATE TABLE " + TABLE_DONE_TODO + " (" +
+                COL_ID_DONE_TODO + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COL_ID_USER_TODO + " INTEGER REFERENCES $TABLE_USER, " +
+                COL_TEXT_DONE_TODO + " TEXT)"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
-        db?.execSQL(CREATE_TABLE_QUERY)
+        db?.execSQL(CREATE_TABLE_USER)
+        db?.execSQL(CREATE_TABLE_TODO)
+        db?.execSQL(CREATE_TABLE_DONE_TODO)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         Log.d("data", "onUpgrade")
     }
 
-    fun addUser(user: User): Int {
+    fun addDoneTodo(todo: Todo) {
         val db: SQLiteDatabase = this.writableDatabase
         val value = ContentValues()
+        value.put(COL_ID_USER_TODO, todo.idUserTodo)
+        value.put(COL_TEXT_DONE_TODO, todo.textTodo)
+        db.insert(TABLE_DONE_TODO, null, value).toInt()
+        db.close()
+    }
+
+    fun addTodo(todo: Todo) {
+        val db: SQLiteDatabase = this.writableDatabase
+        val value = ContentValues()
+        value.put(COL_ID_USER_TODO, todo.idUserTodo)
+        value.put(COL_TEXT_TODO, todo.textTodo)
+        db.insert(TABLE_TODO, null, value).toInt()
+        db.close()
+    }
+
+    fun addUser(user: User): Int {
+        val db: SQLiteDatabase = this.writableDatabase
+        val value = ContentValues() //ko thể lưu 1 user xuống database bằng cách truyền trực tiếp xuống mà phải truyền thông qua contentValue,
+        // put vào nhưng key của trường trong bảng
         value.put(COL_NAME, user.nameUser)
         value.put(COL_NICKNAME, user.nickName)
         value.put(COL_PASSWORD, user.passWord)
         value.put(COL_AVATAR, user.avatar)
-        val idUser: Int = db.insert(TABLE_NAME, null, value).toInt()
+        val idUser: Int = db.insert(TABLE_USER, null, value).toInt()
         addIdSharedPreferences(idUser)
         db.close()
         return idUser
@@ -57,28 +97,9 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         editor.apply()
     }
 
-//    fun getAllUsers(): ArrayList<User> {
-//        val listUser: ArrayList<User> = ArrayList()
-//        val selectQuery: String = "SELECT * FROM " + TABLE_NAME
-//        val db: SQLiteDatabase = this.writableDatabase
-//        val cursor: Cursor = db.rawQuery(selectQuery, null)
-//        if (cursor.moveToFirst()) {
-//            do {
-//                val id = cursor.getInt(0)
-//                val name = cursor.getString(1)
-//                val nickname = cursor.getString(2)
-//                val password: String = cursor.getString(3)
-//                val user: User = User(id, name, nickname, password)
-//                listUser.add(user)
-//            } while (cursor.moveToNext())
-//        }
-//        db.close()
-//        return listUser
-//    }
-
     fun loginUser(userName: String, password: String): ArrayList<User> {
         val listUser: ArrayList<User> = ArrayList()
-        val selectQuery: String = "SELECT * FROM $TABLE_NAME  WHERE $COL_NAME = ? AND $COL_PASSWORD = ?"
+        val selectQuery: String = "SELECT * FROM $TABLE_USER  WHERE $COL_NAME = ? AND $COL_PASSWORD = ?"
         val db: SQLiteDatabase = this.writableDatabase
         val cursor: Cursor = db.rawQuery(selectQuery, arrayOf(userName, password))
         if (cursor.moveToFirst()) {
@@ -97,9 +118,10 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         return listUser
     }
 
-    fun getUserById(id : Int): ArrayList<User> {
+    @SuppressLint("Recycle")
+    fun getUserById(id: Int): ArrayList<User> {
         val listUser: ArrayList<User> = ArrayList()
-        val selectQuery: String = "SELECT * FROM $TABLE_NAME  WHERE $COL_ID= ?"
+        val selectQuery: String = "SELECT * FROM $TABLE_USER  WHERE $COL_ID_USER= ?"
         val db: SQLiteDatabase = this.writableDatabase
         val cursor: Cursor = db.rawQuery(selectQuery, arrayOf(id.toString()))
         if (cursor.moveToFirst()) {
@@ -118,4 +140,63 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         db.close()
         return listUser
     }
+
+    fun updateUser(user: User): Int {
+        val db: SQLiteDatabase = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_NAME, user.nameUser)
+        values.put(COL_NICKNAME, user.nickName)
+        values.put(COL_PASSWORD, user.passWord)
+        return db.update(TABLE_USER, values, "$COL_ID_USER = ?", arrayOf(user.idUser.toString()))
+    }
+
+    fun updateTodo(todo: Todo): Int {
+        val db: SQLiteDatabase = this.writableDatabase
+        val values = ContentValues()
+        values.put(COL_TEXT_TODO, todo.textTodo)
+        return db.update(TABLE_TODO, values, "$COL_ID_TODO = ?", arrayOf(todo.idTodo.toString()))
+    }
+
+    fun deleteTodo(idTodo: Int): Int {
+        val db: SQLiteDatabase = this.writableDatabase
+        return db.delete(TABLE_TODO, "$COL_ID_TODO = ?", arrayOf(idTodo.toString()))
+    }
+
+    fun getAllTodo(): ArrayList<Todo> {
+        val listTodo: ArrayList<Todo> = ArrayList()
+        val selectQuery = "SELECT * FROM $TABLE_TODO"
+        val db: SQLiteDatabase = this.writableDatabase
+        val cursor: Cursor = db.run { rawQuery(selectQuery, null) }
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(0)
+                val idUser = cursor.getInt(1)
+                val text = cursor.getString(2)
+                val todo = Todo(id, idUser, text)
+                listTodo.add(todo)
+            } while (cursor.moveToNext())
+        }
+        db.close()
+        return listTodo
+    }
+
+    @SuppressLint("Recycle")
+    fun getAllDoneTodo(): ArrayList<Todo> {
+        val listTodo: ArrayList<Todo> = ArrayList()
+        val selectQuery = "SELECT * FROM $TABLE_DONE_TODO"
+        val db: SQLiteDatabase = this.writableDatabase
+        val cursor: Cursor = db.rawQuery(selectQuery, null)
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(0)
+                val idUser = cursor.getInt(1)
+                val text = cursor.getString(2)
+                val todo = Todo(id, idUser, text)
+                listTodo.add(todo)
+            } while (cursor.moveToNext())
+        }
+        db.close()
+        return listTodo
+    }
 }
+

@@ -23,7 +23,8 @@ class RegisterToDoFragment : Fragment() {
         private const val SHARED_PREFERENCES_NAME = "sharepreferences"
         private const val GALLERY_CODE = 101
     }
-    private var imageGallery : Uri ?=null
+
+    private var imageGallery: Uri? = null
     private var sharedPreferences: SharedPreferences? = null
     private var databaseManager: DatabaseManager? = null
 
@@ -49,20 +50,19 @@ class RegisterToDoFragment : Fragment() {
                 }
             }
         } else {
-            btnEdit.setOnClickListener {
-                if(edtUsernameEdit.text.toString().isEmpty()|| edtNicknameEdit.text.toString().isEmpty() || edtPasswordEdit.text.toString().isEmpty() || imageGallery == null){
-                    Toast.makeText(this.context,"Please enter full information",Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    val name : String = edtUsernameEdit.text.toString()
-                    val nickname : String = edtNicknameEdit.text.toString()
-                    val password : String = edtPasswordEdit.text.toString()
-                    Log.d("images","Save to database:"+imageGallery.toString())
+            btRegister.setOnClickListener {
+                if (edtUsernameRegister.text.toString().isEmpty() || edtNicknameRegister.text.toString().isEmpty() || edtPasswordRegister.text.toString().isEmpty() || imageGallery == null) {
+                    Toast.makeText(this.context, "Please enter full information", Toast.LENGTH_SHORT).show()
+                } else {
+                    val name: String = edtUsernameRegister.text.toString()
+                    val nickname: String = edtNicknameRegister.text.toString()
+                    val password: String = edtPasswordRegister.text.toString()
+                    Log.d("images", "Save to database:" + imageGallery.toString())
                     val user = User(idUser = 0, nameUser = name, nickName = nickname, passWord = password, avatar = imageGallery.toString())
                     databaseManager?.addUser(user)
                     val homeToDoFragment = HomeToDoFragment(user)
                     activity?.supportFragmentManager?.beginTransaction()
-                            ?.replace(R.id.frameLayoutTodo,homeToDoFragment)
+                            ?.replace(R.id.frameLayoutTodo, homeToDoFragment)
                             ?.commit()
                 }
             }
@@ -80,23 +80,22 @@ class RegisterToDoFragment : Fragment() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == GALLERY_CODE && grantResults.isNotEmpty() && grantResults[0]==PackageManager.PERMISSION_GRANTED){
+        if (requestCode == GALLERY_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.type = "image/*"
             startActivityForResult(intent, GALLERY_CODE)
-        }
-        else{
-            if(!this.shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)){
-                Toast.makeText(context,"Please open gallery permission on settings", Toast.LENGTH_SHORT).show()
+        } else {
+            if (!this.shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                Toast.makeText(context, "Please open gallery permission on settings", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == GALLERY_CODE && resultCode == Activity.RESULT_OK){
+        if (requestCode == GALLERY_CODE && resultCode == Activity.RESULT_OK) {
             imageGallery = data?.data!!
-            Log.d("images","Select From Image Gallery: "+imageGallery.toString())
+            Log.d("images", "Select From Image Gallery: " + imageGallery.toString())
             imgAvatarProfile.setImageURI(imageGallery)
         }
     }

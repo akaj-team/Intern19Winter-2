@@ -3,13 +3,13 @@ package asiantech.internship.summer.apptodolist
 import android.os.Parcel
 import android.os.Parcelable
 
-data class User (var idUser : Int , var nameUser : String, var nickName : String, var passWord : String, var avatar : String):Parcelable {
+data class User(var idUser: Int, var nameUser: String, var nickName: String, var passWord: String, var avatar: String) : Parcelable {
     constructor(parcel: Parcel) : this(
             parcel.readInt(),
-            parcel.readString()!!,
-            parcel.readString()!!,
-            parcel.readString()!!,
-            parcel.readString()!!) {
+            parcel.readString().toString(),
+            parcel.readString().toString(),
+            parcel.readString().toString(),
+            parcel.readString().toString()) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {

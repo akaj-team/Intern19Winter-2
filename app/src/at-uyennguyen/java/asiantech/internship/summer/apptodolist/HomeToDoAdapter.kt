@@ -1,10 +1,9 @@
 package asiantech.internship.summer.apptodolist
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.net.Uri
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,16 +12,9 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import de.hdodenhof.circleimageview.CircleImageView
-import java.io.File
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 
-class HomeToDoAdapter(val items : ArrayList<DrawerItem>, val user: User, val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class HomeToDoAdapter(val items: ArrayList<DrawerItem>, var user: User, val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
         private const val TYPE_HEADER = 0
@@ -30,14 +22,15 @@ class HomeToDoAdapter(val items : ArrayList<DrawerItem>, val user: User, val con
         private const val USER = "user"
         fun newInstance(user: User): LoginToDoFragment {
             val loginToDoFragment = LoginToDoFragment()
-            val bundle= Bundle()
+            val bundle = Bundle()
             bundle.putParcelable(USER, user)
             loginToDoFragment.arguments = bundle
             return loginToDoFragment
         }
     }
+
     internal var onItemClicked: (position: Int) -> Unit = {}
-    private var bitmap : Bitmap ?= null
+    private var bitmap: Bitmap? = null
     private var selectedPosition = 1
 
     override fun getItemViewType(position: Int): Int {
@@ -57,7 +50,7 @@ class HomeToDoAdapter(val items : ArrayList<DrawerItem>, val user: User, val con
         return DrawerItemViewHolder(view)
     }
 
-    override fun getItemCount()= items.size
+    override fun getItemCount() = items.size
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         (holder as? DrawerItemHeaderViewHolder)?.bindData()
@@ -65,14 +58,10 @@ class HomeToDoAdapter(val items : ArrayList<DrawerItem>, val user: User, val con
     }
 
     inner class DrawerItemHeaderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var imgAvatar : CircleImageView = itemView.findViewById(R.id.imgAvatarProfile)
-        private var tvName : TextView = itemView.findViewById(R.id.tvUserName)
-        private var tvNickname : TextView = itemView.findViewById(R.id.tvNicknameHome)
-        fun bindData(){
-            Log.d("images", "Get avatar: " +  user.avatar)
-//            Glide.with(context)
-//                    .load(Uri.fromFile(File(user.avatar)))
-//                    .into(imgAvatar)
+        private var imgAvatar: CircleImageView = itemView.findViewById(R.id.imgAvatarProfile)
+        private var tvName: TextView = itemView.findViewById(R.id.tvUserName)
+        private var tvNickname: TextView = itemView.findViewById(R.id.tvNicknameHome)
+        fun bindData() {
             bitmap = BitmapFactory.decodeFile(user.avatar)
             imgAvatar.setImageBitmap(bitmap)
             tvName.text = user.nameUser
@@ -81,15 +70,18 @@ class HomeToDoAdapter(val items : ArrayList<DrawerItem>, val user: User, val con
     }
 
     inner class DrawerItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var imgIcon : ImageView = itemView.findViewById(R.id.imgIcon)
-        private var tvTitle : TextView = itemView.findViewById(R.id.tvTitle)
+        private var imgIcon: ImageView = itemView.findViewById(R.id.imgIcon)
+        private var tvTitle: TextView = itemView.findViewById(R.id.tvTitle)
+
         init {
-            itemView.setOnClickListener {onItemClicked.invoke(1)
+            itemView.setOnClickListener {
+                onItemClicked.invoke(adapterPosition)
                 selectedPosition = adapterPosition
                 notifyDataSetChanged()
             }
         }
-        fun bindData(){
+
+        fun bindData() {
             items[adapterPosition].run {
                 if (adapterPosition == selectedPosition) {
                     imgIcon.setImageResource(iconColor)

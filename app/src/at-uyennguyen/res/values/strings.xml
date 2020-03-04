@@ -38,4 +38,16 @@
     <string name="your_password_in_signin">Your password</string>
     <string name="your_email_in_login">Your email</string>
     <string name="your_password_in_login">Your password</string>
+    <string name="add_todo">ADD TODO</string>
+    <string name="hint_todo">todo</string>
+    <string name="user_name">User name</string>
+    <string name="your_user_name">Your user name</string>
+    <string name="nick_name">Nick name</string>
+    <string name="edit">EDIT</string>
+    <string name="your_nickname">Your nickname</string>
+    <string name="welcome">WELCOME</string>
+    <string name="user_name_tod">User Name</string>
+    <string name="your_password_todo">your password</string>
+    <string name="login_todo">LOGIN</string>
+    <string name="create_account_here_todo">Create Account Here</string>
 </resources>

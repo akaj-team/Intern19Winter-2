@@ -40,8 +40,7 @@ class LoginToDoFragment : Fragment() {
                             ?.commit()
                 }
             }
-        }
-        else {
+        } else {
             btnLogin.setOnClickListener {
                 val nameLogin = edtUsernameLogin.text.toString()
                 val passLogin = edtPasswordLogin.text.toString()
