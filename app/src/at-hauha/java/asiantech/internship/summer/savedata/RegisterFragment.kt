@@ -64,8 +64,13 @@ class RegisterFragment : Fragment() {
                 if (imageUri.isNotBlank()) {
                     path = imageUri
                 }
-                user = User(username = name, password = password, path = path)
-                user?.let { it1 -> db?.userDao()?.insertAll(it1) }
+                if(db?.userDao()?.getUserName(name) == null){
+                    user = User(username = name, password = password, path = path)
+                    user?.let { it1 -> db?.userDao()?.insertAll(it1) }
+                }
+                else{
+                    Toast.makeText(requireContext(),getString(R.string.valid_username),Toast.LENGTH_LONG).show()
+                }
                 edtEmail.text = Editable.Factory.getInstance().newEditable("")
                 edtPassword.text = Editable.Factory.getInstance().newEditable("")
             }

@@ -60,4 +60,5 @@
     <string name="Close">Close</string>
     <string name="Open">Open</string>
     <string name="toat_wrong">Input username or password</string>
+    <string name="valid_username">Username already exists</string>
 </resources>
