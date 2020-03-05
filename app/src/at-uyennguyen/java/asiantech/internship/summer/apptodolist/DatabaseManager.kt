@@ -162,11 +162,12 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         return db.delete(TABLE_TODO, "$COL_ID_TODO = ?", arrayOf(idTodo.toString()))
     }
 
-    fun getAllTodo(): ArrayList<Todo> {
+    fun getAllTodo(id: Int): ArrayList<Todo> {
         val listTodo: ArrayList<Todo> = ArrayList()
-        val selectQuery = "SELECT * FROM $TABLE_TODO"
+        val selectQuery = "SELECT * FROM  $TABLE_TODO WHERE $COL_ID_USER_TODO= ?"
         val db: SQLiteDatabase = this.writableDatabase
-        val cursor: Cursor = db.run { rawQuery(selectQuery, null) }
+        val cursor: Cursor = db.rawQuery(selectQuery, arrayOf(id.toString()))
+//        val cursor: Cursor = db.run { rawQuery(selectQuery, null) }
         if (cursor.moveToFirst()) {
             do {
                 val id = cursor.getInt(0)
@@ -181,11 +182,11 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
     }
 
     @SuppressLint("Recycle")
-    fun getAllDoneTodo(): ArrayList<Todo> {
+    fun getAllDoneTodo(id: Int): ArrayList<Todo> {
         val listTodo: ArrayList<Todo> = ArrayList()
-        val selectQuery = "SELECT * FROM $TABLE_DONE_TODO"
+        val selectQuery = "SELECT * FROM $TABLE_DONE_TODO  WHERE $COL_ID_USER_TODO= ? "
         val db: SQLiteDatabase = this.writableDatabase
-        val cursor: Cursor = db.rawQuery(selectQuery, null)
+        val cursor: Cursor = db.rawQuery(selectQuery, arrayOf(id.toString()))
         if (cursor.moveToFirst()) {
             do {
                 val id = cursor.getInt(0)
