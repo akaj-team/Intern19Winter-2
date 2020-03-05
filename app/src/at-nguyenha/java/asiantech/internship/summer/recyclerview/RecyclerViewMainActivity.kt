@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
-import kotlinx.android.synthetic.`at-nguyenha`.activity_main.*
+import kotlinx.android.synthetic.`at-nguyenha`.activity_recyclerview.*
 import kotlin.random.Random
 
 class RecyclerViewMainActivity : AppCompatActivity() {
@@ -18,7 +18,7 @@ class RecyclerViewMainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(asiantech.internship.summer.R.layout.activity_main)
+        setContentView(asiantech.internship.summer.R.layout.activity_recyclerview)
 
         initView()
         initAdapter()
