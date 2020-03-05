@@ -11,6 +11,7 @@ class TodoMainActivity : AppCompatActivity() {
         private const val ARG_PREFERENCES = "MyPref"
     }
 
+    protected var a = ""
     private var isLogin = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

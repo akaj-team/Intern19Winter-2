@@ -38,6 +38,7 @@ class EditProfileFragment : Fragment() {
     private var user: User? = null
     private var imgBackGround: Uri? = null
     private var db: DataConnection? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments.let {
@@ -54,16 +55,18 @@ class EditProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         db = DataConnection.connectData(requireContext())
         edtEmail.setText(user?.userName)
-        if (user?.path != "") {
-            imgAvatar.setImageURI(Uri.parse(user?.path))
+        user?.path?.let {
+            imgAvatar.setImageURI(Uri.parse(it))
         }
         imgAvatar.setOnClickListener {
             requestPermission()
         }
         btnSave.setOnClickListener {
             userEmail = edtEmail.text.toString()
-            user?.let { user?.uid?.let { it1 -> db?.userDao()?.updateData(it1, userEmail, user?.path) } }
-            user?.let { (activity as? TodoMainActivity)?.replaceFragment(MainScreenFragment()) }
+            user?.let {
+                user?.uid?.let { it1 -> db?.userDao()?.updateData(it1, userEmail, user?.path) }
+            }
+            (activity as? TodoMainActivity)?.replaceFragment(MainScreenFragment())
         }
     }
 

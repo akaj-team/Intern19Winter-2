@@ -44,6 +44,7 @@ class ToDoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         db = DataConnection.connectData(requireContext())
         user = db?.userDao()?.findByEmail(getUserName())
+        
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
