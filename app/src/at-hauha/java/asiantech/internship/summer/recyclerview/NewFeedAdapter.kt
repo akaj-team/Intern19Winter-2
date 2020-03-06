@@ -7,8 +7,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
+import com.bumptech.glide.Glide
 
-class NewFeedAdapter(private val newFeeds: MutableList<NewFeed>) : RecyclerView.Adapter<NewFeedAdapter.NewFeedItemViewHolder>() {
+class NewFeedAdapter(posts: List<NewFeed>) : RecyclerView.Adapter<NewFeedAdapter.NewFeedItemViewHolder>() {
+
+    val newFeeds: List<NewFeed> = posts
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewFeedItemViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_list, parent, false)
@@ -42,10 +45,10 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeed>) : RecyclerView.
         fun bindData() {
             newFeeds[adapterPosition].run {
                 tvUserName.text = name
-                imgBackGround.setImageResource(picture)
+                Glide.with(itemView).load(picture).into(imgBackGround)
                 if (isStatus) imgLike.setImageResource(R.drawable.ic_favorite_red_a700_24dp)
                 else imgLike.setImageResource(R.drawable.ic_favorite_border_black_24dp)
-                tvLikeNumber.text = itemView.context.getString(R.string.textview_like,likes)
+                tvLikeNumber.text = itemView.context.getString(R.string.textview_like, like)
                 tvFoodName.text = foodName
                 tvPreview.text = preview
             }
@@ -53,3 +56,4 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeed>) : RecyclerView.
     }
 
 }
+

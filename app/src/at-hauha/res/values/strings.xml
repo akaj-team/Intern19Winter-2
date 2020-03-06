@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">NhatNguyen</string>
+    <string name="app_name">HauHa</string>
     <string name="textview_email_address">Email address</string>
     <string name="textview_welcome_back">Welcome Back!</string>
     <string name="textview_please_login_to_continue">Please login to continue.</string>
