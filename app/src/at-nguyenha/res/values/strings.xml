@@ -31,6 +31,12 @@
     <string name="textview_text_phone">Phone</string>
     <string name="edittext_hint_phone">+84 386971275</string>
     <string name="button_text_save_profile">Save Profile</string>
+    <string name="edittext_text_name">Name</string>
+    <string name="edittext_text_status">Status</string>
+    <string name="edittext_text_food_name">Food Name</string>
+    <string name="edittext_text_image">Image URL</string>
+    <string name="button_text_add">Add NewFeed</string>
+    <string name="menu_title_delete">Delete</string>
 
 
 </resources>

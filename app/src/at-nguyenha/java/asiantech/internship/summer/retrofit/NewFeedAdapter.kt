@@ -7,11 +7,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
+import asiantech.internship.summer.retrofit.model.NewFeedModel
 import com.bumptech.glide.Glide
 
 class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : RecyclerView.Adapter<NewFeedAdapter.NewFeedViewHolder>() {
 
     internal var onItemClicked: (position: Int) -> Unit = {}
+    internal var onItem3DotClicked: (position: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewFeedViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_newfeed, parent, false)
@@ -34,11 +36,15 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
         private val tvStatus: TextView = itemView.findViewById(R.id.tvStatus)
         private val tvNameStatus: TextView = itemView.findViewById(R.id.tvNameStatus)
         private val tvFoodName: TextView = itemView.findViewById(R.id.tvFoodName)
+        private val img3Dot: ImageView = itemView.findViewById(R.id.imgOption)
 
 
         init {
             imgHeart.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
+            }
+            img3Dot.setOnClickListener {
+                onItem3DotClicked.invoke(adapterPosition)
             }
         }
 

@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="asiantech.internship.summer.retrofit.fragment.AddNewFeedFragment">
+
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+        android:layout_marginRight="@dimen/layout_marginright_20dp"
+        android:hint="@string/edittext_text_name"
+        android:inputType="text"
+        android:textSize="18sp"
+        tools:ignore="Autofill,LabelFor" />
+
+    <EditText
+        android:id="@+id/edtStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+        android:layout_marginRight="@dimen/layout_marginright_20dp"
+        android:hint="@string/edittext_text_status"
+        android:inputType="text"
+        android:textSize="18sp"
+        tools:ignore="Autofill,LabelFor" />
+
+    <EditText
+
+        android:id="@+id/edtFoodName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+        android:layout_marginRight="@dimen/layout_marginright_20dp"
+        android:hint="@string/edittext_text_food_name"
+        android:inputType="text"
+        android:textSize="18sp"
+        tools:ignore="Autofill,LabelFor" />
+
+    <EditText
+        android:id="@+id/edtImageUrl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/layout_marginleft_20dp"
+        android:layout_marginRight="@dimen/layout_marginright_20dp"
+        android:hint="@string/edittext_text_image"
+        android:inputType="textUri"
+        android:textSize="18sp"
+        tools:ignore="Autofill,LabelFor" />
+
+    <Button
+        android:id="@+id/btnAddNewFeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/button_text_add"/>
+
+
+</LinearLayout>

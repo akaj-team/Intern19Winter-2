@@ -1,6 +1,6 @@
 package asiantech.internship.summer.retrofit.api
 
-import asiantech.internship.summer.retrofit.Utils
+import asiantech.internship.summer.retrofit.model.Utils
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
