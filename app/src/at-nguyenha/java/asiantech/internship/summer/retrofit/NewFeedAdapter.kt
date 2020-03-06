@@ -1,4 +1,4 @@
-package asiantech.internship.summer.recyclerview
+package asiantech.internship.summer.retrofit
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
+import com.bumptech.glide.Glide
 
 class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : RecyclerView.Adapter<NewFeedAdapter.NewFeedViewHolder>() {
 
@@ -27,7 +28,7 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
 
     inner class NewFeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvName: TextView = itemView.findViewById(R.id.tvName)
-        private val imgMainPhoto: ImageView = itemView.findViewById(R.id.imgMainPhoto)
+        private val imgMain: ImageView = itemView.findViewById(R.id.imgMainPhoto)
         private val imgHeart: ImageView = itemView.findViewById(R.id.imgHeart)
         private val tvLikes: TextView = itemView.findViewById(R.id.tvHeartNumber)
         private val tvStatus: TextView = itemView.findViewById(R.id.tvStatus)
@@ -44,7 +45,10 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
         internal fun binData() {
             newFeeds[adapterPosition].let {
                 tvName.text = it.name
-                imgMainPhoto.setImageResource(it.mainImage)
+                Glide.with(itemView)
+                        .load(it.mainImage)
+                        .placeholder(R.drawable.ic_empty_image)
+                        .into(imgMain)
                 if (it.isHeart) imgHeart.setImageResource(R.drawable.ic_hearted) else imgHeart.setImageResource(R.drawable.ic_heart)
                 tvNameStatus.text = it.name
                 tvFoodName.text = it.foodName
