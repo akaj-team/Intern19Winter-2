@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import asiantech.internship.summer.Model.NewFeed
 import asiantech.internship.summer.R
 import asiantech.internship.summer.R.drawable.img_heartblack
 import asiantech.internship.summer.R.drawable.img_heartred
 
-class FoodAdapter(val foods: MutableList<Food?>) : RecyclerView.Adapter<FoodAdapter.FoodViewHolder>() {
+class NewFeedAdapter(val newFeeds: ArrayList<NewFeed>) : RecyclerView.Adapter<NewFeedAdapter.FoodViewHolder>() {
     internal var onItemClicked: (position: Int) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
@@ -19,7 +20,7 @@ class FoodAdapter(val foods: MutableList<Food?>) : RecyclerView.Adapter<FoodAdap
         return FoodViewHolder(view)
     }
 
-    override fun getItemCount() = foods.size
+    override fun getItemCount() = newFeeds.size
 
     override fun onBindViewHolder(holder: FoodViewHolder, position: Int) {
         holder.bindData(position)
@@ -36,7 +37,7 @@ class FoodAdapter(val foods: MutableList<Food?>) : RecyclerView.Adapter<FoodAdap
 
         internal fun bindData(position: Int) {
             imgHeart.setOnClickListener { onItemClicked.invoke(adapterPosition) }
-            foods[position]?.run {
+            newFeeds[position]?.run {
                 tvNameComment.text = name
                 imgAvatar.setImageResource(avatar)
                 imgPicture.setImageResource(picture)

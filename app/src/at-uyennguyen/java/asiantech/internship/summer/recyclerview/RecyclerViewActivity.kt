@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
+import asiantech.internship.summer.Model.NewFeed
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.activity_recyclerview.*
 
@@ -14,21 +15,22 @@ class RecyclerViewActivity : AppCompatActivity() {
     companion object{
         const val DELAY_TIME = 2000
     }
-    private var foods = mutableListOf<Food?>()
-    private var adapterFood: FoodAdapter = FoodAdapter(foods)
+    var viewModel: NewFeedViewModel = NewFeedViewModel()
+    private var adapterNewFeed: NewFeedAdapter = NewFeedAdapter(viewModel.newFeeds)
     private var isLoading = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recyclerview)
         initAdapter()
-        initData()
+//        initData()
         initListener()
+        viewModel.getListNewFeed()
     }
 
     private fun initAdapter() {
         var isLikeHeart = false
-        adapterFood.onItemClicked = {
-            foods[it]?.run {
+        adapterNewFeed.onItemClicked = {
+            viewModel.newFeeds[it]?.run {
                 isLikeHeart = like
                 if (isLikeHeart) {
                     like = !isLikeHeart
@@ -42,10 +44,10 @@ class RecyclerViewActivity : AppCompatActivity() {
                     }
                 }
             }
-            adapterFood.notifyItemChanged(it, null)
+            adapterNewFeed.notifyItemChanged(it, null)
             (recyclerviewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
-        recyclerviewMain.adapter = adapterFood
+        recyclerviewMain.adapter = adapterNewFeed
     }
 
     private fun initListener() {
@@ -55,10 +57,10 @@ class RecyclerViewActivity : AppCompatActivity() {
                 val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
                 val lastItem = linearLayoutManager.findLastCompletelyVisibleItemPosition()
                 if (!isLoading) {
-                    if (lastItem == foods.size - 1) {
+                    if (lastItem == viewModel.newFeeds.size - 1) {
                         progressbar.visibility = View.VISIBLE
                         Handler().postDelayed({
-                            initData()
+//                            initData()
                             isLoading = false
                             progressbar.visibility = View.INVISIBLE
                         }, 2000)
@@ -68,27 +70,27 @@ class RecyclerViewActivity : AppCompatActivity() {
         })
         swipeRefreshLayout.setOnRefreshListener {
             Handler().postDelayed({
-                foods.clear()
-                initData()
-                adapterFood.notifyDataSetChanged()
+                viewModel.newFeeds.clear()
+//                initData()
+                adapterNewFeed.notifyDataSetChanged()
                 swipeRefreshLayout.isRefreshing = false
             }, DELAY_TIME.toLong())
         }
     }
 
-    private fun initData() {
-        foods.add(Food(R.drawable.img_banhcuon, "Bánh cuộn", R.drawable.img_banhcuon, false, 123, "this is the hamburger that I make, feel so good "))
-        foods.add(Food(R.drawable.img_banhmy, "Bánh mỳ", R.drawable.img_banhmy, false, 567, "this is the hamburger that I make, feel so good "))
-        foods.add(Food(R.drawable.img_buncha, "Bún chả", R.drawable.img_buncha, true, 19, "this is the hamburger that I make, feel so good "))
-        foods.add(Food(R.drawable.img_chagio, "Chả giò", R.drawable.img_chagio, false, 245, "this is the hamburger that I make, feel so good "))
-        foods.add(Food(R.drawable.img_chaolong, "Cháo lòng", R.drawable.img_chaolong, false, 155, "this is the hamburger that I make, feel so good "))
-        foods.add(Food(R.drawable.img_comtron, "Cơm trộn", R.drawable.img_comtron, true, 678, "this is the hamburger that I make, feel so good "))
-        foods.add(Food(R.drawable.img_echxaoxaot, "Ếch xào xả ớt", R.drawable.img_echxaoxaot, false, 90, "this is the hamburger that I make, feel so good "))
-        foods.add(Food(R.drawable.img_garan, "Gà rán", R.drawable.img_garan, false, 777, "this is the hamburger that I make, feel so good "))
-        foods.add(Food(R.drawable.img_goicatrich, "Gỏi cá trích", R.drawable.img_goicatrich, true, 185, "this is the hamburger that I make, feel so good "))
-        foods.add(Food(R.drawable.img_goicuon, "Gói cuốn", R.drawable.img_goicuon, false, 317, "this is the hamburger that I make, feel so good "))
-        foods.shuffle()
-        adapterFood.notifyDataSetChanged()
-    }
+//    private fun initData() {
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_banhcuon, "Bánh cuộn", R.drawable.img_banhcuon, false, 123, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_banhmy, "Bánh mỳ", R.drawable.img_banhmy, false, 567, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_buncha, "Bún chả", R.drawable.img_buncha, true, 19, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_chagio, "Chả giò", R.drawable.img_chagio, false, 245, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_chaolong, "Cháo lòng", R.drawable.img_chaolong, false, 155, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_comtron, "Cơm trộn", R.drawable.img_comtron, true, 678, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_echxaoxaot, "Ếch xào xả ớt", R.drawable.img_echxaoxaot, false, 90, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_garan, "Gà rán", R.drawable.img_garan, false, 777, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_goicatrich, "Gỏi cá trích", R.drawable.img_goicatrich, true, 185, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.add(NewFeed(R.drawable.img_goicuon, "Gói cuốn", R.drawable.img_goicuon, false, 317, "this is the hamburger that I make, feel so good "))
+//        viewModel.newFeeds.shuffle()
+//        adapterNewFeed.notifyDataSetChanged()
+//    }
 }
 
