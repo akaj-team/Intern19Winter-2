@@ -27,6 +27,7 @@ class NewFeedAdapter(posts: List<NewFeed>) : RecyclerView.Adapter<NewFeedAdapter
     }
 
     internal var onItemClicked: (position: Int) -> Unit = {}
+    internal var onImageItemClicked: (position: Int) -> Unit = {}
 
     inner class NewFeedItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val tvUserName: TextView = itemView.findViewById(R.id.tvUserName)
@@ -39,6 +40,10 @@ class NewFeedAdapter(posts: List<NewFeed>) : RecyclerView.Adapter<NewFeedAdapter
         init {
             imgLike.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
+            }
+            imgBackGround.setOnLongClickListener {
+                onImageItemClicked.invoke(adapterPosition)
+                true
             }
         }
 

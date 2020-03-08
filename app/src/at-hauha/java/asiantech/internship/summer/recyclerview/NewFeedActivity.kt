@@ -17,7 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class RecyclerViewMainActivity : AppCompatActivity() {
+class NewFeedActivity : AppCompatActivity() {
 
     private var newFeeds = mutableListOf<NewFeed>()
     private var isLoading: Boolean = false
@@ -32,6 +32,12 @@ class RecyclerViewMainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_recylerview)
         initData()
         initListener()
+        imgAdd.setOnClickListener {
+            supportFragmentManager.beginTransaction()
+                    .replace(R.id.newfeedContainer,NewFeedFragment(),null)
+                    .addToBackStack(null)
+                    .commit()
+        }
     }
 
     private fun initRefresh() {
@@ -45,7 +51,6 @@ class RecyclerViewMainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun initAdapter() {
         this.adapter = NewFeedAdapter(newFeeds)
         adapter.onItemClicked = {
@@ -53,13 +58,18 @@ class RecyclerViewMainActivity : AppCompatActivity() {
             if (isStatus) {
                 newFeeds[it].isStatus = !isStatus
                 newFeeds[it].like -= 1
+                updateData(newFeeds[it].id, newFeeds[it])
             } else {
                 newFeeds[it].isStatus = !isStatus
                 newFeeds[it].like += 1
-
+                updateData(newFeeds[it].id, newFeeds[it])
             }
             adapter.notifyItemChanged(it)
-
+        }
+        adapter.onImageItemClicked = {
+            deleteData(newFeeds[it].id)
+            newFeeds.removeAt(it)
+            adapter.notifyItemChanged(it)
         }
         (recycleViewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         recycleViewMain.layoutManager = LinearLayoutManager(this)
@@ -67,7 +77,7 @@ class RecyclerViewMainActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-        val serviceAPI = API.getRetrofitInstance()?.create(APIService::class.java)
+        val serviceAPI = APIRetrofit.getRetrofitInstance()?.create(APIService::class.java)
         val call = serviceAPI?.getNewfeed()
         call?.enqueue(object : Callback<List<NewFeed>> {
             override fun onFailure(call: Call<List<NewFeed>>, t: Throwable) {
@@ -81,7 +91,35 @@ class RecyclerViewMainActivity : AppCompatActivity() {
                 initAdapter()
             }
         })
+    }
 
+    private fun updateData(id: Int, newFeed: NewFeed) {
+        val serviceAPI = APIRetrofit.getRetrofitInstance()?.create(APIService::class.java)
+        val call = serviceAPI?.updateNewFeed(id, newFeed)
+        call?.enqueue(object : Callback<NewFeed> {
+            override fun onFailure(call: Call<NewFeed>, t: Throwable) {
+                Log.i("TAG11", t.message)
+            }
+
+            override fun onResponse(call: Call<NewFeed>, response: Response<NewFeed>) {
+                Log.i("TAG11", response.message())
+            }
+
+        })
+    }
+
+    private fun deleteData(id: Int) {
+        val serviceAPI = APIRetrofit.getRetrofitInstance()?.create(APIService::class.java)
+        serviceAPI?.deleteNewFeed(id)?.enqueue(object : Callback<NewFeed> {
+            override fun onFailure(call: Call<NewFeed>, t: Throwable) {
+                Log.i("TAG11", t.message)
+            }
+
+            override fun onResponse(call: Call<NewFeed>, response: Response<NewFeed>) {
+                Log.i("TAG11", response.message())
+            }
+
+        })
     }
 
     private fun initListener() {

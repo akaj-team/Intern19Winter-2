@@ -44,4 +44,9 @@
     <string name="textview_likes">Likes</string>
     <string name="textview_chocola">Chocola</string>
     <string name="textview_like">%d Likes</string>
+    <string name="textview_input_name">Input name</string>
+    <string name="editext_status">Status</string>
+    <string name="edittex_food_name">Food name</string>
+    <string name="edittext_preview">Preview</string>
+    <string name="textview_save">Save</string>
 </resources>

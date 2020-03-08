@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dimen_378"
         android:layout_marginTop="@dimen/dimen_8"
-        android:src="@drawable/ic_chocola"
+        android:src="@drawable/ic_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
