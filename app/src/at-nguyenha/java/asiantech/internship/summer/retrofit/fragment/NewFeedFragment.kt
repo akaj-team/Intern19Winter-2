@@ -1,9 +1,12 @@
 package asiantech.internship.summer.retrofit.fragment
 
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
 import androidx.annotation.Nullable
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -47,7 +50,7 @@ class NewFeedFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.menuDelete){
+        if (item.itemId == R.id.menuAdd){
             (activity as RecyclerViewMainActivity).replaceFragment(AddNewFeedFragment(), true)
         }
         return super.onOptionsItemSelected(item)
@@ -120,6 +123,7 @@ class NewFeedFragment : Fragment() {
                 response.body().let {
                     it?.let { it1 -> newfeeds.addAll(it1) }
                 }
+                progressLoadData.visibility = View.GONE
                 initAdapter()
             }
         })
@@ -130,6 +134,7 @@ class NewFeedFragment : Fragment() {
         val call = service?.deleteNewFeed(id)
         call?.enqueue(object : Callback<NewFeedModel> {
             override fun onFailure(call: Call<NewFeedModel>, t: Throwable) {
+                t.message?.let { displayErrorDialog(it) }
             }
 
             override fun onResponse(call: Call<NewFeedModel>, response: Response<NewFeedModel>) {
@@ -142,9 +147,19 @@ class NewFeedFragment : Fragment() {
         val call = service?.updateNewFeed(id, newFeed)
         call?.enqueue(object : Callback<NewFeedModel> {
             override fun onFailure(call: Call<NewFeedModel>, t: Throwable) {
+                t.message?.let { displayErrorDialog(it) }
             }
             override fun onResponse(call: Call<NewFeedModel>, response: Response<NewFeedModel>) {
             }
         })
+    }
+
+    private fun displayErrorDialog(message: String) {
+        val errorDialog = AlertDialog.Builder(requireContext())
+        errorDialog.setTitle(
+                getString(R.string.dialog_title_error))
+                .setMessage(message)
+                .setPositiveButton(R.string.dialog_text_ok, { dialog, which -> dialog.dismiss() })
+                .show()
     }
 }

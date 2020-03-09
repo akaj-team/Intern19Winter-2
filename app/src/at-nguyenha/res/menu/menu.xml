@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuDelete"
-        android:title="@string/menu_title_delete"/>
+        android:id="@+id/menuAdd"
+        android:title="@string/button_text_add"/>
 </menu>

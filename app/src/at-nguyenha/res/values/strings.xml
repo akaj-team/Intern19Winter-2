@@ -37,6 +37,9 @@
     <string name="button_text_add">Add NewFeed</string>
     <string name="menu_title_delete">Delete</string>
     <string name="textview_text_add_newfeed">Add something to Newfeed</string>
+    <string name="dialog_title_error">Error</string>
+    <string name="dialog_text_ok">Ok</string>
+    <string name="dialog_text_cancel">Cancel</string>
 
 
 </resources>
