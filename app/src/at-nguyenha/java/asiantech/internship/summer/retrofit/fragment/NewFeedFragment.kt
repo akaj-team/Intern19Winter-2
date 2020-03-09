@@ -1,7 +1,5 @@
 package asiantech.internship.summer.retrofit.fragment
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.view.*
@@ -159,7 +157,7 @@ class NewFeedFragment : Fragment() {
         errorDialog.setTitle(
                 getString(R.string.dialog_title_error))
                 .setMessage(message)
-                .setPositiveButton(R.string.dialog_text_ok, { dialog, which -> dialog.dismiss() })
+                .setPositiveButton(R.string.dialog_text_ok) { dialog, _ -> dialog.dismiss() }
                 .show()
     }
 }
