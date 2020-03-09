@@ -59,7 +59,6 @@ class NewFeedFragment : Fragment() {
         initListener()
     }
 
-
     private fun initAdapter() {
         recyclerViewMain.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewMain.adapter = adapterNewFeeds
@@ -77,7 +76,7 @@ class NewFeedFragment : Fragment() {
             (recyclerViewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
         adapterNewFeeds.onItem3DotClicked = {
-            (activity as RecyclerViewMainActivity).replaceFragment(AddNewFeedFragment(), true)
+            deleteNewFeed(newfeeds[it].id)
         }
     }
 
@@ -126,15 +125,25 @@ class NewFeedFragment : Fragment() {
         })
     }
 
+    private fun deleteNewFeed(id: Int) {
+        val service = ClientAPI.createServiceClient()?.create(NewFeedAPI::class.java)
+        val call = service?.deleteNewFeed(id)
+        call?.enqueue(object : Callback<NewFeedModel> {
+            override fun onFailure(call: Call<NewFeedModel>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<NewFeedModel>, response: Response<NewFeedModel>) {
+            }
+        })
+    }
+
     private fun initHeart(id: Int, newFeed: NewFeedModel) {
         val service = ClientAPI.createServiceClient()?.create(NewFeedAPI::class.java)
         val call = service?.updateNewFeed(id, newFeed)
         call?.enqueue(object : Callback<NewFeedModel> {
             override fun onFailure(call: Call<NewFeedModel>, t: Throwable) {
             }
-
             override fun onResponse(call: Call<NewFeedModel>, response: Response<NewFeedModel>) {
-                adapterNewFeeds.notifyDataSetChanged()
             }
         })
     }

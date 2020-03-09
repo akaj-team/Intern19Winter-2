@@ -15,5 +15,5 @@ interface NewFeedAPI {
     fun updateNewFeed(@Path("id") id : Int, @Body newFeed : NewFeedModel) : Call<NewFeedModel>
 
     @DELETE("retrofit/newfeed/{id}")
-    fun deleteNewFeed(@Path("id") id: Int)
+    fun deleteNewFeed(@Path("id") id: Int) : Call<NewFeedModel>
 }
