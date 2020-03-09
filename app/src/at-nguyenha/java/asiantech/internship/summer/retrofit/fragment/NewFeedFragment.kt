@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.*
 import androidx.annotation.Nullable
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SimpleItemAnimator
 import asiantech.internship.summer.R
-import asiantech.internship.summer.retrofit.NewFeedAdapter
 import asiantech.internship.summer.retrofit.RecyclerViewMainActivity
+import asiantech.internship.summer.retrofit.adapter.NewFeedAdapter
 import asiantech.internship.summer.retrofit.api.ClientAPI
 import asiantech.internship.summer.retrofit.api.NewFeedAPI
 import asiantech.internship.summer.retrofit.model.NewFeedModel
@@ -33,13 +35,10 @@ class NewFeedFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_new_feed, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        getListAPI()
-        initListener()
+        val view = inflater.inflate(R.layout.fragment_new_feed, container, false)
+        val toolbar = view?.findViewById<Toolbar>(R.id.tbNewFeed)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        return view
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -48,14 +47,18 @@ class NewFeedFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
-        if (id == R.id.menuDelete) {
-            (activity as RecyclerViewMainActivity).replaceFragment(AddNewFeedFragment())
+        if (item.itemId == R.id.menuDelete){
+            (activity as RecyclerViewMainActivity).replaceFragment(AddNewFeedFragment(), true)
         }
         return super.onOptionsItemSelected(item)
-
-
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        getListAPI()
+        initListener()
+    }
+
 
     private fun initAdapter() {
         recyclerViewMain.layoutManager = LinearLayoutManager(requireContext())

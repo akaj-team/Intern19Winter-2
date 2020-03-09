@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TamLe</string>
+    <string name="app_name">NguyenHa</string>
     <string name="textview_text_like_number">%d likes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -15,7 +15,6 @@
     <string name="edittext_hint_password">********</string>
     <string name="button_text_login">Login</string>
     <string name="textview_text_new_to_sratch">New to sratch?</string>
-
     <string name="textview_text_create_account_here">Create Account Here</string>
     <string name="textview_text_start_from_scratch">Start \nfrom Scratch</string>
     <string name="textview_text_fullname">Fullname</string>
@@ -31,12 +30,13 @@
     <string name="textview_text_phone">Phone</string>
     <string name="edittext_hint_phone">+84 386971275</string>
     <string name="button_text_save_profile">Save Profile</string>
-    <string name="edittext_text_name">Name</string>
+    <string name="edittext_text_name">Add name</string>
     <string name="edittext_text_status">Status</string>
     <string name="edittext_text_food_name">Food Name</string>
     <string name="edittext_text_image">Image URL</string>
     <string name="button_text_add">Add NewFeed</string>
     <string name="menu_title_delete">Delete</string>
+    <string name="textview_text_add_newfeed">Add something to Newfeed</string>
 
 
 </resources>

@@ -1,4 +1,4 @@
-package asiantech.internship.summer.retrofit
+package asiantech.internship.summer.retrofit.adapter
 
 import android.view.LayoutInflater
 import android.view.View
