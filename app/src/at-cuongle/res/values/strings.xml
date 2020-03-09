@@ -45,4 +45,5 @@
     <string name="tablayout_title_following">248  \n Following</string>
 
     <string name="tv_totalLike"> %d likes.</string>
+    <string name="toast_permission_denied">Permission denied</string>
 </resources>
