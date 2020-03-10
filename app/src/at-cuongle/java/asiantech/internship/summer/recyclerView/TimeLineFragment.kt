@@ -54,12 +54,10 @@ class TimeLineFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        service = TimeLineAPI.newInstance()?.create(TimeLineService::class.java)
-        callAPI = service
+        callAPI = TimeLineAPI.newInstance()?.create(TimeLineService::class.java)
         initListeners()
         initData()
         uriFood?.let {
-            Log.i("XXX", it)
             addTimeLine(it)
         }
     }
@@ -87,7 +85,6 @@ class TimeLineFragment : Fragment() {
             timelineItems[it].let {
                 if (it.isLike) {
                     it.isLike = false
-                    Log.i("XXX", it.id.toString())
                     it.like -= 1
                     updateTimeLine(it.id, it)
                 } else {
@@ -106,6 +103,11 @@ class TimeLineFragment : Fragment() {
             adapterTimeLine.notifyItemChanged(it, null)
         }
         recycleView.adapter = adapterTimeLine
+        btnAdd.setOnClickListener {
+            Log.i("XXX", "sending")
+//            (activity as? TimelineActivity)?.replaceFragment(AddTimeLineFragment())
+            addTimeLine("/storage/emulated/0/Pictures/1583806896936.jpg")
+        }
     }
 
     private fun initListeners() {
@@ -116,10 +118,7 @@ class TimeLineFragment : Fragment() {
             itemRefresh.isRefreshing = false
         }
 
-        btnAdd.setOnClickListener {
-            (activity as? TimelineActivity)?.replaceFragment(AddTimeLineFragment())
-//            addTimeLine("content://media/external/images/media/257677")
-        }
+
 
         recycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -147,7 +146,7 @@ class TimeLineFragment : Fragment() {
     }
 
     private fun updateTimeLine(id: Int, timeLineItem: TimeLineItem) {
-        callAPI?.updateTimeLine(id, timeLineItem)?.enqueue(object : retrofit2.Callback<TimeLineItem> {
+        callAPI?.updateTimeLine(id, timeLineItem)?.enqueue(object : Callback<TimeLineItem> {
             override fun onFailure(call: Call<TimeLineItem>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
             }
@@ -159,7 +158,7 @@ class TimeLineFragment : Fragment() {
     }
 
     private fun removeTimeLine(id: Int) {
-        callAPI?.deleteTimeLine(id)?.enqueue(object : retrofit2.Callback<TimeLineItem> {
+        callAPI?.deleteTimeLine(id)?.enqueue(object : Callback<TimeLineItem> {
             override fun onFailure(call: Call<TimeLineItem>, t: Throwable) {
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
             }
@@ -173,21 +172,25 @@ class TimeLineFragment : Fragment() {
 
     private fun addTimeLine(path: String) {
         val filePath = File(path)
-        val requestFile = RequestBody.create(MediaType.parse("image/*"), filePath)
-        val body = MultipartBody.Part.createFormData("imageFood", filePath.name, requestFile)
-        val userName = RequestBody.create(MediaType.parse("text/plain"), filePath.name)
-        val call = callAPI?.addTimeLine(userName, body)
+        val filePart = MultipartBody.Part.createFormData("filePath", filePath.name, RequestBody.create(MediaType.parse("image/*"), filePath))
+//        val requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), filePath)
+//        Log.i("XXX", "requestBody: $requestBody")
+//        val body = MultipartBody.Part.createFormData("name", filePath.name, requestBody)
+//        val name = RequestBody.create(okhttp3.MultipartBody.FORM, "this")
 
-        call?.enqueue(object : Callback<ResponseBody> {
+        callAPI?.addTimeLine(filePart)?.enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Log.i("XXX", t.message.toString())
+                Log.i("XXX", "aaaaaaaaaaaaaaa")
                 Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                Log.i("XXX", response.message())
+                Log.i("XXX", "sssss")
                 Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
             }
 
         })
-
     }
 }

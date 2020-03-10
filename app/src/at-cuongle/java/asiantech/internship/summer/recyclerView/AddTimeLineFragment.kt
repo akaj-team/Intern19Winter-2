@@ -1,9 +1,12 @@
 package asiantech.internship.summer.recyclerView
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -59,7 +62,7 @@ class AddTimeLineFragment : Fragment() {
         if (resultCode == Activity.RESULT_OK) {
             uriFood?.let {
                 imgFood.setImageURI(it)
-                Log.i("XXX",it.path)
+                Log.i("XXX", getRealPathFromURI(requireContext(),it).toString())
             }
         }
     }
@@ -72,7 +75,7 @@ class AddTimeLineFragment : Fragment() {
 
         btnSave.setOnClickListener {
             timeLineItem = TimeLineItem()
-            (activity as? TimelineActivity)?.replaceFragment(TimeLineFragment.newInstance(uriFood?.path))
+            (activity as? TimelineActivity)?.replaceFragment(TimeLineFragment.newInstance(uriFood?.let { it1 -> getRealPathFromURI(requireContext(), it1) }))
         }
     }
 
@@ -106,5 +109,23 @@ class AddTimeLineFragment : Fragment() {
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, uriFood)
         startActivityForResult(cameraIntent, IMAGE_CAPTURE_CODE)
+    }
+
+    @SuppressLint("Recycle")
+    private fun getRealPathFromURI(context: Context, uri: Uri): String? {
+        var cursor: Cursor? = null
+        return try {
+            val proj = arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.contentResolver.query(uri, proj, null, null, null)
+            Log.i("XXX",context.contentResolver.getType(uri).toString())
+            val columnIndex: Int? = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor?.moveToFirst()
+            columnIndex?.let { cursor?.getString(it) }
+        } catch (e: Exception){
+            Log.e("XXX", "getRealPathFromURI Exception : $e")
+            ""
+        } finally {
+            cursor?.close()
+        }
     }
 }
