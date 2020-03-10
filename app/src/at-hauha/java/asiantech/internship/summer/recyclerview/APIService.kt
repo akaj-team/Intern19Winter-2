@@ -16,13 +16,8 @@ interface APIService {
     fun deleteNewFeed(@Path("id")id:Int): Call<NewFeed>
 
     @Multipart
-    @POST("newfeed")
+    @POST("update")
     fun uploadData(
-            @Part("name") name : String,
-            @Part("picture") picture : MultipartBody.Part,
-            @Part("isStatus") isStatus : Boolean,
-            @Part("like") like : Int,
-            @Part("foodNAme")foodName : String,
-            @Part("preview")preview : String
-    ) : Call<NewFeed>
+            @Part body: MultipartBody.Part
+    ) : Call<RequestBody>
 }

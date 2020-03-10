@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,18 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.PermissionChecker.PERMISSION_GRANTED
 import androidx.fragment.app.Fragment
 import asiantech.internship.summer.R
+import asiantech.internship.summer.recyclerview.Utils.getPath
 import kotlinx.android.synthetic.`at-hauha`.fragment_newfeed.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.io.File
 
+
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class NewFeedFragment : Fragment() {
 
     companion object {
@@ -24,7 +35,7 @@ class NewFeedFragment : Fragment() {
         private const val IMAGE_PICK_CODE = 101
     }
 
-    private var imageUri : Uri? = null
+    private var imageUri: Uri? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_newfeed, container, false)
@@ -33,6 +44,9 @@ class NewFeedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         checkPermission()
+        btnSave.setOnClickListener {
+            uploadFile()
+        }
     }
 
     override fun onRequestPermissionsResult(
@@ -78,4 +92,23 @@ class NewFeedFragment : Fragment() {
         startActivityForResult(intent, IMAGE_PICK_CODE)
     }
 
+    private fun uploadFile() {
+        val service = APIRetrofit.getRetrofitInstance()?.create(APIService::class.java)
+        val file = File(getPath(requireContext(), imageUri))
+        val fileRQ = RequestBody.create(MediaType.parse("image/*"), file)
+        val body = MultipartBody.Part.createFormData("image", file.name, fileRQ)
+       // val name = RequestBody.create(MultipartBody.FORM,"hello")
+        val call = service?.uploadData(body)
+        call?.enqueue(object : Callback<RequestBody> {
+            override fun onFailure(call: Call<RequestBody>, t: Throwable) {
+                d("TAG11", t.message)
+            }
+
+            override fun onResponse(call: Call<RequestBody>, response: Response<RequestBody>) {
+                d("TAG11", response.message())
+            }
+        })
+    }
+
 }
+

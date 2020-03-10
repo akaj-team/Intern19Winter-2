@@ -34,7 +34,7 @@ class NewFeedActivity : AppCompatActivity() {
         initListener()
         imgAdd.setOnClickListener {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.newfeedContainer,NewFeedFragment(),null)
+                    .replace(R.id.newfeedContainer, NewFeedFragment(), null)
                     .addToBackStack(null)
                     .commit()
         }
