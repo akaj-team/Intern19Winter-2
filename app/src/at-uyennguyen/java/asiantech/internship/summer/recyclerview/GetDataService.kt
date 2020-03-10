@@ -1,11 +1,12 @@
 package asiantech.internship.summer.recyclerview
 import retrofit2.Call
-import retrofit2.http.GET
+import retrofit2.http.*
+
 interface GetDataService {
-    @GET("/users")
-    fun getUser() : Call<MutableList<User>>
-    @GET("/like")
-    fun getLikes() : Call<MutableList<Like>>
     @GET("/new_feeds")
     fun getNewFeeds() : Call<MutableList<NewFeed>>
+    @PUT("/new_feeds/{id}")
+    fun updateNewFeed(@Path("id") id : Int, @Body newFeed : NewFeed) : Call<NewFeed>
+    @DELETE("/new_feed/{id}")
+    fun deleteNewFeed(@Path("id") id : Int): Call<NewFeed>
 }

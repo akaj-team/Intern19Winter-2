@@ -1,58 +1,71 @@
 package asiantech.internship.summer.recyclerview
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SimpleItemAnimator
 import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.activity_recyclerview.*
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
+import kotlin.math.log
+
 class RecyclerViewActivity : AppCompatActivity() {
     companion object{
         const val DELAY_TIME = 2000
     }
     private var listNewFeed = mutableListOf<NewFeed>()
-    private var listLike = mutableListOf<Like>()
-    private var listUser = mutableListOf<User>()
-    private var adapterRecyclerView: RecyclerViewAdapter = RecyclerViewAdapter(listNewFeed, listLike, listUser)
+    private lateinit var adapterRecyclerView: RecyclerViewAdapter
     private var isLoading = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recyclerview)
         initAdapter()
         initData()
-//        initListener()
+        initListener()
     }
     private fun initAdapter() {
-        var isLikeHeart = false
-//        adapterRecyclerView.onItemClicked = {
-//            foods[it]?.run {
-//                isLikeHeart = like
-//                if (isLikeHeart) {
-//                    like = !isLikeHeart
-//                    apply {
-//                        this.numberLike++
-//                    }
-//                } else {
-//                    like = !isLikeHeart
-//                    apply {
-//                        this.numberLike--
-//                    }
-//                }
-//            }
-//            adapterRecyclerView.notifyItemChanged(it, null)
-//            (recyclerviewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
-//        }
+        adapterRecyclerView = RecyclerViewAdapter(listNewFeed)
         recyclerviewMain.adapter = adapterRecyclerView
+        var isLikeHeart = false
+        adapterRecyclerView.onItemClicked = {
+            listNewFeed[it].run {
+                isLikeHeart = isLike
+                if (isLikeHeart) {
+                    isLike = !isLikeHeart
+                    apply {
+                        this.numberLike++
+                    }
+                } else {
+                    isLike = !isLikeHeart
+                    apply {
+                        this.numberLike--
+                    }
+                }
+            }
+            updateLike(listNewFeed[it].id, listNewFeed[it])
+            adapterRecyclerView.notifyItemChanged(it, null)
+            (recyclerviewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+        }
+        adapterRecyclerView.onItemClickedToDelete = {
+            deleteNewfeed(listNewFeed[it].id)
+            listNewFeed.removeAt(it)
+            adapterRecyclerView.notifyDataSetChanged()
+        }
     }
-    //    private fun initListener() {
+        private fun initListener() {
 //        recyclerviewMain.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 //            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
 //                super.onScrolled(recyclerView, dx, dy)
 //                val linearLayoutManager = recyclerView.layoutManager as LinearLayoutManager
 //                val lastItem = linearLayoutManager.findLastCompletelyVisibleItemPosition()
 //                if (!isLoading) {
-//                    if (lastItem == foods.size - 1) {
+//                    if (lastItem == listNewFeed.size - 1) {
 //                        progressbar.visibility = View.VISIBLE
 //                        Handler().postDelayed({
 //                            initData()
@@ -63,48 +76,58 @@ class RecyclerViewActivity : AppCompatActivity() {
 //                }
 //            }
 //        })
-//        swipeRefreshLayout.setOnRefreshListener {
-//            Handler().postDelayed({
-//                foods.clear()
-//                initData()
-//                adapterRecyclerView.notifyDataSetChanged()
-//                swipeRefreshLayout.isRefreshing = false
-//            }, DELAY_TIME.toLong())
-//        }
-//    }
+        swipeRefreshLayout.setOnRefreshListener {
+            Handler().postDelayed({
+                listNewFeed.clear()
+                initData()
+                adapterRecyclerView.notifyDataSetChanged()
+                swipeRefreshLayout.isRefreshing = false
+            }, DELAY_TIME.toLong())
+        }
+    }
     private fun initData() {
         val service = RetrofitClient.getRetrofitInstance()?.create(GetDataService::class.java)
         val callNewFeed = service?.getNewFeeds()
-        val callLikes = service?.getLikes()
-        val callUser = service?.getUser()
         callNewFeed?.enqueue(object : retrofit2.Callback<MutableList<NewFeed>>{
             override fun onFailure(call: Call<MutableList<NewFeed>>, t: Throwable) {
                 Toast.makeText(parent.baseContext,"Please try again", Toast.LENGTH_SHORT).show()
             }
             override fun onResponse(call: Call<MutableList<NewFeed>>, response: Response<MutableList<NewFeed>>) {
-                listNewFeed = response.body()!!
-                Log.d("XXX", listNewFeed.toString())
+                response.body().let {
+                    it?.let { it1 -> listNewFeed.addAll(it1) }
+                }
                 adapterRecyclerView.notifyDataSetChanged()
             }
         })
-        callLikes?.enqueue(object : retrofit2.Callback<MutableList<Like>>{
-            override fun onFailure(call: Call<MutableList<Like>>, t: Throwable) {
-                Toast.makeText(parent.baseContext,"Please try again", Toast.LENGTH_SHORT).show()
-            }
-            override fun onResponse(call: Call<MutableList<Like>>, response: Response<MutableList<Like>>) {
-                listLike = response.body()!!
-                adapterRecyclerView.notifyDataSetChanged()
-            }
-        })
-        callUser?.enqueue(object : retrofit2.Callback<MutableList<User>>{
-            override fun onFailure(call: Call<MutableList<User>>, t: Throwable) {
-                Toast.makeText(parent.baseContext,"Please try again", Toast.LENGTH_SHORT).show()
-            }
-            override fun onResponse(call: Call<MutableList<User>>, response: Response<MutableList<User>>) {
-                listUser = response.body()!!
-                adapterRecyclerView.notifyDataSetChanged()
-            }
-        })
+    }
 
+    private fun updateLike(id : Int, newFeed: NewFeed){
+        val service = RetrofitClient.getRetrofitInstance()?.create(GetDataService::class.java)
+        val callNewFeed = service?.updateNewFeed(id, newFeed)
+        callNewFeed?.enqueue(object : retrofit2.Callback<NewFeed>{
+            override fun onFailure(call: Call<NewFeed>, t: Throwable) {
+                Toast.makeText(parent.baseContext,"Please try again", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<NewFeed>, response: Response<NewFeed>) {
+                adapterRecyclerView.notifyDataSetChanged()
+            }
+
+        })
+    }
+
+    private fun deleteNewfeed(id : Int){nn 
+        val service = RetrofitClient.getRetrofitInstance()?.create(GetDataService::class.java)
+        val callNewFeed = service?.deleteNewFeed(id)
+        callNewFeed?.enqueue(object : Callback<NewFeed>{
+            override fun onFailure(call: Call<NewFeed>, t: Throwable) {
+                Toast.makeText(parent.baseContext,"Please try again", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<NewFeed>, response: Response<NewFeed>) {
+                adapterRecyclerView.notifyDataSetChanged()
+            }
+
+        })
     }
 }

@@ -1,4 +1,6 @@
 package asiantech.internship.summer.recyclerview
+import android.content.Context
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
-class RecyclerViewAdapter(val newFeed: MutableList<NewFeed>, val like: MutableList<Like>, val user: MutableList<User>) : RecyclerView.Adapter<RecyclerViewAdapter.FoodViewHolder>() {
+import com.bumptech.glide.Glide
+
+class RecyclerViewAdapter(val newFeed: MutableList<NewFeed>) : RecyclerView.Adapter<RecyclerViewAdapter.FoodViewHolder>() {
     internal var onItemClicked: (position: Int) -> Unit = {}
+    internal var onItemClickedToDelete: (position: Int) -> Unit = {}
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FoodViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.newfeed_item, parent, false)
@@ -26,23 +31,19 @@ class RecyclerViewAdapter(val newFeed: MutableList<NewFeed>, val like: MutableLi
         private var tvNumberLike: TextView = itemView.findViewById(R.id.tvNumberLike)
         private var tvDescription: TextView = itemView.findViewById(R.id.tvDescription)
         private var tvNameComment: TextView = itemView.findViewById(R.id.tvNameComment)
+        private var imgDelete: ImageView = itemView.findViewById(R.id.imgDelete)
         internal fun bindData(position: Int) {
             Log.d("AAA", newFeed[0].status)
             imgHeart.setOnClickListener { onItemClicked.invoke(adapterPosition) }
+            imgDelete.setOnClickListener{ onItemClickedToDelete.invoke(adapterPosition)}
             newFeed[position].run {
-                imgPicture.setImageResource(picture.toInt())
+                tvName.text = name
+//                imgPicture.setImageResource(picture.toInt())
                 tvDescription.text = status
-//                imgHeart.setImageResource(if (!like) img_heartred else img_heartblack)
-            }
-            like[position].run {
                 tvNumberLike.text = numberLike.toString()
-//                imgHeart.setImageResource(if (!like) img_heartred else img_heartblack)
-            }
-            user[position].run {
-                tvNameComment.text = nameUser
-                imgAvatar.setImageResource(avatar.toInt())
-                tvName.text = nameUser
-//                imgHeart.setImageResource(if (!like) img_heartred else img_heartblack)
+                tvNameComment.text = name
+//                imgAvatar.setImageResource(avatar.toInt())
+                imgHeart.setImageResource(if (!isLike) R.drawable.img_heart_red else R.drawable.img_heart_black)
             }
         }
     }

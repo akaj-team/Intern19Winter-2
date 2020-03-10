@@ -31,7 +31,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:src="@drawable/img_heartblack"
+        android:src="@drawable/img_heart_black"
         app:layout_constraintLeft_toLeftOf="@+id/imgAvatar"
         app:layout_constraintTop_toBottomOf="@+id/imgPicture" />
 
@@ -52,6 +52,14 @@
         android:src="@drawable/img_share"
         app:layout_constraintStart_toEndOf="@id/imgComment"
         app:layout_constraintTop_toTopOf="@id/imgHeart" />
+
+    <ImageView
+        android:id="@+id/imgDelete"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/img_delete"
+        app:layout_constraintEnd_toEndOf="@+id/imgEllipsis"
+        app:layout_constraintTop_toTopOf="@+id/imgShare" />
 
     <ImageView
         android:id="@+id/imgNumberLike"
