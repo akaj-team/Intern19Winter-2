@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="height_54_dp">54dp</dimen>
+    <dimen name="margin_top_28_dp">28dp</dimen>
+    <dimen name="padding_left_20dp">20dp</dimen>
+    <dimen name="height_edt_height_44dp">44dp</dimen>
+    <dimen name="dp_285">285dp</dimen>
+    <dimen name="width_logo_93_dp">93dp</dimen>
+    <dimen name="height_logo_30_dp">30dp</dimen>
+    <dimen name="margin_top_18_dp">18dp</dimen>
+    <dimen name="margin_top_40_dp">40dp</dimen>
+    <dimen name="width_edt_362dp">362dp</dimen>
+    <dimen name="margin_top_28dp">28dp</dimen>
+    <dimen name="height_indicator_tablayout">5dp</dimen>
+    <dimen name="width_0_dp">0dp</dimen>
+    <dimen name="view_line_1_dp">1dp</dimen>
+    <dimen name="margin_top_24_Dp">24dp</dimen>
+    <dimen name="img_width_150dp">150dp</dimen>
+    <dimen name="img_height_150dp">150dp</dimen>
+    <dimen name="tablayout_height_80dp">80dp</dimen>
+    <dimen name="imgAvatar_width_100dp">100dp</dimen>
+    <dimen name="imgAvatar_height_100dp">100dp</dimen>
+
+</resources>

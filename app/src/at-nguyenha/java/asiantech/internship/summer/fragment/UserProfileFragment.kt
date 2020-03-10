@@ -2,11 +2,11 @@ package asiantech.internship.summer.fragment
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.net.toUri
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.`at-nguyenha`.fragment_user_profile.*
 
 class UserProfileFragment : Fragment() {
