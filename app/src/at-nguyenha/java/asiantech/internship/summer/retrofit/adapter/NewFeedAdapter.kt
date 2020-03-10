@@ -15,6 +15,7 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
     internal var onItemClicked: (position: Int) -> Unit = {}
     internal var onItem3DotClicked: (position: Int) -> Unit = {}
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewFeedViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_newfeed, parent, false)
         return NewFeedViewHolder(view)
@@ -29,6 +30,7 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
     }
 
     inner class NewFeedViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
         private val tvName: TextView = itemView.findViewById(R.id.tvName)
         private val imgMain: ImageView = itemView.findViewById(R.id.imgMainPhoto)
         private val imgHeart: ImageView = itemView.findViewById(R.id.imgHeart)
@@ -37,7 +39,6 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
         private val tvNameStatus: TextView = itemView.findViewById(R.id.tvNameStatus)
         private val tvFoodName: TextView = itemView.findViewById(R.id.tvFoodName)
         private val img3Dot: ImageView = itemView.findViewById(R.id.imgOption)
-
 
         init {
             imgHeart.setOnClickListener {

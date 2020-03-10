@@ -5,7 +5,6 @@ import android.os.Handler
 import android.view.*
 import androidx.annotation.Nullable
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +27,7 @@ class NewFeedFragment : Fragment() {
     private var adapterNewFeeds = NewFeedAdapter(newfeeds)
     private var isLoading = false
     private val delayTime: Long = 2000
+    private var currentPos = -1
 
     override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +38,12 @@ class NewFeedFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_new_feed, container, false)
         val toolbar = view?.findViewById<Toolbar>(R.id.tbNewFeed)
-        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (activity as RecyclerViewMainActivity).setSupportActionBar(toolbar)
         return view
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu, menu)
+        inflater.inflate(R.menu.menu_add, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -77,7 +77,8 @@ class NewFeedFragment : Fragment() {
             (recyclerViewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
         adapterNewFeeds.onItem3DotClicked = {
-            deleteNewFeed(newfeeds[it].id)
+            displayDeleteDialog(newfeeds[it].id)
+            currentPos = it
         }
     }
 
@@ -136,6 +137,8 @@ class NewFeedFragment : Fragment() {
             }
 
             override fun onResponse(call: Call<NewFeedModel>, response: Response<NewFeedModel>) {
+                newfeeds.removeAt(currentPos)
+                adapterNewFeeds.notifyDataSetChanged()
             }
         })
     }
@@ -158,6 +161,16 @@ class NewFeedFragment : Fragment() {
                 getString(R.string.dialog_title_error))
                 .setMessage(message)
                 .setPositiveButton(R.string.dialog_text_ok) { dialog, _ -> dialog.dismiss() }
+                .show()
+    }
+
+    private fun displayDeleteDialog(id: Int) {
+        val errorDialog = AlertDialog.Builder(requireContext())
+        errorDialog.setTitle(
+                getString(R.string.dialog_title_delete))
+                .setMessage(getString(R.string.dialog_message_delete))
+                .setNegativeButton(R.string.dialog_text_cancel) { dialog, _ -> dialog.dismiss() }
+                .setPositiveButton(R.string.dialog_text_ok) { _, _ -> deleteNewFeed(id) }
                 .show()
     }
 }

@@ -7,29 +7,30 @@
     tools:context="asiantech.internship.summer.retrofit.fragment.AddNewFeedFragment">
 
     <TextView
-        android:textColor="@color/colorText"
         android:id="@+id/tvTitleAddNewFeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:text="@string/textview_text_add_newfeed"
+        android:textColor="@color/colorText"
         android:textSize="28sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:textColorHint="@color/colorText"
         android:id="@+id/edtName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="70dp"
         android:layout_marginRight="20dp"
         android:background="@drawable/rounded_border_edittext"
         android:hint="@string/edittext_text_name"
         android:inputType="text"
         android:padding="10dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -37,7 +38,6 @@
         tools:ignore="Autofill,LabelFor" />
 
     <EditText
-        android:textColorHint="@color/colorText"
         android:id="@+id/edtStatus"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,6 +48,8 @@
         android:hint="@string/edittext_text_status"
         android:inputType="text"
         android:padding="10dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -55,7 +57,6 @@
         tools:ignore="Autofill,LabelFor" />
 
     <EditText
-        android:textColorHint="@color/colorText"
         android:id="@+id/edtFoodName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,6 +65,8 @@
         android:hint="@string/edittext_text_food_name"
         android:inputType="text"
         android:padding="10dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -71,7 +74,6 @@
         tools:ignore="Autofill,LabelFor" />
 
     <EditText
-        android:textColorHint="@color/colorText"
         android:id="@+id/edtImageUrl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -80,6 +82,8 @@
         android:hint="@string/edittext_text_image"
         android:inputType="textUri"
         android:padding="10dp"
+        android:textColor="@color/colorText"
+        android:textColorHint="@color/colorText"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -90,10 +94,10 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="15dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="50dp"
+        android:layout_marginRight="20dp"
+        app:cardCornerRadius="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/edtImageUrl">
@@ -107,6 +111,5 @@
             android:textColor="@android:color/white" />
 
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

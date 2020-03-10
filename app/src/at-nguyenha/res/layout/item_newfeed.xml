@@ -39,8 +39,8 @@
 
         <ImageView
             android:id="@+id/imgOption"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="11dp"
+            android:layout_height="9dp"
             android:layout_margin="20dp"
             android:src="@drawable/ic_3dot"
             app:layout_constraintBottom_toBottomOf="@id/imgAvatar"
@@ -142,7 +142,6 @@
             app:layout_constraintTop_toTopOf="@id/tvNameStatus"
             tools:text="Pizza" />
 
-
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
@@ -154,6 +153,5 @@
             tools:text="This is the hamburger that I make, feel so good " />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.cardview.widget.CardView>
