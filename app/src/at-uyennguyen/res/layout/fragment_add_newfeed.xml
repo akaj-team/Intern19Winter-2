@@ -10,7 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="NEW FEED"
+        android:text="@string/new_feed"
         android:textColor="@android:color/black"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
-        android:text="Name"
+        android:text="@string/name_client"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvNewFeed" />
 
@@ -34,6 +34,7 @@
         android:layout_marginStart="30dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
+        android:hint="@string/your_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvName" />
@@ -43,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Status"
+        android:text="@string/status"
         app:layout_constraintStart_toStartOf="@id/tvName"
         app:layout_constraintTop_toBottomOf="@id/edtName" />
 
@@ -64,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:text="Avatar"
+        android:text="@string/avatar"
         app:layout_constraintStart_toStartOf="@id/tvName"
         app:layout_constraintTop_toBottomOf="@id/edtStatus" />
 
@@ -84,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
-        android:text="Picture"
+        android:text="@string/picture"
         app:layout_constraintEnd_toEndOf="@id/edtStatus"
         app:layout_constraintTop_toBottomOf="@id/edtStatus" />
 
@@ -106,7 +107,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/button"
-        android:text="ADD NEW FEED"
+        android:text="@string/add_new_feed"
         android:textColor="@android:color/white"
         app:layout_constraintTop_toBottomOf="@id/imgAvatarNF" />
 

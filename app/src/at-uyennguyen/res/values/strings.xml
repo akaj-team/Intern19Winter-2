@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">UyenNguyen</string>
     <string name="likes">likes</string>
+    <string name="name_client">Name</string>
+    <string name="new_feed">NEW FEED</string>
+    <string name="status">Status</string>
+    <string name="your_name">Your name</string>
+    <string name="avatar">Avatar</string>
+    <string name="picture">Picture</string>
+    <string name="add_new_feed">ADD NEW FEED</string>
 </resources>

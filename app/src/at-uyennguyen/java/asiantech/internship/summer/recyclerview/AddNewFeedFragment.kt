@@ -21,7 +21,7 @@ class AddNewFeedFragment : Fragment() {
 
     companion object {
         var GALLERY_AVATAR_CODE = 101
-        var GALLERY_PICTURE_CODE = 101
+        var GALLERY_PICTURE_CODE = 102
     }
 
     lateinit var imageAvatar: Uri
@@ -76,11 +76,13 @@ class AddNewFeedFragment : Fragment() {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             startActivityForResult(intent, GALLERY_AVATAR_CODE)
+            return
         }
         if (requestCode == GALLERY_PICTURE_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             startActivityForResult(intent, GALLERY_PICTURE_CODE)
+            return
         } else {
             if (!this.shouldShowRequestPermissionRationale(android.Manifest.permission.READ_EXTERNAL_STORAGE)) {
                 Toast.makeText(context, "Please open permission on settings", Toast.LENGTH_SHORT).show()
