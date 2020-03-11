@@ -43,5 +43,4 @@
     <string name="textview_12">12</string>
     <string name="textview_likes">Likes</string>
     <string name="textview_chocola">Chocola</string>
-    <string name="textview_like">%d Likes</string>
 </resources>

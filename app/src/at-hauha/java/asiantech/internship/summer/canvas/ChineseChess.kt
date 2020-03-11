@@ -16,99 +16,97 @@ class ChineseChess(context: Context?, attrs: AttributeSet?) : View(context, attr
     private var start = 70F
     private var startBorder = 50F
     private var size = 0F
+    private val marginLeft = 10F
+    private val marginRight = 50F
 
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        size  = ((width.toFloat()-140)/8)
+        size = ((width.toFloat() - 140) / 8)
         drawBackground(canvas)
         canvas?.let { drawBorderOut(it) }
         canvas?.let { drawBorderIn(it) }
         canvas?.let { drawMove(it) }
     }
 
-    private fun drawBackground(canvas: Canvas?){
+    private fun drawBackground(canvas: Canvas?) {
         paint.color = colorLine
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = borderWidthInt
         canvas?.apply {
-            for(i in 1..8){
-                drawLine(start,start+size*i,width-start,start+size*i,paint)
+            for (i in 1..8) {
+                drawLine(start, start + size * i, width - start, start + size * i, paint)
             }
         }
         canvas?.apply {
-            for(i in 1..7){
-                drawLine(start+size*i,start,start+size*i,start+size*4,paint)
-                drawLine(start+size*i,start+size*5,start+size*i,start+size*9,paint)
+            for (i in 1..7) {
+                drawLine(start + size * i, start, start + size * i, start + size * 4, paint)
+                drawLine(start + size * i, start + size * 5, start + size * i, start + size * 9, paint)
             }
         }
         canvas?.apply {
-            drawLine(start+size*3,start,start+size*5,start+size*2,paint)
-            drawLine(start+size*3,start+size*2,start+size*5,start,paint)
-            drawLine(start+size*3,start+size*7,start+size*5,start+size*9,paint)
-            drawLine(start+size*3,start+size*9,start+size*5,start+size*7,paint)
+            drawLine(start + size * 3, start, start + size * 5, start + size * 2, paint)
+            drawLine(start + size * 3, start + size * 2, start + size * 5, start, paint)
+            drawLine(start + size * 3, start + size * 7, start + size * 5, start + size * 9, paint)
+            drawLine(start + size * 3, start + size * 9, start + size * 5, start + size * 7, paint)
         }
     }
 
-    private fun drawMove(canvas: Canvas){
+    private fun drawMove(canvas: Canvas) {
         paint.color = colorLine
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = borderWidthInt
-        canvas.apply {
-            for(i in 0..8){
-                when(i){
-                    0,2,4,6,8 ->{
-                        if(i != 0){
-                            drawLine(start+size*i-10,start+size*3-50,start+size*i-10,start+size*3-10,paint)
-                            drawLine(start+size*i-50,start+size*3-10,start+size*i-10,start+size*3-10,paint)
-                            drawLine(start+size*i-10,start+size*6-50,start+size*i-10,start+size*6-10,paint)
-                            drawLine(start+size*i-50,start+size*6-10,start+size*i-10,start+size*6-10,paint)
-                            drawLine(start+size*i-10,start+size*3+10,start+size*i-50,start+size*3+10,paint)
-                            drawLine(start+size*i-10,start+size*3+10,start+size*i-10,start+size*3+50,paint)
-                            drawLine(start+size*i-10,start+size*6+10,start+size*i-50,start+size*6+10,paint)
-                            drawLine(start+size*i-10,start+size*6+10,start+size*i-10,start+size*6+50,paint)
-                        }
-                        if(i != 8){
-                            drawLine(start+size*i+10,start+size*3-50,start+size*i+10,start+size*3-10,paint)
-                            drawLine(start+size*i+10,start+size*3-10,start+size*i+50,start+size*3-10,paint)
-                            drawLine(start+size*i+10,start+size*6-50,start+size*i+10,start+size*6-10,paint)
-                            drawLine(start+size*i+10,start+size*6-10,start+size*i+50,start+size*6-10,paint)
-                            drawLine(start+size*i+10,start+size*3+10,start+size*i+10,start+size*3+50,paint)
-                            drawLine(start+size*i+10,start+size*3+10,start+size*i+50,start+size*3+10,paint)
-                            drawLine(start+size*i+10,start+size*6+10,start+size*i+50,start+size*6+10,paint)
-                            drawLine(start+size*i+10,start+size*6+10,start+size*i+10,start+size*6+50,paint)
-                        }
-                        if(i == 6){
-                            drawLine(start+10,start+size*i-50,start+10,start+size*i-10,paint)
-                            drawLine(start+50,start+size*i-10,start+10,start+size*i-10,paint)
-                        }
-                    }
-                    1,3,5,7 ->{
-                        if(i == 1 || i ==7){
-                            drawLine(start+size*i-10,start+size*2-50,start+size*i-10,start+size*2-10,paint)
-                            drawLine(start+size*i-50,start+size*2-10,start+size*i-10,start+size*2-10,paint)
-                            drawLine(start+size*i-10,start+size*7-50,start+size*i-10,start+size*7-10,paint)
-                            drawLine(start+size*i-50,start+size*7-10,start+size*i-10,start+size*7-10,paint)
-                            drawLine(start+size*i+10,start+size*2-50,start+size*i+10,start+size*2-10,paint)
-                            drawLine(start+size*i+50,start+size*2-10,start+size*i+10,start+size*2-10,paint)
-                            drawLine(start+size*i+10,start+size*7-50,start+size*i+10,start+size*7-10,paint)
-                            drawLine(start+size*i+50,start+size*7-10,start+size*i+10,start+size*7-10,paint)
-                            drawLine(start+size*i-10,start+size*2+10,start+size*i-50,start+size*2+10,paint)
-                            drawLine(start+size*i-10,start+size*2+10,start+size*i-10,start+size*2+50,paint)
-                            drawLine(start+size*i-10,start+size*7+10,start+size*i-50,start+size*7+10,paint)
-                            drawLine(start+size*i-10,start+size*7+10,start+size*i-10,start+size*7+50,paint)
-                            drawLine(start+size*i+10,start+size*2+10,start+size*i+10,start+size*2+50,paint)
-                            drawLine(start+size*i+10,start+size*2+10,start+size*i+50,start+size*2+10,paint)
-                            drawLine(start+size*i+10,start+size*7+10,start+size*i+10,start+size*7+50,paint)
-                            drawLine(start+size*i+10,start+size*7+10,start+size*i+50,start+size*7+10,paint)
-                        }
-                        if(i==3){
-                            drawLine(start+10,start+size*i-50,start+10,start+size*i-10,paint)
-                            drawLine(start+50,start+size*i-10,start+10,start+size*i-10,paint)
-                        }
-                    }
+        for (i in 0..8) {
+            when (i) {
+                0 -> {
+                    drawRight(canvas, start + size * i, start + size * 3, start + size * i, start + size * 3)
+                    drawRight(canvas, start + size * i, start + size * 6, start + size * i, start + size * 6)
+                }
+                2, 4, 6 -> {
+                    drawCorner(canvas, start + size * i, start + size * 3, start + size * i, start + size * 3)
+                    drawCorner(canvas, start + size * i, start + size * 6, start + size * i, start + size * 6)
+                }
+                1, 7 -> {
+                    drawCorner(canvas, start + size * i, start + size * 2, start + size * i, start + size * 2)
+                    drawCorner(canvas, start + size * i, start + size * 7, start + size * i, start + size * 7)
+                }
+                8 -> {
+                    drawLeft(canvas, start + size * i, start + size * 3, start + size * i, start + size * 3)
+                    drawLeft(canvas, start + size * i, start + size * 6, start + size * i, start + size * 6)
                 }
             }
+        }
+
+    }
+
+    private fun drawLeft(canvas: Canvas, startX: Float, startY: Float, endX: Float, endY: Float) {
+        canvas.apply {
+            drawLine(startX - marginLeft, startY - marginLeft, endX - marginLeft, endY - marginRight, paint)
+            drawLine(startX - marginLeft, startY - marginLeft, endX - marginRight, endY - marginLeft, paint)
+            drawLine(startX - marginLeft, startY + marginLeft, endX - marginLeft, endY + marginRight, paint)
+            drawLine(startX - marginLeft, startY + marginLeft, endX - marginRight, endY + marginLeft, paint)
+        }
+    }
+
+    private fun drawRight(canvas: Canvas, startX: Float, startY: Float, endX: Float, endY: Float) {
+        canvas.apply {
+            drawLine(startX + marginLeft, startY + marginLeft, endX + marginRight, endY + marginLeft, paint)
+            drawLine(startX + marginLeft, startY + marginLeft, endX + marginLeft, endY + marginRight, paint)
+            drawLine(startX + marginLeft, startY - marginLeft, endX + marginRight, endY - marginLeft, paint)
+            drawLine(startX + marginLeft, startY - marginLeft, endX + marginLeft, endY - marginRight, paint)
+        }
+    }
+
+    private fun drawCorner(canvas: Canvas, startX: Float, startY: Float, endX: Float, endY: Float) {
+        canvas.apply {
+            drawLine(startX - marginLeft, startY - marginLeft, endX - marginLeft, endY - marginRight, paint)
+            drawLine(startX - marginLeft, startY - marginLeft, endX - marginRight, endY - marginLeft, paint)
+            drawLine(startX - marginLeft, startY + marginLeft, endX - marginLeft, endY + marginRight, paint)
+            drawLine(startX - marginLeft, startY + marginLeft, endX - marginRight, endY + marginLeft, paint)
+            drawLine(startX + marginLeft, startY + marginLeft, endX + marginRight, endY + marginLeft, paint)
+            drawLine(startX + marginLeft, startY + marginLeft, endX + marginLeft, endY + marginRight, paint)
+            drawLine(startX + marginLeft, startY - marginLeft, endX + marginRight, endY - marginLeft, paint)
+            drawLine(startX + marginLeft, startY - marginLeft, endX + marginLeft, endY - marginRight, paint)
         }
     }
 
@@ -116,12 +114,12 @@ class ChineseChess(context: Context?, attrs: AttributeSet?) : View(context, attr
         paint.color = colorLine
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = borderWidthOut
-        canvas.drawRect(startBorder,startBorder,(width-startBorder),start+size*9+20,paint)
+        canvas.drawRect(startBorder, startBorder, (width - startBorder), start + size * 9 + 20, paint)
     }
 
     private fun drawBorderIn(canvas: Canvas) {
         paint.strokeWidth = borderWidthInt
-        canvas.drawRect(start,start,(width-start),start+size*9,paint)
+        canvas.drawRect(start, start, (width - start), start + size * 9, paint)
     }
 
 }
