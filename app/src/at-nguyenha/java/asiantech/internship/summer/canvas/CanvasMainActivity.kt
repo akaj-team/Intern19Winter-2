@@ -10,7 +10,7 @@ class CanvasMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_canvas_main)
-        replaceFragment(ChessTableFragment())
+        replaceFragment(GraphFragment())
     }
 
     private fun replaceFragment(fragment: Fragment, isAddToBackStack: Boolean = false) {
