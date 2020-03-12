@@ -12,13 +12,17 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private val mPaintLineDash = Paint(Paint.DITHER_FLAG)
     private val mPaintText = Paint()
     private val mPaintDot = Paint()
-    private var size = 0f
+    private var dX = 0f
+    private var dY = 0f
     private var sizeInt = 0
     private val path = Path()
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        size = (width / 11).toFloat()
+        initLineDash()
+        dX = (width / 15).toFloat()
+        dY = (height / 15).toFloat()
+
         sizeInt = ( width /11)
         initPaint()
         drawGraph(canvas)
@@ -48,31 +52,30 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     }
 
     private fun drawGraph(canvas: Canvas) {
-        canvas.drawText("0", size / 2, size * 14.5f, mPaintText)
-        canvas.drawLine(size, size, size, size * 14, mPaintPivot)
-        canvas.drawLine(size, size * 14, size * 14, size * 14, mPaintPivot)
-        canvas.drawLine(size, size, size * 3 / 4, size * 5 / 4, mPaintPivot)
-        canvas.drawLine(size, size, size * 5 / 4, size * 5 / 4, mPaintPivot)
+        canvas.drawText("0", dX / 2, dY * 14.5f, mPaintText)
+        canvas.drawLine(dX, dY, dX, dY * 14, mPaintPivot)
+        canvas.drawLine(dX, dY * 14, dX * 14, dY * 14, mPaintPivot)
+        canvas.drawLine(dX, dY, dX * 3 / 4, dY * 5 / 4, mPaintPivot)
+        canvas.drawLine(dX, dY, dX * 5 / 4, dY * 5 / 4, mPaintPivot)
     }
 
     private fun drawWeight(canvas: Canvas) {
         var countWeight = 13
         for (i in 10..120 step 10) {
-            canvas.drawText("$i", size / 3, size * countWeight, mPaintText)
-            canvas.drawText("Kg", size / 2, size, mPaintText)
+            canvas.drawText("$i", dX / 3, dY * countWeight, mPaintText)
+            canvas.drawText("Weight(Kg)", dX / 2, dY, mPaintText)
             countWeight--
         }
     }
 
     private fun drawMonth(canvas: Canvas) {
         for (i in 1..12) {
-            canvas.drawText("$i", size * (i + 1), size * 14.5f, mPaintText)
-            canvas.drawText("Month", size * 14, size * 14.5f, mPaintText)
+            canvas.drawText("$i", dX * (i + 1), dY * 14.5f, mPaintText)
+            canvas.drawText("Month", dX * 14, dY * 14.5f, mPaintText)
         }
     }
 
     private fun drawDot(canvas: Canvas) {
-        initLineDash()
         var x1: Float
         var x2 = 0f
         var y1: Float
@@ -80,16 +83,16 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         for (i in 1..12) {
             x1 = x2
             y1 = y2
-            x2 = size * (i + 1)
-            y2 = size * (2..9).random()
+            x2 = dX * (i + 1)
+            y2 = dY * (2..9).random()
             canvas.drawCircle(x2, y2, 10f, mPaintDot)
+            canvas.drawText("${140 - 10*(y2 / dY)}", x2, y2 - 40, mPaintText)
             path.moveTo(x2, y2)
-            path.quadTo(x2, y2, size, y2)
+            path.lineTo(dX, y2)
             canvas.drawPath(path, mPaintLineDash)
             path.moveTo(x2,y2)
-            path.quadTo(x2,y2,x2,size*14)
+            path.quadTo(x2, y2, x2, dY * 14)
             canvas.drawPath(path, mPaintLineDash)
-
             if (x1 != 0f && y1 != 0f) {
                 canvas.drawLine(x1, y1, x2, y2, mPaintLine)
             }
