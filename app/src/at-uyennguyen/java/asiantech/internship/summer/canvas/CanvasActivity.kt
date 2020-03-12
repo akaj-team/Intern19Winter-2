@@ -9,8 +9,9 @@ class CanvasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_canvas)
         val checkFragment = CheckFragment()
+        val weightChartFragment = WeightChartFragment()
         supportFragmentManager.beginTransaction()
-                .add(R.id.frameLayoutCanvas, checkFragment)
+                .add(R.id.frameLayoutCanvas, weightChartFragment)
                 .commit()
     }
 }

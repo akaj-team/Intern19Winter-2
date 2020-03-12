@@ -7,7 +7,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 
-class CheckView(context: Context, attributes: AttributeSet) : View(context, attributes) {
+class CheckView(context: Context, attributeSet : AttributeSet) : View(context, attributeSet) {
     private lateinit var paint: Paint
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -16,16 +16,16 @@ class CheckView(context: Context, attributes: AttributeSet) : View(context, attr
         canvas?.drawLine(10f, 10f, width.toFloat(), 10f, paint)
         canvas?.drawLine(10f, 10f, 10f, width.toFloat() + (width.toFloat() / 8), paint)
         canvas?.drawLine(10f, width.toFloat() + (width.toFloat() / 8), width.toFloat(), width.toFloat() + (width.toFloat() / 8), paint)
-        canvas?.drawLine(width.toFloat() - 2, 10f, width.toFloat() - 2, width.toFloat() + (width.toFloat() / 8), paint)
+        canvas?.drawLine(width.toFloat() - 3, 10f, width.toFloat() - 3, width.toFloat() + (width.toFloat() / 8), paint)
         //9 đường ngang
         for (i in 1..8) {
             canvas?.drawLine(10f, width.toFloat() / 8 * i, width.toFloat(), width.toFloat() / 8 * i, paint)
         }
-        //8 đường dọc trên
+        //4 đường dọc trên
         for (i in 1..7) {
             canvas?.drawLine(width.toFloat() / 8 * i, 10f, width.toFloat() / 8 * i, (width.toFloat() / 8) * 4, paint)
         }
-        //8 đường dọc dưới
+        //4 đường dọc dưới
         for (i in 1..7) {
             canvas?.drawLine(width.toFloat() / 8 * i, (width.toFloat() / 8) * 5, width.toFloat() / 8 * i, (width.toFloat() / 8) * 9, paint)
         }
@@ -61,14 +61,10 @@ class CheckView(context: Context, attributes: AttributeSet) : View(context, attr
             canvas?.drawLine(width.toFloat() - 10f, width.toFloat() / 8 * y + 10f, width.toFloat() - 40f, width.toFloat() / 8 * y + 10f, paint)
 
         }
-
-
         twoCornersLeft(3)
         twoCornersLeft(6)
-
         twoCornersRight(6)
         twoCornersRight(3)
-
         fourCorners(1, 2)
         fourCorners(7, 2)
         fourCorners(2, 3)
