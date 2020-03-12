@@ -7,7 +7,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 
-class ChessBoardCanvas(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class ChessBoardCanvasView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     companion object {
         private const val MARGIN = 40f
         private const val NUMBER_OF_COLUMNS = 8
