@@ -1,5 +1,6 @@
 package asiantech.internship.summer.canvas
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -8,18 +9,26 @@ import android.view.View
 import kotlin.random.Random
 
 class WeightCanvasView(context: Context, attrs: AttributeSet) : View(context, attrs) {
-    private var paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
     private var widths = 0f
     private var heights = 0f
-    private var weightList = List(13) { Random.nextInt(50, 120) }
+    private var weightData = mutableListOf<Weight>()
     private var scaleAxisY = 0f
     private var path = Path()
     private var moveX = 0f
     private var startMove = 0f
     private var stopMove = 0f
-    private var testMove = 0f
+    private var distanceMove = 0f
+    private var isAddData = false
+    private var start = 0f
+    private var oldDistance = 0f
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        if (!isAddData) {
+            addData()
+            isAddData = true
+        }
         widths = width.toFloat()
         heights = height.toFloat()
         scaleAxisY = heights / 150
@@ -28,45 +37,50 @@ class WeightCanvasView(context: Context, attrs: AttributeSet) : View(context, at
         drawText(canvas)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val x = event.x
-        val y = event.y
-
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
+                addData()
                 startMove = x
-//                Log.i("XXX", "Down")
             }
             MotionEvent.ACTION_MOVE -> {
                 moveX = x
                 stopMove = x
-                testMove = startMove - stopMove
-//                Log.i("XXX", "X$x")
-//                Log.i("XXX", "Y$y")
+                distanceMove = startMove - stopMove
+
                 path.reset()
                 invalidate()
             }
             MotionEvent.ACTION_UP -> {
+                oldDistance += distanceMove
             }
         }
         return true
     }
 
+    private fun addData() {
+        weightData.apply {
+            for (i in 1..12) {
+                weightData.add(Weight(i, Random.nextInt(50, 120)))
+            }
+        }
+    }
+
     private fun drawNumberWeight(canvas: Canvas?) {
-
         val rangeWidth = widths / 10 - 15f
-        var start = 0f - testMove
-
-        weightList.forEachIndexed { index, it ->
-            if (index < weightList.size - 1) {
+        start = -distanceMove - oldDistance
+        weightData.forEachIndexed { index, it ->
+            if (index < weightData.size - 1) {
                 val startX = start
-                val startY = heights - it * scaleAxisY
+                val startY = heights - it.weight * scaleAxisY
                 val endX = start + rangeWidth
-                val endY = heights - (weightList[index + 1]) * scaleAxisY
-                canvas?.drawText("$it", start, startY - 30f, textPaint) //number
+                val endY = heights - (weightData[index + 1].weight) * scaleAxisY
+                canvas?.drawText("${it.weight}", start, startY - 30f, textPaint) //number
                 canvas?.drawLine(startX, startY, endX, endY, linePaint)
                 canvas?.drawCircle(startX, startY, 12f, pointPaint)
-                canvas?.drawText("${index + 1}", start + 20f, heights - 20f, textPaint) // day time
+                canvas?.drawText("${it.month}", start + 20f, heights - 20f, textPaint) // day time
                 path.moveTo(startX, startY)
                 path.lineTo(start, heights)
                 canvas?.drawPath(path, dashedLinePaint)
@@ -115,6 +129,4 @@ class WeightCanvasView(context: Context, attrs: AttributeSet) : View(context, at
         color = Color.RED
         strokeWidth = 10f
     }
-
-
 }

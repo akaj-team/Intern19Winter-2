@@ -4,13 +4,6 @@
     android:layout_height="match_parent"
     tools:context="asiantech.internship.summer.canvas.ChessBoardFragment">
 
-    <Button
-        android:id="@+id/btnNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="Next" />
-
     <asiantech.internship.summer.canvas.ChessBoardCanvasView
         android:id="@+id/canvas"
         android:layout_width="match_parent"
