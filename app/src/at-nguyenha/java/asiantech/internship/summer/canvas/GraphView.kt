@@ -1,8 +1,10 @@
 package asiantech.internship.summer.canvas
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 
 class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
@@ -16,19 +18,34 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     private var dY = 0f
     private var sizeInt = 0
     private val path = Path()
+    private var mX: Float? = 0f
+    private var x1: Float? = 0f
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         initLineDash()
         dX = (width / 15).toFloat()
         dY = (height / 15).toFloat()
-
         sizeInt = ( width /11)
         initPaint()
         drawGraph(canvas)
         drawWeight(canvas)
         drawMonth(canvas)
         drawDot(canvas)
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        when (event?.action) {
+            MotionEvent.ACTION_DOWN -> {
+                x1 = event.x
+            }
+            MotionEvent.ACTION_MOVE -> {
+                mX = event.x
+                x -= (x1?.minus(mX!!)!!)
+            }
+        }
+        return true
     }
 
     private fun initPaint() {
@@ -91,8 +108,9 @@ class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
             path.lineTo(dX, y2)
             canvas.drawPath(path, mPaintLineDash)
             path.moveTo(x2,y2)
-            path.quadTo(x2, y2, x2, dY * 14)
+            path.lineTo(x2, dY * 14)
             canvas.drawPath(path, mPaintLineDash)
+            path.reset()
             if (x1 != 0f && y1 != 0f) {
                 canvas.drawLine(x1, y1, x2, y2, mPaintLine)
             }
