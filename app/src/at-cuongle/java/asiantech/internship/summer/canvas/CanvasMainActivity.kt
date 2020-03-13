@@ -10,7 +10,7 @@ class CanvasMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_canvas_main)
-        replaceFragment(ChessBoardFragment())
+        replaceFragment(WeightChartFragment())
     }
 
     internal fun replaceFragment(fragment: Fragment) {
