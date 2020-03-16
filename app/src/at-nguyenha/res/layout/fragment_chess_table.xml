@@ -3,9 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="asiantech.internship.summer.canvas.ChessTableFragment">
+    tools:context="asiantech.internship.summer.canvas.ChessBoardFragment">
 
-    <asiantech.internship.summer.canvas.ChessTableView
+    <asiantech.internship.summer.canvas.ChessBoardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"

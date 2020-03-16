@@ -7,7 +7,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 
-class ChessTableView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
+class ChessBoardView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
     private val lineColor = Color.BLACK
     private val borderWidthIn = 4.0f

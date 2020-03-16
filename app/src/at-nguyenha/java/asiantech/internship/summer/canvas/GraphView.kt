@@ -9,111 +9,130 @@ import android.view.View
 
 class GraphView(context: Context?, attrs: AttributeSet?) : View(context, attrs) {
 
-    private val mPaintLine = Paint()
-    private val mPaintPivot = Paint()
-    private val mPaintLineDash = Paint(Paint.DITHER_FLAG)
-    private val mPaintText = Paint()
-    private val mPaintDot = Paint()
+    private var getW = 0f
+    private var getH = 0f
     private var dX = 0f
     private var dY = 0f
     private var sizeInt = 0
     private val path = Path()
-    private var mX: Float? = 0f
-    private var x1: Float? = 0f
+    private var isAddData = false
+    private var weightList: MutableList<Int> = mutableListOf()
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        initLineDash()
-        dX = (width / 15).toFloat()
+        if (!isAddData) {
+            initData()
+            isAddData = true
+        }
+        getW = width.toFloat()
+        getH = height.toFloat()
+        dX = (width / 6).toFloat()
         dY = (height / 15).toFloat()
         sizeInt = ( width /11)
-        initPaint()
-        drawGraph(canvas)
         drawWeight(canvas)
-        drawMonth(canvas)
-        drawDot(canvas)
+        drawGraph(canvas)
+        drawData(canvas)
     }
 
+    private var moveX = 0f
+    private var startMove = 0f
+    private var stopMove = 0f
+    private var distanceMove = 0f
+    private var oldDistance = 0f
+
     @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
-        when (event?.action) {
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val x = event.x
+        when (event.action) {
             MotionEvent.ACTION_DOWN -> {
-                x1 = event.x
+                addData()
+                startMove = x
             }
             MotionEvent.ACTION_MOVE -> {
-                mX = event.x
-                x -= (x1?.minus(mX!!)!!)
+                moveX = x
+                stopMove = x
+                distanceMove = startMove - stopMove
+                path.reset()
+                invalidate()
+            }
+            MotionEvent.ACTION_UP -> {
+                oldDistance += distanceMove
             }
         }
         return true
     }
 
-    private fun initPaint() {
-        mPaintLine.style = Paint.Style.STROKE
-        mPaintLine.strokeWidth = 4f
-        mPaintLine.color = Color.BLACK
-        mPaintPivot.style = Paint.Style.STROKE
-        mPaintPivot.strokeWidth = 6f
-        mPaintPivot.color = Color.BLACK
-        mPaintText.textSize = 18f
-        mPaintText.strokeWidth = 4f
-        mPaintText.color = Color.BLACK
-        mPaintDot.style = Paint.Style.FILL
-    }
-
-    private fun initLineDash(){
-        mPaintLineDash.strokeWidth = 2f
-        mPaintLineDash.style = Paint.Style.STROKE
-        mPaintLineDash.setARGB(255, 0, 0, 0)
-        mPaintLineDash.pathEffect = DashPathEffect(floatArrayOf(10f, 18f, 10f, 18f), 0f)
-    }
-
     private fun drawGraph(canvas: Canvas) {
-        canvas.drawText("0", dX / 2, dY * 14.5f, mPaintText)
-        canvas.drawLine(dX, dY, dX, dY * 14, mPaintPivot)
-        canvas.drawLine(dX, dY * 14, dX * 14, dY * 14, mPaintPivot)
-        canvas.drawLine(dX, dY, dX * 3 / 4, dY * 5 / 4, mPaintPivot)
-        canvas.drawLine(dX, dY, dX * 5 / 4, dY * 5 / 4, mPaintPivot)
+        canvas.drawLine(0f, dY * 14, width.toFloat(), dY * 14, mPaintPivot)
+        canvas.drawLine(0f, dY, 0f, dY * 14, mPaintPivot)
+    }
+
+    private fun drawData(canvas: Canvas) {
+        var start = -distanceMove - oldDistance
+        weightList.forEachIndexed { index, i ->
+            if (index < weightList.size - 1) {
+                val startX = start
+                val startY = ((i - 140f) / (-10f)) * dY
+                val endX = startX + dX
+                val endY = ((weightList[index + 1] - 140f) / (-10f)) * dY
+                canvas.drawText(i.toString(), startX, startY - 50, mPaintText)
+                canvas.drawText((index + 1).toString(), startX, dY * 14.5f, mPaintText)
+                canvas.drawLine(startX, startY, endX, endY, mPaintLine)
+                canvas.drawCircle(startX, startY, 10f, mPaintDot)
+                path.moveTo(startX, startY)
+                path.lineTo(start, dY * 14)
+                canvas.drawPath(path, mPaintLineDash)
+                path.moveTo(startX, startY)
+                path.lineTo(0f, startY)
+                canvas.drawPath(path, mPaintLineDash)
+                start += dX
+            }
+        }
     }
 
     private fun drawWeight(canvas: Canvas) {
-        var countWeight = 13
-        for (i in 10..120 step 10) {
-            canvas.drawText("$i", dX / 3, dY * countWeight, mPaintText)
-            canvas.drawText("Weight(Kg)", dX / 2, dY, mPaintText)
-            countWeight--
+        canvas.drawText("Weight(Kg)", 0f, dY, mPaintText)
+    }
+
+    private fun initData() {
+        for (i in 1..12) {
+            weightList.add((50..120).random())
         }
     }
 
-    private fun drawMonth(canvas: Canvas) {
-        for (i in 1..12) {
-            canvas.drawText("$i", dX * (i + 1), dY * 14.5f, mPaintText)
-            canvas.drawText("Month", dX * 14, dY * 14.5f, mPaintText)
+    private fun addData() {
+        for (i in 1..5) {
+            weightList.add((50..120).random())
         }
     }
 
-    private fun drawDot(canvas: Canvas) {
-        var x1: Float
-        var x2 = 0f
-        var y1: Float
-        var y2 = 0f
-        for (i in 1..12) {
-            x1 = x2
-            y1 = y2
-            x2 = dX * (i + 1)
-            y2 = dY * (2..9).random()
-            canvas.drawCircle(x2, y2, 10f, mPaintDot)
-            canvas.drawText("${140 - 10*(y2 / dY)}", x2, y2 - 40, mPaintText)
-            path.moveTo(x2, y2)
-            path.lineTo(dX, y2)
-            canvas.drawPath(path, mPaintLineDash)
-            path.moveTo(x2,y2)
-            path.lineTo(x2, dY * 14)
-            canvas.drawPath(path, mPaintLineDash)
-            path.reset()
-            if (x1 != 0f && y1 != 0f) {
-                canvas.drawLine(x1, y1, x2, y2, mPaintLine)
-            }
-        }
+    private val mPaintLine = Paint().apply {
+        style = Paint.Style.STROKE
+        strokeWidth = 4f
+        color = Color.BLACK
+    }
+
+    private val mPaintText = Paint().apply {
+        textSize = 18f
+        strokeWidth = 4f
+        color = Color.BLACK
+    }
+
+    private val mPaintPivot = Paint().apply {
+        style = Paint.Style.STROKE
+        strokeWidth = 6f
+        color = Color.BLACK
+    }
+
+    private val mPaintDot = Paint().apply {
+        style = Paint.Style.FILL
+    }
+
+    private val mPaintLineDash = Paint().apply {
+        Paint.DITHER_FLAG
+        strokeWidth = 2f
+        style = Paint.Style.STROKE
+        setARGB(255, 0, 0, 0)
+        pathEffect = DashPathEffect(floatArrayOf(10f, 18f, 10f, 18f), 0f)
     }
 }

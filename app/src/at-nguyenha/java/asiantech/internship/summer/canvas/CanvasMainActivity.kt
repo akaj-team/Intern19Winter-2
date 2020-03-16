@@ -10,10 +10,10 @@ class CanvasMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_canvas_main)
-        replaceFragment(GraphFragment())
+        replaceFragment(SwitchViewFragment())
     }
 
-    private fun replaceFragment(fragment: Fragment, isAddToBackStack: Boolean = false) {
+    internal fun replaceFragment(fragment: Fragment, isAddToBackStack: Boolean = false) {
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.flMainActivity, fragment, null)
         if (isAddToBackStack) {
