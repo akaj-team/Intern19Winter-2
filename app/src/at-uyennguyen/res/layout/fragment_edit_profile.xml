@@ -153,7 +153,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvPrivate" />
 
         <EditText
-            android:id="@+id/edtViewEmail2"
+            android:id="@+id/edtEmail2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -179,8 +179,8 @@
             android:text="@string/phone"
             android:textColor="@color/grey_tv"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="@id/edtViewEmail2"
-            app:layout_constraintTop_toBottomOf="@id/edtViewEmail2" />
+            app:layout_constraintLeft_toLeftOf="@id/edtEmail2"
+            app:layout_constraintTop_toBottomOf="@id/edtEmail2" />
 
         <EditText
             android:id="@+id/edtPhone"

@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imgIcon"
+        android:id="@+id/icSetting"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="55dp"
@@ -36,8 +36,8 @@
         android:text="@string/settings"
         android:textColor="@android:color/black"
         android:textSize="14sp"
-        app:layout_constraintStart_toEndOf="@id/imgIcon"
-        app:layout_constraintTop_toTopOf="@id/imgIcon" />
+        app:layout_constraintStart_toEndOf="@id/icSetting"
+        app:layout_constraintTop_toTopOf="@id/icSetting" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgAvatar"
@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@id/tvMyKitchen" />
 
     <TextView
-        android:id="@+id/tvName"
+        android:id="@+id/tvNameUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
@@ -62,15 +62,15 @@
         app:layout_constraintTop_toTopOf="@+id/imgAvatar" />
 
     <TextView
-        android:id="@+id/tvAddress"
+        android:id="@+id/tvBio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="Nunito-Regular"
         android:text="@string/potato_master"
         android:textColor="@color/grey_tv"
         android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@id/tvName" />
+        app:layout_constraintLeft_toLeftOf="@+id/tvNameUser"
+        app:layout_constraintTop_toBottomOf="@id/tvNameUser" />
 
     <TextView
         android:id="@+id/tvFollow"
@@ -81,8 +81,8 @@
         android:text="@string/_584_followers"
         android:textColor="@color/grey_tv"
         android:textSize="14sp"
-        app:layout_constraintLeft_toLeftOf="@+id/tvAddress"
-        app:layout_constraintTop_toBottomOf="@id/tvAddress" />
+        app:layout_constraintLeft_toLeftOf="@+id/tvBio"
+        app:layout_constraintTop_toBottomOf="@id/tvBio" />
 
     <TextView
         android:id="@+id/tvNumberLike"
@@ -97,7 +97,7 @@
         app:layout_constraintTop_toTopOf="@+id/tvFollow" />
 
     <ImageView
-        android:id="@+id/imgPencil"
+        android:id="@+id/icPencil"
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:layout_marginTop="5dp"

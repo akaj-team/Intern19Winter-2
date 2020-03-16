@@ -14,7 +14,7 @@ class LoginFragment : Fragment() {
         const val EMAIL: String = "email"
         const val PASS: String = "pass"
         const val NAME: String = "name"
-        fun newInstance(email: String, pass: String, name: String): LoginFragment {
+        fun loginInformation(email: String, pass: String, name: String): LoginFragment {
             val loginFragment = LoginFragment()
             val bundle = Bundle()
             bundle.putString(EMAIL, email)
@@ -31,13 +31,13 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        edtEmail.setText(arguments?.getString(EMAIL))
-        edtPass.setText(arguments?.getString(PASS))
-        var fullName: String? = arguments?.getString(NAME)
+        edtEmailLogin.setText(arguments?.getString(EMAIL))
+        edtPassLogin.setText(arguments?.getString(PASS))
+        val fullName: String? = arguments?.getString(NAME)
         btnLogin.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 activity?.supportFragmentManager?.beginTransaction()
-                        ?.replace(R.id.frameLayout, UserProfileFragment.newProfile(fullName.toString(), edtEmail.text.toString()))
+                        ?.replace(R.id.frameLayout, UserProfileFragment.newProfile(fullName.toString(), edtEmailLogin.text.toString(),"",""))
                         ?.addToBackStack(null)
                         ?.commit()
             }

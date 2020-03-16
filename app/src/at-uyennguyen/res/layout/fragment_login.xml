@@ -15,12 +15,12 @@
             android:layout_width="match_parent"
             android:layout_height="285dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/header"
+            android:src="@drawable/img_header"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
-            android:id="@+id/imgLogo"
+            android:id="@+id/icLogo"
             android:layout_width="18dp"
             android:layout_height="26dp"
             android:layout_marginLeft="24dp"
@@ -39,9 +39,9 @@
             android:text="@string/scratch"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/imgLogo"
-            app:layout_constraintStart_toEndOf="@id/imgLogo"
-            app:layout_constraintTop_toTopOf="@id/imgLogo" />
+            app:layout_constraintBottom_toBottomOf="@id/icLogo"
+            app:layout_constraintStart_toEndOf="@id/icLogo"
+            app:layout_constraintTop_toTopOf="@id/icLogo" />
 
         <TextView
             android:id="@+id/tvWelcome"
@@ -53,8 +53,8 @@
             android:textColor="@android:color/black"
             android:textSize="24sp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="@id/imgLogo"
-            app:layout_constraintTop_toBottomOf="@id/imgLogo" />
+            app:layout_constraintStart_toStartOf="@id/icLogo"
+            app:layout_constraintTop_toBottomOf="@id/icLogo" />
 
         <TextView
             android:id="@+id/tvPlease"
@@ -69,7 +69,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvLoginHere" />
 
         <TextView
-            android:id="@+id/tvEmail"
+            android:id="@+id/tvEmailLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="36dp"
@@ -81,7 +81,7 @@
             app:layout_constraintTop_toBottomOf="@id/tvPlease" />
 
         <EditText
-            android:id="@+id/edtEmail"
+            android:id="@+id/edtEmailLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -93,12 +93,12 @@
             android:textColorHint="@color/grey"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tvEmail"
-            app:layout_constraintTop_toBottomOf="@id/tvEmail"
+            app:layout_constraintStart_toStartOf="@+id/tvEmailLogin"
+            app:layout_constraintTop_toBottomOf="@id/tvEmailLogin"
             tools:ignore="Autofill" />
 
         <TextView
-            android:id="@+id/tvPass"
+            android:id="@+id/tvPassLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -106,8 +106,8 @@
             android:text="@string/password"
             android:textColor="@color/grey_tv"
             android:textSize="14sp"
-            app:layout_constraintLeft_toLeftOf="@id/edtEmail"
-            app:layout_constraintTop_toBottomOf="@id/edtEmail" />
+            app:layout_constraintLeft_toLeftOf="@id/edtEmailLogin"
+            app:layout_constraintTop_toBottomOf="@id/edtEmailLogin" />
 
         <TextView
             android:id="@+id/tvForgot"
@@ -118,11 +118,11 @@
             android:text="@string/forgot_password"
             android:textColor="@color/grey_tv"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@id/tvPass"
-            app:layout_constraintTop_toTopOf="@id/tvPass" />
+            app:layout_constraintStart_toEndOf="@id/tvPassLogin"
+            app:layout_constraintTop_toTopOf="@id/tvPassLogin" />
 
         <EditText
-            android:id="@+id/edtPass"
+            android:id="@+id/edtPassLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
@@ -134,8 +134,8 @@
             android:textColorHint="@color/grey"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@id/tvPass"
-            app:layout_constraintTop_toBottomOf="@id/tvPass"
+            app:layout_constraintStart_toStartOf="@id/tvPassLogin"
+            app:layout_constraintTop_toBottomOf="@id/tvPassLogin"
             tools:ignore="Autofill" />
 
         <Button
@@ -151,9 +151,9 @@
             android:text="@string/login"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="@id/edtPass"
-            app:layout_constraintRight_toRightOf="@+id/edtPass"
-            app:layout_constraintTop_toBottomOf="@id/edtPass" />
+            app:layout_constraintLeft_toLeftOf="@id/edtPassLogin"
+            app:layout_constraintRight_toRightOf="@+id/edtPassLogin"
+            app:layout_constraintTop_toBottomOf="@id/edtPassLogin" />
 
         <TextView
             android:id="@+id/tvScratch"

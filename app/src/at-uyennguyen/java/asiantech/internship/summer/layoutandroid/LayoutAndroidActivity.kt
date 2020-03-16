@@ -9,12 +9,10 @@ class LayoutAndroidActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_layout_android)
-        val registerFragment: RegisterFragment = RegisterFragment()
+        val registerFragment = RegisterFragment()
         supportFragmentManager.beginTransaction()
                 .replace(R.id.frameLayout, registerFragment)
                 .addToBackStack(null)
                 .commit()
     }
 }
-
-
