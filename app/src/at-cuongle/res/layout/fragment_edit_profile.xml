@@ -10,6 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="18dp"
+            android:src="@drawable/img_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvEditProfile" />
         <Button
             android:id="@+id/btnSave"
             android:layout_width="0dp"
@@ -85,23 +96,10 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
             tools:ignore="Autofill,LabelFor" />
-
-        <ImageView
-            android:id="@+id/imgAvatar"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="18dp"
-            android:src="@drawable/img_avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvEditProfile" />
-
         <TextView
             android:id="@+id/tvEditPicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="136dp"
+            android:layout_height="21dp"
             android:layout_marginTop="8dp"
             android:fontFamily="Nunito-Bold"
             android:text="@string/textview_edit_profile_picture"
@@ -114,7 +112,7 @@
             app:layout_constraintTop_toBottomOf="@+id/imgAvatar" />
 
         <TextView
-            android:id="@+id/imgBtnBack"
+            android:id="@+id/tvBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="60dp"
@@ -201,7 +199,7 @@
             android:textSize="24dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintTop_toBottomOf="@+id/imgBtnBack" />
+            app:layout_constraintTop_toBottomOf="@+id/tvBack" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guidelineLeft"
