@@ -15,6 +15,11 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
     private lateinit var path: Path
 
     @SuppressLint("DrawAllocation")
+    override fun invalidate() {
+        super.invalidate()
+
+    }
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         initPaint()
@@ -42,8 +47,8 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
                 canvas?.drawLine(width.toFloat(), height.toFloat() - 20, width.toFloat() - 30, height.toFloat() - 40, paint)
                 canvas?.drawLine(width.toFloat(), height.toFloat() - 20, width.toFloat() - 50, height.toFloat() + 20, paint)
             } else {
-                canvas?.drawLine(width.toFloat() / 13 * i, height.toFloat() - 30, width.toFloat() / 13 * i, height.toFloat() - 10, paint)
-                canvas?.drawText(i.toString(), width.toFloat() / 13 * i + 10, (height.toFloat() - 30), paintText)
+                canvas?.drawLine(width.toFloat() / 4 * i, height.toFloat() - 30, width.toFloat() / 4 * i, height.toFloat() - 10, paint)
+                canvas?.drawText(i.toString(), width.toFloat() / 4 * i + 10, (height.toFloat() - 30), paintText)
             }
         }
         var startX = 20f
@@ -53,21 +58,21 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
             val number = random.nextInt(9 - 1 + 1) + 1
             //vết đứt trục hoành 1
             path.moveTo(10f, (height.toFloat() - 20) / 10 * number)
-            path.quadTo(10f, (height.toFloat() - 20) / 10 * number, width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number)
+            path.quadTo(10f, (height.toFloat() - 20) / 10 * number, width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number)
             canvas?.drawPath(path, dashLine)
             //vết đứt trục tung 1
-            path.moveTo(width.toFloat() / 13 * i, height.toFloat() - 30)
-            path.quadTo(width.toFloat() / 13 * i, height.toFloat() - 30, width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number)
+            path.moveTo(width.toFloat() / 4 * i, height.toFloat() - 30)
+            path.quadTo(width.toFloat() / 4 * i, height.toFloat() - 30, width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number)
             canvas?.drawPath(path, dashLine)
             //vẽ điểm tròn 1
-            canvas?.drawCircle(width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number, 10f, paint)
+            canvas?.drawCircle(width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number, 10f, paint)
             //nối
-            canvas?.drawLine(startX, startY, width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number, paint)
-            startX = width.toFloat() / 13 * i
+            canvas?.drawLine(startX, startY, width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number, paint)
+            startX = width.toFloat() / 4 * i
             startY = (height.toFloat() - 20) / 10 * number
             //số cân nặng
             val weight = 120 - (number - 1) * 10 + 10
-            canvas?.drawText(weight.toString(), width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number - 20f, paintText)
+            canvas?.drawText(weight.toString(), width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number - 20f, paintText)
         }
     }
 
