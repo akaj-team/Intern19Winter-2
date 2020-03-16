@@ -98,8 +98,8 @@
             tools:ignore="Autofill,LabelFor" />
         <TextView
             android:id="@+id/tvEditPicture"
-            android:layout_width="136dp"
-            android:layout_height="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="Nunito-Bold"
             android:text="@string/textview_edit_profile_picture"

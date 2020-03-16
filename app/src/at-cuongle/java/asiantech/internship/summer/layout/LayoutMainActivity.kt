@@ -10,7 +10,7 @@ class LayoutMainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_layout_main)
-        replaceFragment(EditProfileFragment.newInstance("Nick Evans", "asiantech@gmail.com", ""))
+        replaceFragment(UserProfileFragment.newInstance("Nick Evans", "asiantech@gmail.com", ""))
 
     }
 
