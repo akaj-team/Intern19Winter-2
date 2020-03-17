@@ -34,7 +34,6 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
         private val tvNameStatus: TextView = itemView.findViewById(R.id.tvNameStatus)
         private val tvFoodName: TextView = itemView.findViewById(R.id.tvFoodName)
 
-
         init {
             imgHeart.setOnClickListener {
                 onItemClicked.invoke(adapterPosition)
@@ -48,7 +47,7 @@ class NewFeedAdapter(private val newFeeds: MutableList<NewFeedModel>) : Recycler
                 if (it.isHeart) imgHeart.setImageResource(R.drawable.ic_hearted) else imgHeart.setImageResource(R.drawable.ic_heart)
                 tvNameStatus.text = it.name
                 tvFoodName.text = it.foodName
-                tvLikes.text = itemView.context.getString(R.string.textview_text_like_number, it.likeNumber)
+                tvLikes.text = itemView.context.getString(R.string.textview_text_like_number, it.heartNumber)
                 tvStatus.text = it.status
             }
         }

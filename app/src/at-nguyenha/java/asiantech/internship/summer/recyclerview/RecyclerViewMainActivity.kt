@@ -36,10 +36,10 @@ class RecyclerViewMainActivity : AppCompatActivity() {
             val isHeart: Boolean = newfeeds[it].isHeart
             if (isHeart) {
                 newfeeds[it].isHeart = !isHeart
-                newfeeds[it].likeNumber--
+                newfeeds[it].heartNumber--
             } else {
                 newfeeds[it].isHeart = !isHeart
-                newfeeds[it].likeNumber++
+                newfeeds[it].heartNumber++
             }
             adapterNewFeeds.notifyItemChanged(it, null)
             (recyclerViewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
