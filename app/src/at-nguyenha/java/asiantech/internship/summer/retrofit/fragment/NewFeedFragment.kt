@@ -116,7 +116,6 @@ class NewFeedFragment : Fragment() {
         val call = service?.getAllNewFeed()
         call?.enqueue(object : Callback<MutableList<NewFeedModel>> {
             override fun onFailure(call: Call<MutableList<NewFeedModel>>, t: Throwable) {
-                t.message?.let { displayErrorDialog(it) }
             }
 
             override fun onResponse(call: Call<MutableList<NewFeedModel>>, response: Response<MutableList<NewFeedModel>>) {
