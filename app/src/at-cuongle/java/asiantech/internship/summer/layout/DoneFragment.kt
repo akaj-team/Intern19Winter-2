@@ -11,6 +11,7 @@ import asiantech.internship.summer.layout.database.model.ToDoList
 import kotlinx.android.synthetic.`at-cuongle`.fragment_done.*
 
 class DoneFragment : Fragment() {
+
     companion object {
         private const val DEFAULT_VALUE = ""
         private const val ARG_USER_EMAIL = "userEmail"
@@ -20,10 +21,15 @@ class DoneFragment : Fragment() {
     private var doneAdapter: Done? = null
     private var doneList: MutableList<ToDoList>? = null
     private var db: DataConnection? = null
+
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            initAdapter()
+            val doneListAfterChanged = db?.userDao()?.findByEmail(getUserName())
+                    ?.uid?.let { db?.toDoDao()?.getAllTaskStatusTrue(it) }
+            doneList?.clear()
+            doneListAfterChanged?.let { doneList?.addAll(it) }
+            doneAdapter?.notifyDataSetChanged()
         }
     }
 
