@@ -1,12 +1,11 @@
 package asiantech.internship.summer.recyclerview
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -40,30 +39,27 @@ class NewFeedFragment : Fragment() {
     private fun initAdapter() {
         adapterNewFeed = NewFeedAdapter(listNewFeed)
         recyclerviewMain.adapter = adapterNewFeed
-        var isLikeHeart : Boolean
         adapterNewFeed.onItemClickedToLike = {
-            listNewFeed[it].run {
-                isLikeHeart = isLike
-                if (isLikeHeart) {
-                    isLike = !isLikeHeart
-                    apply {
-                        this.numberLike++
-                    }
-                } else {
-                    isLike = !isLikeHeart
-                    apply {
-                        this.numberLike--
-                    }
-                }
-            }
-            updateLike(listNewFeed[it].id, listNewFeed[it])
-            adapterNewFeed.notifyItemChanged(it, null)
-            (recyclerviewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+            //            listNewFeed[it].run {
+//                isLikeHeart = isLike
+//                if (isLikeHeart) {
+//                    isLike = !isLikeHeart
+//                    apply {
+//                        this.numberLike++
+//                    }
+//                } else {
+//                    isLike = !isLikeHeart
+//                    apply {
+//                        this.numberLike--
+//                    }
+//                }
+//            }
+            updateLike(listNewFeed[it].id, listNewFeed[it], it)
+//            adapterNewFeed.notifyItemChanged(it, null)
+//            (recyclerviewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
         }
         adapterNewFeed.onItemClickedToDelete = {
-            deleteNewFeed(listNewFeed[it].id)
-            listNewFeed.removeAt(it)
-            adapterNewFeed.notifyDataSetChanged()
+            deleteNewFeed(listNewFeed[it].id, it)
         }
         adapterNewFeed.onItemClickedToAdd = {
             val addNewFeedFragment = AddNewFeedFragment()
@@ -107,44 +103,78 @@ class NewFeedFragment : Fragment() {
         val callNewFeed = service?.getNewFeeds()
         callNewFeed?.enqueue(object : Callback<MutableList<NewFeed>> {
             override fun onFailure(call: Call<MutableList<NewFeed>>, t: Throwable) {
-                Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show()
+
             }
 
             override fun onResponse(call: Call<MutableList<NewFeed>>, response: Response<MutableList<NewFeed>>) {
-                response.body().let {
-                    it?.let { it1 -> listNewFeed.addAll(it1) }
+                if (response.code() in 200..209) {
+                    response.body().let {
+                        it?.let { it1 -> listNewFeed.addAll(it1) }
+                    }
+                    adapterNewFeed.notifyDataSetChanged()
+                } else {
+                    val dialog = AlertDialog.Builder(context)
+                    dialog.setTitle("Error: " + response.code())
+                    dialog.show()
                 }
-                adapterNewFeed.notifyDataSetChanged()
             }
         })
     }
 
-    private fun updateLike(id: Int, newFeed: NewFeed) {
+    private fun updateLike(id: Int, newFeed: NewFeed, position: Int) {
         val service = Retrofit.getRetrofitInstance()?.create(NewFeedAPI::class.java)
         val callNewFeed = service?.updateNewFeed(id, newFeed)
         callNewFeed?.enqueue(object : Callback<NewFeed> {
             override fun onFailure(call: Call<NewFeed>, t: Throwable) {
-                Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show()
+
             }
 
             override fun onResponse(call: Call<NewFeed>, response: Response<NewFeed>) {
-                adapterNewFeed.notifyDataSetChanged()
+                if (response.code() in 200..209) {
+                    var isLikeHeart: Boolean
+                    listNewFeed[position].run {
+                        isLikeHeart = isLike
+                        if (isLikeHeart) {
+                            isLike = !isLikeHeart
+                            apply {
+                                this.numberLike++
+                            }
+                        } else {
+                            isLike = !isLikeHeart
+                            apply {
+                                this.numberLike--
+                            }
+                        }
+                    }
+                    adapterNewFeed.notifyItemChanged(position, null)
+                    (recyclerviewMain.itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
+                } else {
+                    val dialog = AlertDialog.Builder(context)
+                    dialog.setTitle("Error: " + response.code())
+                    dialog.show()
+                }
             }
 
         })
     }
 
-    private fun deleteNewFeed(id: Int) {
+    private fun deleteNewFeed(id: Int, position: Int) {
         val service = Retrofit.getRetrofitInstance()?.create(NewFeedAPI::class.java)
         val callNewFeed = service?.deleteNewFeed(id)
         callNewFeed?.enqueue(object : Callback<NewFeed> {
             override fun onFailure(call: Call<NewFeed>, t: Throwable) {
-                Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show()
+
             }
 
             override fun onResponse(call: Call<NewFeed>, response: Response<NewFeed>) {
-                adapterNewFeed.notifyDataSetChanged()
-                Log.d("RES", response.code().toString())
+                if (response.code() in 200..209) {
+                    listNewFeed.removeAt(position)
+                    adapterNewFeed.notifyItemRemoved(position)
+                } else {
+                    val dialog = AlertDialog.Builder(context)
+                    dialog.setTitle("Error: " + response.code())
+                    dialog.show()
+                }
             }
 
         })

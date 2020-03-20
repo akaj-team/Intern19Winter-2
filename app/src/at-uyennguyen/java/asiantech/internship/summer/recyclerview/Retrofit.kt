@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Retrofit {
     companion object {
-        var retrofit: Retrofit? = null
+        private var retrofit: Retrofit? = null
         private var API_URL = "http://5e64a4dca49c210016106ae5.mockapi.io/"
         fun getRetrofitInstance(): Retrofit? {
             if (retrofit == null) {

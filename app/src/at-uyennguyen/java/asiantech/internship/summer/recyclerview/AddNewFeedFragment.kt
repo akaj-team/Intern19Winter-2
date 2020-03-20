@@ -1,5 +1,6 @@
 package asiantech.internship.summer.recyclerview
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -50,24 +51,33 @@ class AddNewFeedFragment : Fragment() {
             newFeed.status = status
             newFeed.numberLike = 0
             newFeed.isLike = true
-            val service = Retrofit.getRetrofitInstance()?.create(NewFeedAPI::class.java)
-            val callNewFeed = service?.addNewFeed(newFeed)
-            callNewFeed?.enqueue(object : Callback<NewFeed> {
-                override fun onFailure(call: Call<NewFeed>, t: Throwable) {
-                    Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show()
-                }
-
-                override fun onResponse(call: Call<NewFeed>, response: Response<NewFeed>) {
-
-                }
-
-            })
-            val recyclerViewFragment = NewFeedFragment()
-            activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.relativeLayout, recyclerViewFragment)
-                    ?.addToBackStack(null)
-                    ?.commit()
+            addNewFeed(newFeed)
         }
+    }
+
+    fun addNewFeed(newFeed: NewFeed) {
+        val service = Retrofit.getRetrofitInstance()?.create(NewFeedAPI::class.java)
+        val callNewFeed = service?.addNewFeed(newFeed)
+        callNewFeed?.enqueue(object : Callback<NewFeed> {
+            override fun onFailure(call: Call<NewFeed>, t: Throwable) {
+                Toast.makeText(context, "Please try again", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onResponse(call: Call<NewFeed>, response: Response<NewFeed>) {
+                if (response.code() in 200..209) {
+                    val recyclerViewFragment = NewFeedFragment()
+                    activity?.supportFragmentManager?.beginTransaction()
+                            ?.replace(R.id.relativeLayout, recyclerViewFragment)
+                            ?.addToBackStack(null)
+                            ?.commit()
+                } else {
+                    val dialog = AlertDialog.Builder(context)
+                    dialog.setTitle("Error: " + response.code())
+                    dialog.show()
+                }
+            }
+
+        })
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
