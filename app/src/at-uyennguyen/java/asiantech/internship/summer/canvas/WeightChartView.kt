@@ -25,30 +25,32 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
         initPaint()
         initPaintText()
         initDashLine()
-        //trục tung
+
+        //vertical
         canvas?.drawLine(20f, height.toFloat() - 20, 20f, 20f, paint)
-        //dấu nhọn
+        //spike the vertical
         canvas?.drawLine(20f, 20f, 0f, 60f, paint)
         canvas?.drawLine(20f, 20f, 40f, 60f, paint)
-        //chia điểm trục tung
+        //dividing the vertical
         for (i in 1..9) {
             canvas?.drawLine(10f, (height.toFloat() - 20) / 10 * i, 30f, (height.toFloat() - 20) / 10 * i, paint)
         }
         canvas?.drawText("Weight", 50f, 40f, paintText)
         canvas?.drawText("Month", width.toFloat() - 100f, height.toFloat() - 50, paintText)
-        //trục hoành
+        //horizontal
         canvas?.drawLine(20f, height.toFloat() - 20, width.toFloat(), height.toFloat() - 20, paint)
-        //tâm
+        //O center
         canvas?.drawText("0", 0f, height.toFloat() - 30, paintText)
-        //chia điểm trục hoành
+        //dividing the horizontal
         for (i in 1..13) {
             if (i == 13) {
-                //dấu nhọn
+                //spike of the horizontal
                 canvas?.drawLine(width.toFloat(), height.toFloat() - 20, width.toFloat() - 30, height.toFloat() - 40, paint)
                 canvas?.drawLine(width.toFloat(), height.toFloat() - 20, width.toFloat() - 50, height.toFloat() + 20, paint)
             } else {
-                canvas?.drawLine(width.toFloat() / 4 * i, height.toFloat() - 30, width.toFloat() / 4 * i, height.toFloat() - 10, paint)
-                canvas?.drawText(i.toString(), width.toFloat() / 4 * i + 10, (height.toFloat() - 30), paintText)
+                //mouth
+                canvas?.drawLine(width.toFloat() / 13 * i, height.toFloat() - 30, width.toFloat() / 13 * i, height.toFloat() - 10, paint)
+                canvas?.drawText(i.toString(), width.toFloat() / 13 * i + 10, (height.toFloat() - 30), paintText)
             }
         }
         var startX = 20f
@@ -56,23 +58,23 @@ class WeightChartView(context: Context, attributeSet: AttributeSet) : View(conte
         for (i in 1..12) {
             val random = Random()
             val number = random.nextInt(9 - 1 + 1) + 1
-            //vết đứt trục hoành 1
+            //dashed of horizontal
             path.moveTo(10f, (height.toFloat() - 20) / 10 * number)
-            path.quadTo(10f, (height.toFloat() - 20) / 10 * number, width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number)
+            path.quadTo(10f, (height.toFloat() - 20) / 10 * number, width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number)
             canvas?.drawPath(path, dashLine)
-            //vết đứt trục tung 1
-            path.moveTo(width.toFloat() / 4 * i, height.toFloat() - 30)
-            path.quadTo(width.toFloat() / 4 * i, height.toFloat() - 30, width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number)
+            //dashed of vertical
+            path.moveTo(width.toFloat() / 13 * i, height.toFloat() - 30)
+            path.quadTo(width.toFloat() / 13 * i, height.toFloat() - 30, width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number)
             canvas?.drawPath(path, dashLine)
-            //vẽ điểm tròn 1
-            canvas?.drawCircle(width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number, 10f, paint)
-            //nối
-            canvas?.drawLine(startX, startY, width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number, paint)
-            startX = width.toFloat() / 4 * i
+            //point
+            canvas?.drawCircle(width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number, 10f, paint)
+            //link
+            canvas?.drawLine(startX, startY, width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number, paint)
+            startX = width.toFloat() / 13 * i
             startY = (height.toFloat() - 20) / 10 * number
-            //số cân nặng
+            //number weight
             val weight = 120 - (number - 1) * 10 + 10
-            canvas?.drawText(weight.toString(), width.toFloat() / 4 * i, (height.toFloat() - 20) / 10 * number - 20f, paintText)
+            canvas?.drawText(weight.toString(), width.toFloat() / 13 * i, (height.toFloat() - 20) / 10 * number - 20f, paintText)
         }
     }
 

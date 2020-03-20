@@ -12,30 +12,36 @@ class CheckView(context: Context, attributeSet : AttributeSet) : View(context, a
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         initPaint()
-        //4 cạnh
+        //4 sides
         canvas?.drawLine(10f, 10f, width.toFloat(), 10f, paint)
         canvas?.drawLine(10f, 10f, 10f, width.toFloat() + (width.toFloat() / 8), paint)
         canvas?.drawLine(10f, width.toFloat() + (width.toFloat() / 8), width.toFloat(), width.toFloat() + (width.toFloat() / 8), paint)
         canvas?.drawLine(width.toFloat() - 3, 10f, width.toFloat() - 3, width.toFloat() + (width.toFloat() / 8), paint)
-        //9 đường ngang
+        //9 horizontal lines
         for (i in 1..8) {
-            canvas?.drawLine(10f, width.toFloat() / 8 * i, width.toFloat(), width.toFloat() / 8 * i, paint)
+            if(i==1){
+                canvas?.drawLine(10f, width.toFloat() / 8, width.toFloat(), width.toFloat() / 8 + 10f, paint)
+            }
+            else{
+                canvas?.drawLine(10f, width.toFloat() / 8 * i, width.toFloat(), width.toFloat() / 8 * i, paint)
+            }
         }
-        //4 đường dọc trên
+        //
+        //4 vertical lines on
         for (i in 1..7) {
             canvas?.drawLine(width.toFloat() / 8 * i, 10f, width.toFloat() / 8 * i, (width.toFloat() / 8) * 4, paint)
         }
-        //4 đường dọc dưới
+        //4 vertical lines off
         for (i in 1..7) {
             canvas?.drawLine(width.toFloat() / 8 * i, (width.toFloat() / 8) * 5, width.toFloat() / 8 * i, (width.toFloat() / 8) * 9, paint)
         }
-        //2 đường chéo trên
+        //2 diagonal lines on
         canvas?.drawLine(width.toFloat() / 8 * 3, 10f, width.toFloat() / 8 * 5, width.toFloat() / 8 * 2, paint)
         canvas?.drawLine(width.toFloat() / 8 * 5, 10f, width.toFloat() / 8 * 3, width.toFloat() / 8 * 2, paint)
-        //2 đường chéo dưới
+        //2 diagonal lines off
         canvas?.drawLine(width.toFloat() / 8 * 3, width.toFloat() / 8 * 7, width.toFloat() / 8 * 5, width.toFloat() / 8 * 9, paint)
         canvas?.drawLine(width.toFloat() / 8 * 5, width.toFloat() / 8 * 7, width.toFloat() / 8 * 3, width.toFloat() / 8 * 9, paint)
-        //góc
+        //corner
         fun fourCorners(x: Int, y: Int) {
             canvas?.drawLine(width.toFloat() / 8 * x - 10f, width.toFloat() / 8 * y - 10f, width.toFloat() / 8 * x - 10f, width.toFloat() / 8 * y - 40f, paint)
             canvas?.drawLine(width.toFloat() / 8 * x + 10f, width.toFloat() / 8 * y + 10f, width.toFloat() / 8 * x + 10f, width.toFloat() / 8 * y + 40f, paint)

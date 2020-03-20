@@ -11,7 +11,7 @@ class CanvasActivity : AppCompatActivity() {
         val checkFragment = CheckFragment()
         val weightChartFragment = WeightChartFragment()
         supportFragmentManager.beginTransaction()
-                .add(R.id.frameLayoutCanvas, weightChartFragment)
+                .add(R.id.frameLayoutCanvas, checkFragment)
                 .commit()
     }
 }
