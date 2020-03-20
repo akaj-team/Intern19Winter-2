@@ -3,7 +3,6 @@ package asiantech.internship.summer.apptodolist
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,21 +25,22 @@ class AddTodoFragment : Fragment() {
             return addTodoFragment
         }
     }
+
     private var sharedPreferences: SharedPreferences? = null
     private lateinit var databaseManager: DatabaseManager
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_add_todo,container,false)
+        return inflater.inflate(R.layout.fragment_add_todo, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         context?.apply { sharedPreferences = this.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE) }
-        val idDefault = sharedPreferences?.getInt(SHARED_ID,ID_DEFAULT)
+        val idDefault = sharedPreferences?.getInt(SHARED_ID, ID_DEFAULT)
         btnAddTodo.setOnClickListener {
             context?.let { databaseManager = DatabaseManager(it) }
             val user = arguments?.getParcelable<User>(USER) as User
-            val textTodo : String = edtTodo.text.toString()
+            val textTodo: String = edtTodo.text.toString()
             val todo = idDefault?.let { it1 -> Todo(idTodo = 0, idUserTodo = it1, textTodo = textTodo) }
             if (todo != null) {
                 databaseManager.addTodo(todo)

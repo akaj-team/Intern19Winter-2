@@ -12,6 +12,7 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_login_todo.*
 
 class LoginToDoFragment : Fragment() {
+
     companion object {
         private const val ID_DEFAULT = -1
         private const val SHARED_ID = "id"

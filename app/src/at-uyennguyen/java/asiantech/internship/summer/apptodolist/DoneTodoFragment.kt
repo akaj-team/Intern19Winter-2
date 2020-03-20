@@ -25,6 +25,7 @@ class DoneTodoFragment : Fragment() {
     private var listTodoSQL = arrayListOf<Todo>()
     private var listTodo = arrayListOf<Todo>()
     private lateinit var adapterDoneTodo: DoneTodoAdapter
+
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
@@ -53,7 +54,8 @@ class DoneTodoFragment : Fragment() {
     }
 
     private fun initData() {
-        for (i in 0..listTodoSQL.size - 1) {
+        listTodo.removeAll(listTodo)
+        for (i in 0 until listTodoSQL.size) {
             listTodo.add(listTodoSQL[i])
         }
         adapterDoneTodo.notifyDataSetChanged()

@@ -11,6 +11,7 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_edit_todo.*
 
 class EditTodoFragment : Fragment() {
+
     companion object {
         private const val ID_DEFAULT = -1
         private const val SHARED_ID = "id"
@@ -28,6 +29,7 @@ class EditTodoFragment : Fragment() {
     private lateinit var userTodo: User
     private var sharedPreferences: SharedPreferences? = null
     private lateinit var databaseManager: DatabaseManager
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_edit_todo, container, false)
     }

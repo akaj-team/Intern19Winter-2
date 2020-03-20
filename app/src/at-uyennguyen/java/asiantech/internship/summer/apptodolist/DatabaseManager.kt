@@ -78,8 +78,7 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
 
     fun addUser(user: User): Int {
         val db: SQLiteDatabase = this.writableDatabase
-        val value = ContentValues() //ko thể lưu 1 user xuống database bằng cách truyền trực tiếp xuống mà phải truyền thông qua contentValue,
-        // put vào nhưng key của trường trong bảng
+        val value = ContentValues()
         value.put(COL_NAME, user.nameUser)
         value.put(COL_NICKNAME, user.nickName)
         value.put(COL_PASSWORD, user.passWord)
@@ -97,19 +96,20 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         editor.apply()
     }
 
+    @SuppressLint("Recycle")
     fun loginUser(userName: String, password: String): ArrayList<User> {
         val listUser: ArrayList<User> = ArrayList()
-        val selectQuery: String = "SELECT * FROM $TABLE_USER  WHERE $COL_NAME = ? AND $COL_PASSWORD = ?"
+        val selectQuery = "SELECT * FROM $TABLE_USER  WHERE $COL_NAME = ? AND $COL_PASSWORD = ?"
         val db: SQLiteDatabase = this.writableDatabase
         val cursor: Cursor = db.rawQuery(selectQuery, arrayOf(userName, password))
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast) {
-                val id = cursor.getInt(0)
+                val idUser = cursor.getInt(0)
                 val name = cursor.getString(1)
                 val nickname = cursor.getString(2)
-                val password = cursor.getString(3)
+                val pass = cursor.getString(3)
                 val avatar = cursor.getString(4)
-                val user = User(id, name, nickname, password, avatar)
+                val user = User(idUser, name, nickname, pass, avatar)
                 listUser.add(user)
                 cursor.moveToNext()
             }
@@ -121,17 +121,17 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
     @SuppressLint("Recycle")
     fun getUserById(id: Int): ArrayList<User> {
         val listUser: ArrayList<User> = ArrayList()
-        val selectQuery: String = "SELECT * FROM $TABLE_USER  WHERE $COL_ID_USER= ?"
+        val selectQuery = "SELECT * FROM $TABLE_USER  WHERE $COL_ID_USER= ?"
         val db: SQLiteDatabase = this.writableDatabase
         val cursor: Cursor = db.rawQuery(selectQuery, arrayOf(id.toString()))
         if (cursor.moveToFirst()) {
             while (!cursor.isAfterLast) {
-                val id = cursor.getInt(0)
+                val idUser = cursor.getInt(0)
                 val name = cursor.getString(1)
                 val nickname = cursor.getString(2)
                 val password = cursor.getString(3)
                 val avatar = cursor.getString(4)
-                val user = User(id, name, nickname, password, avatar)
+                val user = User(idUser, name, nickname, password, avatar)
                 listUser.add(user)
 
                 cursor.moveToNext()
@@ -162,18 +162,18 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         return db.delete(TABLE_TODO, "$COL_ID_TODO = ?", arrayOf(idTodo.toString()))
     }
 
+    @SuppressLint("Recycle")
     fun getAllTodo(id: Int): ArrayList<Todo> {
         val listTodo: ArrayList<Todo> = ArrayList()
         val selectQuery = "SELECT * FROM  $TABLE_TODO WHERE $COL_ID_USER_TODO= ?"
         val db: SQLiteDatabase = this.writableDatabase
         val cursor: Cursor = db.rawQuery(selectQuery, arrayOf(id.toString()))
-//        val cursor: Cursor = db.run { rawQuery(selectQuery, null) }
         if (cursor.moveToFirst()) {
             do {
-                val id = cursor.getInt(0)
+                val idTodo = cursor.getInt(0)
                 val idUser = cursor.getInt(1)
                 val text = cursor.getString(2)
-                val todo = Todo(id, idUser, text)
+                val todo = Todo(idTodo, idUser, text)
                 listTodo.add(todo)
             } while (cursor.moveToNext())
         }
@@ -189,10 +189,10 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         val cursor: Cursor = db.rawQuery(selectQuery, arrayOf(id.toString()))
         if (cursor.moveToFirst()) {
             do {
-                val id = cursor.getInt(0)
+                val idTodo = cursor.getInt(0)
                 val idUser = cursor.getInt(1)
                 val text = cursor.getString(2)
-                val todo = Todo(id, idUser, text)
+                val todo = Todo(idTodo, idUser, text)
                 listTodo.add(todo)
             } while (cursor.moveToNext())
         }
@@ -200,4 +200,3 @@ class DatabaseManager(var context: Context) : SQLiteOpenHelper(context, DATABASE
         return listTodo
     }
 }
-

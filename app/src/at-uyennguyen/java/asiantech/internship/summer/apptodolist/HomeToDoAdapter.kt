@@ -1,8 +1,6 @@
 package asiantech.internship.summer.apptodolist
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
+import com.bumptech.glide.Glide
 import de.hdodenhof.circleimageview.CircleImageView
 
 class HomeToDoAdapter(val items: ArrayList<DrawerItem>, var user: User, val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -30,7 +29,6 @@ class HomeToDoAdapter(val items: ArrayList<DrawerItem>, var user: User, val cont
     }
 
     internal var onItemClicked: (position: Int) -> Unit = {}
-    private var bitmap: Bitmap? = null
     private var selectedPosition = 1
 
     override fun getItemViewType(position: Int): Int {
@@ -62,8 +60,9 @@ class HomeToDoAdapter(val items: ArrayList<DrawerItem>, var user: User, val cont
         private var tvName: TextView = itemView.findViewById(R.id.tvUserName)
         private var tvNickname: TextView = itemView.findViewById(R.id.tvNicknameHome)
         fun bindData() {
-            bitmap = BitmapFactory.decodeFile(user.avatar)
-            imgAvatar.setImageBitmap(bitmap)
+            Glide.with(itemView)
+                    .load(user.avatar)
+                    .into(imgAvatar)
             tvName.text = user.nameUser
             tvNickname.text = user.nickName
         }

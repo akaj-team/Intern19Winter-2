@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import asiantech.internship.summer.R
 
 class DoneTodoAdapter(val listTodo: ArrayList<Todo>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.item_done_todo, parent, false)

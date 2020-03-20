@@ -60,8 +60,10 @@ class TodoFragment : Fragment() {
     }
 
     private fun initData() {
-        for (i in 0..listTodoSQL.size - 1) {
+        listTodo.removeAll(listTodo)
+        for (i in 0 until listTodoSQL.size) {
             listTodo.add(listTodoSQL[i])
         }
+        adapterTodo.notifyDataSetChanged()
     }
 }

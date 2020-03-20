@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import asiantech.internship.summer.R
 import kotlinx.android.synthetic.`at-uyennguyen`.fragment_edit_profile.*
 
 class EditProfileFragment : Fragment() {
+
     companion object {
         private const val GALLERY_CODE = 101
         private const val USER = "user"
@@ -50,11 +52,10 @@ class EditProfileFragment : Fragment() {
             val userName: String = edtUsernameEdit.text.toString()
             val userNickname: String = edtNicknameEdit.text.toString()
             val userPassword: String = edtPasswordEdit.text.toString()
-            var userAvatar: String = imgAvatarProfile.toString()
-            val user = User(idUser = idUser, nameUser = userName, nickName = userNickname, passWord = userPassword, avatar = imageGallery.toString())
-            databaseManager?.updateUser(user)
+            val users = User(idUser = idUser, nameUser = userName, nickName = userNickname, passWord = userPassword, avatar = imageGallery.toString())
+            databaseManager?.updateUser(users)
             activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.frameLayoutTodo, HomeToDoFragment(user))
+                    ?.replace(R.id.frameLayoutTodo, HomeToDoFragment(users))
                     ?.addToBackStack(null)
                     ?.commit()
         }
@@ -66,7 +67,7 @@ class EditProfileFragment : Fragment() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == GALLERY_CODE && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            val intent = Intent(Intent.ACTION_GET_CONTENT)
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
             intent.type = "image/*"
             startActivityForResult(intent, GALLERY_CODE)
         } else {
@@ -80,7 +81,7 @@ class EditProfileFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == GALLERY_CODE && resultCode == Activity.RESULT_OK) {
             imageGallery = data?.data!!
-            Log.d("images", "Select From Image Gallery: " + imageGallery.toString())
+            Log.d("images", "Select from image gallery: " + imageGallery.toString())
             imgAvatarProfile.setImageURI(imageGallery)
         }
     }
