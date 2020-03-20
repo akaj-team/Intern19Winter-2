@@ -51,10 +51,10 @@ class ListToDoAdapter(private val listToDo: MutableList<ToDoModel>) : RecyclerVi
             listToDo[adapterPosition].let {
                 tvToDoName.text = it.toDoName
                 if (it.status){
-                    cardAction.visibility = View.INVISIBLE
-                    cbStatus.visibility = View.INVISIBLE
-                    imgDelete.visibility = View.INVISIBLE
-                    imgEdit.visibility = View.INVISIBLE
+                    cardAction.visibility = View.GONE
+                    cbStatus.visibility = View.GONE
+                    imgEdit.visibility = View.GONE
+                    imgDelete.visibility = View.GONE
                 }
             }
         }

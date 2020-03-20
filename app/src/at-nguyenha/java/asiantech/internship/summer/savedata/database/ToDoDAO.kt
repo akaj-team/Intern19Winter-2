@@ -17,7 +17,6 @@ interface ToDoDAO {
     @Query("select * from todo_table")
     fun getAllToDo() : MutableList<ToDoModel>
 
-
     @Query("select * from todo_table where idToDo = :id")
     fun selectById(id : Int) : ToDoModel
 

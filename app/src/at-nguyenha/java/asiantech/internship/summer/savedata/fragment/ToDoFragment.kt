@@ -81,6 +81,7 @@ class ToDoFragment : Fragment() {
                         progressLoadMore.visibility = View.VISIBLE
                         Handler().postDelayed({
                             val listAddToDo = db?.toDoDao()?.selectToDoOffset(false, lastVisibleItem, 10)
+                            listToDo?.clear()
                             listAddToDo?.let { listToDo?.addAll(it) }
                             adapterListToDo?.notifyDataSetChanged()
                             progressLoadMore.visibility = View.INVISIBLE

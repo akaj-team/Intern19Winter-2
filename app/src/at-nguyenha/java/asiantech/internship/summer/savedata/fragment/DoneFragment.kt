@@ -26,19 +26,22 @@ class DoneFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_done, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         db = ConnectDataBase.getInMemoryDatabase(requireContext())
         initScroll()
+        initAdapter()
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if (isVisibleToUser) {
-            initAdapter()
+            val listAddToDo = db?.toDoDao()?.selectToDo(true)
+            listToDo?.clear()
+            listAddToDo?.let { listToDo?.addAll(it) }
+            adapterListToDo?.notifyDataSetChanged()
         }
     }
 
@@ -60,6 +63,7 @@ class DoneFragment : Fragment() {
                         progressLoadDone.visibility = View.VISIBLE
                         Handler().postDelayed({
                             val listAddToDo = db?.toDoDao()?.selectToDoOffset(true, lastVisibleItem, 10)
+                            listToDo?.clear()
                             listAddToDo?.let { listToDo?.addAll(it) }
                             adapterListToDo?.notifyDataSetChanged()
                             progressLoadDone.visibility = View.INVISIBLE
@@ -71,6 +75,4 @@ class DoneFragment : Fragment() {
             }
         })
     }
-
-
 }
