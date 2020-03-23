@@ -19,7 +19,6 @@
     <dimen name="layout_margin_top">32dp</dimen>
     <dimen name="layout_marginbottom_32dp">32dp</dimen>
     <dimen name="layout_marginright_20dp">20dp</dimen>
-
     <dimen name="imageview_avatar_width">70dp</dimen>
     <dimen name="imageview_avatar_height">70dp</dimen>
 

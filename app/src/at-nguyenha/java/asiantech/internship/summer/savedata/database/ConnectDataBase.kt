@@ -28,6 +28,4 @@ abstract class ConnectDataBase : RoomDatabase() {
     abstract fun accountDao(): AccountDAO
 
     abstract fun toDoDao(): ToDoDAO
-
-
 }

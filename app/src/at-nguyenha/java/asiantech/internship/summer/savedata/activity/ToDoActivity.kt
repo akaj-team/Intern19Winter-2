@@ -3,17 +3,18 @@ package asiantech.internship.summer.savedata.activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import asiantech.internship.summer.R
-import asiantech.internship.summer.savedata.model.Utils
+import asiantech.internship.summer.savedata.adapter.DrawerAdapter
 import asiantech.internship.summer.savedata.adapter.ToDoAdapter
 import asiantech.internship.summer.savedata.database.ConnectDataBase
 import asiantech.internship.summer.savedata.model.AccountModel
-import com.bumptech.glide.Glide
+import asiantech.internship.summer.savedata.model.MenuModel
+import asiantech.internship.summer.savedata.model.Utils
 import kotlinx.android.synthetic.`at-nguyenha`.activity_to_do.*
 
 class ToDoActivity : AppCompatActivity() {
@@ -23,6 +24,8 @@ class ToDoActivity : AppCompatActivity() {
     private val adapterToDO = ToDoAdapter(supportFragmentManager)
     private lateinit var setAction : String
     private var idLogined = -1
+    private var adapterDrawer: DrawerAdapter? = null
+    private var listMenu: MutableList<MenuModel>? = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,15 +34,16 @@ class ToDoActivity : AppCompatActivity() {
         if (bundle != null) {
             idLogined = bundle.getInt(Utils.PUT_ID_ACCOUNT)
         }
+
         db = ConnectDataBase.getInMemoryDatabase(this)
         initView()
-        initListener()
-        initDrawer()
+        initAdapterDrawer()
     }
 
-    override fun onResume() {
-        super.onResume()
-        initDrawer()
+    override fun onRestart() {
+        super.onRestart()
+        initDataDrawer()
+        adapterDrawer?.notifyDataSetChanged()
     }
 
     private fun initView() {
@@ -60,18 +64,13 @@ class ToDoActivity : AppCompatActivity() {
         drawerToDo.addDrawerListener(actionBarDrawerToggle)
     }
 
-    private fun initDrawer() {
-        account = db?.accountDao()?.getAccountById(idLogined)
-        if (account != null) {
-            tvNickName.text = account?.nickName
-            Glide.with(drawerToDo).load(Uri.parse(account?.avatarAccount))
-                    .placeholder(R.drawable.ic_account)
-                    .into(imgAvatar)
-        }
-    }
+    private fun initAdapterDrawer() {
+        initDataDrawer()
+        adapterDrawer = listMenu?.let { DrawerAdapter(it) }
+        recyclerDrawer.adapter = adapterDrawer
+        recyclerDrawer.layoutManager = LinearLayoutManager(this)
 
-    private fun initListener() {
-        layoutEditProfileItem.setOnClickListener {
+        adapterDrawer?.onClickEditProfile = {
             val intent = Intent(this, EditProfileActivity::class.java)
             setAction = Utils.ACTION_EDIT_PROFILE
             val bundle = Bundle()
@@ -80,18 +79,29 @@ class ToDoActivity : AppCompatActivity() {
             intent.putExtras(bundle)
             startActivity(intent)
         }
-        layoutAddToDoItem.setOnClickListener {
+
+        adapterDrawer?.onClickAddTodo = {
             val intent = Intent(this, AddEditToDoActivity::class.java)
             setAction = Utils.ACTION_ADD
             intent.putExtra(Utils.ACTION, setAction)
             startActivity(intent)
         }
-        layoutLogoutItem.setOnClickListener {
+
+        adapterDrawer?.onClickLogout = {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             removeSharedPreferences()
             finish()
         }
+    }
+
+    private fun initDataDrawer() {
+        account = db?.accountDao()?.getAccountById(idLogined)
+        listMenu?.clear()
+        listMenu?.add(MenuModel(account?.avatarAccount!!, account?.nickName!!))
+        listMenu?.add(MenuModel("", getString(R.string.textview_text_edit_profile)))
+        listMenu?.add(MenuModel("", getString(R.string.textview_text_add_todo)))
+        listMenu?.add(MenuModel("", getString(R.string.textview_text_logout)))
     }
 
     private fun removeSharedPreferences(){
